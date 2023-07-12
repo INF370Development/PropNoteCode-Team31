@@ -1,1 +1,40 @@
-<h1>Users</h1>
+<h1>Users</h1>  
+
+<p>All user features will be available for only the Admin to create, view, updated and delete.</p>
+
+<mat-grid-list cols="2">
+    <div class="cards"> 
+        <mat-card class="usersCard">
+            <mat-card-header>
+              <mat-card-title>View Users</mat-card-title>
+              <mat-card-subtitle>View all the users on the system</mat-card-subtitle>
+            </mat-card-header>
+                <mat-icon class="icon">group</mat-icon>
+            <mat-card-content>
+              <p>
+                All the users created for the system can be viewed. The rest of the information that we need to establish.
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button><a mat-list-item [routerLink]="'/viewUsers'">VIEW USERS</a></button>
+            </mat-card-actions>
+        </mat-card>
+        </div>
+        <br>
+        <div class="cards"> 
+        <mat-card class="rolesCard">
+            <mat-card-header>
+              <mat-card-title>View User Roles</mat-card-title>
+              <mat-card-subtitle>View all the user roles on the system</mat-card-subtitle>
+            </mat-card-header>
+                <mat-icon class="icon">verified</mat-icon>
+            <mat-card-content>
+              <p>
+                All the user roles created for the system can be viewed. The rest of the information that we need to establish.
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button><a mat-list-item [routerLink]="'/viewUserRoles'">VIEW USER ROLES</a></button>
+            </mat-card-actions>
+          </mat-card>
+    </div>

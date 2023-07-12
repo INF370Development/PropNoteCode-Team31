@@ -1,1 +1,38 @@
-<h1>Contractors</h1>
+<h1>Contractors</h1>  
+
+<p>All tenant features will be available for only the Admin to create, view, updated and delete.</p>
+
+<mat-grid-list cols="2">
+  <div class="cards"> 
+    <mat-card class="contractorCard">
+      <mat-card-header>
+      <mat-card-title>View Contractors</mat-card-title>
+        <mat-card-subtitle>View all the tenants on the system</mat-card-subtitle>
+      </mat-card-header>
+        <mat-icon class="icon">engineering</mat-icon>
+      <mat-card-content>
+        <p>All the tenants created for the system can be viewed. The rest of the information that we need to establish.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button><a mat-list-item [routerLink]="'/viewContractors'">VIEW CONTRACTORS</a></button>
+      </mat-card-actions>
+      </mat-card>
+  </div>
+  <br>
+  <div class="cards"> 
+    <mat-card class="reportCard">
+      <mat-card-header>
+        <mat-card-title>Generate Tenant Reports</mat-card-title>
+        <mat-card-subtitle>Generate tenant report</mat-card-subtitle>
+      </mat-card-header>
+      <mat-icon class="icon">summarize</mat-icon>
+      <mat-card-content>
+      <p>
+        Generate Tenant Report. The rest of the information that we need to establish.
+      </p>
+      </mat-card-content>
+    <mat-card-actions>
+      <button mat-button><a mat-list-item [routerLink]="'/generateContractors'">CONTRACTORS REPORTS</a></button>
+    </mat-card-actions>
+  </mat-card>
+</div>

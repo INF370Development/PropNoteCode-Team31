@@ -1,0 +1,40 @@
+<h1>Properties</h1>  
+
+<p>All property features will be available for only the Admin to create, view, updated and delete.</p>
+
+<mat-grid-list cols="2">
+    <div class="cards"> 
+        <mat-card class="propertiesCard">
+            <mat-card-header>
+              <mat-card-title>View Properties</mat-card-title>
+              <mat-card-subtitle>View all the properties on the system</mat-card-subtitle>
+            </mat-card-header>
+                <mat-icon class="icon">factory</mat-icon>
+            <mat-card-content>
+              <p>
+                All the properties created for the system can be viewed. The rest of the information that we need to establish.
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button><a mat-list-item [routerLink]="'/viewProperties'">VIEW PROPERTIES</a></button>
+            </mat-card-actions>
+        </mat-card>
+        </div>
+        <br>
+        <div class="cards"> 
+        <mat-card class="reportCard">
+            <mat-card-header>
+              <mat-card-title>Generate Property Reports</mat-card-title>
+              <mat-card-subtitle>View all the user roles on the system</mat-card-subtitle>
+            </mat-card-header>
+                <mat-icon class="icon">description</mat-icon>
+            <mat-card-content>
+              <p>
+                Generate Properties Report from different properties. The rest of the information that we need to establish.
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button><a mat-list-item [routerLink]="'/generateProperties'">PROPERTY REPORTS</a></button>
+            </mat-card-actions>
+          </mat-card>
+    </div>
