@@ -44,11 +44,38 @@ namespace WebApi.Repositories
             try
             {
                 User user = _appDbContext.User.Where(x => x.Password == hashedPassword && x.Username == username).FirstOrDefault()!;
-                return true;
+                if (user == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             catch
             {
                 return false;
+            }
+        }
+
+        public bool CheckIfUserNameExsists(string username)
+        {
+            try
+            {
+                User user = _appDbContext.User.Where(x => x.Username == username).FirstOrDefault()!;
+                if (user != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return true;
             }
         }
     }
