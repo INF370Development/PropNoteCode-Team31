@@ -5,16 +5,14 @@
         <h3>Role name:</h3>
         <input matInput>
     </mat-form-field>
-    <br>
     <mat-form-field class="form">
-        <h3>Access name:</h3>
-        <input matInput>
+        <h3>Access:</h3>
+        <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="1">Option 1</mat-radio-button>
+            <mat-radio-button value="2">Option 2</mat-radio-button>
+          </mat-radio-group>
     </mat-form-field>
     <br>
-    <mat-form-field class="form">
-        <h3>Access description:</h3>
-        <input matInput>
-    </mat-form-field>
 </div>
 <div class="end">
     <button mat-fab extended color="accent">Create</button>

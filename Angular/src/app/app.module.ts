@@ -42,6 +42,15 @@ import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
 import { CreateUModalComponent } from './users/users/createUModal/create-umodal/create-umodal.component';
+import { CreatePropertiesModalComponent } from './properties/properties/create-properties-modal/create-properties-modal.component';
+import { ForgotPasswordComponent } from './forgotPassword/forgot-password/forgot-password.component';
+import { DeletePropertyDialogComponent } from './properties/properties/viewProperties/view-properties/deletePropertyDialog/delete-property-dialog/delete-property-dialog.component';
+import { DeleteTenantDialogComponent } from './properties/properties/viewProperties/view-properties/delete-tenant-dialog/delete-tenant-dialog.component';
+import { DeleteInspectionDialogComponent } from './properties/properties/viewProperties/view-properties/delete-inspection-dialog/delete-inspection-dialog.component';
+import { DeleteRecoveriesDialogComponent } from './properties/properties/viewProperties/view-properties/deleteRecoveriesDialog/delete-recoveries-dialog/delete-recoveries-dialog.component';
+import { AddRecoveriesModalComponent } from './properties/properties/viewProperties/view-properties/addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
+import { AddInspectionModalComponent } from './properties/properties/viewProperties/view-properties/addInspectionModal/add-inspection-modal/add-inspection-modal.component';
+import { AddTenantModalComponent } from './properties/properties/viewProperties/view-properties/addTenantModal/add-tenant-modal/add-tenant-modal.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +90,15 @@ import { CreateUModalComponent } from './users/users/createUModal/create-umodal/
     HelpproComponent,
     CreateURModalComponent,
     CreateUModalComponent,
+    CreatePropertiesModalComponent,
+    ForgotPasswordComponent,
+    DeletePropertyDialogComponent,
+    DeleteTenantDialogComponent,
+    DeleteInspectionDialogComponent,
+    DeleteRecoveriesDialogComponent,
+    AddRecoveriesModalComponent,
+    AddInspectionModalComponent,
+    AddTenantModalComponent,
   ],
   imports: [
     BrowserModule,
