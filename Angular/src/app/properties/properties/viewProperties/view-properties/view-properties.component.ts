@@ -16,8 +16,6 @@ import { AddInspectionModalComponent } from './addInspectionModal/add-inspection
 import { AddRecoveriesModalComponent } from './addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { AddTenantModalComponent } from './addTenantModal/add-tenant-modal/add-tenant-modal.component';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
-
 NgModule({
   imports: [
     MatDialogModule,
