@@ -24,51 +24,53 @@
 <div class="container">
     <div class="left">
         <div class="card" *ngFor="let card of leftCard">
-        <img [src] ="image"> 
-        <br>
-        <div class="details">
-            <h5>{{card.description}}</h5>
-            <h5>{{card.address}}</h5>
-            <h5>{{card.suburb}}</h5>
-            <h5>{{card.rental}}</h5>
-            <h5>{{card.size}}</h5>
-            <h5>{{card.yard}}</h5>
-            <div class="buttons">
-                <button mat-raised-button color="primary">UPDATE</button>
-                <button mat-raised-button color="warn" (click)="openDeletePropertyDiaglog()">DELETE</button>
+            <div *ngFor = "let data of leftData">
+                <img [src] ="image"> 
+                <br>
+                <div class="details">
+                <h5>{{card.description}} {{data.description}}</h5>
+                <h5>{{card.address}} {{data.address}}</h5>
+                <h5>{{card.suburb}} {{data.suburb}}</h5>
+                <h5>{{card.rental}} {{data.rental}}</h5>
+                <h5>{{card.size}} {{data.size}}</h5>
+                <h5>{{card.yard}} {{data.yard}}</h5>
+                <div class="buttons">
+                    <button mat-raised-button color="primary">UPDATE</button>
+                    <button mat-raised-button color="warn" (click)="openDeletePropertyDiaglog()">DELETE</button>
+                </div>
             </div>
         </div>
       </div>
     </div>
     <div class="right">
         <div class="card" *ngFor="let cards of rightCard1">
-            <h3>{{cards.title }}</h3>
-            <h5>{{cards.description}}</h5>
-            <h5>{{cards.type}}</h5>
-            <h5>{{cards.amount}}</h5>
-            <div class="buttons">
-                <button mat-raised-button color="accent" (click)="openAddRecoveriesModal()">ADD</button>
-                <button mat-raised-button color="primary">UPDATE</button>
-                <button mat-raised-button color="warn"  (click)="openDeleteRecoveriesDiaglog()">DELETE</button>
+            <div *ngFor = "let data of rightData1">
+                <h3>{{cards.title }}</h3>
+                <h5>{{cards.description}} {{data.description}}</h5>
+                <h5>{{cards.type}} {{data.type}}</h5>
+                <h5>{{cards.amount}} {{data.amount}}</h5>
+                <div class="buttons">
+                    <button mat-raised-button color="accent" (click)="openAddRecoveriesModal()">ADD</button>
+                    <button mat-raised-button color="primary">UPDATE</button>
+                    <button mat-raised-button color="warn"  (click)="openDeleteRecoveriesDiaglog()">DELETE</button>
+                </div>
             </div>
         </div>
         <div class="card" *ngFor="let cards of rightCard2">
-            <h3>{{cards.title }}</h3>
-            <h5>{{cards.description}}</h5>
-            <h5>{{cards.date}}</h5>
-            <div class="buttons">
-                <button mat-raised-button color="accent" (click)="openAddInspectionModal()">ADD</button>
-                <button mat-raised-button color="primary">UPDATE</button>
-                <button mat-raised-button color="warn"  (click)="openDeleteInspectionDiaglog()">DELETE</button>
+            <div *ngFor = "let data of rightData2">
+                <h3>{{cards.title }}</h3>
+                <h5>{{cards.description}} {{data.description}}</h5>
+                <h5>{{cards.date}} {{data.date}}</h5>
+                <div class="buttons">
+                    <button mat-raised-button color="accent" (click)="openAddInspectionModal()">ADD</button>
+                    <button mat-raised-button color="primary">UPDATE</button>
+                    <button mat-raised-button color="warn"  (click)="openDeleteInspectionDiaglog()">DELETE</button>
+                </div>
             </div>
         </div>
         <div class="card" *ngFor="let cards of rightCard3">
             <h3>{{cards.title }}</h3>
-            <h5>{{cards.name}}</h5>
-            <h5>{{cards.surname}}</h5>
-            <h5>{{cards.phone}}</h5>
-            <h5>{{cards.company}}</h5>
-            <h5>{{cards.cphone}}</h5>
+            <h5>Lease information will display here</h5>
             <div class="buttons">
                 <button mat-raised-button color="accent" (click)="openAddTenantModal()">ADD</button>
                 <button mat-raised-button color="primary">UPDATE</button>

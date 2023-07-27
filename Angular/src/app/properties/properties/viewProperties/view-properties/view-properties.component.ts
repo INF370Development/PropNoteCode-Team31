@@ -16,6 +16,8 @@ import { AddInspectionModalComponent } from './addInspectionModal/add-inspection
 import { AddRecoveriesModalComponent } from './addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { AddTenantModalComponent } from './addTenantModal/add-tenant-modal/add-tenant-modal.component';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
+
 NgModule({
   imports: [
     MatDialogModule,
@@ -48,7 +50,7 @@ export class ViewPropertiesComponent {
   ]
   
   rightCard3 = [
-    {title: 'Tenant of propery Information', name: 'Name: ', surname: 'Surname: ', phone: 'Phone Number: ', company: 'Company Name: ', cphone: 'Company Phone Number: '},
+    {title: 'Lease', name: 'Name: ', surname: 'Surname: ', phone: 'Phone Number: ', company: 'Company Name: ', cphone: 'Company Phone Number: '},
   ]
   
   //Random data
@@ -70,6 +72,8 @@ export class ViewPropertiesComponent {
   
 
   constructor(public dialog: MatDialog) {}
+
+
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(CreatePropertiesModalComponent, {

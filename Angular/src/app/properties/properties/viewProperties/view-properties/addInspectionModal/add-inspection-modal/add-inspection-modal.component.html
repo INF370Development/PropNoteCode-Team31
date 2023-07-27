@@ -8,8 +8,11 @@
     <br>
     <mat-form-field class="form">
         <h3>Inspection Date:</h3>
-        <input matInput>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
 </div>
 <div class="end">
     <button mat-fab extended color="accent">Create</button>
