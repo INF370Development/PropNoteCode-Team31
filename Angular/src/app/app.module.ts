@@ -42,6 +42,7 @@ import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
 import { CreateUModalComponent } from './users/users/createUModal/create-umodal/create-umodal.component';
+import { AddEmployeeComponent } from './employee/employee/add-employee/add-employee.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { CreateUModalComponent } from './users/users/createUModal/create-umodal/
     HelpproComponent,
     CreateURModalComponent,
     CreateUModalComponent,
+    AddEmployeeComponent,
   ],
   imports: [
     BrowserModule,
