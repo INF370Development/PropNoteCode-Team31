@@ -87,12 +87,11 @@ namespace WebApi.Controllers
                     //Insert UserRole Link
 
                     // newUser.UserRoleID = 3;
-                    await _userRepository.SaveChangesAsync();
 
                     //Send email to User
-                    /* var emailHelper = new EmailHelper();
-                     emailHelper.SendEmail(newUser.Username, newUser.Email, pass, newUser.Name!);*/
-
+                    var emailHelper = new EmailHelper();
+                    emailHelper.SendEmail(newUser.Username, newUser.Email, pass, newUser.Name!);
+                    await _userRepository.SaveChangesAsync();
                     return Ok(newUser);
                 }
             }

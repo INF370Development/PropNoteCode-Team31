@@ -7,6 +7,9 @@ using System.Net.Mail;
 using System.Net;
 using System.Security;
 using System.Net.Sockets;
+using Google.Apis.Util.Store;
+using SendGrid.Helpers.Mail;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApi.Helpers
 {
@@ -14,7 +17,6 @@ namespace WebApi.Helpers
     {
         public void SendEmail(string userName, string userEmailAddress, string userPassword, string name)
         {
-            Test();
             try
             {
                 string smtpServer = "smtp.mail.yahoo.com";
@@ -56,47 +58,6 @@ namespace WebApi.Helpers
             catch (Exception ex)
             {
                 Console.WriteLine("Failed to send email. Error: " + ex.Message);
-            }
-        }
-
-        public void Test()
-        {
-            string serverAddress = "smtp.mail.yahoo.com";
-            int port = 587; // Replace with the port you want to test
-
-            bool isPortReachable = TestServerConnection(serverAddress, port);
-
-            if (isPortReachable)
-            {
-                Console.WriteLine($"The port {port} on {serverAddress} is reachable.");
-            }
-            else
-            {
-                Console.WriteLine($"The port {port} on {serverAddress} is not reachable or blocked.");
-            }
-        }
-
-        public static bool TestServerConnection(string serverAddress, int port)
-        {
-            try
-            {
-                using (TcpClient client = new TcpClient())
-                {
-                    // Set a short timeout (e.g., 2 seconds) for the connection attempt
-                    client.ReceiveTimeout = 2000;
-                    client.SendTimeout = 2000;
-
-                    // Connect to the server
-                    client.Connect(serverAddress, port);
-
-                    // If the connection is successful, the port is reachable
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                // If any exception occurs, the port is not reachable
-                return false;
             }
         }
     }

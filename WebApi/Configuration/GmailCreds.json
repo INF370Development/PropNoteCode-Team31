@@ -1,0 +1,11 @@
+{
+  "web": {
+    "client_id": "811439618283-reocb001dfea62q02gfo40i4dmkd94so.apps.googleusercontent.com",
+    "project_id": "propnote-394111",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "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",
+    "redirect_uris": [ "https://localhost:7251", "https://localhost:7251/swagger/index.html" ]
+  }
+}
