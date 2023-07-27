@@ -51,6 +51,8 @@ import { DeleteRecoveriesDialogComponent } from './properties/properties/viewPro
 import { AddRecoveriesModalComponent } from './properties/properties/viewProperties/view-properties/addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { AddInspectionModalComponent } from './properties/properties/viewProperties/view-properties/addInspectionModal/add-inspection-modal/add-inspection-modal.component';
 import { AddTenantModalComponent } from './properties/properties/viewProperties/view-properties/addTenantModal/add-tenant-modal/add-tenant-modal.component';
+import { AddImageModalComponent } from './properties/properties/viewProperties/view-properties/addImageModal/add-image-modal/add-image-modal.component';
+import { DeleteImageDialogComponent } from './properties/properties/viewProperties/view-properties/deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,8 @@ import { AddTenantModalComponent } from './properties/properties/viewProperties/
     AddRecoveriesModalComponent,
     AddInspectionModalComponent,
     AddTenantModalComponent,
+    AddImageModalComponent,
+    DeleteImageDialogComponent,
   ],
   imports: [
     BrowserModule,

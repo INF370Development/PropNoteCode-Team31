@@ -15,6 +15,8 @@ import { DeleteRecoveriesDialogComponent } from './deleteRecoveriesDialog/delete
 import { AddInspectionModalComponent } from './addInspectionModal/add-inspection-modal/add-inspection-modal.component';
 import { AddRecoveriesModalComponent } from './addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { AddTenantModalComponent } from './addTenantModal/add-tenant-modal/add-tenant-modal.component';
+import { AddImageModalComponent } from './addImageModal/add-image-modal/add-image-modal.component';
+import { DeleteImageDialogComponent } from './deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
 
 NgModule({
   imports: [
@@ -131,6 +133,16 @@ export class ViewPropertiesComponent {
 
     openAddTenantModal() {
       const dialogRef = this.dialog.open(AddTenantModalComponent, {
+      })
+    }
+
+    openAddImageModal() {
+      const dialogRef = this.dialog.open(AddImageModalComponent, {
+      })
+    }
+
+    openDeleteImageDiaglog() {
+      const dialogRef = this.dialog.open(DeleteImageDialogComponent, {
       })
     }
 }

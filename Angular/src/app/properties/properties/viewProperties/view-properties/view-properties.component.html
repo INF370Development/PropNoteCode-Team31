@@ -25,7 +25,16 @@
     <div class="left">
         <div class="card" *ngFor="let card of leftCard">
             <div *ngFor = "let data of leftData">
-                <img [src] ="image"> 
+                <div class="image"> 
+                    <img [src] ="image"> 
+                    <div class="imageButtons">
+                        <button mat-raised-button color="accent" (click)="openAddImageModal()">ADD IMAGE</button>
+                        <br>
+                        <button mat-raised-button color="primary">UPDATE IMAGE</button>
+                        <br>
+                        <button mat-raised-button color="warn" (click)="openDeleteImageDiaglog()">DELETE IMAGE</button>
+                    </div>
+                </div>
                 <br>
                 <div class="details">
                 <h5>{{card.description}} {{data.description}}</h5>
@@ -35,8 +44,9 @@
                 <h5>{{card.size}} {{data.size}}</h5>
                 <h5>{{card.yard}} {{data.yard}}</h5>
                 <div class="buttons">
+                    <button mat-raised-button color="accent" (click)="openModal()">ADD</button>
                     <button mat-raised-button color="primary">UPDATE</button>
-                    <button mat-raised-button color="warn" (click)="openDeletePropertyDiaglog()">DELETE</button>
+                    <button mat-raised-button color="warn"  (click)="openDeletePropertyDiaglog()">DELETE</button>
                 </div>
             </div>
         </div>
