@@ -1,0 +1,31 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    }
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.employeeCard{
+    padding: 10px;
+    max-width: 400px;
+}
+
+.cards{
+    display: flex;
+    padding: 10px;
+    flex: 1;
+    margin: 10px;
+}
+
+.icon {
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+}

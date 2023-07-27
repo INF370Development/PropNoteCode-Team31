@@ -21,11 +21,10 @@
       </button>
         <!--RIGHT SIDE DROPDOWN-->
       <mat-menu #menu="matMenu">
-        <button mat-menu-item><a mat-list-item [routerLink]="'/view-profile'"> View Profile</a></button>
-        <button mat-menu-item><a mat-list-item [routerLink]="'/edit-profile'">Edit Profile</a></button>
-        <button mat-menu-item>Change Password</button>
-        <button mat-menu-item>Notifications</button>
-        <button mat-menu-item>Help</button>
+        <button mat-menu-item><a mat-list-item [routerLink]="'/viewProfile'"> View Profile</a></button>
+        <button mat-menu-item><a mat-list-item [routerLink]="'/password'"> Change Password</a></button>
+        <button mat-menu-item><a mat-list-item [routerLink]="'/notifications'"> Notifications</a></button>
+        <button mat-menu-item><a mat-list-item [routerLink]="'/help'"> Help</a></button>
       </mat-menu>
     </span>
   </mat-toolbar-row>
@@ -40,23 +39,23 @@
           <a mat-list-item [routerLink]="'/users'"> Users</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          View Users
+          <a mat-list-item [routerLink]="'/viewUsers'"> Users</a>
         </mat-nav-list>
         <mat-nav-list>
-          <a mat-list-item [routerLink]="'/user-role'"> View User Roles</a>
+          <a mat-list-item [routerLink]="'/viewUserRoles'"> User Roles</a>
         </mat-nav-list>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-icon>factory</mat-icon>
-          <a mat-list-item [routerLink]="'/property'"> Properties</a>
+          <a mat-list-item [routerLink]="'/properties'"> Properties</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          View Properties
-        </mat-nav-list>
+          <a mat-list-item [routerLink]="'/viewProperties'"> View Properties </a>
+        </mat-nav-list> 
         <mat-nav-list>
-          Generate Property Report
+          <a mat-list-item [routerLink]="'/generateProperties'"> Generate Property Report </a>
         </mat-nav-list>
       </mat-expansion-panel>
 
@@ -66,10 +65,10 @@
           <a mat-list-item [routerLink]="'/tenants'"> Tenants</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          View Tenants
+          <a mat-list-item [routerLink]="'/viewTenants'"> View Tenants</a>
         </mat-nav-list>
         <mat-nav-list>
-          Generate Tenants Report
+          <a mat-list-item [routerLink]="'/generateTenants'"> Generate Tenants Report</a>
         </mat-nav-list>
       </mat-expansion-panel>
 
@@ -79,10 +78,10 @@
           <a mat-list-item [routerLink]="'/contractors'"> Contractors</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          View Contractors
+          <a mat-list-item [routerLink]="'/viewContractors'"> View Contractors</a>
         </mat-nav-list>
         <mat-nav-list>
-          Generate Contractors Report
+          <a mat-list-item [routerLink]="'/generateContractors'"> Generate Contractor Report</a>
         </mat-nav-list>
       </mat-expansion-panel>
 
@@ -92,7 +91,7 @@
           <a mat-list-item [routerLink]="'/employee'"> Employee</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          View Employees
+          <a mat-list-item [routerLink]="'/viewEmployees'"> View Employees</a>
         </mat-nav-list>
       </mat-expansion-panel>
       
@@ -102,29 +101,29 @@
           <a mat-list-item [routerLink]="'/broker'"> Broker</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          View Broker
+          <a mat-list-item [routerLink]="'/viewBroker'"> View Broker</a>
         </mat-nav-list>
         <mat-nav-list>
-          Generate Broker Report
+          <a mat-list-item [routerLink]="'/generateBroker'"> Generate Broker Report</a>
         </mat-nav-list>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-icon>engineering</mat-icon>
-          <a mat-list-item [routerLink]="'/maintenace'"> Maintenance</a>
+          <a mat-list-item [routerLink]="'/maintenance'"> Maintenance</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          Assign Maintenance
+          <a mat-list-item [routerLink]="'/assignMaintenance'"> Assign Maintenance</a>
         </mat-nav-list>
         <mat-nav-list>
-          Payment
+          <a mat-list-item [routerLink]="'/payment'"> Payment</a>
         </mat-nav-list>
         <mat-nav-list>
-          Maintenance Note
+          <a mat-list-item [routerLink]="'/maintenanceNote'"> Maintenance Note</a>
         </mat-nav-list>
         <mat-nav-list>
-          Generate Maintenance Report
+          <a mat-list-item [routerLink]="'/generateMaintenance'"> Generate Maintenance Report</a>
         </mat-nav-list>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -133,10 +132,10 @@
           <a mat-list-item [routerLink]="'/calendar'"> Calendar</a>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          View Calendar
+          <a mat-list-item [routerLink]="'/viewCalendar'"> View Calendar</a>
         </mat-nav-list>
         <mat-nav-list>
-          Generate Meetings Report
+          <a mat-list-item [routerLink]="'/generateCalendar'"> Generate Meetings Report</a>
         </mat-nav-list>
       </mat-expansion-panel>
 
@@ -147,10 +146,10 @@
         </mat-expansion-panel-header>
       </mat-expansion-panel>
 
-      <mat-expansion-panel>
+      <mat-expansion-panel [routerLink]="'/login'">
         <mat-expansion-panel-header>
           <mat-icon>logout</mat-icon>
-          <a mat-list-item [routerLink]="'/logout'"> Log out</a>
+          <a mat-list-item> Logout</a>  
         </mat-expansion-panel-header>
       </mat-expansion-panel>
       
