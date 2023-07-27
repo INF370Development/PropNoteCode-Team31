@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Create User Role <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h1>
+<div mat-dialog-content>
+    <h3>Please enter all required details to create a new user role!</h3>
+    <mat-form-field class="form">
+        <h3>Role name:</h3>
+        <input matInput>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="form">
+        <h3>Access name:</h3>
+        <input matInput>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="form">
+        <h3>Access description:</h3>
+        <input matInput>
+    </mat-form-field>
+</div>
+<div class="end">
+    <button mat-fab extended color="accent">Create</button>
+    <button mat-fab extended color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+</div>
