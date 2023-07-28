@@ -7,6 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateUModalComponent } from '../../createUModal/create-umodal/create-umodal.component';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatIconModule} from '@angular/material/icon';
+import {NgFor, NgIf} from '@angular/common';
+import {MatTableModule} from '@angular/material/table';
 
 NgModule({
   imports: [
@@ -16,11 +20,19 @@ NgModule({
     MatButtonModule],
   }) 
 
+  interface TableRow {
+    id : number;
+    email: string;
+    userRole: string;
+  }
+
   export interface DialogData {
-    name: string;
-    description: string;
-    access: string;
+    id : number;
+    email: string;
+    userRole: string;
   } 
+
+
 
 @Component({
   selector: 'app-view-users',
@@ -30,7 +42,16 @@ NgModule({
 
 export class ViewUsersComponent {
 
-  constructor(public dialog: MatDialog) {}
+  tableData: TableRow [] = [
+    {id: 1, email: 'pietvz@construction.ac.za', userRole: 'Tenant'},
+    {id: 2, email: 'eric@propco.co.za', userRole: 'Admin'},
+    {id: 3, email: 'brendan@edimension.co.za', userRole: 'Employee'},
+    {id: 4, email: 'fanta@tastic.ac.za', userRole: 'Contractor'}
+  ];
+
+  constructor(public dialog: MatDialog) {
+    this.filteredData = this.tableData;
+  }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(ViewUsersComponent, {
@@ -49,11 +70,14 @@ export class ViewUsersComponent {
   }
 
     searchTerm: string = '';
+
+    filteredData: TableRow[] = [];
   
     search() {
-      console.log('Search term:', this.searchTerm);
+        this.filteredData = this.tableData.filter((row) =>
+          row.email.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
     }
-
 
     openModal() {
       const dialogRef = this.dialog.open(CreateUModalComponent, {

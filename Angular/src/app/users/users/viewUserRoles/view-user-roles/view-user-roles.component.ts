@@ -22,6 +22,12 @@ export interface DialogData {
   access: string;
 }
 
+interface TableRow {
+  id : number;
+  roleName: string;
+  accessLevel: string;
+}
+
 @Component({
   selector: 'app-view-user-roles',
   templateUrl: './view-user-roles.component.html',
@@ -29,6 +35,13 @@ export interface DialogData {
 })
 
 export class ViewUserRolesComponent {
+
+  tableData: TableRow [] = [
+    {id: 1, roleName: 'Tenant', accessLevel: 'Access Level 3'},
+    {id: 2, roleName: 'Admin', accessLevel: 'Access Level 1'},
+    {id: 3, roleName: 'Contractor', accessLevel: 'Access Level 4'},
+    {id: 4, roleName: 'Employee', accessLevel: 'Access Level 2'}
+  ];
 
   constructor(public dialog: MatDialog) {}
 
