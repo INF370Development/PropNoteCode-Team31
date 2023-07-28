@@ -101,22 +101,22 @@ export class ViewPropertiesComponent {
       })
     }
 
-    openDeletePropertyDiaglog() {
+    openDeletePropertyDialog() {
       const dialogRef = this.dialog.open(DeletePropertyDialogComponent, {
       })
     }
 
-    openDeleteRecoveriesDiaglog() {
+    openDeleteRecoveriesDialog() {
       const dialogRef = this.dialog.open(DeleteRecoveriesDialogComponent, {
       })
     }
 
-    openDeleteInspectionDiaglog() {
+    openDeleteInspectionDialog() {
       const dialogRef = this.dialog.open(DeleteInspectionDialogComponent, {
       })
     }
 
-    openDeleteTenantDiaglog() {
+    openDeleteTenantDialog() {
       const dialogRef = this.dialog.open(DeleteTenantDialogComponent, {
       })
     }
@@ -141,7 +141,7 @@ export class ViewPropertiesComponent {
       })
     }
 
-    openDeleteImageDiaglog() {
+    openDeleteImageDialog() {
       const dialogRef = this.dialog.open(DeleteImageDialogComponent, {
       })
     }

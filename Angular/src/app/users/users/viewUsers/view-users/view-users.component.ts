@@ -11,6 +11,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatIconModule} from '@angular/material/icon';
 import {NgFor, NgIf} from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
+import { DeleteUserDialogComponent } from './deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 
 NgModule({
   imports: [
@@ -31,8 +32,6 @@ NgModule({
     email: string;
     userRole: string;
   } 
-
-
 
 @Component({
   selector: 'app-view-users',
@@ -81,6 +80,11 @@ export class ViewUsersComponent {
 
     openModal() {
       const dialogRef = this.dialog.open(CreateUModalComponent, {
+      })
+    }
+
+    openDeleteUserDialog() {
+      const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
       })
     }
   }

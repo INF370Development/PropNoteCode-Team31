@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateURModalComponent } from '../../createURModal/create-urmodal/create-urmodal.component';
+import { DeleteUserRoleDialogComponent } from './deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
 
 NgModule({
 imports: [
@@ -70,6 +71,11 @@ export class ViewUserRolesComponent {
 
     openModal() {
       const dialogRef = this.dialog.open(CreateURModalComponent, {
+      })
+    }
+
+    openDeleteUserRoleDialog() {
+      const dialogRef = this.dialog.open(DeleteUserRoleDialogComponent, {
       })
     }
   }
