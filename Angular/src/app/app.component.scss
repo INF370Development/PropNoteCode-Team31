@@ -1,31 +1,30 @@
 .side-container {
-    min-width: 200px;
-  }
-  
-  .content-container {
-    padding: 10px;
-  }
+  min-width: 200px;
+}
 
-  .mat-toolbar {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .menu {
-    order: 1;
-  }
-  
-  .home {
-    order: 2;
-  }
-  
-  .account {
-    order: 4;
-  }
-  
-  .propnote {
-    flex-grow: 1;
-    order: 3;
-    text-align: center;
-  }
-  
+.content-container {
+  padding: 10px;
+}
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu {
+  order: 1;
+}
+
+.home {
+  order: 2;
+}
+
+.account {
+  order: 4;
+}
+
+.propnote {
+  flex-grow: 1;
+  order: 3;
+  text-align: center;
+}

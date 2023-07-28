@@ -1,1 +1,187 @@
-<p>view-properties works!</p>
+<h1>Properties</h1>
+
+<!--Search Bar-->
+<div class="search-container">
+    <input class="search-input" placeholder="Search Properties">
+    <button class="search-button" mat-icon-button color="primary">
+      <mat-icon>search</mat-icon>
+    </button>
+</div>
+
+<!--Create Button-->
+<div class="create">
+    <button mat-fab extended color="accent" (click)="openModal()">
+    <mat-icon>add</mat-icon>
+        Create Property
+    </button>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div class="left">
+        <div class="card" *ngFor="let card of leftCard">
+        <img [src] ="image"> 
+        <br>
+        <div class="details">
+            <h5>{{card.description}}</h5>
+            <h5>{{card.address}}</h5>
+            <h5>{{card.suburb}}</h5>
+            <h5>{{card.rental}}</h5>
+            <h5>{{card.size}}</h5>
+            <h5>{{card.yard}}</h5>
+            <div class="buttons">
+                <button mat-raised-button color="primary">UPDATE</button>
+                <button mat-raised-button color="warn" (click)="openDeletePropertyDiaglog()">DELETE</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+        <div class="card" *ngFor="let cards of rightCard1">
+            <h3>{{cards.title }}</h3>
+            <h5>{{cards.description}}</h5>
+            <h5>{{cards.type}}</h5>
+            <h5>{{cards.amount}}</h5>
+            <div class="buttons">
+                <button mat-raised-button color="accent" (click)="openAddRecoveriesModal()">ADD</button>
+                <button mat-raised-button color="primary">UPDATE</button>
+                <button mat-raised-button color="warn"  (click)="openDeleteRecoveriesDiaglog()">DELETE</button>
+            </div>
+        </div>
+        <div class="card" *ngFor="let cards of rightCard2">
+            <h3>{{cards.title }}</h3>
+            <h5>{{cards.description}}</h5>
+            <h5>{{cards.date}}</h5>
+            <div class="buttons">
+                <button mat-raised-button color="accent" (click)="openAddInspectionModal()">ADD</button>
+                <button mat-raised-button color="primary">UPDATE</button>
+                <button mat-raised-button color="warn"  (click)="openDeleteInspectionDiaglog()">DELETE</button>
+            </div>
+        </div>
+        <div class="card" *ngFor="let cards of rightCard3">
+            <h3>{{cards.title }}</h3>
+            <h5>{{cards.name}}</h5>
+            <h5>{{cards.surname}}</h5>
+            <h5>{{cards.phone}}</h5>
+            <h5>{{cards.company}}</h5>
+            <h5>{{cards.cphone}}</h5>
+            <div class="buttons">
+                <button mat-raised-button color="accent" (click)="openAddTenantModal()">ADD</button>
+                <button mat-raised-button color="primary">UPDATE</button>
+                <button mat-raised-button color="warn"  (click)="openDeleteTenantDiaglog()">DELETE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Main card-->
+<!--<mat-card class="mainCard">
+    <mat-grid-list cols="4" rowHeight="600px">
+        <!--Property card--
+        <mat-grid-tile>
+            <mat-card class="propertyCard">
+                <mat-card-header>
+                  <div mat-card-avatar class="imageCard"></div>
+                  <mat-card-title>Property location</mat-card-title>
+                  <mat-card-subtitle>Property type</mat-card-subtitle>
+                </mat-card-header>
+                <!--<img mat-card-image src="https://images.prop24.com/258192045/Crop600x400" alt="Property Image">--
+                <br>
+                <mat-card-content>
+                    <p>
+                        <mat-label>Description:</mat-label> Description stuff
+                        <br>
+                        <mat-label>Address:</mat-label> Address stuff
+                        <br>
+                        <mat-label>Suburb:</mat-label> Suburb stuff
+                        <br>
+                        <mat-label>Rental Amount:</mat-label> Rental Amount stuff
+                        <br>
+                        <mat-label>Size:</mat-label> Size Stuff
+                        <br>
+                        <mat-label>Yard:</mat-label> Yard Stuff
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary">UPDATE</button>
+                    <button mat-raised-button color="warn">DELETE</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile> 
+
+        <!--Recoveries card--
+        <mat-grid-tile>
+            <mat-card class="recoveriesCard">
+                <mat-card-header>
+                    <mat-card-title>Recoveries</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        <mat-label>Description:</mat-label> Description stuff
+                        <br>
+                        <mat-label>Type:</mat-label> Type stuff
+                        <br>
+                        <mat-label>Amount:</mat-label> Amount stuff
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="accent">ADD</button>
+                    <button mat-raised-button color="primary">UPDATE</button>
+                    <button mat-raised-button color="warn">DELETE</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+
+        <!--Inspection card--
+        <mat-grid-tile>
+            <mat-card class="inspectionCard">
+                <mat-card-header>
+                    <mat-card-title>Inspection</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        <mat-label>Description:</mat-label> Description stuff
+                        <br>
+                        <mat-label>Date:</mat-label> Date time picker
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="accent">ADD</button>
+                    <button mat-raised-button color="primary">UPDATE</button>
+                    <button mat-raised-button color="warn">DELETE</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+
+        <!--Tenant of property information card--
+        <mat-grid-tile>
+            <mat-card class="tenantCard">
+                <mat-card-header>
+                    <mat-card-title>Tenant of property Information</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        <mat-label>Name:</mat-label> Name stuff
+                        <br>
+                        <mat-label>Surname:</mat-label> Surname stuff
+                        <br>
+                        <mat-label>Phone Number:</mat-label> Phone Number stuff
+                        <br>
+                        <mat-label>Company Name:</mat-label> Company Name stuff
+                        <br>
+                        <mat-label>Company Number:</mat-label> Company Number Stuff
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="accent">ADD</button>
+                    <button mat-raised-button color="primary">UPDATE</button>
+                    <button mat-raised-button color="warn">DELETE</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>    
+</mat-card>-->  
