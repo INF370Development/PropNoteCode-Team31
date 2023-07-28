@@ -14,8 +14,6 @@ using WebApi.Repositories;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-
-   // public DBSet <>
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -281,14 +279,7 @@ namespace WebApi.Migrations
                     b.ToTable("Employee");
                 });
 
-            //modelBuilder.Entity<Employee>().HasData(new[]
-            //{
-            //    EmployeeID = 1,
-            //    Name = "Nothando",
-            //    Surname = "Zwane",
-            //    PhoneNumber = 0111111111,
-            //    EmailAddress = "NothandoZ@gmail.com"
-            //});
+           
 
             modelBuilder.Entity("WebApi.Models.Data.Data", b =>
                 {
