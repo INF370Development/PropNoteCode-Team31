@@ -43,6 +43,8 @@ import { HelpproComponent } from './profile/profile/help/helppro/helppro.compone
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
 import { CreateUModalComponent } from './users/users/createUModal/create-umodal/create-umodal.component';
 import { AddEmployeeComponent } from './employee/employee/add-employee/add-employee.component';
+import { EditEmployeeComponent } from './employee/employee/edit-employee/edit-employee.component';
+import { DeleteEmployeeComponent } from './employee/employee/delete-employee/delete-employee.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,8 @@ import { AddEmployeeComponent } from './employee/employee/add-employee/add-emplo
     CreateURModalComponent,
     CreateUModalComponent,
     AddEmployeeComponent,
+    EditEmployeeComponent,
+    DeleteEmployeeComponent,
   ],
   imports: [
     BrowserModule,

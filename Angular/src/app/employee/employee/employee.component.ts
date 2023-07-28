@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { EmployeeServiceService } from './services/employee-service.service';
 
 @Component({
   selector: 'app-employee',
@@ -10,6 +11,7 @@ export class EmployeeComponent implements OnInit{
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
+
   displayedColums: string [] = [
     'id',
     'firstName',
@@ -17,7 +19,8 @@ export class EmployeeComponent implements OnInit{
     'email',
   ];
   dataSource!: MatTableDataSource<any>;
-  
+
+
 } {
 
 }
