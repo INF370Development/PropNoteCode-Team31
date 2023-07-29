@@ -112,5 +112,99 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+        [HttpPut]
+        [Route("EditBroker")]
+        public async Task<IActionResult> EditBroker(int brokerID, BrokerViewModel brokerModel)
+        {
+
+            try
+            {
+                var allBrokers = await _brokerRepository.GetAllBrokersAsync();
+                var existingBroker = allBrokers.FirstOrDefault(x => x.BrokerID == brokerID);
+                if (existingBroker == null) return NotFound($"The broker does not exist");
+
+                if (brokerModel.Name == "")
+                {
+                    existingBroker.Name = existingBroker.Name;
+                }
+                else
+                {
+                    existingBroker.Name = brokerModel.Name;
+                }
+                if (brokerModel.Surname == "")
+                {
+                    existingBroker.Surname = brokerModel.Surname;
+                }
+                else
+                {
+                    existingBroker.Surname = brokerModel.Surname;
+                }
+                if (brokerModel.PhoneNumber == "")
+                {
+                    existingBroker.PhoneNumber = existingBroker.PhoneNumber;
+                }
+                else
+                {
+                    existingBroker.PhoneNumber = brokerModel.PhoneNumber;
+                }
+                if (brokerModel.OfficeAddress == "")
+                {
+                    existingBroker.OfficeAddress = existingBroker.OfficeAddress;
+                }
+                else
+                {
+                    existingBroker.OfficeAddress = brokerModel.OfficeAddress;
+                }
+                if (brokerModel.LicenseNumber == "")
+                {
+                    existingBroker.LicenseNumber = existingBroker.LicenseNumber;
+                }
+                else
+                {
+                    existingBroker.LicenseNumber = brokerModel.LicenseNumber;
+                }
+                if (brokerModel.CommissionRate == "")
+                {
+                    existingBroker.CommissionRate = existingBroker.CommissionRate;
+                }
+                else
+                {
+                    existingBroker.CommissionRate = brokerModel.CommissionRate;
+                }
+
+                if (await _brokerRepository.SaveChangesAsync() == true)
+                {
+                    return Ok(existingBroker);
+                }
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBroker(int brokerID)
+        {
+            try
+            {
+                var allBrokers = await _brokerRepository.GetAllBrokersAsync();
+                var existingBrokers = allBrokers.FirstOrDefault(x => x.BrokerID == brokerID);
+
+                if (existingBrokers == null) return NotFound($"The Broker does not exist");
+
+                _brokerRepository.Delete(existingBrokers);
+
+                if (await _brokerRepository.SaveChangesAsync()) return Ok(existingBrokers);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
+        }
     }
 }

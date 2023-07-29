@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Interfaces;
-using WebApi.Migrations;
-using WebApi.Models.Tenant;
+using WebApi.Models;
 
 namespace WebApi.Repositories
 {
@@ -27,7 +26,7 @@ namespace WebApi.Repositories
 
         public async Task<Tenant[]> GetAllTenantsAsync()
         {
-            IQueryable<Tenant> query = _appDbContext.Tenants;
+            IQueryable<Tenant> query = _appDbContext.Tenant;
 
             return await query.ToArrayAsync();
         }

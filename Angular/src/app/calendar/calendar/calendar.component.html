@@ -1,0 +1,38 @@
+<h1>Calendar</h1>  
+
+<p>All calendar features will be available for only the Admin to create, view, updated and delete.</p>
+
+<mat-grid-list cols="2">
+  <div class="cards"> 
+    <mat-card class="calendarCard">
+      <mat-card-header>
+      <mat-card-title>View Calendar</mat-card-title>
+        <mat-card-subtitle>View all the calendar events on the system</mat-card-subtitle>
+      </mat-card-header>
+        <mat-icon class="icon">event</mat-icon>
+      <mat-card-content>
+        <p>All the events created for the system can be viewed. The rest of the information that we need to establish.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button><a mat-list-item [routerLink]="'/viewCalendar'">VIEW CALENDAR</a></button>
+      </mat-card-actions>
+      </mat-card>
+  </div>
+  <br>
+  <div class="cards"> 
+    <mat-card class="reportCard">
+      <mat-card-header>
+        <mat-card-title>Generate Calendar Reports</mat-card-title>
+        <mat-card-subtitle>Generate calendar report</mat-card-subtitle>
+      </mat-card-header>
+      <mat-icon class="icon">summarize</mat-icon>
+      <mat-card-content>
+      <p>
+        Generate calendar Report. The rest of the information that we need to establish.
+      </p>
+      </mat-card-content>
+    <mat-card-actions>
+      <button mat-button><a mat-list-item [routerLink]="'/generateCalendar'">CALENDAR REPORTS</a></button>
+    </mat-card-actions>
+  </mat-card>
+</div>
