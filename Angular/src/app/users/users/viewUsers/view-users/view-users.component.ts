@@ -1,16 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {MatTable} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateUModalComponent } from '../../createUModal/create-umodal/create-umodal.component';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {MatIconModule} from '@angular/material/icon';
-import {NgFor, NgIf} from '@angular/common';
-import {MatTableModule} from '@angular/material/table';
 import { DeleteUserDialogComponent } from './deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 
 NgModule({
@@ -21,8 +16,8 @@ NgModule({
     MatButtonModule],
   }) 
 
-  interface TableRow {
-    id : number;
+  export interface User {
+    id: number;
     email: string;
     userRole: string;
   }
@@ -40,7 +35,7 @@ NgModule({
 })
 
 export class ViewUsersComponent {
-  tableData: TableRow [] = [
+  tableData: User [] = [
     {id: 1, email: 'pietvz@construction.ac.za', userRole: 'Tenant'},
     {id: 2, email: 'eric@propco.co.za', userRole: 'Admin'},
     {id: 3, email: 'brendan@edimension.co.za', userRole: 'Employee'},
@@ -59,6 +54,7 @@ export class ViewUsersComponent {
     });
   }
 
+  //Create Modal
   openModal(): void {
     const dialogRef = this.dialog.open(CreateUModalComponent, {
     });
@@ -74,18 +70,29 @@ export class ViewUsersComponent {
     });
   }
 
+  //Delete Dialog
+  openDeleteUserDialog(user: User): void {
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      width: '300px',
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'delete') {
+        // Delete the user from the tableData array
+        this.tableData = this.tableData.filter(u => u.id !== user.id);
+      }
+    });
+  }
+
+  //Search
     searchTerm: string = '';
 
-    filteredData: TableRow[] = [];
+    filteredData: User[] = [];
   
     search() {
         this.filteredData = this.tableData.filter((row) =>
           row.email.toLowerCase().includes(this.searchTerm.toLowerCase())
         );
-    }
-
-    openDeleteUserDialog() {
-      const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-      })
     }
   }

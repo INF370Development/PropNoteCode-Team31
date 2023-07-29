@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {MatTable} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,12 +17,12 @@ imports: [
 })
 
 export interface DialogData {
-  name: string;
-  description: string;
-  access: string;
+  id : number;
+  roleName: string;
+  accessLevel: string;
 }
 
-interface TableRow {
+interface Role {
   id : number;
   roleName: string;
   accessLevel: string;
@@ -37,7 +36,7 @@ interface TableRow {
 
 export class ViewUserRolesComponent {
 
-  tableData: TableRow [] = [
+  tableData: Role [] = [
     {id: 1, roleName: 'Tenant', accessLevel: 'Access Level 3'},
     {id: 2, roleName: 'Admin', accessLevel: 'Access Level 1'},
     {id: 3, roleName: 'Contractor', accessLevel: 'Access Level 4'},
@@ -54,28 +53,45 @@ export class ViewUserRolesComponent {
     });
   }
 
-  openDeleteDiaglog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(ViewUserRolesComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
+  //Create Modal
+  openModal(): void {
+    const dialogRef = this.dialog.open(CreateURModalComponent, {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.tableData.push({
+          id: this.tableData.length + 1, 
+          roleName: result.roleName,
+          accessLevel: result.accessLevel
+        });
+      }
     });
   }
 
+  //Delete Dialog
+  openDeleteUserRoleDialog(role: Role): void {
+    const dialogRef = this.dialog.open(DeleteUserRoleDialogComponent, {
+      width: '300px',
+      data: role
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'delete') {
+        // Delete the user from the tableData array
+        this.tableData = this.tableData.filter(u => u.id !== role.id);
+      }
+    });
+  }
+
+  //Search
     searchTerm: string = '';
+
+    filteredData: Role[] = [];
   
     search() {
-      console.log('Search term:', this.searchTerm);
-    }
-
-
-    openModal() {
-      const dialogRef = this.dialog.open(CreateURModalComponent, {
-      })
-    }
-
-    openDeleteUserRoleDialog() {
-      const dialogRef = this.dialog.open(DeleteUserRoleDialogComponent, {
-      })
+        this.filteredData = this.tableData.filter((row) =>
+          row.roleName.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
     }
   }

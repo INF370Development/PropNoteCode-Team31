@@ -34,14 +34,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of tableData">
-        <td>{{ row.id }}</td>
-        <td>{{ row.roleName }}</td>
-        <td>{{ row.accessLevel }}</td>
+      <tr *ngFor="let role of tableData">
+        <td>{{ role.id }}</td>
+        <td>{{ role.roleName }}</td>
+        <td>{{ role.accessLevel }}</td>
         <!--Update Button-->
         <td><button mat-raised-button color="primary"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
         <!--Delete Button-->
-        <td><button mat-raised-button color="warn" (click)="openDeleteUserRoleDialog()"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
+        <td><button mat-raised-button color="warn" (click)="openDeleteUserRoleDialog(role)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
       </tr>
     </tbody>
   </table>
