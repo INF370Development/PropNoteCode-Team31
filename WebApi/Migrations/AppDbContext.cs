@@ -13,8 +13,7 @@ namespace WebApi.Migrations
         {
         }
 
-        public DbSet<Broker> Brokers { get; set; }
-        public DbSet<Models.Property.Property> Properties { get; set; }
+        public DbSet<Property> Properties { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Lease> Leases { get; set; }
         public DbSet<ContractorType> ContractorTypes { get; set; }
@@ -23,10 +22,6 @@ namespace WebApi.Migrations
         public DbSet<Broker> Broker { get; set; }
         public DbSet<SnagListItemLine> SnagListItemLine { get; set; }
 
-        public async Task<bool> SaveChangesAsync()
-        {
-            return true;
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,4 +1,4 @@
-﻿namespace WebApi.Models.Broker
+﻿namespace WebApi.Models.Admin
 {
     public class Broker
     {
