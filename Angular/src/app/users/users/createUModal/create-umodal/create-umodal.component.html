@@ -3,20 +3,20 @@
     <h3>Please enter all required details to create a new user!</h3>
     <mat-form-field class="form">
         <h3>Email:</h3>
-        <input matInput>
+        <input matInput [(ngModel)] = "email">
     </mat-form-field>
     <br>
     <mat-form-field class="form">
         <h3>User Role:</h3>
-        <mat-select>
-            <mat-option value="one">Admin</mat-option>
-            <mat-option value="two">Contractor</mat-option>
-            <mat-option value="three">Tenant</mat-option>
-            <mat-option value="four">Employee</mat-option>
+        <mat-select [(ngModel)]="userRole">
+            <mat-option value="Admin">Admin</mat-option>
+            <mat-option value="Contractor">Contractor</mat-option>
+            <mat-option value="Tenant">Tenant</mat-option>
+            <mat-option value="Employee">Employee</mat-option>
         </mat-select>
     </mat-form-field>
 </div>
 <div class="end">
-    <button mat-raised-button color="accent">Create</button>
+    <button mat-raised-button color="accent" (click)="createUser()">Create</button>
     <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
 </div>

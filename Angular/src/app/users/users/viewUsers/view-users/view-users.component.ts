@@ -40,7 +40,6 @@ NgModule({
 })
 
 export class ViewUsersComponent {
-
   tableData: TableRow [] = [
     {id: 1, email: 'pietvz@construction.ac.za', userRole: 'Tenant'},
     {id: 2, email: 'eric@propco.co.za', userRole: 'Admin'},
@@ -60,11 +59,18 @@ export class ViewUsersComponent {
     });
   }
 
-  openDeleteDiaglog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(ViewUsersComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
+  openModal(): void {
+    const dialogRef = this.dialog.open(CreateUModalComponent, {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.tableData.push({
+          id: this.tableData.length + 1, 
+          email: result.email,
+          userRole: result.userRole
+        });
+      }
     });
   }
 
@@ -76,11 +82,6 @@ export class ViewUsersComponent {
         this.filteredData = this.tableData.filter((row) =>
           row.email.toLowerCase().includes(this.searchTerm.toLowerCase())
         );
-    }
-
-    openModal() {
-      const dialogRef = this.dialog.open(CreateUModalComponent, {
-      })
     }
 
     openDeleteUserDialog() {
