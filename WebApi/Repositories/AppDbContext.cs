@@ -5,6 +5,7 @@ using WebApi.Models.Lease;
 using WebApi.Models.Data;
 using WebApi.Models;
 using WebApi.Models.Users;
+using WebApi.Models.Calendar;
 
 namespace WebApi.Repositories
 {
@@ -24,6 +25,7 @@ namespace WebApi.Repositories
         public DbSet<DataType> DataType { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Deposit> Deposit { get; set; }
+        public DbSet<Calendar> Notification { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

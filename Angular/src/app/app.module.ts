@@ -4,7 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
-
+import {
+  ScheduleModule,
+  RecurrenceEditorModule,
+  DayService,
+  WorkWeekService,
+  MonthService,
+} from '@syncfusion/ej2-angular-schedule';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login/login.component';
@@ -106,8 +112,10 @@ import { AddTenantModalComponent } from './properties/properties/viewProperties/
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
+    ScheduleModule,
+    RecurrenceEditorModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DayService, WorkWeekService, MonthService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
