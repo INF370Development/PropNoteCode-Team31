@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebApi.Models.Admin;
-using WebApi.Models.Broker;
 using WebApi.Models.Lease;
 using WebApi.Models.Tenant;
 
@@ -20,6 +19,9 @@ namespace WebApi.Migrations
         public DbSet<Lease> Leases { get; set; }
         public DbSet<ContractorType> ContractorTypes { get; set; }
         public DbSet<SnagListItem> SnagListItems { get; set; }
+        public DbSet<SnagList> SnagList { get; set; }
+        public DbSet<Broker> Broker { get; set; }
+        public DbSet<SnagListItemLine> SnagListItemLine { get; set; }
 
         public async Task<bool> SaveChangesAsync()
         {

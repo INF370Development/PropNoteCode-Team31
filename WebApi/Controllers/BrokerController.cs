@@ -1,6 +1,3 @@
-﻿using WebApi.Models;
-using WebApi.ViewModels;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
@@ -22,8 +19,6 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("GetAllBrokers")]
-        //  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[Authorize]
         public async Task<IActionResult> GetAllBrokers()
         {
             //Test
@@ -69,7 +64,6 @@ namespace WebApi.Controllers
             {
                 await _brokerRepository.AddBroker(broker);
 
-                return Ok(broker);
             }
             catch (Exception)
             {
