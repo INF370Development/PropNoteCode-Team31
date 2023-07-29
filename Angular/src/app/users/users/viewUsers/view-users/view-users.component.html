@@ -2,7 +2,7 @@
 
 <!--Search Bar-->
 <div class="search-container">
-    <input class="search-input" placeholder="Search Users" [(ngModel)]="searchTerm" (input)="search()">
+    <input class="search-input" placeholder="Search Users" [(ngModel)]="searchTerm" (click)="search()">
     <button class="search-button" mat-icon-button color="primary" (click)="search()">
       <mat-icon>search</mat-icon>
     </button>
@@ -34,12 +34,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of tableData">
+      <tr *ngFor="let user of user">
         <td>{{ user.id }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.userRole }}</td>
         <!--Update Button-->
-        <td><button mat-raised-button color="primary"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
+        <td><button mat-raised-button color="primary"><mat-icon class="card-icon" (click)="openUpdateUserModal()">edit</mat-icon><br></button></td>
         <!--Delete Button-->
         <td><button mat-raised-button color="warn" (click)="openDeleteUserDialog(user)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
       </tr>

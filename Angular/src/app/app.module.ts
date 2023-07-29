@@ -55,6 +55,7 @@ import { AddImageModalComponent } from './properties/properties/viewProperties/v
 import { DeleteImageDialogComponent } from './properties/properties/viewProperties/view-properties/deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
+import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-
     DeleteImageDialogComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
+    UpdateUserModalComponent,
   ],
   imports: [
     BrowserModule,

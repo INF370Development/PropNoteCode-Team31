@@ -7,6 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateUModalComponent } from '../../createUModal/create-umodal/create-umodal.component';
 import { DeleteUserDialogComponent } from './deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
+import { UpdateUserModalComponent } from './updateUserModal/update-user-modal/update-user-modal.component';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 NgModule({
   imports: [
@@ -35,16 +38,13 @@ NgModule({
 })
 
 export class ViewUsersComponent {
-  tableData: User [] = [
+  
+  user: User [] = [
     {id: 1, email: 'pietvz@construction.ac.za', userRole: 'Tenant'},
     {id: 2, email: 'eric@propco.co.za', userRole: 'Admin'},
     {id: 3, email: 'brendan@edimension.co.za', userRole: 'Employee'},
     {id: 4, email: 'fanta@tastic.ac.za', userRole: 'Contractor'}
   ];
-
-  constructor(public dialog: MatDialog) {
-    this.filteredData = this.tableData;
-  }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(ViewUsersComponent, {
@@ -61,8 +61,8 @@ export class ViewUsersComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.tableData.push({
-          id: this.tableData.length + 1, 
+        this.user.push({
+          id: this.user.length + 1, 
           email: result.email,
           userRole: result.userRole
         });
@@ -80,19 +80,30 @@ export class ViewUsersComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
         // Delete the user from the tableData array
-        this.tableData = this.tableData.filter(u => u.id !== user.id);
+        this.user = this.user.filter(u => u.id !== user.id);
       }
+    });
+  }
+
+  //Update Modal
+  openUpdateUserModal(): void {
+    const dialogRef = this.dialog.open(UpdateUserModalComponent, {
     });
   }
 
   //Search
     searchTerm: string = '';
-
-    filteredData: User[] = [];
+    filtered: User [] = [];
+    
+    constructor(public dialog: MatDialog) {
+      this.filtered = this.user;
+    }
   
     search() {
-        this.filteredData = this.tableData.filter((row) =>
-          row.email.toLowerCase().includes(this.searchTerm.toLowerCase())
-        );
+      this.filtered = this.user.filter(User => {
+        const searchLower = this.searchTerm.toLowerCase();
+        const emailLower = User.email.toLowerCase();
+        return emailLower.includes(searchLower);
+      });
     }
-  }
+}
