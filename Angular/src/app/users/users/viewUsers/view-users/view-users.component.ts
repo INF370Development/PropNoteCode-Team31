@@ -19,7 +19,7 @@ NgModule({
     MatButtonModule],
   }) 
 
-  export interface User {
+  interface User {
     id: number;
     email: string;
     userRole: string;
@@ -61,11 +61,13 @@ export class ViewUsersComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.user.push({
-          id: this.user.length + 1, 
+        const newUser: User = {
+          id: this.user.length + 1,
           email: result.email,
           userRole: result.userRole
-        });
+        };
+        this.user.push(newUser);
+        this.search();
       }
     });
   }
@@ -79,15 +81,24 @@ export class ViewUsersComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
-        // Delete the user from the tableData array
         this.user = this.user.filter(u => u.id !== user.id);
+        this.filtered = this.filtered.filter(u => u.id !== user.id);
       }
     });
   }
 
   //Update Modal
-  openUpdateUserModal(): void {
+  openUpdateUserModal(user: User): void {
     const dialogRef = this.dialog.open(UpdateUserModalComponent, {
+      data: user
+    });
+
+    dialogRef.componentInstance.userUpdated.subscribe((updatedUser: User) => {
+      const index = this.user.findIndex(u => u.id === updatedUser.id);
+      if (index !== -1) {
+        this.user[index] = updatedUser;
+        this.filtered = this.user.filter(u => u.email.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      }
     });
   }
 
@@ -100,9 +111,9 @@ export class ViewUsersComponent {
     }
   
     search() {
-      this.filtered = this.user.filter(User => {
+      this.filtered = this.user.filter(u => {
         const searchLower = this.searchTerm.toLowerCase();
-        const emailLower = User.email.toLowerCase();
+        const emailLower = u.email.toLowerCase();
         return emailLower.includes(searchLower);
       });
     }

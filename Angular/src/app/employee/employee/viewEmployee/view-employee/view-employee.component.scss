@@ -29,3 +29,26 @@ button {
     font-size: 20px;
     color: green;
 }  
+
+.create {
+    float: right;
+    position: relative;
+    font-size: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: dimgrey;
+}
+
+th {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}

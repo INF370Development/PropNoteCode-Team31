@@ -56,6 +56,11 @@ import { DeleteImageDialogComponent } from './properties/properties/viewProperti
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
 import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
+import { UpdateUserRoleModalComponent } from './users/users/viewUserRoles/view-user-roles/updateUserRoleModal/update-user-role-modal/update-user-role-modal.component';
+import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/createEmployeeModal/create-employee-modal/create-employee-modal.component';
+import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
+import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
+import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
 
 @NgModule({
   declarations: [
@@ -109,13 +114,18 @@ import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/upd
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
     UpdateUserModalComponent,
+    UpdateUserRoleModalComponent,
+    CreateEmployeeModalComponent,
+    DeleteEmployeeDialogComponent,
+    UpdateEmployeeModalComponent,
+    UpdateTenantModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    MaterialModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
