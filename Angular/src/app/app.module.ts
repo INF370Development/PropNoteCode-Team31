@@ -109,7 +109,7 @@ import { DeleteImageDialogComponent } from './properties/properties/viewProperti
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    MaterialModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
