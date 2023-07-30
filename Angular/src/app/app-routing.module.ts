@@ -56,6 +56,7 @@ const routes: Routes = [
   {path: 'viewUserRoles', component:ViewUserRolesComponent},
   //Login
   {path: 'login', component:LoginComponent},
+  {path: '', component:LoginComponent},
   //Properties
   {path: 'properties', component:PropertiesComponent},
   {path: 'viewProperties', component:ViewPropertiesComponent},
