@@ -15,15 +15,14 @@ namespace WebApi.Controllers
     public class BrokerController : Controller
     {
         private readonly IBrokerRepository _brokerRepository;
-        public BrokerController(IBrokerRepository repository) 
+
+        public BrokerController(IBrokerRepository repository)
         {
             _brokerRepository = repository;
         }
 
         [HttpGet]
         [Route("GetAllBrokers")]
-        //  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[Authorize]
         public async Task<IActionResult> GetAllBrokers()
         {
             //Test
@@ -52,6 +51,24 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetBrokerByID")]
+        public async Task<IActionResult> GetBrokerID(int brokerID)
+        {
+            try
+            {
+                var result = await _brokerRepository.GetBrokerByID(brokerID);
+
+                if (result == null) return NotFound("Broker does not exist. You need to create it first");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+
         [HttpPost]
         [Route("AddBroker")]
         public async Task<IActionResult> AddBroker(BrokerViewModel brokerModel)
@@ -76,11 +93,11 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpPut]
         [Route("EditBroker")]
         public async Task<IActionResult> EditBroker(int brokerID, BrokerViewModel brokerModel)
         {
-
             try
             {
                 var allBrokers = await _brokerRepository.GetAllBrokersAsync();
@@ -140,7 +157,6 @@ namespace WebApi.Controllers
                 {
                     return Ok(existingBroker);
                 }
-
             }
             catch (Exception)
             {
@@ -150,6 +166,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
+        [Route("DeleteBroker")]
         public async Task<IActionResult> DeleteBroker(int brokerID)
         {
             try
@@ -162,7 +179,6 @@ namespace WebApi.Controllers
                 _brokerRepository.Delete(existingBrokers);
 
                 if (await _brokerRepository.SaveChangesAsync()) return Ok(existingBrokers);
-
             }
             catch (Exception)
             {
