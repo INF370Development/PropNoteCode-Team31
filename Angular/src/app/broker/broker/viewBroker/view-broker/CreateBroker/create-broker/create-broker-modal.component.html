@@ -1,49 +1,67 @@
-<h1 mat-dialog-title>
-  Create Broker
-  <button mat-button color="warn" class="cancel" (click)="closeModal()">
-    X
-  </button>
-</h1>
-<div mat-dialog-content>
-  <h3>Please enter all required details to create a new property!</h3>
-  <mat-form-field class="form">
-    <h3>Property Description:</h3>
-    <input matInput />
-  </mat-form-field>
-  <br />
-  <mat-form-field class="form">
-    <h3>Building Number:</h3>
-    <input matInput />
-  </mat-form-field>
-  <br />
-  <mat-form-field class="form">
-    <h3>Street:</h3>
-    <input matInput />
-  </mat-form-field>
-  <br />
-  <mat-form-field class="form">
-    <h3>Suburb:</h3>
-    <input matInput />
-  </mat-form-field>
-  <br />
-  <mat-form-field class="form">
-    <h3>Rental Amount:</h3>
-    <input matInput />
-  </mat-form-field>
-  <br />
-  <mat-form-field class="form">
-    <h3>Size:</h3>
-    <input matInput />
-  </mat-form-field>
-  <br />
-  <mat-form-field class="form">
-    <h3>Yard:</h3>
-    <input matInput />
-  </mat-form-field>
-</div>
-<div class="end">
-  <button mat-raised-button color="accent">Create</button>
-  <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">
-    Cancel
-  </button>
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Add New Broker</h2>
+    <form (submit)="AddBroker()">
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Name"
+          [(ngModel)]="brokerModel.Name"
+          name="name"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Surname"
+          [(ngModel)]="brokerModel.Surname"
+          name="surname"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Phone Number"
+          [(ngModel)]="brokerModel.PhoneNumber"
+          name="phoneNumber"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Office Address"
+          [(ngModel)]="brokerModel.OfficeAddress"
+          name="officeAddress"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="License Number"
+          [(ngModel)]="brokerModel.LicenseNumber"
+          name="licenseNumber"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Commission Rate"
+          [(ngModel)]="brokerModel.CommissionRate"
+          name="commissionRate"
+          required
+        />
+      </mat-form-field>
+      <div class="modal-actions">
+        <button mat-button type="button" (click)="closeModal()">Cancel</button>
+        <button mat-raised-button type="submit" color="primary">
+          Add Broker
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

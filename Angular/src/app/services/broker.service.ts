@@ -23,21 +23,24 @@ export class BrokerService {
       .pipe(map((result) => result));
   }
 
-  getBroker(brokerID: number) {
+  getBroker(brokerID: number, broker: Broker) {
     return this._httpClient
-      .get(`https://localhost:7251/api/Broker/GetBrokerByID` + '/' + brokerID)
+      .post(
+        `https://localhost:7251/api/Broker/GetBrokerByID/${brokerID}`,
+        broker
+      )
       .pipe(map((result) => result));
   }
 
   deleteBroker(brokerID: number) {
     return this._httpClient
-      .get(`https://localhost:7251/api/Broker/DeleteBroker` + '/' + brokerID)
+      .delete(`https://localhost:7251/api/Broker/DeleteBroker/${brokerID}`)
       .pipe(map((result) => result));
   }
 
-  createBroker() {
+  createBroker(broker: Broker) {
     return this._httpClient
-      .get(`https://localhost:7251/api/Broker/AddBroker`)
+      .post(`https://localhost:7251/api/Broker/AddBroker`, broker)
       .pipe(map((result) => result));
   }
 }

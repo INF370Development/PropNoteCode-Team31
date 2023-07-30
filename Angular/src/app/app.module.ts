@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 
@@ -58,6 +58,7 @@ import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-
 import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateBrokerModalModule } from './broker/broker/viewBroker/view-broker/CreateBroker/create-broker-modal.module';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MaterialModule,
     HttpClientModule,
+    CreateBrokerModalModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

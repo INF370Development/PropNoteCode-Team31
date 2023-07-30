@@ -15,6 +15,7 @@ import { CreateBrokerModalComponent } from './create-broker/create-broker-modal.
     MatInputModule,
   ],
   declarations: [CreateBrokerModalComponent],
+  exports: [CreateBrokerModalComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CreateBrokerModalModule {}
