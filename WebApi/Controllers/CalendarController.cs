@@ -11,14 +11,15 @@ namespace WebApi.Controllers
     public class CalendarController : Controller
     {
         public readonly ICalendarRepository _calendarRepository;
-        public IActionResult Index()
+      
+        public CalendarController(ICalendarRepository calendarRepository)
         {
-            return View();
+            _calendarRepository = calendarRepository;
         }
 
         [HttpGet]
-        [Route("LoadData")]
-        public async Task<IActionResult> LoadData()
+        [Route("GetLoadData")]
+        public async Task<IActionResult> GetLoadData()
         {
             try
             {
