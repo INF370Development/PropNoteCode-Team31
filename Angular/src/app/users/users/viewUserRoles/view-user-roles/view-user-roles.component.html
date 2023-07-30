@@ -16,6 +16,32 @@
     </button>
 </div>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+
 <!--Table-->
-<!--Update Button-->
-<!--Delete Button-->
+<table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Role Name</th>
+        <th>Access Level</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of tableData">
+        <td>{{ role.id }}</td>
+        <td>{{ role.roleName }}</td>
+        <td>{{ role.accessLevel }}</td>
+        <!--Update Button-->
+        <td><button mat-raised-button color="primary"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
+        <!--Delete Button-->
+        <td><button mat-raised-button color="warn" (click)="openDeleteUserRoleDialog(role)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
+      </tr>
+    </tbody>
+  </table>

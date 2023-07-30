@@ -53,6 +53,9 @@ import { AddInspectionModalComponent } from './properties/properties/viewPropert
 import { AddTenantModalComponent } from './properties/properties/viewProperties/view-properties/addTenantModal/add-tenant-modal/add-tenant-modal.component';
 import { AddImageModalComponent } from './properties/properties/viewProperties/view-properties/addImageModal/add-image-modal/add-image-modal.component';
 import { DeleteImageDialogComponent } from './properties/properties/viewProperties/view-properties/deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
+import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
+import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
+import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +106,9 @@ import { DeleteImageDialogComponent } from './properties/properties/viewProperti
     AddTenantModalComponent,
     AddImageModalComponent,
     DeleteImageDialogComponent,
+    DeleteUserDialogComponent,
+    DeleteUserRoleDialogComponent,
+    UpdateUserModalComponent,
   ],
   imports: [
     BrowserModule,
