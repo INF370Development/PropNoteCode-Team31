@@ -58,6 +58,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
+import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
+import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +111,8 @@ import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add
     AddImageModalComponent,
     DeleteImageDialogComponent,
     AddEmployeeComponent,
+    BrokerModelComponent,
+    BrokercreatemodelComponent,
   ],
   imports: [
     BrowserModule,
