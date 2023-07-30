@@ -225,7 +225,7 @@ namespace WebApi.Repositories
                 .Where(x => x.MaintenaceID == MaintenanceID);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, string Date, string Time)
+        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, DateTime Time)
         {
             Maintenance x = await GetMaintenanceByID(MaintenanceId);
             if (x != null)
@@ -235,8 +235,8 @@ namespace WebApi.Repositories
                 x.ContractorID = ContractorId;
                 x.MaintenanceStatusID = MaintenanceStatusId;
                 x.MaintenanceTypeID = MaintenanceTypeId;
-                x.MaintenanceDate = DateOnly.Parse(Date);
-                x.MaintenanceTime = TimeOnly.Parse(Time);
+                x.MaintenanceDate = Date;
+                x.MaintenanceTime = Time;
                 await _appDbContext.SaveChangesAsync();
             }
             return x;

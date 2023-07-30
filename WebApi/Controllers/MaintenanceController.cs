@@ -428,17 +428,10 @@ namespace WebApi.Controllers
         }
         [HttpPost]
         [Route("AddMaintenance")]
-        public async Task<IActionResult> AddMaintenance(int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, string Date, string Time)
+        public async Task<IActionResult> AddMaintenance(int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, DateTime Time)
         {
             //Time Format "14:30:45"
             //Date Format "2023-07-30"
-
-            try
-            {
-                DateOnly dateOnly = DateOnly.Parse(Date);
-                TimeOnly timeOnly = TimeOnly.Parse(Time);
-            }
-            catch (Exception) { return StatusCode(500, "Invalid Date or Time"); }
             try
             {
                 Maintenance maintenance=new Maintenance() 
@@ -448,8 +441,8 @@ namespace WebApi.Controllers
                     ContractorID=ContractorId,
                     MaintenanceStatusID=MaintenanceStatusId,
                     MaintenanceTypeID=MaintenanceTypeId, 
-                    MaintenanceDate=DateOnly.Parse(Date),
-                    MaintenanceTime= TimeOnly.Parse(Time)
+                    MaintenanceDate=Date,
+                    MaintenanceTime= Time
                 };
                 return Ok(await _maintenanceRepository.AddMaintenance(maintenance));
             }
@@ -460,17 +453,8 @@ namespace WebApi.Controllers
         }
         [HttpPut]
         [Route("EditMaintenance")]
-        public async Task<IActionResult> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, string Date, string Time)
+        public async Task<IActionResult> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, DateTime Time)
         {
-            //Time Format "14:30:45"
-            //Date Format "2023-07-30"
-
-            try
-            {
-                DateOnly dateOnly = DateOnly.Parse(Date);
-                TimeOnly timeOnly = TimeOnly.Parse(Time);
-            }
-            catch (Exception) { return StatusCode(500, "Invalid Date or Time"); }
             try
             {
                 var existingMaintenance = await _maintenanceRepository.GetMaintenanceByID(MaintenanceId);
