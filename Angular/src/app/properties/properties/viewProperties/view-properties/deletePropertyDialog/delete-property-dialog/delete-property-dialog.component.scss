@@ -5,5 +5,13 @@ button {
 .title {
     background-color: red;
     color: white;
-    text-align: center;
+}
+
+.cancel {
+    float: right;
+    position: relative;
+}
+
+.end{
+    padding: 10px;
 }

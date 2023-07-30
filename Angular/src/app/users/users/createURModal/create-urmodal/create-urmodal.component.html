@@ -3,18 +3,20 @@
     <h3>Please enter all required details to create a new user role!</h3>
     <mat-form-field class="form">
         <h3>Role Name:</h3>
-        <input matInput>
+        <input matInput [(ngModel)] = "roleName">
     </mat-form-field>
     <br>
     <mat-form-field class="form">
         <h3>Access:</h3>
-        <mat-select>
-            <mat-option value="one">Access Level 1</mat-option>
-            <mat-option value="two">Access Level 2</mat-option>
+        <mat-select [(ngModel)]="accessLevel">
+            <mat-option value="Access Level 1">Access Level 1</mat-option>
+            <mat-option value="Access Level 2">Access Level 2</mat-option>
+            <mat-option value="Access Level 3">Access Level 3</mat-option>
+            <mat-option value="Access Level 4">Access Level 4</mat-option>
         </mat-select>
     </mat-form-field>
 </div>
 <div class="end">
-    <button mat-fab extended color="accent">Create</button>
-    <button mat-fab extended color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+    <button mat-raised-button color="accent" (click)="createUserRole()">Create</button>
+    <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
 </div>

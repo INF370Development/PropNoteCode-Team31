@@ -55,19 +55,23 @@ export class ViewPropertiesComponent {
   
   //Random data
   leftData = [ 
-    {description: 'Construction site ', address: '537 Sinagoge Road ', suburb: 'Kameeldrift ', rental: 'R15 000', size: ' ', yard: ''}
+    {description: 'Construction site ', address: '537 Sinagoge Road ', suburb: 'Kameeldrift ', rental: 'R15 000', size: ' ', yard: ''},
+    //{description: 'Manufacturing site' , address: '25 Ocean Drive ', suburb: 'Durbun ', rental: 'R35 000', size: ' ', yard: ''}
   ]
 
   rightData1 = [
     {description: 'Water damage from geyser burst ', type: 'Water ', amount: 'R5800 '},
+    //{description: '', type: ' ', amount: ' '},
   ]
   
   rightData2 = [
     {description: 'Water damage checking from geyser burst', date: '2023/07/27'},
+    //{description: '', date: ''},
   ]
 
   rightData3 = [
     {name: 'Piet ', surname: 'Van Zyl', phone: '067 342 1224 ', company: 'Consitent Construction', cphone: '012 789 4561'},
+   // {name: 'Willem ', surname: 'Prinsloo', phone: '079 890 3590 ', company: 'Manufacturing fun', cphone: '012 548 7889'},
   ]
   
 
@@ -101,22 +105,22 @@ export class ViewPropertiesComponent {
       })
     }
 
-    openDeletePropertyDiaglog() {
+    openDeletePropertyDialog() {
       const dialogRef = this.dialog.open(DeletePropertyDialogComponent, {
       })
     }
 
-    openDeleteRecoveriesDiaglog() {
+    openDeleteRecoveriesDialog() {
       const dialogRef = this.dialog.open(DeleteRecoveriesDialogComponent, {
       })
     }
 
-    openDeleteInspectionDiaglog() {
+    openDeleteInspectionDialog() {
       const dialogRef = this.dialog.open(DeleteInspectionDialogComponent, {
       })
     }
 
-    openDeleteTenantDiaglog() {
+    openDeleteTenantDialog() {
       const dialogRef = this.dialog.open(DeleteTenantDialogComponent, {
       })
     }
@@ -141,7 +145,7 @@ export class ViewPropertiesComponent {
       })
     }
 
-    openDeleteImageDiaglog() {
+    openDeleteImageDialog() {
       const dialogRef = this.dialog.open(DeleteImageDialogComponent, {
       })
     }

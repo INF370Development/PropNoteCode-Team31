@@ -2,7 +2,7 @@
 
 
 <div class="search-container">
-    <input class="search-input" placeholder="Search Employee">
+  <input class="search-input"  type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Search by Employee Name">
     <button class="search-button" mat-icon-button color="primary">
       <mat-icon>search</mat-icon>
     </button>
@@ -21,27 +21,33 @@
 <br>
 <br>
 <br>
-<br>
 
-<table class="styled-table">
-  <thead>
+<!--Table-->
+<table>
+    <thead>
       <tr>
-          <th>Employee ID</th>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Phone Number</th>
-          <th>Email</th>
-          <th>Photo</th>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Phone Number</th>
+        <th>Job Title</th>
+        <th>Update</th>
+        <th>Delete</th>
       </tr>
-  </thead>
-  <tbody>
-      <tr class="active-row" *ngFor="let people of employeeData">
-          <td>{{people.empId}}</td>
-          <td>{{people.name}}</td>
-          <td>{{people.surname}}</td>
-          <td>{{people.phoneNumber}}</td>
-          <td>{{people.email}}</td>
-          <td>{{people.photo}}</td>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of filtered">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.surname }}</td>
+        <td>{{ employee.phone }}</td>
+        <td>{{ employee.jobTitle }}</td>
+        <!--Update Button-->
+        <td><button mat-raised-button color="primary" (click)="openUpdateEmployeeModal(employee)"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
+        <!--Delete Button-->
+        <td><button mat-raised-button color="warn" (click)="openDeleteEmployeeDialog(employee)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
       </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
