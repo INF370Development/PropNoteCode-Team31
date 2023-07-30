@@ -36,14 +36,12 @@ interface Role {
 
 export class ViewUserRolesComponent {
 
-  tableData: Role [] = [
+  role: Role [] = [
     {id: 1, roleName: 'Tenant', accessLevel: 'Access Level 3'},
     {id: 2, roleName: 'Admin', accessLevel: 'Access Level 1'},
     {id: 3, roleName: 'Contractor', accessLevel: 'Access Level 4'},
     {id: 4, roleName: 'Employee', accessLevel: 'Access Level 2'}
   ];
-
-  constructor(public dialog: MatDialog) {}
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(ViewUserRolesComponent, {
@@ -60,17 +58,19 @@ export class ViewUserRolesComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.tableData.push({
-          id: this.tableData.length + 1, 
+        const newRole: Role = {
+          id: this.role.length + 1,
           roleName: result.roleName,
           accessLevel: result.accessLevel
-        });
+        };
+        this.role.push(newRole);
+        this.search();
       }
     });
   }
 
   //Delete Dialog
-  openDeleteUserRoleDialog(role: Role): void {
+  openDeleteUserDialog(role: Role): void {
     const dialogRef = this.dialog.open(DeleteUserRoleDialogComponent, {
       width: '300px',
       data: role
@@ -78,20 +78,31 @@ export class ViewUserRolesComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
-        // Delete the user from the tableData array
-        this.tableData = this.tableData.filter(u => u.id !== role.id);
+        this.role = this.role.filter(u => u.id !== role.id);
+        this.filtered = this.filtered.filter(u => u.id !== role.id);
       }
     });
   }
 
+  //Update Modal
+  /*openUpdateUserModal(): void {
+    const dialogRef = this.dialog.open(UpdateUserModalComponent, {
+    });
+  }*/
+
   //Search
     searchTerm: string = '';
-
-    filteredData: Role[] = [];
+    filtered: Role [] = [];
+    
+    constructor(public dialog: MatDialog) {
+      this.filtered = this.role;
+    }
   
     search() {
-        this.filteredData = this.tableData.filter((row) =>
-          row.roleName.toLowerCase().includes(this.searchTerm.toLowerCase())
-        );
+      this.filtered = this.role.filter(u => {
+        const searchLower = this.searchTerm.toLowerCase();
+        const roleNameLower = u.roleName.toLowerCase(); // Use 'roleName', not 'role'
+        return roleNameLower.includes(searchLower);
+      });
     }
-  }
+}

@@ -2,7 +2,7 @@
 
 <!--Search Bar-->
 <div class="search-container">
-    <input class="search-input" [(ngModel)]="searchTerm" placeholder="Search User Roles">
+    <input class="search-input"  type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Search by user roles">
     <button class="search-button" mat-icon-button color="primary">
       <mat-icon>search</mat-icon>
     </button>
@@ -34,14 +34,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let role of tableData">
+      <tr *ngFor="let role of filtered">
         <td>{{ role.id }}</td>
         <td>{{ role.roleName }}</td>
         <td>{{ role.accessLevel }}</td>
         <!--Update Button-->
         <td><button mat-raised-button color="primary"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
         <!--Delete Button-->
-        <td><button mat-raised-button color="warn" (click)="openDeleteUserRoleDialog(role)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
+        <td><button mat-raised-button color="warn" (click)="openDeleteUserDialog(role)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
       </tr>
     </tbody>
   </table>
