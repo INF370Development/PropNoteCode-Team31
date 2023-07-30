@@ -81,6 +81,7 @@ export class ViewPropertiesComponent {
       size: ' ',
       yard: '',
     },
+    //{description: 'Manufacturing site' , address: '25 Ocean Drive ', suburb: 'Durbun ', rental: 'R35 000', size: ' ', yard: ''}
   ];
 
   rightData1 = [
@@ -89,6 +90,7 @@ export class ViewPropertiesComponent {
       type: 'Water ',
       amount: 'R5800 ',
     },
+    //{description: '', type: ' ', amount: ' '},
   ];
 
   rightData2 = [
@@ -96,6 +98,7 @@ export class ViewPropertiesComponent {
       description: 'Water damage checking from geyser burst',
       date: '2023/07/27',
     },
+    //{description: '', date: ''},
   ];
 
   rightData3 = [
@@ -106,6 +109,7 @@ export class ViewPropertiesComponent {
       company: 'Consitent Construction',
       cphone: '012 789 4561',
     },
+    // {name: 'Willem ', surname: 'Prinsloo', phone: '079 890 3590 ', company: 'Manufacturing fun', cphone: '012 548 7889'},
   ];
 
   constructor(public dialog: MatDialog) {}

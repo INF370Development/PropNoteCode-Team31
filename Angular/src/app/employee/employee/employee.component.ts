@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-employee',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./employee.component.scss']
 })
 export class EmployeeComponent {
+ 
 
-}
+} 

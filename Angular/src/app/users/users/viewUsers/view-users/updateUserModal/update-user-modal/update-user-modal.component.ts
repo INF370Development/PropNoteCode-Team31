@@ -1,10 +1,12 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ViewUsersComponent } from '../../view-users.component';
 
+export interface User {
+  id: number;
+  email: string;
+  userRole: string;
+}
 
 @Component({
   selector: 'app-update-user-modal',
@@ -16,9 +18,27 @@ export class UpdateUserModalComponent {
   email: string = '';
   userRole: string = '';
 
-  constructor(private dialogRef: MatDialogRef<UpdateUserModalComponent>) { }
+  @Output() userUpdated: EventEmitter<User> = new EventEmitter<User>();
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: User,
+    private dialogRef: MatDialogRef<UpdateUserModalComponent>
+  ) {
+    this.email = data.email;
+    this.userRole = data.userRole;
+  }
 
   closeModal() {
+    this.dialogRef.close(); // This will close the modal
+  }
+
+  updateUser() {
+    const updatedUser: User = {
+      id: this.data.id,
+      email: this.email,
+      userRole: this.userRole
+    };
+    this.userUpdated.emit(updatedUser);
     this.dialogRef.close();
   }
 }
