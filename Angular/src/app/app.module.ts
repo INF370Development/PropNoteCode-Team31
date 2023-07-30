@@ -64,6 +64,7 @@ import { AddcontractorComponent } from './contractors/contractors/addcontractor/
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
 import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
+import { CreateBrokerModalModule } from './broker/broker/viewBroker/view-broker/CreateBroker/create-broker-modal.module';
 import { UpdateUserRoleModalComponent } from './users/users/viewUserRoles/view-user-roles/updateUserRoleModal/update-user-role-modal/update-user-role-modal.component';
 import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/createEmployeeModal/create-employee-modal/create-employee-modal.component';
 import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
@@ -142,7 +143,9 @@ import { LoginFailedComponent } from './login/login/login-failed/login-failed.co
     FormsModule,
     MaterialModule,
     HttpClientModule,
+    CreateBrokerModalModule,
     ReactiveFormsModule,
+    FormsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -150,6 +153,6 @@ import { LoginFailedComponent } from './login/login/login-failed/login-failed.co
     LoginFailedComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

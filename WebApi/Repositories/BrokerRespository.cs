@@ -44,7 +44,7 @@ namespace WebApi.Repositories
         public async Task<Broker> GetBrokerByID(int brokerID)
         {
             IQueryable<Broker> query = _appDbContext.Broker.Where(x => x.BrokerID == brokerID);
-            return query.FirstOrDefault();
+            return await query.FirstOrDefaultAsync();
         }
     }
 }

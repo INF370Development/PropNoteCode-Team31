@@ -53,23 +53,22 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
+
         [HttpPost]
         [Route("AddProperty")]
         public async Task<IActionResult> AddProperty(PropertyRequest propertyRequest)
         {
-
             var property = new Property
             {
-               Yard = propertyRequest.Yard,
-               BuildingNumber = propertyRequest.BuildingNumber,
-               Description = propertyRequest.Description,   
-               Suburb = propertyRequest.Suburb,
-               Street = propertyRequest.Street,
-               Size = propertyRequest.Size,
+                Yard = propertyRequest.Yard,
+                BuildingNumber = propertyRequest.BuildingNumber,
+                Description = propertyRequest.Description,
+                Suburb = propertyRequest.Suburb,
+                Street = propertyRequest.Street,
+                Size = propertyRequest.Size,
                 PurchaseYear = propertyRequest.PurchaseYear,
-               BrokerID = propertyRequest.BrokerID,
-               PurchaseAmount = propertyRequest.PurchaseAmount,
-               
+                BrokerID = propertyRequest.BrokerID,
+                PurchaseAmount = propertyRequest.PurchaseAmount,
             };
             await _propertyRepository.AddProperty(property);
             return Ok(property);
@@ -79,7 +78,6 @@ namespace WebApi.Controllers
         [Route("EditProperty")]
         public async Task<IActionResult> EditProperty(int propertyID, Property property)
         {
-
             try
             {
                 var allProperties = await _propertyRepository.GetAllPropertiesAsync();
@@ -165,12 +163,10 @@ namespace WebApi.Controllers
                     existingProperty.BrokerID = property.BrokerID;
                 }
 
-
                 if (await _propertyRepository.SaveChangesAsync() == true)
                 {
                     return Ok(existingProperty);
                 }
-
             }
             catch (Exception)
             {
@@ -193,7 +189,6 @@ namespace WebApi.Controllers
                 _propertyRepository.Delete(existingProperty);
 
                 if (await _propertyRepository.SaveChangesAsync()) return Ok(existingProperty);
-
             }
             catch (Exception)
             {
