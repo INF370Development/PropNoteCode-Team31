@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateURModalComponent } from '../../createURModal/create-urmodal/create-urmodal.component';
 import { DeleteUserRoleDialogComponent } from './deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
+import { UpdateUserRoleModalComponent } from './updateUserRoleModal/update-user-role-modal/update-user-role-modal.component';
 
 NgModule({
 imports: [
@@ -85,10 +86,19 @@ export class ViewUserRolesComponent {
   }
 
   //Update Modal
-  /*openUpdateUserModal(): void {
-    const dialogRef = this.dialog.open(UpdateUserModalComponent, {
+  openUpdateUserRoleModal(role: Role): void {
+    const dialogRef = this.dialog.open(UpdateUserRoleModalComponent, {
+      data: role
     });
-  }*/
+
+    dialogRef.componentInstance.roleUpdated.subscribe((updatedRole: Role) => {
+      const index = this.role.findIndex(u => u.id === updatedRole.id);
+      if (index !== -1) {
+        this.role[index] = updatedRole;
+        this.filtered = this.role.filter(u => u.roleName.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      }
+    });
+  }
 
   //Search
     searchTerm: string = '';
