@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 
@@ -60,6 +60,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
 import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
+import { AddcontractorComponent } from './contractors/contractors/addcontractor/addcontractor.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-brok
     AddEmployeeComponent,
     BrokerModelComponent,
     BrokercreatemodelComponent,
+    AddcontractorComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,6 +126,7 @@ import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-brok
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
+    ReactiveFormsModule,
   ],
   
   providers: [],

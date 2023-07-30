@@ -2,25 +2,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BrokerService } from '../broker.service';
-
-
+import { ContractorServiceService } from '../contractor-service.service';
 
 @Component({
-  selector: 'app-brokercreatemodel',
-  templateUrl: './brokercreatemodel.component.html',
-  styleUrls: ['./brokercreatemodel.component.scss']
+  selector: 'app-addcontractor',
+  templateUrl: './addcontractor.component.html',
+  styleUrls: ['./addcontractor.component.scss']
 })
-export class BrokercreatemodelComponent {
+export class AddcontractorComponent implements OnInit {
 
   addUserForm!: FormGroup;
   constructor(
-    public dialogRef: MatDialogRef<BrokercreatemodelComponent>, 
-    public BrokerService: BrokerService,
+    public dialogRef: MatDialogRef<AddcontractorComponent>, 
+    public ContractorServiceService: ContractorServiceService,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public incomingData: any
-  ){} 
-
+  ) { }
 
   ngOnInit(): void {
     this.addUserForm = new FormGroup({  
@@ -40,10 +37,10 @@ export class BrokercreatemodelComponent {
 
   public addUser() {
     if (this.incomingData && this.incomingData.action && this.incomingData.action === 'edit') {
-      this.BrokerService.editUser(this.incomingData.id, this.addUserForm.value);
+      this.ContractorServiceService.editUser(this.incomingData.id, this.addUserForm.value);
       this.dialogRef.close();
     } else {
-      this.BrokerService.addUser(this.addUserForm.value);
+      this.ContractorServiceService.addUser(this.addUserForm.value);
       this.dialogRef.close();
     }
   }
@@ -56,9 +53,4 @@ export class BrokercreatemodelComponent {
     this.dialogRef.close(false);
   }
 }
-  
-    
-  
-
-  
 
