@@ -1,7 +1,10 @@
-﻿namespace WebApi.Models.Broker
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApi.Models.Admin
 {
     public class Broker
     {
+        [Key]
         public int BrokerID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

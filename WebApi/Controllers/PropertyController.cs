@@ -33,12 +33,11 @@ namespace WebApi.Controllers
                 {
                     properties.Add(new PropertyResponse
                     {
-                        PropertyID = property.PropertyID,
                         BrokerName = property.Broker.Name,
                         BuildingNumber = property.BuildingNumber,
                         Description = property.Description,
                         PurchaseAmount = property.PurchaseAmount,
-                        PurchaseYear = property.PurchaseYear,
+                        PurchaseDate = property.PurchaseDate,
                         Size = property.Size,
                         Street = property.Street,
                         Suburb = property.Suburb,
@@ -66,140 +65,13 @@ namespace WebApi.Controllers
                Suburb = propertyRequest.Suburb,
                Street = propertyRequest.Street,
                Size = propertyRequest.Size,
-                PurchaseYear = propertyRequest.PurchaseYear,
+               PurchaseDate = propertyRequest.PurchaseDate,
                BrokerID = propertyRequest.BrokerID,
                PurchaseAmount = propertyRequest.PurchaseAmount,
                
             };
             await _propertyRepository.AddProperty(property);
             return Ok(property);
-        }
-
-        [HttpPut]
-        [Route("EditProperty")]
-        public async Task<IActionResult> EditProperty(int propertyID, Property property)
-        {
-
-            try
-            {
-                var allProperties = await _propertyRepository.GetAllPropertiesAsync();
-                var existingProperty = allProperties.FirstOrDefault(x => x.PropertyID == propertyID);
-                if (existingProperty == null) return NotFound($"The Property does not exist");
-
-                if (property.Description == "")
-                {
-                    existingProperty.Description = existingProperty.Description;
-                }
-                else
-                {
-                    existingProperty.Description = property.Description;
-                }
-                if (property.BuildingNumber == null)
-                {
-                    existingProperty.BuildingNumber = existingProperty.BuildingNumber;
-                }
-                else
-                {
-                    existingProperty.BuildingNumber = property.BuildingNumber;
-                }
-                if (property.Street == "")
-                {
-                    existingProperty.Street = existingProperty.Street;
-                }
-                else
-                {
-                    existingProperty.Street = property.Street;
-                }
-
-                if (property.Suburb == "")
-                {
-                    existingProperty.Suburb = existingProperty.Suburb;
-                }
-                else
-                {
-                    existingProperty.Suburb = property.Suburb;
-                }
-
-                if (property.PurchaseAmount == null)
-                {
-                    existingProperty.PurchaseAmount = existingProperty.PurchaseAmount;
-                }
-                else
-                {
-                    existingProperty.PurchaseAmount = property.PurchaseAmount;
-                }
-
-                if (property.PurchaseYear == "")
-                {
-                    existingProperty.PurchaseYear = existingProperty.PurchaseYear;
-                }
-                else
-                {
-                    existingProperty.PurchaseYear = property.PurchaseYear;
-                }
-
-                if (property.Size == "")
-                {
-                    existingProperty.Size = existingProperty.Size;
-                }
-                else
-                {
-                    existingProperty.Size = property.Size;
-                }
-
-                if (property.Yard == "")
-                {
-                    existingProperty.Yard = existingProperty.Yard;
-                }
-                else
-                {
-                    existingProperty.Yard = property.Yard;
-                }
-
-                if (property.BrokerID == null)
-                {
-                    existingProperty.BrokerID = existingProperty.BrokerID;
-                }
-                else
-                {
-                    existingProperty.BrokerID = property.BrokerID;
-                }
-
-
-                if (await _propertyRepository.SaveChangesAsync() == true)
-                {
-                    return Ok(existingProperty);
-                }
-
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid");
-        }
-
-        [HttpDelete]
-        [Route("DeleteProperty")]
-        public async Task<IActionResult> DeleteProperty(int propertyID)
-        {
-            try
-            {
-                var allProperties = await _propertyRepository.GetAllPropertiesAsync();
-                var existingProperty = allProperties.FirstOrDefault(x => x.PropertyID == propertyID);
-
-                if (existingProperty == null) return NotFound($"The customer does not exist");
-
-                _propertyRepository.Delete(existingProperty);
-
-                if (await _propertyRepository.SaveChangesAsync()) return Ok(existingProperty);
-
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid.");
         }
     }
 }

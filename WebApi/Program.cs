@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using WebApi.Repositories;
 using WebApi.Interfaces;
-using WebApi.Models.Interfaces;
+using WebApi.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 //TODO" Alwaysd add scope for whenever a new Repo and Interface is added.
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 builder.Services.AddScoped<ILeaseRepository, LeaseRepository>();
-builder.Services.AddScoped<IBrokerRepository, BrokerRespository>();
+builder.Services.AddScoped<IBrokerRepository, BrokerRepository>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<IDataRepository, DataRepository>();
 

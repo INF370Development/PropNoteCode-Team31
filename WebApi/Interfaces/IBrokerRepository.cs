@@ -1,16 +1,16 @@
-﻿using WebApi.Models.Broker;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Models.Admin;
 
-namespace WebApi.Models.Interfaces
+namespace WebApi.Interfaces
 {
     public interface IBrokerRepository
     {
 
         Task<bool> SaveChangesAsync();
-        Task AddBroker(WebApi.Models.Broker.Broker broker);
-        Task<WebApi.Models.Broker.Broker[]> GetAllBrokersAsync();
-        Task EditBroker(int brokerId, WebApi.Models.Broker.Broker broker);
-        Task DeleteBrokerAsync(WebApi.Models.Broker.Broker broker);
-        void Delete<T>(T entity) where T : class;
-        Task<WebApi.Models.Broker.Broker> GetBrokerByID(int brokerID);
+        Task<Broker> AddBroker(Broker broker);
+        Task<Broker[]> GetAllBrokersAsync();
+        Task<Broker> EditBroker(int brokerId, Broker broker);
+        Task<Broker> DeleteBrokerAsync( Broker broker);
+        Task<Broker> GetBrokerByID(int brokerID);
     }
 }
