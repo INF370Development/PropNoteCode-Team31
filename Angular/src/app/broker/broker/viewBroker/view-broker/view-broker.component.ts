@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
+import { CreateBrokerModalComponent } from './CreateBroker/create-broker/create-broker-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-broker',
@@ -15,7 +17,6 @@ import { Broker } from 'src/app/shared/Broker';
 })
 export class ViewBrokerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
-    'id',
     'name',
     'surname',
     'phoneNumber',
@@ -27,7 +28,8 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
 
   constructor(
     private _brokerService: BrokerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {}
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -62,5 +64,20 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
     snackBarRef.afterDismissed().subscribe(() => {
       location.reload();
     });
+  }
+
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    this.dialog.open(CreateBrokerModalComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(CreateBrokerModalComponent, {});
   }
 }
