@@ -17,7 +17,7 @@ namespace WebApi.Controllers
             _calendarRepository = calendarRepository;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetLoadData")]
         public async Task<IActionResult> GetLoadData()
         {

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   DayService,
@@ -9,6 +10,7 @@ import {
   PopupOpenEventArgs,
   EventRenderedArgs,
 } from '@syncfusion/ej2-angular-schedule';
+import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 @Component({
   selector: 'app-view-calendar',
@@ -17,33 +19,11 @@ import {
   providers: [DayService, WorkWeekService, MonthService],
 })
 export class ViewCalendarComponent {
-  public selectedDate: Date = new Date(2023, 6, 31);
-  public eventSettings: EventSettingsModel = {
-    dataSource: [
-      {
-        Id: 1,
-        Subject: 'Servicing of Aircon',
-        StartTime: new Date(2023, 6, 31, 9, 30),
-        EndTime: new Date(2023, 6, 31, 11, 0),
-      },
-      {
-        Id: 2,
-        Subject: 'Meeting with Broker',
-        StartTime: new Date(2023, 7, 1, 12, 0),
-        EndTime: new Date(2018, 7, 1, 14, 0),
-      },
-      {
-        Id: 3,
-        Subject: 'Maintenance on Roller Doors',
-        StartTime: new Date(2023, 7, 3, 9, 30),
-        EndTime: new Date(2023, 7, 3, 11, 0),
-      },
-      {
-        Id: 4,
-        Subject: 'Check up on Pinetown Building',
-        StartTime: new Date(2023, 7, 4, 13, 0),
-        EndTime: new Date(2023, 7, 4, 14, 30),
-      },
-    ],
-  };
+  public dataManager: DataManager = new DataManager({
+    url: 'https://localhost:7251/api/Calendar/GetLoadData', // 'controller/actions'
+    crudUrl: 'Home/UpdateData',
+    adaptor: new UrlAdaptor(),
+  });
+  public selectedDate: Date = new Date(2023, 0, 1);
+  public eventSettings: EventSettingsModel = { dataSource: this.dataManager };
 }
