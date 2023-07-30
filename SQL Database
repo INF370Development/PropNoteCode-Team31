@@ -2,19 +2,6 @@ USE [master]
 GO
 /****** Object:  Database [PropNote]    Script Date: 2023/07/27 11:38:26 ******/
 CREATE DATABASE [PropNote]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'PropNote', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\PropNote.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'PropNote_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\PropNote_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
- WITH CATALOG_COLLATION = DATABASE_DEFAULT
-GO
-ALTER DATABASE [PropNote] SET COMPATIBILITY_LEVEL = 150
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [PropNote].[dbo].[sp_fulltext_database] @action = 'enable'
-end
 GO
 ALTER DATABASE [PropNote] SET ANSI_NULL_DEFAULT OFF 
 GO
@@ -745,13 +732,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[USER](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[Username] [varchar](32) NOT NULL,
-	[Password] [varchar](32) NOT NULL,
-	[ProfilePhoto] [varchar](max) NOT NULL,
-	[Email] [varchar](32) NOT NULL,
-	[Name] [varchar](32) NULL,
-	[Surname] [varchar](32) NULL,
-	[PhoneNumber] [varchar](32) NULL,
+	[Username] [varchar](255) NOT NULL,
+	[Password] [varchar](255) NOT NULL,
+	[ProfilePhoto] [varchar](max) NULL,
+	[Email] [varchar](255) NOT NULL,
+	[Name] [varchar](255) NULL,
+	[Surname] [varchar](255) NULL,
+	[PhoneNumber] [varchar](255) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC

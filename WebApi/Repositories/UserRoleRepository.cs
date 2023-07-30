@@ -2,6 +2,7 @@
 using WebApi.Interfaces;
 using WebApi.Models;
 using WebApi.Models.Interfaces;
+using WebApi.Models.Users;
 
 namespace WebApi.Repositories
 {
@@ -26,5 +27,17 @@ namespace WebApi.Repositories
         }
 
         //Gets all userRoles.
+        public Role? GetRoleByDescription(string userName)
+        {
+            try
+            {
+                Role role = _appDbContext.Role.Where(x => x.Username == userName).FirstOrDefault()!;
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
