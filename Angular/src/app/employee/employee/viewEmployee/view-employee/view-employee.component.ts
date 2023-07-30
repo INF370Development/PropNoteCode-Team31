@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { DeleteEmployeeDialogComponent } from './deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
 import { UpdateEmployeeModalComponent } from './updateEmployeeModal/update-employee-modal/update-employee-modal.component';
+import { CreateEmployeeModalComponent } from './createEmployeeModal/create-employee-modal/create-employee-modal.component';
 
 NgModule({
   imports: [MatDialogModule, FormsModule, MatInputModule, MatButtonModule],
@@ -73,14 +74,9 @@ export class ViewEmployeeComponent {
     },
   ];
 
-  openDialog(
-    enterAnimationDuration: string,
-    exitAnimationDuration: string
-  ): void {
-    this.dialog.open(ViewEmployeeComponent, {
+  openDialog(): void {
+    this.dialog.open(CreateEmployeeModalComponent, {
       width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
     });
   }
 
