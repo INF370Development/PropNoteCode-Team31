@@ -60,6 +60,7 @@ import { UpdateUserRoleModalComponent } from './users/users/viewUserRoles/view-u
 import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/createEmployeeModal/create-employee-modal/create-employee-modal.component';
 import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
 import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
+import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/v
     CreateEmployeeModalComponent,
     DeleteEmployeeDialogComponent,
     UpdateEmployeeModalComponent,
+    UpdateTenantModalComponent,
   ],
   imports: [
     BrowserModule,
