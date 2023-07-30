@@ -2,7 +2,7 @@
 
 namespace WebApi.Models.Maintenance
 {
-    public class MaintenaceStatus
+    public class MaintenanceStatus
     {
         [Key]
         public int MaintenaceStatusID { get; set; }

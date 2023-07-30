@@ -29,6 +29,7 @@ builder.Services.AddScoped<ILeaseRepository, LeaseRepository>();
 builder.Services.AddScoped<IBrokerRepository, BrokerRepository>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<IDataRepository, DataRepository>();
+builder.Services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
 
 var app = builder.Build();
 

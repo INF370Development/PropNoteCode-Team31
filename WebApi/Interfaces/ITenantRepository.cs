@@ -1,4 +1,4 @@
-﻿using WebApi.Models.Tenant;
+﻿using WebApi.Models;
 
 namespace WebApi.Interfaces
 {
@@ -8,7 +8,7 @@ namespace WebApi.Interfaces
 
         void Add<T>(T entity) where T : class;
 
-        Task<Tenant[]> GetAllTenantsAsync();
+        Task<Models.Tenant[]> GetAllTenantsAsync();
 
 
 

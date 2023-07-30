@@ -2,11 +2,11 @@
 
 namespace WebApi.Models.Maintenance
 {
-    public class MaintenaceNote
+    public class MaintenanceNote
     {
         [Key]
         public int MaintenaceNoteID { get; set; }
-        public string MaintenaceID { get; set; }
+        public int MaintenaceID { get; set; }
         public string MaintenaceNoteDescription { get; set; }
 
     }

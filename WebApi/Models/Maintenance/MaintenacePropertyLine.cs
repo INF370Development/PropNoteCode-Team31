@@ -2,7 +2,7 @@
 
 namespace WebApi.Models.Maintenance
 {
-    public class MaintenacePropertyLine
+    public class MaintenancePropertyLine
     {
         [Key]
         public int MaintenacePropertyLineID { get; set; }

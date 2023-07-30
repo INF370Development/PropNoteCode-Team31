@@ -26,7 +26,7 @@ namespace WebApi.Repositories
 
             public async Task<Broker> AddBroker(Broker broker)
             {
-                _appDbContext.Add(broker);
+                _appDbContext.Broker.Add(broker);
                 await _appDbContext.SaveChangesAsync();
                 return broker;
             }
