@@ -25,6 +25,10 @@ namespace WebApi.Repositories
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Deposit> Deposit { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<UserRole> UserRoles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

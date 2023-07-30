@@ -27,12 +27,36 @@ namespace WebApi.Repositories
         }
 
         //Gets all userRoles.
-        public Role? GetRoleByDescription(string userName)
+        public int GetRoleIdByDescription(string roleName)
         {
             try
             {
-                Role role = _appDbContext.Role.Where(x => x.Username == userName).FirstOrDefault()!;
-                return user;
+                Role role = _appDbContext.Roles.Where(x => x.Name == roleName).FirstOrDefault()!;
+                return role.UserRoleID;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public string GetUserRoleNameByUserId(int UserId)
+        {
+            try
+            {
+                UserRole userRole = _appDbContext.UserRoles.Where(x => x.UserID == UserId).FirstOrDefault()!;
+                if (userRole != null)
+                {
+                    var UserRoleName = _appDbContext.Roles.Where(x => x.UserRoleID == userRole.UserRoleID).FirstOrDefault();
+                    if (UserRoleName != null)
+                    {
+                        return UserRoleName.Name;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                return null;
             }
             catch
             {

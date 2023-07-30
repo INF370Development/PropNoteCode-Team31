@@ -8,6 +8,9 @@ using WebApi.Models;
 using WebApi.Models.Interfaces;
 using WebApi.Models.Users;
 using WebApi.Helpers;
+using WebApi.Interfaces;
+using WebApi.Models.Users.Requests;
+using WebApi.Models.Users.Responses;
 
 namespace WebApi.Controllers
 {
@@ -17,17 +20,19 @@ namespace WebApi.Controllers
     {
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?";
         private readonly IUserRepository _userRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
 
         //Constructor for the User Controller
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository,IUserRoleRepository userRoleRepository)
         {
             _userRepository = userRepository;
+            _userRoleRepository = userRoleRepository;
         }
 
         //Loging Function
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(LoginDetails userLoginDetails)
+        public async Task<IActionResult> Login(LoginDetailsRequest userLoginDetails)
         {
             try
             {
@@ -44,7 +49,18 @@ namespace WebApi.Controllers
                     var passwordCheckResult = _userRepository.CheckUserPassword(foundUser.Username!, hashedPassword);
                     if (passwordCheckResult)
                     {                        //Successful Login
-                        return StatusCode(StatusCodes.Status200OK,foundUser);
+                        var userRole = _userRoleRepository.GetUserRoleNameByUserId(foundUser.UserID);
+                                             //Return Result
+                        var result = new RegisterUserResponse()
+                        {
+                            Username = foundUser.Username,
+                            UserID = foundUser.UserID,
+                            Email = foundUser.Email,
+                            Name = foundUser.Name,
+                            UserRoleName = userRole,
+                            IsSuccess = true,
+                        };
+                        return StatusCode(StatusCodes.Status200OK, result);
                     }
                     else
                     {
@@ -61,7 +77,7 @@ namespace WebApi.Controllers
         //Create new User
         [HttpPost]
         [Route("CreateNewUser")]
-        public async Task<IActionResult> CreateNewUser(RegisterUserModel userDetails)
+        public async Task<IActionResult> CreateNewUser(RegisterUserRequest userDetails)
         {
             try
             {
@@ -81,18 +97,38 @@ namespace WebApi.Controllers
                     newUser.Email = userDetails.Email;
                     newUser.Name = userDetails.Name;
                     _userRepository.Add(newUser);
+                    await _userRepository.SaveChangesAsync();
                     // Guid g = Guid.NewGuid();
                     //newUser.SessionID = g.ToString();
+                    var foundUser = _userRepository.GetUserByUserName(newUser.Username);
+                    // newUser.UserRoleID = 3;
+                    var userRoleId = _userRoleRepository.GetRoleIdByDescription(userDetails.userRole);
 
                     //Insert UserRole Link
+                    var userRole = new UserRole()
+                    {
+                        UserID = foundUser.UserID,
+                        UserRoleID = userRoleId
+                    };
+                    _userRoleRepository.Add(userRole);
 
-                    // newUser.UserRoleID = 3;
+                    //Return Result
+                    var result = new RegisterUserResponse()
+                    {
+                        Username = newUser.Username,
+                        UserID = foundUser.UserID,
+                        Email = newUser.Email,
+                        Name = newUser.Name,
+                        UserRoleName = userDetails.userRole,
+                        IsSuccess = true,                       
+                    };
+
 
                     //Send email to User
-                    var emailHelper = new EmailHelper();
-                    emailHelper.SendEmail(newUser.Username, newUser.Email, pass, newUser.Name!);
-                    await _userRepository.SaveChangesAsync();
-                    return Ok(newUser);
+                   /* var emailHelper = new EmailHelper();
+                    emailHelper.SendEmail(newUser.Username, newUser.Email, pass, newUser.Name!);*/
+                    
+                    return Ok(result);
                 }
             }
             catch (Exception)
