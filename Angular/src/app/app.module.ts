@@ -51,6 +51,8 @@ import { AddInspectionModalComponent } from './properties/properties/viewPropert
 import { AddTenantModalComponent } from './properties/properties/viewProperties/view-properties/addTenantModal/add-tenant-modal/add-tenant-modal.component';
 import { AddImageModalComponent } from './properties/properties/viewProperties/view-properties/addImageModal/add-image-modal/add-image-modal.component';
 import { DeleteImageDialogComponent } from './properties/properties/viewProperties/view-properties/deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SideNavComponent } from './NavBars/Side-Nav/side-nav.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -70,6 +72,7 @@ import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/v
 import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
 import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
 import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
+import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +123,7 @@ import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/
     AddTenantModalComponent,
     AddImageModalComponent,
     DeleteImageDialogComponent,
+    SideNavComponent,
     AddEmployeeComponent,
     BrokerModelComponent,
     BrokercreatemodelComponent,
@@ -132,6 +136,7 @@ import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/
     DeleteEmployeeDialogComponent,
     UpdateEmployeeModalComponent,
     UpdateTenantModalComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -147,7 +152,7 @@ import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    ReactiveFormsModule,
+    LoginFailedComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
