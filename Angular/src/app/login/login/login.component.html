@@ -12,19 +12,19 @@
         <br>
         <br>
         <mat-card-content>
-          <form class="form" [ngFormOptions]="LoginForm">
+          <form [formGroup]="LoginForm" (submit)="Login()">
                 <div class="form-group">
                     <label class="form-control-label">Username:</label>
                     <br>
                     <br>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="userName" formControlName="userName">
                 </div>
                 <br>
                 <div class="form-group">
                     <label class="form-control-label">Password:</label>
                     <br>
                     <br>
-                    <input type="password" class="form-control" i>
+                    <input type="password" class="form-control" name="password" formControlName="password">
                     <br>
                     <br>
                     <div class="forgotPassword">Forgot Password!</div>
@@ -32,7 +32,7 @@
                 <br>
                 <br>
                 <div class="button">
-                    <button mat-raised-button color="accent" [routerLink]="'/home'">Login</button>
+                    <button mat-raised-button type="submit" color="accent" >Login</button>
                 </div>
             </form>
         </mat-card-content>

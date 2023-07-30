@@ -1,5 +1,5 @@
 export class LoginCredentials
 {
-  username: string | undefined = "";
-  password:string | undefined = "";
+  Username?: string | null;
+  Password?:string | null;
 }

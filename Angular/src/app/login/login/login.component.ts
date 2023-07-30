@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  //Declare variables
 
 
 
@@ -19,19 +20,28 @@ export class LoginComponent {
   ) {}
 
   LoginForm = new FormGroup({
-    LoginInput: new FormControl('', Validators.required),
-    Passwordinput: new FormControl('', Validators.required),
+    userName: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
 
   public Login()
   {
     var formData: LoginCredentials = new LoginCredentials();
-    (formData.username = this.LoginForm.get('UserName')?.value),
-      (formData.password = this.LoginForm.get('Password')?.value);
-
+    if(this.LoginForm.get('userName')?.value != null && this.LoginForm.get('password')?.value != null)
+    {
+      formData.Username = this.LoginForm.get('userName')?.value,
+      formData.Password = this.LoginForm.get('password')?.value;
+    }
+    else
+    {
+      //TODO Return error message
+      return
+    }
     this.userService.Login(formData).subscribe((result: any) => {
       console.log(result);
-      if (result.statusCode == 201) {
+      debugger;
+      if (result.statusCode == 200) {
+        this.router.navigate(['/home']);
         localStorage.setItem('Token', JSON.stringify(result));
         console.log(result);
       }

@@ -44,7 +44,7 @@ namespace WebApi.Controllers
                     var passwordCheckResult = _userRepository.CheckUserPassword(foundUser.Username!, hashedPassword);
                     if (passwordCheckResult)
                     {                        //Successful Login
-                        return Ok(foundUser);
+                        return StatusCode(StatusCodes.Status200OK,foundUser);
                     }
                     else
                     {
