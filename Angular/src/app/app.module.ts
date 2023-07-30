@@ -115,8 +115,9 @@ import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/upd
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    MaterialModule,
+    MaterialModule
   ],
+  entryComponents: [UpdateUserModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

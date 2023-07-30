@@ -39,7 +39,7 @@
         <td>{{ user.email }}</td>
         <td>{{ user.userRole }}</td>
         <!--Update Button-->
-        <td><button mat-raised-button color="primary"><mat-icon class="card-icon" (click)="openUpdateUserModal()">edit</mat-icon><br></button></td>
+        <td><button mat-raised-button color="primary" (click)="openUpdateUserModal(user)"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
         <!--Delete Button-->
         <td><button mat-raised-button color="warn" (click)="openDeleteUserDialog(user)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
       </tr>

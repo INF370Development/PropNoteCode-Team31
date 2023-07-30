@@ -88,8 +88,17 @@ export class ViewUsersComponent {
   }
 
   //Update Modal
-  openUpdateUserModal(): void {
+  openUpdateUserModal(user: User): void {
     const dialogRef = this.dialog.open(UpdateUserModalComponent, {
+      data: user
+    });
+
+    dialogRef.componentInstance.userUpdated.subscribe((updatedUser: User) => {
+      const index = this.user.findIndex(u => u.id === updatedUser.id);
+      if (index !== -1) {
+        this.user[index] = updatedUser;
+        this.filtered = this.user.filter(u => u.email.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      }
     });
   }
 
