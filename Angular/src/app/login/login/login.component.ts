@@ -7,46 +7,42 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   //Declare variables
 
-
-
-  constructor(
-    private router: Router,
-    private userService: UserService
-  ) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   LoginForm = new FormGroup({
     userName: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
 
-  public Login()
-  {
+  public Login() {
     var formData: LoginCredentials = new LoginCredentials();
-    if(this.LoginForm.get('userName')?.value != null && this.LoginForm.get('password')?.value != null)
-    {
-      formData.Username = this.LoginForm.get('userName')?.value,
-      formData.Password = this.LoginForm.get('password')?.value;
-    }
-    else
-    {
+    if (
+      this.LoginForm.get('userName')?.value != null &&
+      this.LoginForm.get('password')?.value != null
+    ) {
+      (formData.Username = this.LoginForm.get('userName')?.value),
+        (formData.Password = this.LoginForm.get('password')?.value);
+    } else {
       //TODO Return error message
-      return
+      return;
     }
     this.userService.Login(formData).subscribe((result: any) => {
       console.log(result);
       debugger;
       if (result.isSuccess == true) {
-        this.router.navigate(['/home']);
-        localStorage.setItem('Token', "AbCdEf123456");
+        localStorage.setItem('userAccessType', 'Admin');
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload();
+        });
         console.log(result);
       }
     });
     var user = new LoginCredentials();
-    this.userService.Login(user)
+    this.userService.Login(user);
   }
 }
