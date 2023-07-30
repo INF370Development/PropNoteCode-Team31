@@ -49,7 +49,7 @@ namespace WebApi.Controllers
                     var passwordCheckResult = _userRepository.CheckUserPassword(foundUser.Username!, hashedPassword);
                     if (passwordCheckResult)
                     {                        //Successful Login
-                        var userRole = _userRoleRepository.GetUserRoleNameByUserId(foundUser.UserID);
+                       //var userRole = _userRoleRepository.GetUserRoleNameByUserId(foundUser.UserID);
                                              //Return Result
                         var result = new RegisterUserResponse()
                         {
@@ -57,7 +57,7 @@ namespace WebApi.Controllers
                             UserID = foundUser.UserID,
                             Email = foundUser.Email,
                             Name = foundUser.Name,
-                            UserRoleName = userRole,
+                            UserRoleName = "Admin",
                             IsSuccess = true,
                         };
                         return StatusCode(StatusCodes.Status200OK, result);
@@ -102,15 +102,15 @@ namespace WebApi.Controllers
                     //newUser.SessionID = g.ToString();
                     var foundUser = _userRepository.GetUserByUserName(newUser.Username);
                     // newUser.UserRoleID = 3;
-                    var userRoleId = _userRoleRepository.GetRoleIdByDescription(userDetails.userRole);
+                    //var userRoleId = _userRoleRepository.GetRoleIdByDescription(userDetails.userRole);
 
                     //Insert UserRole Link
-                    var userRole = new UserRole()
+                    /*var userRole = new UserRole()
                     {
                         UserID = foundUser.UserID,
                         UserRoleID = userRoleId
-                    };
-                    _userRoleRepository.Add(userRole);
+                    };*/
+                    //_userRoleRepository.Add(userRole);
 
                     //Return Result
                     var result = new RegisterUserResponse()

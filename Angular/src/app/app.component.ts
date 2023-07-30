@@ -22,9 +22,18 @@ export class AppComponent  implements OnInit{
   title = 'PropNote';
 
   openSidebar: boolean = true;
+  LoggedIn: boolean = false;
 
   ngOnInit() {
+if(localStorage.getItem('Token') == null)
+{
 
+}
+else
+{
+  this.LoggedIn = true;
+  this.router.navigate(['/home']);
+}
   }
 
   showSubmenu(itemEl: HTMLElement) {
@@ -42,5 +51,5 @@ export class AppComponent  implements OnInit{
   toggleSidenav() {
     this.sidenav.toggle();
   }
-  
+
 }

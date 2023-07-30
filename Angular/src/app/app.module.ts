@@ -54,6 +54,7 @@ import { AddTenantModalComponent } from './properties/properties/viewProperties/
 import { AddImageModalComponent } from './properties/properties/viewProperties/view-properties/addImageModal/add-image-modal/add-image-modal.component';
 import { DeleteImageDialogComponent } from './properties/properties/viewProperties/view-properties/deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SideNavComponent } from './NavBars/Side-Nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AddTenantModalComponent,
     AddImageModalComponent,
     DeleteImageDialogComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,

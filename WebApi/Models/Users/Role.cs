@@ -1,8 +1,11 @@
-﻿namespace WebApi.Models.Users
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApi.Models.Users
 {
     public class Role
     {
-        public int UserRoleID { get; set; }
+        [Key]
+        public int RoleID { get; set; }
 
         public string Name { get; set; }
     }

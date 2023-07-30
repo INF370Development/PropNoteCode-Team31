@@ -40,9 +40,9 @@ export class LoginComponent {
     this.userService.Login(formData).subscribe((result: any) => {
       console.log(result);
       debugger;
-      if (result.statusCode == 200) {
+      if (result.isSuccess == true) {
         this.router.navigate(['/home']);
-        localStorage.setItem('Token', JSON.stringify(result));
+        localStorage.setItem('Token', "AbCdEf123456");
         console.log(result);
       }
     });

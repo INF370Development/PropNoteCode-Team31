@@ -31,8 +31,8 @@ namespace WebApi.Repositories
         {
             try
             {
-                Role role = _appDbContext.Roles.Where(x => x.Name == roleName).FirstOrDefault()!;
-                return role.UserRoleID;
+                Role role = _appDbContext.Role.Where(x => x.Name == roleName).FirstOrDefault()!;
+                return role.RoleID;
             }
             catch
             {
@@ -43,10 +43,10 @@ namespace WebApi.Repositories
         {
             try
             {
-                UserRole userRole = _appDbContext.UserRoles.Where(x => x.UserID == UserId).FirstOrDefault()!;
+                UserRole userRole = _appDbContext.UserRole.Where(x => x.UserID == UserId).FirstOrDefault()!;
                 if (userRole != null)
                 {
-                    var UserRoleName = _appDbContext.Roles.Where(x => x.UserRoleID == userRole.UserRoleID).FirstOrDefault();
+                    var UserRoleName = _appDbContext.Role.Where(x => x.RoleID == userRole.UserRoleID).FirstOrDefault();
                     if (UserRoleName != null)
                     {
                         return UserRoleName.Name;
