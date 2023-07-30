@@ -69,6 +69,7 @@ import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/v
 import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
 import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
 import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
+import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 
 @NgModule({
   declarations: [
@@ -132,6 +133,7 @@ import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/
     DeleteEmployeeDialogComponent,
     UpdateEmployeeModalComponent,
     UpdateTenantModalComponent,
+    LoginFailedComponent,
   ],
   imports: [
     BrowserModule,

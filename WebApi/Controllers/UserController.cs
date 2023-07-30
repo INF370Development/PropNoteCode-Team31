@@ -41,7 +41,11 @@ namespace WebApi.Controllers
                 var foundUser = _userRepository.GetUserByUserName(userLoginDetails.Username!);
                 if (foundUser == null)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, "User Not Found");
+                    var result = new RegisterUserResponse()
+                    {
+                        IsSuccess = false,
+                    };
+                    return Ok(result);
                 }
                 else
                 {
@@ -64,13 +68,21 @@ namespace WebApi.Controllers
                     }
                     else
                     {
-                        return StatusCode(StatusCodes.Status401Unauthorized, "Incorrect Password");
+                        var result = new RegisterUserResponse()
+                        {
+                            IsSuccess = false,
+                        };
+                        return Ok(result);
                     }
                 }
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "System failed to login User.");
+                var result = new RegisterUserResponse()
+                {
+                    IsSuccess = false,
+                };
+                return Ok(result);
             }
         }
 
