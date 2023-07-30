@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+<<<<<<< Updated upstream
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+=======
+import { FormsModule } from '@angular/forms';
+>>>>>>> Stashed changes
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 
@@ -51,6 +55,7 @@ import { DeleteRecoveriesDialogComponent } from './properties/properties/viewPro
 import { AddRecoveriesModalComponent } from './properties/properties/viewProperties/view-properties/addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { AddInspectionModalComponent } from './properties/properties/viewProperties/view-properties/addInspectionModal/add-inspection-modal/add-inspection-modal.component';
 import { AddTenantModalComponent } from './properties/properties/viewProperties/view-properties/addTenantModal/add-tenant-modal/add-tenant-modal.component';
+<<<<<<< Updated upstream
 import { AddImageModalComponent } from './properties/properties/viewProperties/view-properties/addImageModal/add-image-modal/add-image-modal.component';
 import { DeleteImageDialogComponent } from './properties/properties/viewProperties/view-properties/deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -61,6 +66,9 @@ import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add
 import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { AddcontractorComponent } from './contractors/contractors/addcontractor/addcontractor.component';
+=======
+
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -109,12 +117,15 @@ import { AddcontractorComponent } from './contractors/contractors/addcontractor/
     AddRecoveriesModalComponent,
     AddInspectionModalComponent,
     AddTenantModalComponent,
+<<<<<<< Updated upstream
     AddImageModalComponent,
     DeleteImageDialogComponent,
     AddEmployeeComponent,
     BrokerModelComponent,
     BrokercreatemodelComponent,
     AddcontractorComponent,
+=======
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
@@ -122,6 +133,7 @@ import { AddcontractorComponent } from './contractors/contractors/addcontractor/
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
+<<<<<<< Updated upstream
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -129,6 +141,9 @@ import { AddcontractorComponent } from './contractors/contractors/addcontractor/
     ReactiveFormsModule,
   ],
   
+=======
+  ],
+>>>>>>> Stashed changes
   providers: [],
   bootstrap: [AppComponent]
 })
