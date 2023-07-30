@@ -119,7 +119,6 @@ import { UpdateUserRoleModalComponent } from './users/users/viewUserRoles/view-u
     FormsModule,
     MaterialModule
   ],
-  entryComponents: [UpdateUserModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
