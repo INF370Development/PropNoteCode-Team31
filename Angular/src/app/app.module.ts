@@ -133,7 +133,7 @@ import { LoginFailedComponent } from './login/login/login-failed/login-failed.co
     DeleteEmployeeDialogComponent,
     UpdateEmployeeModalComponent,
     UpdateTenantModalComponent,
-    LoginFailedComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -147,6 +147,7 @@ import { LoginFailedComponent } from './login/login/login-failed/login-failed.co
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
+    LoginFailedComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

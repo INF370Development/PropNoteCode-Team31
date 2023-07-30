@@ -53,8 +53,7 @@ export class LoginComponent {
     this.userService.Login(user);
   }
   openDialog(): void {
-    this.dialog.open(LoginFailedComponent, {
-      width: '500px',
-    });
+      this.dialog.open(LoginFailedComponent);
+    }
   }
-}
+
