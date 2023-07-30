@@ -39,7 +39,6 @@ export class LoginComponent {
         this.router.navigate(['/home']).then(() => {
           window.location.reload();
         });
-        console.log(result);
       }
     });
     var user = new LoginCredentials();

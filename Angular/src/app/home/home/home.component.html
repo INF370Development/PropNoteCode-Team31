@@ -85,7 +85,7 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-        <a mat-list-item [routerLink]="'/login'">
+        <a mat-list-item (click)="Logout()">
         <mat-card class="card">
             <mat-icon class="card-icon">logout</mat-icon> <br>
             <mat-card-content>Log out</mat-card-content>
