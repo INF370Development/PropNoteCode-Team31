@@ -1,0 +1,90 @@
+<div [hidden]="!isSnagVisible">
+  <nav>
+    <h1>Snag List Items</h1>
+  </nav>
+
+
+  <!--<input matInput (keyup)="applyFilter($event.target.value)" /> -->
+
+
+  <div class="container" >
+    
+<!--Search Bar-->
+<div class="search-container">
+  <input class="search-input" placeholder="Search Items">
+  <button class="search-button" mat-icon-button color="primary">
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+<div class="Add">
+  <button (click)="Add()" class="btn btn-outline-primary  x">Add Item</button><br>
+</div>
+  </div>
+<div>
+    <table class="wider">
+      <thead>
+        <tr>
+          <th >Item Description</th>
+          <th >Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of SnagListItems; let i = index">
+          <td >{{ item.snagListItemDescription }}</td><td>
+            <button  class="btn btn-outline-warning btn-lg" (click)="Edit(item.snagListItemId,item.snagListItemDescription)"><mat-icon>edit</mat-icon></button></td><td>
+            <button class="btn btn-outline-danger btn-lg" (click)="Delete(item.snagListItemId)"><mat-icon>delete</mat-icon></button></td> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Add -->
+<div [hidden]="!isAdd">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Item</h3>
+      </div>
+      <form >
+        <div><input #add placeholder="Enter Snag List Item"></div>
+        <button class="btn btn-outline-warning btn-lg" type="submit" (click)="AddSnagListItem(add.value)">Add Item</button>
+        <button class="btn btn-outline-danger btn-lg" (click)="CloseAdd()">Discard changes</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Edit -->
+<div [hidden]="!isEdit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Item</h3>
+      </div>
+      <form >
+        <div><input #edit [value]="description"></div>
+        <button class="btn btn-outline-warning btn-lg"type="submit" (click)="EditSnagListItem(edit.value)">Save</button>
+        <button class="btn btn-outline-danger btn-lg" (click)="CloseEdit()">Discard changes</button>
+      </form>
+  </div>
+</div>
+</div>
+ <!-- Delete -->
+<div [hidden]="!isDelete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div >
+        <h3 >Delete Item</h3>
+      </div>
+      <!-- Modal body -->
+      <form >
+        Are you sure you want to delete this item?
+        <div >
+          <button class="btn btn-outline-danger btn-lg" type="submit" (click)="DeleteSnagListItem()">Yes</button>
+          <button class="btn btn-outline-warning btn-lg" (click)="CloseDelete()">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+

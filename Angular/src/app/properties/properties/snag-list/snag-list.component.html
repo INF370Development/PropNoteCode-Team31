@@ -1,0 +1,154 @@
+
+<body>
+  
+  <div [hidden]="!isSnagVisible">
+  <nav>
+    <h1>Snag List</h1>
+
+  </nav>
+
+  <div class="search-container">
+    <input class="search-input" placeholder="Search Items">
+    <button class="search-button" mat-icon-button color="primary">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+  <div class="Add">
+    <button (click)="AddList()" class="btn btn-outline-primary  x">Create Snag List</button>
+  </div><br><br>
+  <table class="wider" >
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Property</th>
+        <th>Date Created</th>
+        <th>Date Modified</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of SnagLists">
+        <td>{{ list.snagListDescription }}</td>
+          <td>{{ list.propertyId }}</td>
+            <td>{{ list.created|date }}</td>
+              <td>{{ list.modified |date}}</td>
+              <td>
+          <button (click)="Edit(list.snagListId)"><mat-icon>edit</mat-icon></button>
+          <button (click)="Delete(list.snagListId)"><mat-icon>delete</mat-icon></button></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Add -->
+<div [hidden]="!isAdd">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Create Snag List</h3>
+        </div>
+
+ 
+  
+        <div>SnagList Description</div>
+        <input type="text" #adss placeholder="Snag List Description"> <br><br>
+    <div >Select Property Which the Snag List is for:<br>
+   
+        <select #seledit (change)="updatePropId(seledit.value)">
+            <option value="">Select a Property</option>
+            <option *ngFor="let prop of Properties" value="prop.propertyId">{{prop.Description}}</option>
+          </select></div><br>
+    <form >
+    <table >
+      <thead>
+        <tr> 
+          <th>Add Items to the Snag List</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of SnagListItems; let i = index">
+            <td><input type="checkbox" (change)="handleCheckboxChange($event,item.snagListItemId,SnagListId)">
+            {{ item.snagListItemDescription }}</td>
+        </tr>
+      </tbody>
+    </table><br>
+      
+    <button class="btn btn-outline-warning btn-lg" type="submit" (click)="AddSnagList(adss)">Create Snag-List</button>
+
+    <button class="btn btn-outline-danger btn-lg" (click)="CloseAddList()">Discard SnagList</button>
+  </form>
+</div>
+</div>
+</div> 
+
+  <!-- Edit -->
+  <div [hidden]="!isEdit">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit Snag List</h3>
+        </div>
+
+        <div>SnagList Description</div>
+        <input type="text" #Des placeholder="Snag List Description"> <br><br>
+    <div >Edit Property Which the Snag List is for:<br>
+   
+        <select #seledit (change)="updatePropId(seledit.value)">
+            <option value="">Select a Property</option>
+            <option *ngFor="let prop of Properties" value="prop.propertyId">{{prop.Description}}</option>
+          </select></div><br>
+    <form >
+    <table >
+      <thead>
+        <tr> 
+          <th>Edit Items of the Snag List</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of SnagListItemsEdit; let i = index">
+            <td><input type="checkbox" [checked]="true" (change)="handleCheckboxChange($event,item.snagListItemId,SnagListId)">
+            {{ item.snagListItemDescription }}</td>
+        </tr>
+      </tbody>
+    </table><br>
+    <table >
+      <thead>
+        <tr> 
+          <th>Add Items to the Snag List</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of SnagListItems; let i = index">
+            <td><input type="checkbox" (change)="handleCheckboxChange($event,item.snagListItemId,SnagListId)">
+            {{ item.snagListItemDescription }}</td>
+        </tr>
+      </tbody>
+    </table><br>
+    <button class="btn btn-outline-warning btn-lg" type="submit" (click)="EditSnagList(Des.value)">Save</button>
+    <button class="btn btn-outline-danger btn-lg" (click)="CloseEdit()">Discard Changes</button>
+</form>   
+</div>
+</div>
+</div> 
+
+<!-- Delete -->
+<div [hidden]="!isDelete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div >
+        <h3 >Delete Item</h3>
+      </div>
+      <!-- Modal body -->
+      <form >
+        Are you sure you want to delete this item?
+        <div >
+          <button type="submit" class="btn btn-outline-danger btn-lg"  (click)="deleteSnagList(SnagListId)">Yes</button>
+          <button  class="btn btn-outline-warning btn-lg" (click)="CloseDelete()">No</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
