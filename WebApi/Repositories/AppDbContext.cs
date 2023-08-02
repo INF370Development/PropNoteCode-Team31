@@ -27,8 +27,12 @@ namespace WebApi.Repositories
         public DbSet<Deposit> Deposit { get; set; }
         public DbSet<Calendar> Notification { get; set; }
 
+        public DbSet<Role> Role { get; set; }
+
+        public DbSet<UserRole> UserRole { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {           
             base.OnModelCreating(modelBuilder);
         }
     }

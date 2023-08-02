@@ -29,7 +29,12 @@ builder.Services.AddScoped<ILeaseRepository, LeaseRepository>();
 builder.Services.AddScoped<IBrokerRepository, BrokerRespository>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<IDataRepository, DataRepository>();
+
 builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+
 
 var app = builder.Build();
 
