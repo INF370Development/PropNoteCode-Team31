@@ -27,7 +27,6 @@ import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerRep
 import { CalendarComponent } from './calendar/calendar/calendar.component';
 import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
-import { SettingsComponent } from './settings/settings/settings.component';
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { AssignMaintenanceComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assign-maintenance.component';
@@ -97,7 +96,6 @@ import { LoginFailedComponent } from './login/login/login-failed/login-failed.co
     CalendarComponent,
     ViewCalendarComponent,
     GenerateCalendarReportComponent,
-    SettingsComponent,
     MaintenanceComponent,
     ProfileComponent,
     AssignMaintenanceComponent,
