@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,45 +8,42 @@ import { MatButtonModule } from '@angular/material/button';
 import { CreateUModalComponent } from '../../createUModal/create-umodal/create-umodal.component';
 import { DeleteUserDialogComponent } from './deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { UpdateUserModalComponent } from './updateUserModal/update-user-modal/update-user-modal.component';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 NgModule({
-  imports: [
-    MatDialogModule,
-    FormsModule, 
-    MatInputModule, 
-    MatButtonModule],
-  }) 
+  imports: [MatDialogModule, FormsModule, MatInputModule, MatButtonModule],
+});
 
-  interface User {
-    id: number;
-    email: string;
-    userRole: string;
-  }
+interface User {
+  id: number;
+  email: string;
+  userRole: string;
+}
 
-  export interface DialogData {
-    id : number;
-    email: string;
-    userRole: string;
-  } 
+export interface DialogData {
+  id: number;
+  email: string;
+  userRole: string;
+}
 
 @Component({
   selector: 'app-view-users',
   templateUrl: './view-users.component.html',
-  styleUrls: ['./view-users.component.scss']
+  styleUrls: ['./view-users.component.scss'],
 })
-
 export class ViewUsersComponent {
-  
-  user: User [] = [
-    {id: 1, email: 'pietvz@construction.ac.za', userRole: 'Tenant'},
-    {id: 2, email: 'eric@propco.co.za', userRole: 'Admin'},
-    {id: 3, email: 'brendan@edimension.co.za', userRole: 'Employee'},
-    {id: 4, email: 'fanta@tastic.ac.za', userRole: 'Contractor'}
+  user: User[] = [
+    { id: 1, email: 'pietvz@construction.ac.za', userRole: 'Tenant' },
+    { id: 2, email: 'eric@propco.co.za', userRole: 'Admin' },
+    { id: 3, email: 'brendan@edimension.co.za', userRole: 'Employee' },
+    { id: 4, email: 'fanta@tastic.ac.za', userRole: 'Contractor' },
   ];
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
     this.dialog.open(ViewUsersComponent, {
       width: '250px',
       enterAnimationDuration,
@@ -56,15 +53,14 @@ export class ViewUsersComponent {
 
   //Create Modal
   openModal(): void {
-    const dialogRef = this.dialog.open(CreateUModalComponent, {
-    });
+    const dialogRef = this.dialog.open(CreateUModalComponent, {});
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const newUser: User = {
           id: this.user.length + 1,
           email: result.email,
-          userRole: result.userRole
+          userRole: result.userRole,
         };
         this.user.push(newUser);
         this.search();
@@ -76,13 +72,13 @@ export class ViewUsersComponent {
   openDeleteUserDialog(user: User): void {
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
       width: '300px',
-      data: user
+      data: user,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === 'delete') {
-        this.user = this.user.filter(u => u.id !== user.id);
-        this.filtered = this.filtered.filter(u => u.id !== user.id);
+        this.user = this.user.filter((u) => u.id !== user.id);
+        this.filtered = this.filtered.filter((u) => u.id !== user.id);
       }
     });
   }
@@ -90,31 +86,33 @@ export class ViewUsersComponent {
   //Update Modal
   openUpdateUserModal(user: User): void {
     const dialogRef = this.dialog.open(UpdateUserModalComponent, {
-      data: user
+      data: user,
     });
 
     dialogRef.componentInstance.userUpdated.subscribe((updatedUser: User) => {
-      const index = this.user.findIndex(u => u.id === updatedUser.id);
+      const index = this.user.findIndex((u) => u.id === updatedUser.id);
       if (index !== -1) {
         this.user[index] = updatedUser;
-        this.filtered = this.user.filter(u => u.email.toLowerCase().includes(this.searchTerm.toLowerCase()));
+        this.filtered = this.user.filter((u) =>
+          u.email.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
       }
     });
   }
 
   //Search
-    searchTerm: string = '';
-    filtered: User [] = [];
-    
-    constructor(public dialog: MatDialog) {
-      this.filtered = this.user;
-    }
-  
-    search() {
-      this.filtered = this.user.filter(u => {
-        const searchLower = this.searchTerm.toLowerCase();
-        const emailLower = u.email.toLowerCase();
-        return emailLower.includes(searchLower);
-      });
-    }
+  searchTerm: string = '';
+  filtered: User[] = [];
+
+  constructor(public dialog: MatDialog) {
+    this.filtered = this.user;
+  }
+
+  search() {
+    this.filtered = this.user.filter((u) => {
+      const searchLower = this.searchTerm.toLowerCase();
+      const emailLower = u.email.toLowerCase();
+      return emailLower.includes(searchLower);
+    });
+  }
 }

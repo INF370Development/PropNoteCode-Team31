@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login/login.component';
 import { PropertiesComponent } from './properties/properties/properties.component';
 import { ViewPropertiesComponent } from './properties/properties/viewProperties/view-properties/view-properties.component';
 import { GeneratePropertiesReportComponent } from './properties/properties/generatePropertiesReport/generate-properties-report/generate-properties-report.component';
+import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
 //Tenants
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
@@ -49,55 +50,59 @@ import { HelpproComponent } from './profile/profile/help/helppro/helppro.compone
 
 const routes: Routes = [
   //Home
-  {path: 'home', component:HomeComponent},
+  { path: 'home', component: HomeComponent },
   //Users
-  {path: 'users', component:UsersComponent},
-  {path: 'viewUsers', component:ViewUsersComponent},
-  {path: 'viewUserRoles', component:ViewUserRolesComponent},
+  { path: 'users', component: UsersComponent },
+  { path: 'viewUsers', component: ViewUsersComponent },
+  { path: 'viewUserRoles', component: ViewUserRolesComponent },
   //Login
-  {path: 'login', component:LoginComponent},
-  {path: '', component:LoginComponent},
+  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   //Properties
-  {path: 'properties', component:PropertiesComponent},
-  {path: 'viewProperties', component:ViewPropertiesComponent},
-  {path: 'generateProperties', component:GeneratePropertiesReportComponent},
+  { path: 'properties', component: PropertiesComponent },
+  { path: 'viewProperties', component: ViewPropertiesComponent },
+  { path: 'generateProperties', component: GeneratePropertiesReportComponent },
+  { path: 'viewAllProperties', component: ViewAllPropertiesComponent },
   //Tenants
-  {path: 'tenants', component:TenantsComponent},
-  {path: 'viewTenants', component:ViewTenantsComponent},
-  {path: 'generateTenants', component:GenerateTenantsReportComponent},
+  { path: 'tenants', component: TenantsComponent },
+  { path: 'viewTenants', component: ViewTenantsComponent },
+  { path: 'generateTenants', component: GenerateTenantsReportComponent },
   //Contractors
-  {path: 'contractors', component:ContractorsComponent},
-  {path: 'viewContractors', component:ViewContractorsComponent},
-  {path: 'generateContractors', component:GenerateContractReportComponent},
+  { path: 'contractors', component: ContractorsComponent },
+  { path: 'viewContractors', component: ViewContractorsComponent },
+  { path: 'generateContractors', component: GenerateContractReportComponent },
   //Employee
-  {path: 'employee', component:EmployeeComponent},
-  {path: 'viewEmployees', component:ViewEmployeeComponent},
+  { path: 'employee', component: EmployeeComponent },
+  { path: 'viewEmployees', component: ViewEmployeeComponent },
   //Broker
-  {path: 'broker', component:BrokerComponent},
-  {path: 'viewBroker', component:ViewBrokerComponent},
-  {path: 'generateBroker', component:GenerateBrokerReportComponent},
+  { path: 'broker', component: BrokerComponent },
+  { path: 'viewBroker', component: ViewBrokerComponent },
+  { path: 'generateBroker', component: GenerateBrokerReportComponent },
   //Calendar
-  {path: 'calendar', component:CalendarComponent},
-  {path: 'viewCalendar', component:ViewCalendarComponent},
-  {path: 'generateCalendar', component:GenerateCalendarReportComponent},
+  { path: 'calendar', component: CalendarComponent },
+  { path: 'viewCalendar', component: ViewCalendarComponent },
+  { path: 'generateCalendar', component: GenerateCalendarReportComponent },
   //Maintenace
-  {path: 'maintenance', component:MaintenanceComponent},
-  {path: 'assignMaintenance', component:AssignMaintenanceComponent},
-  {path: 'payment', component:PaymentComponent},
-  {path: 'maintenanceNote', component:MaintenanceNoteComponent},
-  {path: 'generateMaintenance', component:GenerateMaintenanceReportComponent},
+  { path: 'maintenance', component: MaintenanceComponent },
+  { path: 'assignMaintenance', component: AssignMaintenanceComponent },
+  { path: 'payment', component: PaymentComponent },
+  { path: 'maintenanceNote', component: MaintenanceNoteComponent },
+  {
+    path: 'generateMaintenance',
+    component: GenerateMaintenanceReportComponent,
+  },
   //Settings
-  {path: 'settings', component:SettingsComponent},
+  { path: 'settings', component: SettingsComponent },
   //Profile
-  {path: 'profile', component:ProfileComponent},
-  {path: 'viewProfile', component:ViewProfileComponent},
-  {path: 'password', component:ChangePasswordComponent},
-  {path: 'notifications', component:NotificationsComponent},
-  {path: 'help', component:HelpproComponent},
+  { path: 'profile', component: ProfileComponent },
+  { path: 'viewProfile', component: ViewProfileComponent },
+  { path: 'password', component: ChangePasswordComponent },
+  { path: 'notifications', component: NotificationsComponent },
+  { path: 'help', component: HelpproComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
