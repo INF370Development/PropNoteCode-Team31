@@ -53,14 +53,11 @@ namespace WebApi.Repositories
             return item;
         }
 
-        public async Task<int> CreateSnagList(int Prop)
+        public async Task<SnagList> CreateSnagList(SnagList x)
         {
-            SnagList x = new SnagList();
-            int snag = x.SnagListId;
-            x.PropertyId = Prop;
             _appDbContext.SnagList.Add(x);
             await _appDbContext.SaveChangesAsync();
-            return snag;
+            return x;
         }
         public async Task<SnagList[]> GetAllSnagListsAsync()
         {

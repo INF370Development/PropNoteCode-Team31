@@ -13,7 +13,7 @@ namespace WebApi.Interfaces
         Task<SnagListItem> EditSnagListItem(int SnagListItemId, string item);
         Task<SnagListItem> DeleteSnagListItemAsync(SnagListItem item);
 
-        Task<int> CreateSnagList( int Prop);
+        Task<SnagList> CreateSnagList(SnagList Prop);
         Task<SnagList[]> GetAllSnagListsAsync();
         Task<SnagList> GetSnagListByID(int SnagListID);
         Task<SnagList> EditSnagList(int SnagListId, int PropertyId);

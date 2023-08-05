@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Interfaces;
 using WebApi.Models.Admin;
+using WebApi.Repositories;
 using WebApi.ViewModels;
 
 namespace WebApi.Controllers
@@ -51,15 +52,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("AddSnagList")]
-        public async Task<IActionResult> AddSnagList(SnagListViewModel snagListViewModel)
+        public async Task<IActionResult> AddSnagList( SnagListViewModel snagListViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid input data");
 
-            var snagList = new SnagList
+            SnagList snagList = new SnagList
             {
                 PropertyId = snagListViewModel.PropertyId,
-                S
+                SnagListDescription=snagListViewModel.SnagListDescription,
+                Created=DateTime.Now,
+                Modified=DateTime.Now
             };
 
             try
@@ -74,22 +77,32 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("EditSnagList/{SnagListId}")]
-        public async Task<IActionResult> EditSnagList(int SnagListId, [FromBody] SnagListViewModel snagListViewModel)
+        public async Task<IActionResult> EditSnagList(int SnagListId, SnagListViewModel snagListViewModel)
         {
             try
             {
                 var existingSnagList = await _snagListRepository.GetSnagListByID(SnagListId);
-                if (existingSnagList == null)
-                    return NotFound("The SnagList does not exist");
+                if (existingSnagList == null) return NotFound("The SnagList does not exist");
 
-                existingSnagList.PropertyId = snagListViewModel.PropertyId;
-                await _snagListRepository.EditSnagList(SnagListId, existingSnagList);
-                return Ok(existingSnagList);
+                if (snagListViewModel.SnagListDescription != "")
+                {
+                    existingSnagList.SnagListDescription = snagListViewModel.SnagListDescription;
+                }
+                if (snagListViewModel.PropertyId != 0)
+                {
+                    existingSnagList.PropertyId = snagListViewModel.PropertyId;
+                }
+                existingSnagList.Modified = DateTime.Now;
+                if (await _snagListRepository.SaveChangesAsync() == true)
+                {
+                    return Ok(existingSnagList);
+                }
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
+            return BadRequest("Your request is invalid");
         }
 
         [HttpDelete("DeleteSnagList/{SnagListId}")]
@@ -145,7 +158,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("AddSnagListItem")]
-        public async Task<IActionResult> AddSnagListItem([FromBody] SnagListItemViewModel snagListItemViewModel)
+        public async Task<IActionResult> AddSnagListItem(SnagListItemViewModel snagListItemViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid input data");
@@ -167,7 +180,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("EditSnagListItem/{SnagListItemId}")]
-        public async Task<IActionResult> EditSnagListItem(int SnagListItemId, [FromBody] SnagListItemViewModel snagListItemViewModel)
+        public async Task<IActionResult> EditSnagListItem(int SnagListItemId, SnagListItemViewModel snagListItemViewModel)
         {
             try
             {
@@ -176,7 +189,7 @@ namespace WebApi.Controllers
                     return NotFound($"The SnagListItem does not exist");
 
                 existingSnagListItem.SnagListItemDescription = snagListItemViewModel.SnagListItemDescription;
-                await _snagListRepository.EditSnagListItem(SnagListItemId, existingSnagListItem);
+                await _snagListRepository.EditSnagListItem(SnagListItemId, existingSnagListItem.SnagListItemDescription);
                 return Ok(existingSnagListItem);
             }
             catch (Exception)
