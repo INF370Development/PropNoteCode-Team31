@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using WebApi.Interfaces;
 using WebApi.Models.Admin;
 using WebApi.Models.Maintenance;
@@ -16,11 +17,11 @@ namespace WebApi.Controllers
             _maintenanceRepository = repository;
         }
 
-        [HttpGet]
-        [Route("GetAllPayments")]
+        // Payment Actions
+
+        [HttpGet("GetAllPayments")]
         public async Task<IActionResult> GetAllPayments()
         {
-
             try
             {
                 var results = await _maintenanceRepository.GetAllPaymentAsync();
@@ -31,15 +32,15 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
-        [HttpGet]
-        [Route("GetPayment/{PaymentId}")]
+        [HttpGet("GetPayment/{PaymentId}")]
         public async Task<IActionResult> GetPayment(int PaymentId)
         {
             try
             {
                 var result = await _maintenanceRepository.GetPaymentByID(PaymentId);
 
-                if (result == null) return NotFound("Payment does not exist");
+                if (result == null)
+                    return NotFound("Payment does not exist");
 
                 return Ok(result);
             }
@@ -48,18 +49,20 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpPost]
-        [Route("AddPayment")]
-        public async Task<IActionResult> AddPayment(int MaintenanceId,double amount)
+        [HttpPost("AddPayment")]
+        public async Task<IActionResult> AddPayment(PaymentViewModel paymentViewModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid input data");
+
+            var payment = new Payment
+            {
+                MaintenaceID = paymentViewModel.MaintenanceID,
+                Amount = paymentViewModel.Amount
+            };
 
             try
             {
-                var payment = new Payment
-                {
-                    MaintenaceID = MaintenanceId,
-                    Amount = amount
-                };
                 return Ok(await _maintenanceRepository.AddPayment(payment));
             }
             catch (Exception)
@@ -67,31 +70,36 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpPut]
-        [Route("EditPayment")]
-        public async Task<IActionResult> EditPayment(int paymentID, int Maintenance,double Amount)
+        [HttpPut("EditPayment")]
+        public async Task<IActionResult> EditPayment(int id,PaymentViewModel paymentViewModel)
         {
-
             try
             {
-                var existingPayment = await _maintenanceRepository.GetPaymentByID(paymentID);
-                if (existingPayment == null) return NotFound($"The payment does not exist");
-                return Ok(await _maintenanceRepository.EditPayment(paymentID, Maintenance,Amount));
+                var existingPayment = await _maintenanceRepository.GetPaymentByID(id);
+                if (existingPayment == null)
+                    return NotFound($"The payment does not exist");
 
+                if (paymentViewModel.MaintenanceID != 0)
+                { existingPayment.MaintenaceID = paymentViewModel.MaintenanceID; }
+                if (paymentViewModel.Amount != 0)
+                { existingPayment.Amount = paymentViewModel.Amount; }
+
+                return Ok(await _maintenanceRepository.SaveChangesAsync());
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpDelete]
-        [Route("DeletePayment")]
+        [HttpDelete("DeletePayment")]
         public async Task<IActionResult> DeletePayment(int paymentID)
         {
             try
             {
-                Payment existingPayment = (Payment)await _maintenanceRepository.GetPaymentByID(paymentID);
-                if (existingPayment == null) return NotFound($"The Payment does not exist");
+                var existingPayment = await _maintenanceRepository.GetPaymentByID(paymentID);
+                if (existingPayment == null)
+                    return NotFound($"The Payment does not exist");
+
                 return Ok(await _maintenanceRepository.DeletePaymentAsync(existingPayment));
             }
             catch (Exception)
@@ -100,9 +108,9 @@ namespace WebApi.Controllers
             }
         }
 
+        // MaintenanceTypes Actions
 
-        [HttpGet]
-        [Route("GetAllMaintenanceTypes")]
+        [HttpGet("GetAllMaintenanceTypes")]
         public async Task<IActionResult> GetAllMaintenanceTypes()
         {
             try
@@ -115,8 +123,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
-        [HttpGet]
-        [Route("GetMaintenanceType/{MaintenanceTypeId}")]
+        [HttpGet("GetMaintenanceType/{MaintenanceTypeId}")]
         public async Task<IActionResult> GetMaintenanceType(int MaintenanceTypeId)
         {
             try
@@ -132,16 +139,20 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpPost]
-        [Route("AddMaintenanceType")]
-        public async Task<IActionResult> AddMaintenanceType(string MaintenanceTypeName)
+
+        [HttpPost("AddMaintenanceType")]
+        public async Task<IActionResult> AddMaintenanceType(MaintenanceTypeViewModel maintenanceTypeViewModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid input data");
+
+            var maintenanceType = new MaintenanceType
+            {
+                MaintenaceTypeName = maintenanceTypeViewModel.MaintenaceTypeName
+            };
+
             try
             {
-                var maintenanceType = new MaintenanceType
-                {
-                    MaintenaceTypeName = MaintenanceTypeName
-                };
                 return Ok(await _maintenanceRepository.AddMaintenanceType(maintenanceType));
             }
             catch (Exception)
@@ -149,30 +160,31 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpPut]
-        [Route("EditMaintenanceType")]
-        public async Task<IActionResult> EditMaintenanceType(int MaintenanceTypeId, string MaintenanceTypeName)
+        [HttpPut("EditMaintenanceType")]
+        public async Task<IActionResult> EditMaintenanceType(int id,MaintenanceTypeViewModel maintenanceTypeViewModel)
         {
             try
             {
-                var existingMaintenanceType = await _maintenanceRepository.GetMaintenanceTypeByID(MaintenanceTypeId);
+                var existingMaintenanceType = await _maintenanceRepository.GetMaintenanceTypeByID(id);
                 if (existingMaintenanceType == null) return NotFound($"The MaintenanceType does not exist");
-                return Ok(await _maintenanceRepository.EditMaintenanceType(MaintenanceTypeId, MaintenanceTypeName));
+                if (maintenanceTypeViewModel.MaintenaceTypeName != "")
+                { existingMaintenanceType.MaintenaceTypeName = maintenanceTypeViewModel.MaintenaceTypeName; }
 
+                return Ok(await _maintenanceRepository.SaveChangesAsync());
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpDelete]
-        [Route("DeleteMaintenanceType")]
+        [HttpDelete("DeleteMaintenanceType")]
         public async Task<IActionResult> DeleteMaintenanceType(int MaintenanceTypeId)
         {
             try
             {
-                MaintenanceType existingMaintenanceType = await _maintenanceRepository.GetMaintenanceTypeByID(MaintenanceTypeId);
+                var existingMaintenanceType = await _maintenanceRepository.GetMaintenanceTypeByID(MaintenanceTypeId);
                 if (existingMaintenanceType == null) return NotFound($"The MaintenanceType does not exist");
+
                 return Ok(await _maintenanceRepository.DeleteMaintenanceTypeAsync(existingMaintenanceType));
             }
             catch (Exception)
@@ -181,9 +193,9 @@ namespace WebApi.Controllers
             }
         }
 
+        //MaintenanceStatus Actions
 
-        [HttpGet]
-        [Route("GetAllMaintenanceStatuses")]
+        [HttpGet("GetAllMaintenanceStatuses")]
         public async Task<IActionResult> GetAllMaintenanceStatuses()
         {
             try
@@ -196,8 +208,8 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
-        [HttpGet]
-        [Route("GetMaintenanceStatus/{MaintenanceStatusId}")]
+
+        [HttpGet("GetMaintenanceStatus/{MaintenanceStatusId}")]
         public async Task<IActionResult> GetMaintenanceStatus(int MaintenanceStatusId)
         {
             try
@@ -213,16 +225,20 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpPost]
-        [Route("AddMaintenanceStatus")]
-        public async Task<IActionResult> AddMaintenanceStatus(string MaintenanceStatusName)
+
+        [HttpPost("AddMaintenanceStatus")]
+        public async Task<IActionResult> AddMaintenanceStatus( MaintenanceStatusViewModel maintenanceStatusViewModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid input data");
+
+            var maintenanceStatus = new MaintenanceStatus
+            {
+                MaintenaceStatusName = maintenanceStatusViewModel.MaintenaceStatusName
+            };
+
             try
             {
-                var maintenanceStatus = new MaintenanceStatus
-                {
-                    MaintenaceStatusName = MaintenanceStatusName
-                };
                 return Ok(await _maintenanceRepository.AddMaintenanceStatus(maintenanceStatus));
             }
             catch (Exception)
@@ -230,30 +246,33 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpPut]
-        [Route("EditMaintenanceStatus")]
-        public async Task<IActionResult> EditMaintenanceStatus(int MaintenanceStatusId, string MaintenanceStatusName)
+
+        [HttpPut("EditMaintenanceStatus")]
+        public async Task<IActionResult> EditMaintenanceStatus(int id,MaintenanceStatusViewModel maintenanceStatusViewModel)
         {
             try
             {
-                var existingMaintenanceStatus = await _maintenanceRepository.GetMaintenanceStatusByID(MaintenanceStatusId);
+                var existingMaintenanceStatus = await _maintenanceRepository.GetMaintenanceStatusByID(id);
                 if (existingMaintenanceStatus == null) return NotFound($"The MaintenanceStatus does not exist");
-                return Ok(await _maintenanceRepository.EditMaintenanceStatus(MaintenanceStatusId, MaintenanceStatusName));
+                if (maintenanceStatusViewModel.MaintenaceStatusName != "")
+                { existingMaintenanceStatus.MaintenaceStatusName = maintenanceStatusViewModel.MaintenaceStatusName; }
 
+                return Ok(await _maintenanceRepository.SaveChangesAsync());
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpDelete]
-        [Route("DeleteMaintenanceStatus")]
+
+        [HttpDelete("DeleteMaintenanceStatus")]
         public async Task<IActionResult> DeleteMaintenanceStatus(int MaintenanceStatusId)
         {
             try
             {
-                MaintenanceStatus existingMaintenanceStatus = await _maintenanceRepository.GetMaintenanceStatusByID(MaintenanceStatusId);
+                var existingMaintenanceStatus = await _maintenanceRepository.GetMaintenanceStatusByID(MaintenanceStatusId);
                 if (existingMaintenanceStatus == null) return NotFound($"The MaintenanceStatus does not exist");
+
                 return Ok(await _maintenanceRepository.DeleteMaintenanceStatusAsync(existingMaintenanceStatus));
             }
             catch (Exception)
@@ -262,6 +281,7 @@ namespace WebApi.Controllers
             }
         }
 
+        //MaintenancePropertyLines Actions
 
         [HttpGet]
         [Route("GetAllMaintenancePropertyLines")]

@@ -215,5 +215,73 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
+        // SnagListItem Actions
+
+        [HttpGet("GetAllSnagListItemLine")]
+        public async Task<IActionResult> GetAllSnagListItemLineAsync(int SnagListId)
+        {
+            try
+            {
+                var results = await _snagListRepository.GetAllSnagListItemLineAsync(SnagListId);
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpGet("GetSnagListItemLine/{SnagList},{item}")]
+        public async Task<IActionResult> GetSnagListItemLineById(int SnagList, int item)
+        {
+            try
+            {
+                var result = await _snagListRepository.GetSnagListItemLineById(SnagList,item);
+
+                if (result == null)
+                    return NotFound("SnagListItem does not exist");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+
+        [HttpPost("AddItem")]
+        public async Task<IActionResult> AddItem(int snag, int list)
+        {
+
+            try
+            {
+                SnagListItemLine snagListItem= await _snagListRepository.AddItem( snag, list);
+                return Ok(snagListItem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+        [HttpDelete("DeleteSnagListItemLine/{SnagList},{item}")]
+        public async Task<IActionResult> DeleteSnagListItemLineAsync(int SnagList, int item)
+        {
+            try
+            {
+                var existingSnagListItem = await _snagListRepository.GetSnagListItemLineById( SnagList, item);
+                if (existingSnagListItem == null)
+                    return NotFound($"The SnagListItem does not exist");
+
+                await _snagListRepository.DeleteSnagListItemLineAsync(existingSnagListItem);
+                return Ok(existingSnagListItem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
     }
 }

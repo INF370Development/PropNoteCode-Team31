@@ -4,7 +4,7 @@ namespace WebApi.Models.Maintenance
 {
     public class PaymentViewModel
     {
-        public int MaintenaceID { get; set; }
+        public int MaintenanceID { get; set; }
         public double Amount { get; set; }
 
     }
