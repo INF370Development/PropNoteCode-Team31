@@ -34,12 +34,12 @@ namespace WebApi.Repositories
             _appDbContext.ContractorTypes.Add(item);
             await _appDbContext.SaveChangesAsync();
         }
-        public async Task<ContractorType> EditContractorType(int ContractorTypeID, string ContractorTypeName) 
+        public async Task<ContractorType> EditContractorType(int ContractorTypeID, ContractorTypeViewModel ContractorTypeName) 
         {
             ContractorType x = (ContractorType)await GetContractorTypeByID(ContractorTypeID);
             if (x != null)
             {
-                x.ContractorTypeName = ContractorTypeName;
+                x.ContractorTypeName = ContractorTypeName.ContractorTypeName;
                 await _appDbContext.SaveChangesAsync();
             }
             return x;

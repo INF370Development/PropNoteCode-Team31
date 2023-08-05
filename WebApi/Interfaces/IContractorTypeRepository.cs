@@ -10,7 +10,7 @@ namespace WebApi.Interfaces
         Task AddContractorType(ContractorType item);
         Task<ContractorType[]> GetAllContractorTypeAsync();
         Task<ContractorType> GetContractorTypeByID(int SnagListItemID);
-        Task<ContractorType> EditContractorType(int ContractorTypeID, string ContractorTypeName);
+        Task<ContractorType> EditContractorType(int ContractorTypeID, ContractorTypeViewModel ContractorTypeName);
         Task<ContractorType> DeleteContractorTypeAsync(ContractorType item);
 
     }
