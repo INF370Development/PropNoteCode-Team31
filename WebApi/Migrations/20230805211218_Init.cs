@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class ii : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -176,7 +176,10 @@ namespace WebApi.Migrations
                 {
                     SnagListId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PropertyId = table.Column<int>(type: "int", nullable: false)
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    SnagListDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

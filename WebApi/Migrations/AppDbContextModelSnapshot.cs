@@ -84,8 +84,18 @@ namespace WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SnagListId"));
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SnagListDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SnagListId");
 
