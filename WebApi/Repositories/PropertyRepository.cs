@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Interfaces;
-using WebApi.Models;
 using WebApi.Models.Property;
+using WebApi.Models;
 
 namespace WebApi.Repositories
 {
@@ -27,7 +27,7 @@ namespace WebApi.Repositories
         public async Task<Property[]> GetAllPropertiesAsync()
         {
             // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
-            IQueryable<Property> query = (IQueryable<Property>)_appDbContext.Properties;
+            IQueryable<Property> query = (IQueryable<Property>)_appDbContext.Property.Include(x => x.Broker);
             return await query.ToArrayAsync();
         }
 
@@ -36,6 +36,15 @@ namespace WebApi.Repositories
         {
             _appDbContext.Add(property);
             await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task EditProperty(int propertyID, Property property) { }
+
+        public async Task DeleteProperty(Property property) { }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _appDbContext.Remove(entity);
         }
     }
 }

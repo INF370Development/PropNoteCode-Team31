@@ -8,7 +8,7 @@ namespace WebApi.Interfaces
 
         void Add<T>(T entity) where T : class;
 
-        Task<Models.Tenant[]> GetAllTenantsAsync();
+        Task<Tenant[]> GetAllTenantsAsync();
 
 
 
