@@ -1,5 +1,12 @@
 USE [master]
 GO
+-- Check if the database "PropNote" exists
+IF DB_ID('PropNote') IS NOT NULL
+BEGIN
+    -- Drop the database if it exists
+    ALTER DATABASE PropNote SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE PropNote;
+END
 /****** Object:  Database [PropNote]    Script Date: 2023/07/27 11:38:26 ******/
 CREATE DATABASE [PropNote]
 GO
@@ -72,23 +79,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[__EFMigrationsHistory](
-	[MigrationId] [nvarchar](150) NOT NULL,
-	[ProductVersion] [nvarchar](32) NOT NULL,
- CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
-(
-	[MigrationId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[ACCESS]    Script Date: 2023/07/27 11:38:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[ACCESS](
 	[AccessID] [int] IDENTITY(1,1) NOT NULL,
-	[AccessName] [varchar](32) NOT NULL,
+	[AccessName] [varchar](100) NOT NULL,
 	[AccessDescription] [varchar](50) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -104,8 +97,8 @@ GO
 CREATE TABLE [dbo].[ADMIN](
 	[AdminID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NULL,
-	[Name] [varchar](32) NOT NULL,
-	[PhoneNumber] [varchar](32) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+	[PhoneNumber] [varchar](100) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[AdminID] ASC
@@ -119,11 +112,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[BROKER](
 	[BrokerID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [varchar](32) NOT NULL,
-	[Surname] [varchar](32) NOT NULL,
-	[PhoneNumber] [varchar](32) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+	[Surname] [varchar](100) NOT NULL,
+	[PhoneNumber] [varchar](100) NOT NULL,
 	[OfficeAddress] [varchar](50) NOT NULL,
-	[LicenseNumber] [varchar](32) NOT NULL,
+	[LicenseNumber] [varchar](100) NOT NULL,
 	[CommissionRate] [varchar](10) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -140,8 +133,8 @@ CREATE TABLE [dbo].[CONTRACTOR](
 	[ContractorID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NULL,
 	[ContractorTypeID] [int] NULL,
-	[AreaOfBusiness] [varchar](32) NULL,
-	[Availability] [varchar](32) NULL,
+	[AreaOfBusiness] [varchar](100) NULL,
+	[Availability] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ContractorID] ASC
@@ -155,7 +148,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[CONTRACTORTYPE](
 	[ContractorTypeID] [int] IDENTITY(1,1) NOT NULL,
-	[ContractorTypeName] [varchar](32) NULL,
+	[ContractorTypeName] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ContractorTypeID] ASC
@@ -169,7 +162,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[CORRESPONDANCE](
 	[CorrespondanceID] [int] IDENTITY(1,1) NOT NULL,
-	[CorrespondanceName] [varchar](32) NULL,
+	[CorrespondanceName] [varchar](100) NULL,
 	[CorrespondanceDate] [date] NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -185,7 +178,7 @@ GO
 CREATE TABLE [dbo].[DEPOSIT](
 	[DepositID] [int] IDENTITY(1,1) NOT NULL,
 	[LeaseID] [int] NOT NULL,
-	[Amount] [varchar](32) NOT NULL,
+	[Amount] [varchar](100) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[DepositID] ASC
@@ -280,7 +273,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[MAINTENANCESTATUS](
 	[MaintenanceStatusID] [int] IDENTITY(1,1) NOT NULL,
-	[MaintenanceStatusName] [varchar](32) NULL,
+	[MaintenanceStatusName] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[MaintenanceStatusID] ASC
@@ -294,7 +287,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[MAINTENANCETYPE](
 	[MaintenanceTypeID] [int] IDENTITY(1,1) NOT NULL,
-	[MaintenanceTypeName] [varchar](32) NULL,
+	[MaintenanceTypeName] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[MaintenanceTypeID] ASC
@@ -341,7 +334,7 @@ CREATE TABLE [dbo].[MEETING](
 	[Description] [varchar](50) NOT NULL,
 	[Date] [date] NOT NULL,
 	[Time] [time](7) NOT NULL,
-	[MeetingType] [varchar](32) NOT NULL,
+	[MeetingType] [varchar](100) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[MeetingID] ASC
@@ -370,7 +363,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[MEMBER](
 	[MeetingMemberID] [int] IDENTITY(1,1) NOT NULL,
-	[MeetingMember] [varchar](32) NOT NULL,
+	[MeetingMember] [varchar](100) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[MeetingMemberID] ASC
@@ -421,7 +414,7 @@ CREATE TABLE [dbo].[PROBLEM](
 	[TenantID] [int] NOT NULL,
 	[CorrespondanceID] [int] NOT NULL,
 	[ProblemStatusID] [int] NOT NULL,
-	[ProblemSubject] [varchar](32) NULL,
+	[ProblemSubject] [varchar](100) NULL,
 	[ProblemDescription] [varchar](max) NULL,
 	[ProblemDate] [date] NULL,
 PRIMARY KEY CLUSTERED 
@@ -437,7 +430,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEMPHOTO](
 	[ProblemPhotoID] [int] IDENTITY(1,1) NOT NULL,
-	[ProblemPhotoTitle] [varchar](32) NULL,
+	[ProblemPhotoTitle] [varchar](100) NULL,
 	[ProblemPhotoURL] [varchar](max) NULL,
 	[ProblemPhotoDate] [date] NULL,
 PRIMARY KEY CLUSTERED 
@@ -453,7 +446,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEMSTATUS](
 	[ProblemStatusID] [int] NOT NULL,
-	[ProblemStatusName] [varchar](32) NULL,
+	[ProblemStatusName] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ProblemStatusID] ASC
@@ -467,7 +460,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEMVIDEO](
 	[ProblemVideoID] [int] NOT NULL,
-	[ProblemVideoTitle] [varchar](32) NULL,
+	[ProblemVideoTitle] [varchar](100) NULL,
 	[ProblemVideoURL] [varchar](max) NULL,
 	[ProblemVideoDate] [date] NULL,
 PRIMARY KEY CLUSTERED 
@@ -515,14 +508,14 @@ CREATE TABLE [dbo].[PROPERTY](
 	[PropertyID] [int] IDENTITY(1,1) NOT NULL,
 	[BrokerID] [int] NULL,
 	[PropertyStatusID] [int] NULL,
-	[Description] [varchar](32) NULL,
+	[Description] [varchar](100) NULL,
 	[BuildingNumber] [int] NULL,
-	[Street] [varchar](32) NULL,
-	[Suburb] [varchar](32) NULL,
+	[Street] [varchar](100) NULL,
+	[Suburb] [varchar](100) NULL,
 	[PurchaseAmount] [int] NULL,
 	[PurchaseYear] [date] NULL,
-	[Size] [varchar](32) NULL,
-	[Yard] [varchar](32) NULL,
+	[Size] [varchar](100) NULL,
+	[Yard] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyID] ASC
@@ -551,7 +544,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROPERTYSTATUS](
 	[PropertyStatusID] [int] IDENTITY(1,1) NOT NULL,
-	[PropertyStatusName] [varchar](32) NULL,
+	[PropertyStatusName] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyStatusID] ASC
@@ -565,7 +558,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[SNAGLISTITEM](
 	[SnagListItemID] [int] IDENTITY(1,1) NOT NULL,
-	[SnagListItemDescription] [varchar](32) NULL,
+	[SnagListItemDescription] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[SnagListItemID] ASC
@@ -580,7 +573,7 @@ GO
 CREATE TABLE [dbo].[SNAGLIST](
 	[SnagListID] [int] IDENTITY(1,1) NOT NULL,
 	[PropertyID] [int] NOT NULL,
-	[SnagListDescription] [varchar](32) NULL,
+	[SnagListDescription] [varchar](100) NULL,
 	[SnagListCreated] [date],
 	[SnagListModified] [date],
 PRIMARY KEY CLUSTERED 
@@ -625,7 +618,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ROLE](
 	[UserRoleID] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [varchar](32) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[UserRoleID] ASC
@@ -657,7 +650,7 @@ GO
 CREATE TABLE [dbo].[TENANT](
 	[TenantID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NULL,
-	[CompanyName] [varchar](32) NULL,
+	[CompanyName] [varchar](100) NULL,
 	[CompanyNumber] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -673,7 +666,7 @@ GO
 CREATE TABLE [dbo].[EMPLOYEE](
 	[EmployeeID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NULL,
-	[JobTitle] [varchar](32) NULL,
+	[JobTitle] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[EmployeeID] ASC
