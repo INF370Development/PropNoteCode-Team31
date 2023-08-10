@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Property } from '../shared/Property/Property';
-import { PropertyResponse } from '../shared/Property/PropertyResponse';
 import { map, Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -18,27 +17,23 @@ export class PropertiesService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getProperties(): Observable<PropertyResponse[]> {
+  getProperties(): Observable<Property[]> {
     return this._httpClient
-      .get<PropertyResponse[]>(
+      .get<Property[]>(
         `https://localhost:7251/api/Property/GetAllProperties`
       )
       .pipe(map((result) => result));
   }
 
-  getProperty(propertyID: number, property: Property) {
-    return this._httpClient
-      .post(
-        `https://localhost:7251/api/Property/GetPropertyByID/${propertyID}`,
-        property
-      )
-      .pipe(map((result) => result));
+  getProperty(propertyID: number) {
+     return this._httpClient
+      .get<Property>(`https://localhost:7251/api/Property/GetPropertyByID` + "/" + propertyID);
   }
 
   deleteProperty(propertyID: number) {
     return this._httpClient
       .delete(
-        `https://localhost:7251/api/Property/DeteleProperty/${propertyID}`
+        `https://localhost:7251/api/Property/DeleteProperty` + "/" + propertyID
       )
       .pipe(map((result) => result));
   }

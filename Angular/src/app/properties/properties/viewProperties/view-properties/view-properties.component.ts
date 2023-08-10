@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -16,6 +16,9 @@ import { AddTenantModalComponent } from './addTenantModal/add-tenant-modal/add-t
 import { AddImageModalComponent } from './addImageModal/add-image-modal/add-image-modal.component';
 import { DeleteImageDialogComponent } from './deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { PropertiesService } from 'src/app/services/properties.service';
+import { ActivatedRoute } from '@angular/router';
+import { Property } from 'src/app/shared/Property/Property';
 
 NgModule({
   imports: [
@@ -32,87 +35,105 @@ NgModule({
   templateUrl: './view-properties.component.html',
   styleUrls: ['./view-properties.component.scss'],
 })
-export class ViewPropertiesComponent {
-  //Constant values
-  leftCard = [
-    {
-      description: 'Description: ',
-      address: 'Address: ',
-      suburb: 'Suburb: ',
-      rental: 'Rental Amount: ',
-      size: 'Size: ',
-      yard: 'Yard: ',
-    },
-  ];
+export class ViewPropertiesComponent implements AfterViewInit {
+  propertyDetail : Property = new Property();
 
-  image = 'https://images.prop24.com/258192045/Crop600x400';
+  constructor(public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute) {}
 
-  rightCard1 = [
-    {
-      title: 'Recoveries',
-      description: 'Description: ',
-      type: 'Type: ',
-      amount: 'Amount: ',
-    },
-  ];
+  ngAfterViewInit(): void {
+this.loadPropertry();
+}
 
-  rightCard2 = [
-    { title: 'Inspection', description: 'Description: ', date: 'Date: ' },
-  ];
+loadPropertry()
+{
+  this._propertiesService.getProperty(this.route.snapshot.params['id']).subscribe((result) =>
+  {
+    this.propertyDetail = result
+  });
+}
 
-  rightCard3 = [
-    {
-      title: 'Lease',
-      name: 'Name: ',
-      surname: 'Surname: ',
-      phone: 'Phone Number: ',
-      company: 'Company Name: ',
-      cphone: 'Company Phone Number: ',
-    },
-  ];
 
-  //Random data
-  leftData = [
-    {
-      description: 'Construction site ',
-      address: '537 Sinagoge Road ',
-      suburb: 'Kameeldrift ',
-      rental: 'R15 000',
-      size: ' ',
-      yard: '',
-    },
-    //{description: 'Manufacturing site' , address: '25 Ocean Drive ', suburb: 'Durbun ', rental: 'R35 000', size: ' ', yard: ''}
-  ];
 
-  rightData1 = [
-    {
-      description: 'Water damage from geyser burst ',
-      type: 'Water ',
-      amount: 'R5800 ',
-    },
-    //{description: '', type: ' ', amount: ' '},
-  ];
 
-  rightData2 = [
-    {
-      description: 'Water damage checking from geyser burst',
-      date: '2023/07/27',
-    },
-    //{description: '', date: ''},
-  ];
+  // //Constant values
+  // leftCard = [
+  //   {
+  //     description: 'Description: ',
+  //     address: 'Address: ',
+  //     suburb: 'Suburb: ',
+  //     rental: 'Rental Amount: ',
+  //     size: 'Size: ',
+  //     yard: 'Yard: ',
+  //   },
+  // ];
 
-  rightData3 = [
-    {
-      name: 'Piet ',
-      surname: 'Van Zyl',
-      phone: '067 342 1224 ',
-      company: 'Consitent Construction',
-      cphone: '012 789 4561',
-    },
-    // {name: 'Willem ', surname: 'Prinsloo', phone: '079 890 3590 ', company: 'Manufacturing fun', cphone: '012 548 7889'},
-  ];
+  // image = 'https://images.prop24.com/258192045/Crop600x400';
 
-  constructor(public dialog: MatDialog) {}
+  // rightCard1 = [
+  //   {
+  //     title: 'Recoveries',
+  //     description: 'Description: ',
+  //     type: 'Type: ',
+  //     amount: 'Amount: ',
+  //   },
+  // ];
+
+  // rightCard2 = [
+  //   { title: 'Inspection', description: 'Description: ', date: 'Date: ' },
+  // ];
+
+  // rightCard3 = [
+  //   {
+  //     title: 'Lease',
+  //     name: 'Name: ',
+  //     surname: 'Surname: ',
+  //     phone: 'Phone Number: ',
+  //     company: 'Company Name: ',
+  //     cphone: 'Company Phone Number: ',
+  //   },
+  // ];
+
+  // //Random data
+  // leftData = [
+  //   {
+  //     description: 'Construction site ',
+  //     address: '537 Sinagoge Road ',
+  //     suburb: 'Kameeldrift ',
+  //     rental: 'R15 000',
+  //     size: ' ',
+  //     yard: '',
+  //   },
+  //   //{description: 'Manufacturing site' , address: '25 Ocean Drive ', suburb: 'Durbun ', rental: 'R35 000', size: ' ', yard: ''}
+  // ];
+
+  // rightData1 = [
+  //   {
+  //     description: 'Water damage from geyser burst ',
+  //     type: 'Water ',
+  //     amount: 'R5800 ',
+  //   },
+  //   //{description: '', type: ' ', amount: ' '},
+  // ];
+
+  // rightData2 = [
+  //   {
+  //     description: 'Water damage checking from geyser burst',
+  //     date: '2023/07/27',
+  //   },
+  //   //{description: '', date: ''},
+  // ];
+
+  // rightData3 = [
+  //   {
+  //     name: 'Piet ',
+  //     surname: 'Van Zyl',
+  //     phone: '067 342 1224 ',
+  //     company: 'Consitent Construction',
+  //     cphone: '012 789 4561',
+  //   },
+  //   // {name: 'Willem ', surname: 'Prinsloo', phone: '079 890 3590 ', company: 'Manufacturing fun', cphone: '012 548 7889'},
+  // ];
+
 
   openDialog(
     enterAnimationDuration: string,

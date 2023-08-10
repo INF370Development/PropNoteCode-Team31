@@ -14,5 +14,7 @@ namespace WebApi.Interfaces
         Task EditProperty(int propertyID, Property property);
         Task DeleteProperty(Property property);
         void Delete<T>(T entity) where T : class;
+        Task<Property> GetPropertyByIDAsync(int propertyID);
+
     }
 }

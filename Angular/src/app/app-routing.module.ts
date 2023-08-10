@@ -60,7 +60,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   //Properties
   { path: 'properties', component: PropertiesComponent },
-  { path: 'viewProperties', component: ViewPropertiesComponent },
+  { path: 'viewProperties/:id', component: ViewPropertiesComponent },
   { path: 'generateProperties', component: GeneratePropertiesReportComponent },
   { path: 'viewAllProperties', component: ViewAllPropertiesComponent },
   //Tenants

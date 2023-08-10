@@ -1,15 +1,33 @@
+
+<div class="flex-container" fxLayout.xs="column">
+  <div class="flex-item">Description: {{propertyDetail?.description}}</div>
+  <div class="flex-item">PurchaseAmount: {{propertyDetail?.purchaseAmount}}</div>
+  <div class="flex-item"></div>
+  <div class="flex-item">Height: {{propertyDetail?.size}}</div>
+  <div class="flex-item">Alive: {{propertyDetail?.yard}}</div>
+  <div class="flex-item"></div>
+
+</div>
+<button mat-button [routerLink]="['/heroes']">
+  <mat-icon>home</mat-icon>
+  return
+</button>
+
+
+
+
 <h1>Properties</h1>
 
 <!--Search Bar-->
-<div class="search-container">
+<!-- <div class="search-container">
     <input class="search-input" placeholder="Search Properties">
     <button class="search-button" mat-icon-button color="primary">
       <mat-icon>search</mat-icon>
     </button>
-</div>
+</div> -->
 
 <!--Create Button-->
-<div class="create">
+<!-- <div class="create">
     <button mat-fab extended color="accent" (click)="openModal()">
     <mat-icon>add</mat-icon>
         Create Property
@@ -24,9 +42,9 @@
 <div class="container">
     <div class="left">
         <div class="card" *ngFor="let card of leftCard">
-            <div *ngFor = "let data of leftData">
-                <div class="image"> 
-                    <img [src] ="image"> 
+            <div>
+                <div class="image">
+                    <img [src] ="image">
                     <div class="imageButtons">
                         <button mat-raised-button color="accent" (click)="openAddImageModal()">ADD IMAGE</button>
                         <br>
@@ -37,12 +55,12 @@
                 </div>
                 <br>
                 <div class="details">
-                <h5>{{card.description}} {{data.description}}</h5>
-                <h5>{{card.address}} {{data.address}}</h5>
-                <h5>{{card.suburb}} {{data.suburb}}</h5>
-                <h5>{{card.rental}} {{data.rental}}</h5>
-                <h5>{{card.size}} {{data.size}}</h5>
-                <h5>{{card.yard}} {{data.yard}}</h5>
+                <h5>{{card.description}} {{propertyDetail?.description}}</h5>
+                <h5>{{card.address}} {{propertyDetail?.address}}</h5>
+                <h5>{{card.suburb}} {{propertyDetail?.suburb}}</h5>
+                <h5>{{card.rental}} {{propertyDetail?.rental}}</h5>
+                <h5>{{card.size}} {{propertyDetail?.size}}</h5>
+                <h5>{{card.yard}} {{propertyDetail?.yard}}</h5>
                 <div class="buttons">
                     <button mat-raised-button color="accent" (click)="openModal()">ADD</button>
                     <button mat-raised-button color="primary">UPDATE</button>
@@ -89,7 +107,7 @@
         </div>
     </div>
 </div>
-<br>
+<br> -->
 
 <!--Main card-->
 <!--<mat-card class="mainCard">
@@ -124,7 +142,7 @@
                     <button mat-raised-button color="warn">DELETE</button>
                 </mat-card-actions>
             </mat-card>
-        </mat-grid-tile> 
+        </mat-grid-tile>
 
         <!--Recoveries card--
         <mat-grid-tile>
@@ -196,5 +214,5 @@
                 </mat-card-actions>
             </mat-card>
         </mat-grid-tile>
-    </mat-grid-list>    
-</mat-card>-->  
+    </mat-grid-list>
+</mat-card>--> -->

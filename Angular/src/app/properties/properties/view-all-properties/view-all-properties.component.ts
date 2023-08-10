@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Property } from 'src/app/shared/Property/Property';
-import { PropertyResponse } from 'src/app/shared/Property/PropertyResponse';
 // import { CreateBrokerModalComponent } from './CreateBroker/create-broker/create-broker-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -28,7 +27,7 @@ export class ViewAllPropertiesComponent implements AfterViewInit, OnInit {
     'detailsButton',
     'deleteButton',
   ];
-  dataSource = new MatTableDataSource<PropertyResponse>();
+  dataSource = new MatTableDataSource<Property>();
 
   constructor(
     private _propertyService: PropertiesService,
@@ -44,9 +43,10 @@ export class ViewAllPropertiesComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this._propertyService.getProperties().subscribe((properties: any) => {
+      this._propertyService.getProperties().subscribe((properties: any) => {
       this.dataSource.data = properties;
-    });
+      console.log(properties)
+      });
   }
 
   applyFilter(event: Event) {
