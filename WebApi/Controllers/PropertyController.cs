@@ -72,8 +72,16 @@ namespace WebApi.Controllers
                 BrokerID = propertyRequest.BrokerID,
                 PurchaseAmount = propertyRequest.PurchaseAmount,
             };
-            await _propertyRepository.AddProperty(property);
-            return Ok(property);
+            try
+            {
+                await _propertyRepository.AddProperty(property);
+
+                return Ok(property);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
         }
 
         [HttpPut]

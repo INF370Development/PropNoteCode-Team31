@@ -1,20 +1,17 @@
-<h1>Properties</h1>
+<h1>All Properties</h1>
 
-<!-- <div class="create">
+<div class="create">
   <button mat-fab extended color="accent" (click)="openModal()">
     <mat-icon>add</mat-icon>
-    Create Broker
+    Add New Property
   </button>
-</div> -->
+</div>
 
-<br />
-<br />
-<br />
 <br />
 
 <div class="mat-elevation-z8">
   <mat-form-field appearance="fill">
-    <mat-label>Filter</mat-label>
+    <mat-label> <mat-icon>search</mat-icon>  Filter</mat-label>
     <input
       matInput
       (keyup)="applyFilter($event)"
@@ -56,26 +53,12 @@
       <td mat-cell *matCellDef="let element">{{ element.yard }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="purchaseAmount">
-      <th mat-header-cell *matHeaderCellDef>Purchase Amount</th>
-      <td mat-cell *matCellDef="let element">{{ element.purchaseAmount }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="purchaseYear">
-      <th mat-header-cell *matHeaderCellDef>Purchase Year</th>
-      <td mat-cell *matCellDef="let element">{{ element.purchaseYear }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="brokerName">
-      <th mat-header-cell *matHeaderCellDef>Broker</th>
-      <td mat-cell *matCellDef="let element">{{ element.broker.name }}</td>
-    </ng-container>
 
     <ng-container matColumnDef="detailsButton">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
         <button mat-button [routerLink]="['/viewProperties', element.propertyID]">
-          <mat-icon>face</mat-icon>
+          <mat-icon>business</mat-icon>
           Details
         </button>
       </td>
@@ -88,8 +71,10 @@
           mat-button
           class="deletebutton"
           (click)="deleteProperty(element.id)"
+          style="color:red;"
         >
           <mat-icon>delete</mat-icon>
+          Delete
         </button>
       </td>
     </ng-container>

@@ -1,42 +1,94 @@
-<h1 mat-dialog-title>Create Property <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h1>
-<div mat-dialog-content>
-    <h3>Please enter all required details to create a new property!</h3>
-    <mat-form-field class="form">
-        <h3>Property Description:</h3>
-        <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form">
-        <h3>Building Number:</h3>
-        <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form">
-        <h3>Street:</h3>
-        <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form">
-        <h3>Suburb:</h3>
-        <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form">
-        <h3>Rental Amount:</h3>
-        <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form">
-        <h3>Size:</h3>
-        <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form">
-        <h3>Yard:</h3>
-        <input matInput>
-    </mat-form-field>
-</div>
-<div class="end">
-    <button mat-raised-button color="accent">Create</button>
-    <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Add New Property</h2>
+    <form (submit)="CreateProperty()">
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Description"
+          [(ngModel)]="propertyModel.description"
+          name="description"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Building Number"
+          [(ngModel)]="propertyModel.buildingNumber"
+          name="buildingNumber"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Street"
+          [(ngModel)]="propertyModel.street"
+          name="street"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Suburb"
+          [(ngModel)]="propertyModel.suburb"
+          name="suburb"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Purchase Amount"
+          [(ngModel)]="propertyModel.purchaseAmount"
+          name="purchaseAmount"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Purchase Year"
+          [(ngModel)]="propertyModel.purchaseYear"
+          name="purchaseYear"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Size"
+          [(ngModel)]="propertyModel.size"
+          name="size"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          placeholder="Yard"
+          [(ngModel)]="propertyModel.yard"
+          name="yard"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Broker</mat-label>
+        <mat-select [(ngModel)]="propertyModel.broker" name="broker" (selectionChange)="updateSelectedBroker($event.value)">
+          <mat-option *ngFor="let broker of brokers" [value]="broker">{{ broker.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <div class="modal-actions">
+        <button mat-button type="button" colour="primary" (click)="closeModal()">Cancel</button>
+        <br>
+        <button mat-raised-button type="submit" color="primary" (click)="sendToBackend()">
+          Add Property
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

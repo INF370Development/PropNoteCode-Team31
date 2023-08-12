@@ -9,6 +9,7 @@ import { PropertiesService } from 'src/app/services/properties.service';
 import { Property } from 'src/app/shared/Property/Property';
 // import { CreateBrokerModalComponent } from './CreateBroker/create-broker/create-broker-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CreatePropertiesModalComponent } from '../create-properties-modal/create-properties-modal.component';
 
 @Component({
   selector: 'app-view-all-properties',
@@ -21,9 +22,6 @@ export class ViewAllPropertiesComponent implements AfterViewInit, OnInit {
     'address',
     'size',
     'yard',
-    'purchaseAmount',
-    'purchaseYear',
-    'brokerName',
     'detailsButton',
     'deleteButton',
   ];
@@ -45,7 +43,7 @@ export class ViewAllPropertiesComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
       this._propertyService.getProperties().subscribe((properties: any) => {
       this.dataSource.data = properties;
-      console.log(properties)
+      console.log("Property Array", properties)
       });
   }
 
@@ -81,7 +79,7 @@ export class ViewAllPropertiesComponent implements AfterViewInit, OnInit {
   //   });
   // }
 
-  // openModal() {
-  //   const dialogRef = this.dialog.open(CreateBrokerModalComponent, {});
-  // }
+  openModal() {
+    const dialogRef = this.dialog.open(CreatePropertiesModalComponent, {});
+  }
 }

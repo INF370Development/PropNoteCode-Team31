@@ -1,8 +1,5 @@
-import { BrokerComponent } from "src/app/broker/broker/broker.component";
-import { Broker } from "../Broker";
+export class PropertyRequest {
 
-export class Property {
-  propertyID: Number = 0;
   description: string = "";
   buildingNumber: number = 0;;
   street: string = "";
@@ -12,7 +9,6 @@ export class Property {
   size: string = "";
   yard: string = "";
   brokerID: Number = 0;
-  broker: Broker = new Broker();
 
   constructor(){
   }

@@ -38,7 +38,9 @@ NgModule({
 export class ViewPropertiesComponent implements AfterViewInit {
   propertyDetail : Property = new Property();
 
-  constructor(public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute) {}
+  constructor(public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute) {
+    console.log("property details", Property)
+  }
 
   ngAfterViewInit(): void {
 this.loadPropertry();
@@ -49,8 +51,11 @@ loadPropertry()
   this._propertiesService.getProperty(this.route.snapshot.params['id']).subscribe((result) =>
   {
     this.propertyDetail = result
+    console.log("Property Result", result)
   });
+
 }
+
 
 
 
