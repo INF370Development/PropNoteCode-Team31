@@ -27,7 +27,6 @@ import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerRep
 import { CalendarComponent } from './calendar/calendar/calendar.component';
 import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
-import { SettingsComponent } from './settings/settings/settings.component';
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { AssignMaintenanceComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assign-maintenance.component';
@@ -39,7 +38,7 @@ import { NotificationsComponent } from './profile/profile/notifications/notifica
 import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile/view-profile.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
-import { CreateUModalComponent } from './users/users/createUModal/create-umodal/create-umodal.component';
+import { CreateUModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
 import { CreatePropertiesModalComponent } from './properties/properties/create-properties-modal/create-properties-modal.component';
 import { ForgotPasswordComponent } from './forgotPassword/forgot-password/forgot-password.component';
 import { DeletePropertyDialogComponent } from './properties/properties/viewProperties/view-properties/deletePropertyDialog/delete-property-dialog/delete-property-dialog.component';
@@ -97,7 +96,6 @@ import { LoginFailedComponent } from './login/login/login-failed/login-failed.co
     CalendarComponent,
     ViewCalendarComponent,
     GenerateCalendarReportComponent,
-    SettingsComponent,
     MaintenanceComponent,
     ProfileComponent,
     AssignMaintenanceComponent,
