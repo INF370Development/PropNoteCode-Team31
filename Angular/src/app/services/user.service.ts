@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { LoginCredentials } from '../models/LoginCredentials';
 //User service
 import { User } from '../shared/User'
-import { map, Observable, Subject } from 'rxjs';
+import { map, Observable, Subject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +28,16 @@ export class UserService {
   };
 
   //CREATE
-  createUser(user: User) {
+ /* createUser(user: User) {
     return this.http
       .post(`https://localhost:7251/api/User/AddUser`, user)
       .pipe(map((result) => result));
+  }*/
+
+  createUser(user: User) {
+    return this.http
+    .post(`${this._apiUrl}User/AddUser`, user)
+    .pipe(map((result) => result));
   }
 
   //READ

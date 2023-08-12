@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from './user.service';
+import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/User';
 import { CreateUModalComponent } from '../../createUModal/create-umodal/create-umodal.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,8 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./view-users.component.scss']
 })
 
-export class ViewUsersComponent  implements AfterViewInit, OnInit {
-
+export class ViewUsersComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'id',
     'email',
@@ -34,7 +33,6 @@ export class ViewUsersComponent  implements AfterViewInit, OnInit {
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {}
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -43,27 +41,23 @@ export class ViewUsersComponent  implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
   }
 
-//Create
-  openModal() {
-    const dialogRef = this.dialog.open(CreateUModalComponent, {});
-  }
-
-//Read
   ngOnInit(): void {
-    /*this._userService.getUsers().subscribe((user: any) => {
-      this.dataSource.data = user;
-    });*/
+    this._userService.getUsers().subscribe((users: any) => {
+      this.dataSource.data = users;
+    });
   }
 
-//Update
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
-//Delete
   async deleteUser(id: any) {
-    /*await this._userService.deleteUser(id);
-    this.showSnackBar();*/
+    await this._userService.deleteUser(id);
+    this.showSnackBar();
   }
 
-  /*showSnackBar() {
+  showSnackBar() {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
       'Deleted successfully',
       'X',
@@ -72,7 +66,7 @@ export class ViewUsersComponent  implements AfterViewInit, OnInit {
     snackBarRef.afterDismissed().subscribe(() => {
       location.reload();
     });
-  }*/
+  }
 
   openDialog(
     enterAnimationDuration: string,
@@ -85,10 +79,14 @@ export class ViewUsersComponent  implements AfterViewInit, OnInit {
     });
   }
 
-//Search
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  openModal() {
+    const dialogRef = this.dialog.open(CreateUModalComponent);
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result && result.success) {
+      this.dataSource.data = [...this.dataSource.data, result.user];
+    }
+  });
   }
 }
 

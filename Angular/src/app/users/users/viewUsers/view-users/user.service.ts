@@ -18,7 +18,7 @@ export class UserService {
     return this.userDetails;
   }
 
-  public addUser(data: UserType) {
+  public createUser(data: UserType) {
     this.userDetails.push(data);
   }
 
