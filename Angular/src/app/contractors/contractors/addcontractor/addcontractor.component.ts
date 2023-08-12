@@ -11,7 +11,7 @@ import { ContractorServiceService } from '../contractor-service.service';
 })
 export class AddcontractorComponent implements OnInit {
 
-  addUserForm!: FormGroup;
+  addContractorForm!: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<AddcontractorComponent>, 
     public ContractorServiceService: ContractorServiceService,
@@ -20,32 +20,32 @@ export class AddcontractorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.addUserForm = new FormGroup({  
+    this.addContractorForm = new FormGroup({  
         id: new FormControl(''),
         firstName: new FormControl('', Validators.required),
         lastName: new FormControl('', Validators.required),
         email: new FormControl('', Validators.required),
         contact: new FormControl('', Validators.required)
     })
-    this.addUserForm.patchValue(this.incomingData);
+    this.addContractorForm.patchValue(this.incomingData);
   }
 
   public closePopup() {
     this.dialogRef.close();
-    this.addUserForm.reset();
+    this.addContractorForm.reset();
   }
 
-  public addUser() {
+  public addContractor() {
     if (this.incomingData && this.incomingData.action && this.incomingData.action === 'edit') {
-      this.ContractorServiceService.editUser(this.incomingData.id, this.addUserForm.value);
+      this.ContractorServiceService.editUser(this.incomingData.id, this.addContractorForm.value);
       this.dialogRef.close();
     } else {
-      this.ContractorServiceService.addUser(this.addUserForm.value);
+      this.ContractorServiceService.addUser(this.addContractorForm.value);
       this.dialogRef.close();
     }
   }
 
-  public deleteUser() {
+  public deleteContractor() {
     this.dialogRef.close(true);
   }
 
