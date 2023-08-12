@@ -10,7 +10,6 @@ import { User } from 'src/app/shared/User';
   templateUrl: './create-umodal.component.html',
   styleUrls: ['./create-umodal.component.scss']
 })
-
 export class CreateUModalComponent implements OnInit {
   adminRole: boolean = false;
   editorRole: boolean = false;
