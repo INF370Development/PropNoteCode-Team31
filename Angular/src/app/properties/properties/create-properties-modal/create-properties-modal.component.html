@@ -3,79 +3,80 @@
     <h2>Add New Property</h2>
     <form (submit)="CreateProperty()">
       <mat-form-field class="form-field">
+        <label>Description:</label>
         <input
           matInput
-          placeholder="Description"
           [(ngModel)]="propertyModel.description"
           name="description"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
+        <label>Building Number:</label>
         <input
           matInput
-          placeholder="Building Number"
           [(ngModel)]="propertyModel.buildingNumber"
           name="buildingNumber"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
+        <label>Street:</label>
         <input
           matInput
-          placeholder="Street"
           [(ngModel)]="propertyModel.street"
           name="street"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
+        <label>Suburb:</label>
         <input
           matInput
-          placeholder="Suburb"
           [(ngModel)]="propertyModel.suburb"
           name="suburb"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
+        <label>Purchase Amount:</label>
         <input
           matInput
-          placeholder="Purchase Amount"
+          placeholder="R"
           [(ngModel)]="propertyModel.purchaseAmount"
           name="purchaseAmount"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
+        <label>Purchase Year:</label>
         <input
           matInput
-          placeholder="Purchase Year"
           [(ngModel)]="propertyModel.purchaseYear"
           name="purchaseYear"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
+        <label>Size</label>
         <input
           matInput
-          placeholder="Size"
           [(ngModel)]="propertyModel.size"
           name="size"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
+        <label>Yard</label>
         <input
           matInput
-          placeholder="Yard"
           [(ngModel)]="propertyModel.yard"
           name="yard"
           required
         />
       </mat-form-field>
       <mat-form-field class="form-field">
-        <mat-label>Broker</mat-label>
+        <label>Broker</label>
         <mat-select [(ngModel)]="propertyModel.broker" name="broker" (selectionChange)="updateSelectedBroker($event.value)">
           <mat-option *ngFor="let broker of brokers" [value]="broker">{{ broker.name }}</mat-option>
         </mat-select>
@@ -83,11 +84,12 @@
 
 
       <div class="modal-actions">
-        <button mat-button type="button" colour="primary" (click)="closeModal()">Cancel</button>
-        <br>
+
         <button mat-raised-button type="submit" color="primary" (click)="sendToBackend()">
           Add Property
         </button>
+        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+
       </div>
     </form>
   </div>
