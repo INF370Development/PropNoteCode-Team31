@@ -5,10 +5,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
+<<<<<<< Updated upstream
 using WebApi.Models.Admin;
 using WebApi.Models.Interfaces;
 using WebApi.Interfaces;
+=======
+>>>>>>> Stashed changes
 using WebApi.Models.Admin;
+using WebApi.Interfaces;
 
 namespace WebApi.Controllers
 {
@@ -50,6 +54,7 @@ namespace WebApi.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
+<<<<<<< Updated upstream
             }
         }
 
@@ -68,6 +73,8 @@ namespace WebApi.Controllers
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support");
+=======
+>>>>>>> Stashed changes
             }
         }
 
@@ -210,5 +217,9 @@ namespace WebApi.Controllers
             return BadRequest("Your request is invalid.");
         }
     }
+<<<<<<< Updated upstream
 }
 
+=======
+}
+>>>>>>> Stashed changes
