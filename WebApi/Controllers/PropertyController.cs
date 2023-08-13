@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var allProperties = await _propertyRepository.GetAllPropertiesAsync();
+                /*var allProperties = await _propertyRepository.GetAllPropertiesAsync();
                 List<PropertyResponse> properties = new List<PropertyResponse>();
                 foreach (var property in allProperties)
                 {
@@ -46,7 +46,9 @@ namespace WebApi.Controllers
                     });
                 }
 
-                return Ok(properties);
+                return Ok(properties);*/
+                var results = await _propertyRepository.GetAllPropertiesAsync();
+                return Ok(results);
             }
             catch (Exception)
             {
@@ -69,8 +71,16 @@ namespace WebApi.Controllers
                 BrokerID = propertyRequest.BrokerID,
                 PurchaseAmount = propertyRequest.PurchaseAmount,
             };
-            await _propertyRepository.AddProperty(property);
-            return Ok(property);
+            try
+            {
+                await _propertyRepository.AddProperty(property);
+
+                return Ok(property);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
         }
 
         [HttpPut]
@@ -172,6 +182,21 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
             return BadRequest("Your request is invalid");
+        }
+
+        [HttpGet]
+        [Route("GetPropertyByID/{propertyID}")]
+        public async Task<IActionResult> GetPropertyByID(int propertyID)
+        {
+            try
+            {
+                var result = await _propertyRepository.GetPropertyByIDAsync(propertyID);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
         }
 
         [HttpDelete]

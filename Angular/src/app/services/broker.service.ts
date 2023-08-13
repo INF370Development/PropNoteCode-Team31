@@ -34,7 +34,7 @@ export class BrokerService {
 
   deleteBroker(brokerID: number) {
     return this._httpClient
-      .delete(`https://localhost:7251/api/Broker/DeleteBroker/${brokerID}`)
+      .delete(`https://localhost:7251/api/Broker/DeleteBroker/?propertyID=${brokerID}`)
       .pipe(map((result) => result));
   }
 

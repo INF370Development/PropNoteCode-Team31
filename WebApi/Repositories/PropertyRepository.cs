@@ -31,7 +31,11 @@ namespace WebApi.Repositories
             return await query.ToArrayAsync();
         }
 
-
+        public async Task<Property> GetPropertyByIDAsync(int propertyID)
+        {
+            IQueryable<Property> query = _appDbContext.Property.Where(c => c.PropertyID == propertyID).Include(x => x.Broker);
+            return await query.FirstOrDefaultAsync();
+        }
         public async Task AddProperty(Property property)
         {
             _appDbContext.Add(property);

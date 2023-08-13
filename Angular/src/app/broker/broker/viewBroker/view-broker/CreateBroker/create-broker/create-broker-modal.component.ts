@@ -17,12 +17,13 @@ export class CreateBrokerModalComponent implements OnInit {
   viewerRole: boolean = false;
 
   brokerModel: Broker = {
-    Name: '',
-    Surname: '',
-    PhoneNumber: '',
-    OfficeAddress: '',
-    LicenseNumber: '',
-    CommissionRate: '',
+    brokerID: 0,
+    name: '',
+    surname: '',
+    phoneNumber: '',
+    officeAddress: '',
+    licenseNumber: '',
+    commissionRate: '',
   };
 
   constructor(
