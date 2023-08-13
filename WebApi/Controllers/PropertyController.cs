@@ -53,7 +53,6 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
-
         [HttpPost]
         [Route("AddProperty")]
         public async Task<IActionResult> AddProperty(PropertyRequest propertyRequest)

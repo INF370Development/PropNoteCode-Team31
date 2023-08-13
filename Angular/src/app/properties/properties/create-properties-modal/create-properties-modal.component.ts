@@ -5,13 +5,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
 
 NgModule({
   
   imports: [
   BrowserAnimationsModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
   ],
 })
 
