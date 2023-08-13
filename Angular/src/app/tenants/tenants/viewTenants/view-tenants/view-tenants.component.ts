@@ -1,4 +1,77 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { TenantService } from 'src/app/services/tenant.service';
+import { Tenant } from 'src/app/shared/Tenant';
+import { MatDialog } from '@angular/material/dialog';
+
+@Component({
+  selector: 'app-view-tenants',
+  templateUrl: './view-tenants.component.html',
+  styleUrls: ['./view-tenants.component.scss']
+})
+
+export class ViewTenantsComponent implements AfterViewInit, OnInit {
+
+  displayedColumns: string[] = [
+    'id',
+    'email',
+    'name',
+    'surname',
+    'phone',
+    'jobTitle',
+    'updateButton',
+    'deleteButton',
+  ];
+
+  dataSource = new MatTableDataSource<Tenant>();
+
+  constructor(
+    private _tenantService: TenantService,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
+  ) {}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  ngOnInit(): void {
+    this._tenantService.getTenants().subscribe((tenants: any) => {
+      this.dataSource.data = tenants;
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  async deleteTenant(id: any) {
+    await this._tenantService.deleteTenant(id);
+    this.showSnackBar();
+  }
+
+  showSnackBar() {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+      'Deleted successfully',
+      'X',
+      { duration: 500 }
+    );
+    snackBarRef.afterDismissed().subscribe(() => {
+      location.reload();
+    });
+  }
+}
+
+/*import { Component, ViewChild } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
@@ -10,7 +83,8 @@ import { UpdateTenantModalComponent } from '../../updateTenantModal/update-tenan
 
 NgModule({
   imports: [
-    MatDialogModule,
+  import { Tenant } from './../../updateTenantModal/update-tenant-modal/update-tenant-modal.component';
+  MatDialogModule,
     FormsModule, 
     MatInputModule, 
     MatButtonModule],
@@ -101,4 +175,4 @@ export class ViewTenantsComponent {
         return tenantNameLower.includes(searchLower);
       });
     }
-}
+}*/

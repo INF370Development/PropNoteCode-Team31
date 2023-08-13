@@ -1,22 +1,16 @@
 import { HttpClient, HttpStatusCode, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginCredentials } from '../models/LoginCredentials';
-//User service
-import { User } from '../shared/User'
+import { Tenant } from '../shared/Tenant';
 import { map, Observable, Subject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 
-export class UserService {
+export class TenantService {
   constructor(private httpClient: HttpClient, private http: HttpClient) {}
   
   private _apiUrl = 'https://localhost:7251/api/';
-
-  Login(user: LoginCredentials) {
-    return this.httpClient.post(`${this._apiUrl}User/Login`, user);
-  }
 
   //USERS
   apiUrl = 'http://localhost:7251/api/';
@@ -27,23 +21,10 @@ export class UserService {
     }),
   };
 
-  //CREATE
- /* createUser(user: User) {
-    return this.http
-      .post(`https://localhost:7251/api/User/AddUser`, user)
-      .pipe(map((result) => result));
-  }*/
-
-  createUser(user: User) {
-    return this.http
-    .post(`${this._apiUrl}User/AddUser`, user)
-    .pipe(map((result) => result));
-  }
-
   //READ
-  getUsers(): Observable<User[]> {
+  getTenants(): Observable<Tenant[]> {
     return this.http
-      .get<User[]>(`https://localhost:7251/api/User/getUsers`)
+      .get<Tenant[]>(`https://localhost:7251/api/User/getUsers`)
       .pipe(map((result) => result));
   }
   
@@ -55,18 +36,18 @@ export class UserService {
   }*/
 
   //DELETE
-  deleteUser(userID: number) {
+  deleteTenant(tenantID: number) {
     return this.http
-      .delete(`https://localhost:7251/api/User/DeleteUser/${userID}`)
+      .delete(`https://localhost:7251/api/User/DeleteUser/${tenantID}`)
       .pipe(map((result) => result));
   }
 
   //SEARCH
-  getUser(userID: number, user: User) {
+  getTenant(tenantID: number, tenant: Tenant) {
     return this.http
       .post(
-        `https://localhost:7251/api/User/GetUserByID/${userID}`,
-        user
+        `https://localhost:7251/api/User/GetUserByID/${tenantID}`,
+        tenant
       )
       .pipe(map((result) => result));
   }

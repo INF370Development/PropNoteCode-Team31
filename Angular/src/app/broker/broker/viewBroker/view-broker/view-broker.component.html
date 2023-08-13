@@ -1,27 +1,34 @@
+<br>
 <h1>Brokers</h1>
 
-<div class="create">
-  <button mat-fab extended color="accent" (click)="openModal()">
-    <mat-icon>add</mat-icon>
-    Create Broker
-  </button>
-</div>
+<br>
 
-<br />
-<br />
-<br />
-<br />
+<div class="SearchButtonContainer">
+  <div class="search-create-container">
+    <div class="mat-elevation-z8 search">
 
-<div class="mat-elevation-z8">
-  <mat-form-field appearance="fill">
-    <mat-label>Filter</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="start typing..."
-      #input
-    />
-  </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Search Broker...</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Search Broker by Name..."
+          #input
+        />
+
+      </mat-form-field>
+    </div>
+
+    <!--Create Broker-->
+    <div class="create">
+      <button mat-fab extended color="accent" (click)="openModal()">
+        <mat-icon>add</mat-icon>
+        Create Broker
+      </button>
+   </div>
+
+  </div>
+
 
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="name">
