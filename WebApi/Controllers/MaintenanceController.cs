@@ -278,6 +278,93 @@ namespace WebApi.Controllers
             }
         }
 
+        //MaintenanceStatus Actions
+
+        [HttpGet("GetAllMaintenanceNotes")]
+        public async Task<IActionResult> GetAllMaintenanceNotes()
+        {
+            try
+            {
+                var results = await _maintenanceRepository.GetAllMaintenanceNoteAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error, please contact support");
+            }
+        }
+        [HttpGet("GetMaintenanceNote/{GetMaintenanceNoteId}")]
+        public async Task<IActionResult> GetMaintenanceNote(int GetMaintenanceNoteId)
+        {
+            try
+            {
+                var result = await _maintenanceRepository.GetMaintenanceNoteByID(GetMaintenanceNoteId);
+
+                if (result == null) return NotFound("MaintenanceStatus does not exist");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+        [HttpPost("AddMaintenanceNote")]
+        public async Task<IActionResult> AddMaintenanceNote(MaintenanceNoteViewModel maintenanceNoteViewModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid input data");
+
+            var maintenanceNote = new MaintenanceNote
+            {
+                MaintenaceID=maintenanceNoteViewModel.MaintenaceID,
+                MaintenaceNoteDescription = maintenanceNoteViewModel.MaintenaceNoteDescription
+            };
+
+            try
+            {
+                return Ok(await _maintenanceRepository.AddMaintenanceNote(maintenanceNote));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+        [HttpPut("EditMaintenanceNote")]
+        public async Task<IActionResult> EditMaintenanceNote(int id, MaintenanceNoteViewModel maintenanceNoteViewModel)
+        {
+            try
+            {
+                var existingMaintenanceNote = await _maintenanceRepository.GetMaintenanceNoteByID(id);
+                if (existingMaintenanceNote == null) return NotFound($"The MaintenanceStatus does not exist");
+                if (existingMaintenanceNote.MaintenaceNoteDescription != "")
+                { existingMaintenanceNote.MaintenaceNoteDescription = maintenanceNoteViewModel.MaintenaceNoteDescription; }
+                if (existingMaintenanceNote.MaintenaceID != 0)
+                { existingMaintenanceNote.MaintenaceID = maintenanceNoteViewModel.MaintenaceID; }
+
+                return Ok(await _maintenanceRepository.SaveChangesAsync());
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+        [HttpDelete("DeleteMaintenanceNote")]
+        public async Task<IActionResult> DeleteMaintenanceNote(int MaintenanceStatusId)
+        {
+            try
+            {
+                var existingMaintenanceStatus = await _maintenanceRepository.GetMaintenanceNoteByID(MaintenanceStatusId);
+                if (existingMaintenanceStatus == null) return NotFound($"The MaintenanceStatus does not exist");
+
+                return Ok(await _maintenanceRepository.DeleteMaintenanceNoteAsync(existingMaintenanceStatus));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+        
 //MaintenancePropertyLines Actions
 
         [HttpGet("GetAllMaintenancePropertyLines")]
@@ -414,7 +501,7 @@ namespace WebApi.Controllers
             }
         }
 
-        //MaintenanceContractorLines Action
+//Maintenance Action
 
 
         [HttpGet("GetAllMaintenances")]

@@ -50,6 +50,24 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+        [HttpGet("lastSnagList")]
+        public async Task<IActionResult> lastSnagList()
+        {
+            try
+            {
+                int result = await _snagListRepository.CountSnagList();
+
+                if (result == null)
+                    return NotFound("SnagListItem does not exist");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+
 
         [HttpPost("AddSnagList")]
         public async Task<IActionResult> AddSnagList( SnagListViewModel snagListViewModel)
@@ -156,7 +174,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-
         [HttpPost("AddSnagListItem")]
         public async Task<IActionResult> AddSnagListItem(SnagListItemViewModel snagListItemViewModel)
         {

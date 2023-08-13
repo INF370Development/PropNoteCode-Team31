@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,6 +53,20 @@ namespace WebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DataType", x => x.DataTypeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Deposit",
+                columns: table => new
+                {
+                    DepositID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LeaseID = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Deposit", x => x.DepositID);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,6 +185,19 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    RoleID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.RoleID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SnagList",
                 columns: table => new
                 {
@@ -214,7 +241,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tenants",
+                name: "Tenant",
                 columns: table => new
                 {
                     TenantID = table.Column<int>(type: "int", nullable: false)
@@ -224,30 +251,62 @@ namespace WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenants", x => x.TenantID);
+                    table.PrimaryKey("PK_Tenant", x => x.TenantID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Properties",
+                name: "User",
+                columns: table => new
+                {
+                    UserID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfilePhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRole",
+                columns: table => new
+                {
+                    UserRoleID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRole", x => x.UserRoleID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Property",
                 columns: table => new
                 {
                     PropertyID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuildingNumber = table.Column<int>(type: "int", nullable: false),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Suburb = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PurchaseAmount = table.Column<int>(type: "int", nullable: false),
-                    PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PurchaseYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Yard = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BrokerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Properties", x => x.PropertyID);
+                    table.PrimaryKey("PK_Property", x => x.PropertyID);
                     table.ForeignKey(
-                        name: "FK_Properties_Broker_BrokerID",
+                        name: "FK_Property_Broker_BrokerID",
                         column: x => x.BrokerID,
                         principalTable: "Broker",
                         principalColumn: "BrokerID",
@@ -281,29 +340,30 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Leases",
+                name: "Lease",
                 columns: table => new
                 {
                     LeaseID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MonthlyAmount = table.Column<int>(type: "int", nullable: false),
                     TenantID = table.Column<int>(type: "int", nullable: false),
                     PropertyID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Leases", x => x.LeaseID);
+                    table.PrimaryKey("PK_Lease", x => x.LeaseID);
                     table.ForeignKey(
-                        name: "FK_Leases_Properties_PropertyID",
+                        name: "FK_Lease_Property_PropertyID",
                         column: x => x.PropertyID,
-                        principalTable: "Properties",
+                        principalTable: "Property",
                         principalColumn: "PropertyID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Leases_Tenants_TenantID",
+                        name: "FK_Lease_Tenant_TenantID",
                         column: x => x.TenantID,
-                        principalTable: "Tenants",
+                        principalTable: "Tenant",
                         principalColumn: "TenantID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -319,18 +379,18 @@ namespace WebApi.Migrations
                 column: "EmployeeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Leases_PropertyID",
-                table: "Leases",
+                name: "IX_Lease_PropertyID",
+                table: "Lease",
                 column: "PropertyID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Leases_TenantID",
-                table: "Leases",
+                name: "IX_Lease_TenantID",
+                table: "Lease",
                 column: "TenantID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_BrokerID",
-                table: "Properties",
+                name: "IX_Property_BrokerID",
+                table: "Property",
                 column: "BrokerID");
         }
 
@@ -344,7 +404,10 @@ namespace WebApi.Migrations
                 name: "Data");
 
             migrationBuilder.DropTable(
-                name: "Leases");
+                name: "Deposit");
+
+            migrationBuilder.DropTable(
+                name: "Lease");
 
             migrationBuilder.DropTable(
                 name: "MaintenanceContractorLines");
@@ -368,6 +431,9 @@ namespace WebApi.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
+                name: "Role");
+
+            migrationBuilder.DropTable(
                 name: "SnagList");
 
             migrationBuilder.DropTable(
@@ -377,16 +443,22 @@ namespace WebApi.Migrations
                 name: "SnagListItems");
 
             migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
+                name: "UserRole");
+
+            migrationBuilder.DropTable(
                 name: "DataType");
 
             migrationBuilder.DropTable(
                 name: "Employee");
 
             migrationBuilder.DropTable(
-                name: "Properties");
+                name: "Property");
 
             migrationBuilder.DropTable(
-                name: "Tenants");
+                name: "Tenant");
 
             migrationBuilder.DropTable(
                 name: "Broker");

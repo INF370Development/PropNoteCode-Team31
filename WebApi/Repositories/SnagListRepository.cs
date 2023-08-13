@@ -137,9 +137,13 @@ namespace WebApi.Repositories
         }
         public async Task<int> CountSnagList()
         {
+            int x=0;
             IQueryable<SnagList> query = _appDbContext.SnagList;
-            SnagList x = await query.LastAsync();
-            return x.SnagListId + 1;
+            foreach (var item in query) 
+            {
+                x=item.SnagListId;
+            }
+            return x+1;
         }
 
 

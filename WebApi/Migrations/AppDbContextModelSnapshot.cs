@@ -183,6 +183,26 @@ namespace WebApi.Migrations
                     b.ToTable("DataType");
                 });
 
+            modelBuilder.Entity("WebApi.Models.Lease.Deposit", b =>
+                {
+                    b.Property<int>("DepositID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepositID"));
+
+                    b.Property<string>("Amount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LeaseID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DepositID");
+
+                    b.ToTable("Deposit");
+                });
+
             modelBuilder.Entity("WebApi.Models.Lease.Lease", b =>
                 {
                     b.Property<int>("LeaseID")
@@ -193,6 +213,9 @@ namespace WebApi.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("MonthlyAmount")
+                        .HasColumnType("int");
 
                     b.Property<int>("PropertyID")
                         .HasColumnType("int");
@@ -209,7 +232,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("TenantID");
 
-                    b.ToTable("Leases");
+                    b.ToTable("Lease");
                 });
 
             modelBuilder.Entity("WebApi.Models.Maintenance.Maintenance", b =>
@@ -368,9 +391,8 @@ namespace WebApi.Migrations
                     b.Property<int>("BrokerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("BuildingNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BuildingNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -379,8 +401,9 @@ namespace WebApi.Migrations
                     b.Property<int>("PurchaseAmount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PurchaseYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Size")
                         .IsRequired()
@@ -402,7 +425,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("BrokerID");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Property");
                 });
 
             modelBuilder.Entity("WebApi.Models.Tenant", b =>
@@ -422,7 +445,44 @@ namespace WebApi.Migrations
 
                     b.HasKey("TenantID");
 
-                    b.ToTable("Tenants");
+                    b.ToTable("Tenant");
+                });
+
+            modelBuilder.Entity("WebApi.Models.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("WebApi.Models.Users.Employee", b =>
@@ -443,6 +503,39 @@ namespace WebApi.Migrations
                     b.HasKey("EmployeeID");
 
                     b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("WebApi.Models.Users.Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Role");
+                });
+
+            modelBuilder.Entity("WebApi.Models.Users.UserRole", b =>
+                {
+                    b.Property<int>("UserRoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleID"));
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserRoleID");
+
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("WebApi.Models.Data.Data", b =>
