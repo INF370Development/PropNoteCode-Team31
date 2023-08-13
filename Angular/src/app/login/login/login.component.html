@@ -1,28 +1,29 @@
 <body>
 <div class="cards">
     <mat-card class="welcome-card">
-        <mat-card-content>
+        <mat-card-content class="WelcomeHeading">
             Welcome to PropNote
         </mat-card-content>
     </mat-card>
     <br>
+
     <!--Login card-->
     <mat-card class="card">
         <br>
         <mat-card-title class="title">Login</mat-card-title>
         <br>
-        <br>
-        <mat-card-content>
-          <form [formGroup]="LoginForm" (submit)="Login()">
+        
+        <mat-card-content class="LoginCard">
+          <form [formGroup]="LoginForm" (submit)="Login()" class="LoginForm">
                 <div class="form-group">
-                    <label class="form-control-label">Username:</label>
+                    <label class="form-control-label" class="UsernameLabel">Username:</label>
                     <br>
                     <br>
                     <input type="text" class="form-control" name="userName" formControlName="userName">
                 </div>
                 <br>
                 <div class="form-group">
-                    <label class="form-control-label">Password:</label>
+                    <label class="form-control-label" class="PasswordLabel">Password:</label>
                     <br>
                     <br>
                     <input type="password" class="form-control" name="password" formControlName="password">
