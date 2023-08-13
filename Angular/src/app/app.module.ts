@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login/login.component';
@@ -29,7 +27,6 @@ import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerRep
 import { CalendarComponent } from './calendar/calendar/calendar.component';
 import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
-import { SettingsComponent } from './settings/settings/settings.component';
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { AssignMaintenanceComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assign-maintenance.component';
@@ -41,7 +38,7 @@ import { NotificationsComponent } from './profile/profile/notifications/notifica
 import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile/view-profile.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
-import { CreateUModalComponent } from './users/users/createUModal/create-umodal/create-umodal.component';
+import { CreateUModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
 import { CreatePropertiesModalComponent } from './properties/properties/create-properties-modal/create-properties-modal.component';
 import { ForgotPasswordComponent } from './forgotPassword/forgot-password/forgot-password.component';
 import { DeletePropertyDialogComponent } from './properties/properties/viewProperties/view-properties/deletePropertyDialog/delete-property-dialog/delete-property-dialog.component';
@@ -53,6 +50,26 @@ import { AddInspectionModalComponent } from './properties/properties/viewPropert
 import { AddTenantModalComponent } from './properties/properties/viewProperties/view-properties/addTenantModal/add-tenant-modal/add-tenant-modal.component';
 import { AddImageModalComponent } from './properties/properties/viewProperties/view-properties/addImageModal/add-image-modal/add-image-modal.component';
 import { DeleteImageDialogComponent } from './properties/properties/viewProperties/view-properties/deleteImageDialog/delete-image-dialog/delete-image-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SideNavComponent } from './NavBars/Side-Nav/side-nav.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
+import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
+import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
+import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
+import { AddcontractorComponent } from './contractors/contractors/addcontractor/addcontractor.component';
+import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
+import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
+import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
+import { CreateBrokerModalModule } from './broker/broker/viewBroker/view-broker/CreateBroker/create-broker-modal.module';
+import { UpdateUserRoleModalComponent } from './users/users/viewUserRoles/view-user-roles/updateUserRoleModal/update-user-role-modal/update-user-role-modal.component';
+import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/createEmployeeModal/create-employee-modal/create-employee-modal.component';
+import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
+import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
+import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
+import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +96,6 @@ import { DeleteImageDialogComponent } from './properties/properties/viewProperti
     CalendarComponent,
     ViewCalendarComponent,
     GenerateCalendarReportComponent,
-    SettingsComponent,
     MaintenanceComponent,
     ProfileComponent,
     AssignMaintenanceComponent,
@@ -103,6 +119,20 @@ import { DeleteImageDialogComponent } from './properties/properties/viewProperti
     AddTenantModalComponent,
     AddImageModalComponent,
     DeleteImageDialogComponent,
+    SideNavComponent,
+    AddEmployeeComponent,
+    BrokerModelComponent,
+    BrokercreatemodelComponent,
+    AddcontractorComponent,
+    DeleteUserDialogComponent,
+    DeleteUserRoleDialogComponent,
+    UpdateUserModalComponent,
+    UpdateUserRoleModalComponent,
+    CreateEmployeeModalComponent,
+    DeleteEmployeeDialogComponent,
+    UpdateEmployeeModalComponent,
+    UpdateTenantModalComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -110,8 +140,17 @@ import { DeleteImageDialogComponent } from './properties/properties/viewProperti
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
+    HttpClientModule,
+    CreateBrokerModalModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    LoginFailedComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

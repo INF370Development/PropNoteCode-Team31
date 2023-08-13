@@ -38,8 +38,6 @@ import { AssignMaintenanceComponent } from './maintenance/maintenance/assignMain
 import { PaymentComponent } from './maintenance/maintenance/payment/payment/payment.component';
 import { MaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/maintenance-note/maintenance-note.component';
 import { GenerateMaintenanceReportComponent } from './maintenance/maintenance/generateMaintenanceReport/generate-maintenance-report/generate-maintenance-report.component';
-//Settings
-import { SettingsComponent } from './settings/settings/settings.component';
 //Profile
 import { ProfileComponent } from './profile/profile/profile.component';
 import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile/view-profile.component';
@@ -56,6 +54,7 @@ const routes: Routes = [
   {path: 'viewUserRoles', component:ViewUserRolesComponent},
   //Login
   {path: 'login', component:LoginComponent},
+  {path: '', component:LoginComponent},
   //Properties
   {path: 'properties', component:PropertiesComponent},
   {path: 'viewProperties', component:ViewPropertiesComponent},
@@ -85,8 +84,6 @@ const routes: Routes = [
   {path: 'payment', component:PaymentComponent},
   {path: 'maintenanceNote', component:MaintenanceNoteComponent},
   {path: 'generateMaintenance', component:GenerateMaintenanceReportComponent},
-  //Settings
-  {path: 'settings', component:SettingsComponent},
   //Profile
   {path: 'profile', component:ProfileComponent},
   {path: 'viewProfile', component:ViewProfileComponent},

@@ -8,7 +8,7 @@ button {
     align-items: left;
     width: 50%;
     margin: 0 auto; 
-    background-color: lightgray;
+    background-color: rgb(153, 145, 145);
     padding: 10px;
     border-radius: 4px;
 
@@ -17,7 +17,7 @@ button {
 .search-input {
     flex-grow: 1;
     border: none;
-    background-color: lightgray;
+    background-color: rgb(190, 185, 185);
     padding: 4px;
     font-size: 16px;
     color: black;
@@ -29,3 +29,27 @@ button {
     font-size: 20px;
     color: green;
 }  
+
+  /*Added From here*/
+  
+  .search-create-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+    
+  .search {
+    
+    margin-right: 10px;
+    height:55px;
+    
+  }
+      
+  .table-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  

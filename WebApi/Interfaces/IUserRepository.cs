@@ -1,4 +1,4 @@
-﻿using WebApi.Models.Users;
+using WebApi.Models.Users;
 
 namespace WebApi.Models.Interfaces
 {
