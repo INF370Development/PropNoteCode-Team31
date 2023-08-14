@@ -5,14 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
-<<<<<<< Updated upstream
-using WebApi.Models.Admin;
+using WebApi.Models.Broker;
 using WebApi.Models.Interfaces;
-using WebApi.Interfaces;
-=======
->>>>>>> Stashed changes
-using WebApi.Models.Admin;
-using WebApi.Interfaces;
 
 namespace WebApi.Controllers
 {
@@ -54,27 +48,6 @@ namespace WebApi.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
-<<<<<<< Updated upstream
-            }
-        }
-
-        [HttpGet]
-        [Route("GetBrokerByID")]
-        public async Task<IActionResult> GetBrokerID(int brokerID)
-        {
-            try
-            {
-                var result = await _brokerRepository.GetBrokerByID(brokerID);
-
-                if (result == null) return NotFound("Broker does not exist. You need to create it first");
-
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
-=======
->>>>>>> Stashed changes
             }
         }
 
@@ -177,14 +150,8 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    Name = Name,
-                    Surname = Surname,
-                    PhoneNumber = PhoneNumber,
-                    OfficeAddress = OfficeAddress,
-                    LicenseNumber = LicenseNumber,
-                    CommissionRate = CommissionRate
-                };
-                return Ok(await _brokerRepository.EditBroker(brokerID, broker));
+                    existingBroker.CommissionRate = brokerModel.CommissionRate;
+                }
 
                 if (await _brokerRepository.SaveChangesAsync() == true)
                 {
@@ -204,9 +171,12 @@ namespace WebApi.Controllers
         {
             try
             {
-                Broker existingBroker = (Broker)await _brokerRepository.GetBrokerByID(brokerID);
-                if (existingBroker == null) return NotFound($"The Broker does not exist");
-                return Ok(await _brokerRepository.DeleteBrokerAsync(existingBroker));
+                var allBrokers = await _brokerRepository.GetAllBrokersAsync();
+                var existingBrokers = allBrokers.FirstOrDefault(x => x.BrokerID == brokerID);
+
+                if (existingBrokers == null) return NotFound($"The Broker does not exist");
+
+                _brokerRepository.Delete(existingBrokers);
 
                 if (await _brokerRepository.SaveChangesAsync()) return Ok(existingBrokers);
             }
@@ -217,9 +187,4 @@ namespace WebApi.Controllers
             return BadRequest("Your request is invalid.");
         }
     }
-<<<<<<< Updated upstream
 }
-
-=======
-}
->>>>>>> Stashed changes
