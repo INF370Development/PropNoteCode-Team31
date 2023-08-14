@@ -1,4 +1,4 @@
-using WebApi.Models;
+﻿using WebApi.Models;
 using WebApi.ViewModels;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
@@ -50,24 +50,6 @@ namespace WebApi.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
-            }
-        }
-
-        [HttpGet]
-        [Route("GetBrokerByID")]
-        public async Task<IActionResult> GetBrokerID(int brokerID)
-        {
-            try
-            {
-                var result = await _brokerRepository.GetBrokerByID(brokerID);
-
-                if (result == null) return NotFound("Broker does not exist. You need to create it first");
-
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
 
@@ -170,14 +152,8 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    Name = Name,
-                    Surname = Surname,
-                    PhoneNumber = PhoneNumber,
-                    OfficeAddress = OfficeAddress,
-                    LicenseNumber = LicenseNumber,
-                    CommissionRate = CommissionRate
-                };
-                return Ok(await _brokerRepository.EditBroker(brokerID, broker));
+                    existingBroker.CommissionRate = brokerModel.CommissionRate;
+                }
 
                 if (await _brokerRepository.SaveChangesAsync() == true)
                 {
@@ -197,9 +173,12 @@ namespace WebApi.Controllers
         {
             try
             {
-                Broker existingBroker = (Broker)await _brokerRepository.GetBrokerByID(brokerID);
-                if (existingBroker == null) return NotFound($"The Broker does not exist");
-                return Ok(await _brokerRepository.DeleteBrokerAsync(existingBroker));
+                var allBrokers = await _brokerRepository.GetAllBrokersAsync();
+                var existingBrokers = allBrokers.FirstOrDefault(x => x.BrokerID == brokerID);
+
+                if (existingBrokers == null) return NotFound($"The Broker does not exist");
+
+                _brokerRepository.DeleteBrokerAsync(existingBrokers);
 
                 if (await _brokerRepository.SaveChangesAsync()) return Ok(existingBrokers);
             }
@@ -211,4 +190,3 @@ namespace WebApi.Controllers
         }
     }
 }
-

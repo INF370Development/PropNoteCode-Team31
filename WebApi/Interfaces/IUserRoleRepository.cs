@@ -1,4 +1,4 @@
-namespace WebApi.Interfaces
+﻿namespace WebApi.Interfaces
 {
     public interface IUserRoleRepository
     {

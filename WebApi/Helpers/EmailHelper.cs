@@ -1,4 +1,4 @@
-using Google.Apis.Auth.OAuth2;
+﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Gmail.v1;
 using Google.Apis.Gmail.v1.Data;
 using Google.Apis.Services;
@@ -15,6 +15,7 @@ namespace WebApi.Helpers
 {
     public class EmailHelper
     {
+
         public void SendEmail(string userName, string userEmailAddress, string userPassword, string name)
         {
             try
