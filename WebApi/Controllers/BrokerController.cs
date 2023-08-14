@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
-using WebApi.Models.Admin;
+using WebApi.Models.Broker;
 using WebApi.Models.Interfaces;
-using WebApi.Interfaces;
-using WebApi.Models.Admin;
 
 namespace WebApi.Controllers
 {

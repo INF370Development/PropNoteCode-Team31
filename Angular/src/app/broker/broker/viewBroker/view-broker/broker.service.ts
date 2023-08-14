@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
 
 interface UserType {
-  firstName: string,
-  lastName: string,
-  email: string,
-  contact: string,
+  firstName: string;
+  lastName: string;
+  email: string;
+  contact: string;
 }
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BrokerService {
   userDetails: any[] = [];
-  constructor() { }
+  constructor() {}
 
-  
   public getUser() {
     return this.userDetails;
   }
@@ -30,6 +27,6 @@ export class BrokerService {
   }
 
   public deleteUser(index: number) {
-    this.userDetails.splice(index, 1)
+    this.userDetails.splice(index, 1);
   }
 }

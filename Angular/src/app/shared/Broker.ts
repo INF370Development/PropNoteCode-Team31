@@ -1,8 +1,9 @@
-export interface Broker {
-  Name: string;
-  Surname: string;
-  PhoneNumber: string;
-  OfficeAddress: string;
-  LicenseNumber: string;
-  CommissionRate: string;
+export class Broker {
+  brokerID: Number = 0;
+  name: string = "";
+  surname: string = "";
+  phoneNumber: string = "";
+  officeAddress: string = "";
+  licenseNumber: string = "";
+  commissionRate: string = "";
 }

@@ -1,19 +1,19 @@
 button {
     margin-right: 8px;
 }
-  
+
 .search-container {
     display: flex;
     float: left;
     align-items: left;
     width: 50%;
-    margin: 0 auto; 
+    margin: 0 auto;
     background-color: lightgray;
     padding: 10px;
     border-radius: 4px;
 
 }
-  
+
 .search-input {
     flex-grow: 1;
     border: none;
@@ -23,12 +23,12 @@ button {
     color: black;
     margin-right: 8px;
 }
-  
+
 .search-button {
     margin-left: 8px;
     font-size: 20px;
     color: green;
-}  
+}
 
 .create {
     float: right;
@@ -38,22 +38,24 @@ button {
 
 .container {
     display: flex;
-    justify-content: space-between;
-    background-color: gray;
+    justify-content: space-around;
+    padding: 10px;
 }
-  
+
+
 .left, .right {
     flex: 1;
     margin: 5px;
     flex-basis: calc(50% - 1rem);
 }
-  
+
 .card {
-    padding: 8px;
-    border-radius: 5px;
+    padding: 20px;
     margin-bottom: 8px;
-    border-radius: 2px;
-    border: 1px solid #ccc;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+    width: 45%;
+    background-color: darkgray;
 }
 
 img {
@@ -75,7 +77,7 @@ h3 {
 
 .imageButtons {
     display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    margin-left: 20px; 
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
 }

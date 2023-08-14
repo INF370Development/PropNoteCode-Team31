@@ -7,10 +7,11 @@ namespace WebApi.Interfaces
     {
 
         Task<bool> SaveChangesAsync();
-        Task<Broker> AddBroker(Broker broker);
+        Task AddBroker(Broker broker);
         Task<Broker[]> GetAllBrokersAsync();
-        Task<Broker> EditBroker(int brokerId, Broker broker);
-        Task<Broker> DeleteBrokerAsync( Broker broker);
+        Task EditBroker(int brokerId, Broker broker);
+        Task DeleteBrokerAsync(Broker broker);
+        void Delete<T>(T entity) where T : class;
         Task<Broker> GetBrokerByID(int brokerID);
     }
 }
