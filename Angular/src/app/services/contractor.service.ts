@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Broker } from '../shared/Broker';
 import { map, Observable, Subject } from 'rxjs';
+import { Contractor } from './../shared/Contractor';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BrokerService {
+
+export class ContractorService {
   apiUrl = 'http://localhost:7251/api/';
 
   httpOptions = {
@@ -17,30 +18,30 @@ export class BrokerService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getBrokers(): Observable<Broker[]> {
+  getContractors(): Observable<Contractor[]> {
     return this._httpClient
-      .get<Broker[]>(`https://localhost:7251/api/Broker/GetAllBrokers`)
+      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
       .pipe(map((result) => result));
   }
 
-  getBroker(brokerID: number, broker: Broker) {
+  getContractor(contractorID: number, contractor: Contractor) {
     return this._httpClient
       .post(
-        `https://localhost:7251/api/Broker/GetBrokerByID/${brokerID}`,
-        broker
+        `https://localhost:7251/api/Contractor/GetContractorByID/${contractorID}`,
+        contractor
       )
       .pipe(map((result) => result));
   }
 
-  deleteBroker(brokerID: number) {
+  deleteContractor(contractorID: number) {
     return this._httpClient
-      .delete(`https://localhost:7251/api/Broker/DeleteBroker/?propertyID=${brokerID}`)
+      .delete(`https://localhost:7251/api/Contractor/DeleteContractor/${contractorID}`)
       .pipe(map((result) => result));
   }
 
-  createBroker(broker: Broker) {
+  createContractor(contractor: Contractor) {
     return this._httpClient
-      .post(`https://localhost:7251/api/Broker/AddBroker`, broker)
+      .post(`https://localhost:7251/api/Contractor/AddContractor`, contractor)
       .pipe(map((result) => result));
   }
 }

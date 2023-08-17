@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddcontractorComponent } from '../../addcontractor/addcontractor.component';
-import { ContractorServiceService } from '../../contractor-service.service';
+import { ContractorServiceService } from './contractor-service.service';
 
 
 @Component({
