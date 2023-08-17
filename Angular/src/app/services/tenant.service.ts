@@ -12,7 +12,7 @@ export class TenantService {
   
   private _apiUrl = 'https://localhost:7251/api/';
 
-  //USERS
+  //TENANTS
   apiUrl = 'http://localhost:7251/api/';
 
   httpOptions = {
