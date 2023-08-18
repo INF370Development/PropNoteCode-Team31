@@ -58,7 +58,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
-import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
+import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { AddcontractorComponent } from './contractors/contractors/addcontractor/addcontractor.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
@@ -80,6 +80,7 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
     UsersComponent,
     ViewUsersComponent,
     ViewUserRolesComponent,
+    ViewBrokerDetailsComponent,
     PropertiesComponent,
     ViewPropertiesComponent,
     GeneratePropertiesReportComponent,
@@ -123,7 +124,6 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
     DeleteImageDialogComponent,
     SideNavComponent,
     AddEmployeeComponent,
-    BrokerModelComponent,
     BrokercreatemodelComponent,
     AddcontractorComponent,
     DeleteUserDialogComponent,

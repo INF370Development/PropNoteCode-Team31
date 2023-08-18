@@ -23,14 +23,10 @@ export class BrokerService {
       .pipe(map((result) => result));
   }
 
-  getBroker(brokerID: number, broker: Broker) {
+  getBroker(brokerID: number) {
     return this._httpClient
-      .post(
-        `https://localhost:7251/api/Broker/GetBrokerByID/${brokerID}`,
-        broker
-      )
-      .pipe(map((result) => result));
-  }
+     .get<Broker>(`https://localhost:7251/api/Broker/GetBrokerByID` + "/" + brokerID);
+ }
 
   deleteBroker(brokerID: number) {
     return this._httpClient
