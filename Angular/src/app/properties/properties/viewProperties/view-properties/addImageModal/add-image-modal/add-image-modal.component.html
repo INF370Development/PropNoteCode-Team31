@@ -1,13 +1,20 @@
-<h1 mat-dialog-title>Add Image <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h1>
+<input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">
+
+   {{fileName || "No file uploaded yet."}}
+
+    <button mat-mini-fab color="primary" class="upload-btn"
+      (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+    </button>
+</div>
+
+
+<!-- <h1 mat-dialog-title>Add Image</h1>
 <div mat-dialog-content>
   <h3>Please select an image for the property!</h3>
-    <div>
-      <div class="file">
-        <input type="file" (change)="onFileSelected($event)" accept="image/*">
-      </div>
-    </div>
-</div>
-<div class="end">
-  <button mat-raised-button color="accent">Add</button>
-  <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
-</div>
+    <form (submit)="uploadImage($event)">
+      <input type="file" #imageInput accept=".jpeg, .jpg" onchange="console.log(event.target.files)">
+  <button mat-raised-button color="accent" type="submit">Upload Image</button> -->
