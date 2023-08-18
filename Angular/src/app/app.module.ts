@@ -59,7 +59,6 @@ import { MatRippleModule } from '@angular/material/core';
 import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
 import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
-import { AddcontractorComponent } from './contractors/contractors/addcontractor/addcontractor.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
 import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
@@ -124,7 +123,6 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
     AddEmployeeComponent,
     BrokerModelComponent,
     BrokercreatemodelComponent,
-    AddcontractorComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
     UpdateUserModalComponent,

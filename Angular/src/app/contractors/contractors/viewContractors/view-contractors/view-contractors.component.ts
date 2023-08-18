@@ -2,8 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { AddcontractorComponent } from '../../addcontractor/addcontractor.component';
-import { ContractorServiceService } from '../../contractor-service.service';
 
 
 @Component({
@@ -17,13 +15,13 @@ export class ViewContractorsComponent implements OnInit {
   
   constructor(
     public dialog: MatDialog,
-    public ContractorServiceService: ContractorServiceService,
+   
   ) { }
 
   ngOnInit(): void {
   }
 
-  private getUsers() {
+  /*private getUsers() {
     this.userDetails = new MatTableDataSource<Element>(this.ContractorServiceService.getUser());
   }
 
@@ -66,6 +64,6 @@ export class ViewContractorsComponent implements OnInit {
         this.getUsers();
       }
     });
-  }
+  }*/
 }
 
