@@ -56,90 +56,6 @@ loadPropertry()
 
 }
 
-
-
-
-
-  // //Constant values
-  // leftCard = [
-  //   {
-  //     description: 'Description: ',
-  //     address: 'Address: ',
-  //     suburb: 'Suburb: ',
-  //     rental: 'Rental Amount: ',
-  //     size: 'Size: ',
-  //     yard: 'Yard: ',
-  //   },
-  // ];
-
-  // image = 'https://images.prop24.com/258192045/Crop600x400';
-
-  // rightCard1 = [
-  //   {
-  //     title: 'Recoveries',
-  //     description: 'Description: ',
-  //     type: 'Type: ',
-  //     amount: 'Amount: ',
-  //   },
-  // ];
-
-  // rightCard2 = [
-  //   { title: 'Inspection', description: 'Description: ', date: 'Date: ' },
-  // ];
-
-  // rightCard3 = [
-  //   {
-  //     title: 'Lease',
-  //     name: 'Name: ',
-  //     surname: 'Surname: ',
-  //     phone: 'Phone Number: ',
-  //     company: 'Company Name: ',
-  //     cphone: 'Company Phone Number: ',
-  //   },
-  // ];
-
-  // //Random data
-  // leftData = [
-  //   {
-  //     description: 'Construction site ',
-  //     address: '537 Sinagoge Road ',
-  //     suburb: 'Kameeldrift ',
-  //     rental: 'R15 000',
-  //     size: ' ',
-  //     yard: '',
-  //   },
-  //   //{description: 'Manufacturing site' , address: '25 Ocean Drive ', suburb: 'Durbun ', rental: 'R35 000', size: ' ', yard: ''}
-  // ];
-
-  // rightData1 = [
-  //   {
-  //     description: 'Water damage from geyser burst ',
-  //     type: 'Water ',
-  //     amount: 'R5800 ',
-  //   },
-  //   //{description: '', type: ' ', amount: ' '},
-  // ];
-
-  // rightData2 = [
-  //   {
-  //     description: 'Water damage checking from geyser burst',
-  //     date: '2023/07/27',
-  //   },
-  //   //{description: '', date: ''},
-  // ];
-
-  // rightData3 = [
-  //   {
-  //     name: 'Piet ',
-  //     surname: 'Van Zyl',
-  //     phone: '067 342 1224 ',
-  //     company: 'Consitent Construction',
-  //     cphone: '012 789 4561',
-  //   },
-  //   // {name: 'Willem ', surname: 'Prinsloo', phone: '079 890 3590 ', company: 'Manufacturing fun', cphone: '012 548 7889'},
-  // ];
-
-
   openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -195,7 +111,13 @@ loadPropertry()
   }
 
   openAddImageModal() {
-    const dialogRef = this.dialog.open(AddImageModalComponent, {});
+    const dialogRef = this.dialog.open(AddImageModalComponent, {
+      data: { propertyId: this.propertyDetail.propertyID } // Pass propertyId to the modal
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle any actions after the modal is closed
+    });
   }
 
   openDeleteImageDialog() {

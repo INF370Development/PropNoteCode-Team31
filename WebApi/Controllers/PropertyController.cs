@@ -7,6 +7,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
 using WebApi.Models.Property;
 using WebApi.Interfaces;
+using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
@@ -15,6 +16,7 @@ namespace WebApi.Controllers
     public class PropertyController : Controller
     {
         public readonly IPropertyRepository _propertyRepository;
+        private readonly AppDbContext _context;
 
         public PropertyController(IPropertyRepository repository)
         {
@@ -27,26 +29,6 @@ namespace WebApi.Controllers
         {
             try
             {
-                /*var allProperties = await _propertyRepository.GetAllPropertiesAsync();
-                List<PropertyResponse> properties = new List<PropertyResponse>();
-                foreach (var property in allProperties)
-                {
-                    properties.Add(new PropertyResponse
-                    {
-                        PropertyID = property.PropertyID,
-                        BrokerName = property.Broker.Name,
-                        BuildingNumber = property.BuildingNumber,
-                        Description = property.Description,
-                        PurchaseAmount = property.PurchaseAmount,
-                        PurchaseYear = property.PurchaseYear,
-                        Size = property.Size,
-                        Street = property.Street,
-                        Suburb = property.Suburb,
-                        Yard = property.Yard
-                    });
-                }
-
-                return Ok(properties);*/
                 var results = await _propertyRepository.GetAllPropertiesAsync();
                 return Ok(results);
             }
@@ -85,7 +67,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        [Route("EditProperty")]
+        [Route("EditProperty/{propertyID}")]
         public async Task<IActionResult> EditProperty(int propertyID, Property property)
         {
             try
@@ -137,7 +119,7 @@ namespace WebApi.Controllers
                     existingProperty.PurchaseAmount = property.PurchaseAmount;
                 }
 
-                if (property.PurchaseYear == "")
+                if (property.PurchaseYear == null)
                 {
                     existingProperty.PurchaseYear = existingProperty.PurchaseYear;
                 }
@@ -201,7 +183,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteProperty")]
+        [Route("DeleteProperty/{propertyID}")]
         public async Task<IActionResult> DeleteProperty(int propertyID)
         {
             try
@@ -221,5 +203,42 @@ namespace WebApi.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
+
+        /*[HttpPost]
+        [Route("uploadPhoto/{propertyID}")]
+        public async Task<IActionResult> UploadPhoto(int propertyID, [FromForm] IFormFile photo)
+        {
+            try
+            {
+                var property = await _context.Property.FindAsync(propertyID);
+
+                if (property != null && photo != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await photo.CopyToAsync(memoryStream);
+                        var photoData = memoryStream.ToArray();
+
+                        var newPhoto = new PropertyImage
+                        {
+                            ImageName = photo.FileName,
+                            ImageData = photoData,
+                            PropertyID = propertyID
+                        };
+
+                        _context.PropertyImage.Add(newPhoto);
+                        await _context.SaveChangesAsync();
+
+                        return Ok(new { Message = "Photo uploaded successfully" });
+                    }
+                }
+
+                return BadRequest("Invalid property ID or photo upload failed");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }*/
     }
 }

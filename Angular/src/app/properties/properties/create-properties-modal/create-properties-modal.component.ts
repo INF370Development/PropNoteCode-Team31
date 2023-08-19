@@ -24,7 +24,7 @@ export class CreatePropertiesModalComponent implements OnInit {
     street: '',
     suburb: '',
     purchaseAmount: 0,
-    purchaseYear: '',
+    purchaseYear: 2023,
     size:'',
     yard:'',
     brokerID: 0,

@@ -45,6 +45,7 @@ import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile
 import { ChangePasswordComponent } from './profile/profile/changePassword/change-password/change-password.component';
 import { NotificationsComponent } from './profile/profile/notifications/notifications/notifications.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
+import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
 
 const routes: Routes = [
   //Home
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'broker', component: BrokerComponent },
   { path: 'viewBroker', component: ViewBrokerComponent },
   { path: 'generateBroker', component: GenerateBrokerReportComponent },
+  { path: 'viewBrokerDetails/:id', component: ViewBrokerDetailsComponent },
   //Calendar
   { path: 'calendar', component: CalendarComponent },
   { path: 'viewCalendar', component: ViewCalendarComponent },

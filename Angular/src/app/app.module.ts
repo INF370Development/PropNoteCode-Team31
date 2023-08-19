@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -57,7 +58,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
-import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
+import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
@@ -81,6 +82,7 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     UsersComponent,
     ViewUsersComponent,
     ViewUserRolesComponent,
+    ViewBrokerDetailsComponent,
     PropertiesComponent,
     ViewPropertiesComponent,
     GeneratePropertiesReportComponent,
@@ -124,7 +126,6 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     DeleteImageDialogComponent,
     SideNavComponent,
     AddEmployeeComponent,
-    BrokerModelComponent,
     BrokercreatemodelComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
@@ -142,6 +143,7 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,

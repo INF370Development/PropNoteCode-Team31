@@ -513,7 +513,7 @@ CREATE TABLE [dbo].[PROPERTY](
 	[Street] [varchar](100) NULL,
 	[Suburb] [varchar](100) NULL,
 	[PurchaseAmount] [int] NULL,
-	[PurchaseYear] [date] NULL,
+	[PurchaseYear] [int] NULL,
 	[Size] [varchar](100) NULL,
 	[Yard] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
@@ -530,7 +530,8 @@ GO
 CREATE TABLE [dbo].[PROPERTYIMAGE](
 	[PropertyImageID] [int] IDENTITY(1,1) NOT NULL,
 	[PropertyID] [int] NOT NULL,
-	[PropertyImageURL] [varchar](max) NULL,
+	[ImageName] [varchar](max) NULL,
+	[ImageData] [varbinary] (max),
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyImageID] ASC

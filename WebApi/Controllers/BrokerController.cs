@@ -52,7 +52,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetBrokerByID")]
+        [Route("GetBrokerByID/{brokerID}")]
         public async Task<IActionResult> GetBrokerID(int brokerID)
         {
             try
