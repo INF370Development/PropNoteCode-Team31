@@ -6,10 +6,10 @@
         public int BuildingNumber { get; set; }
         public string Street { get; set; }
         public string Suburb { get; set; }
-        public int PurchaseAmount { get; set; }
+        public decimal PurchaseAmount { get; set; }
         public int PurchaseYear { get; set; }
-        public string Size { get; set; }
-        public string Yard { get; set; }
+        public decimal Size { get; set; }
+        public decimal Yard { get; set; }
         public int BrokerID { get; set; }
     }
 }

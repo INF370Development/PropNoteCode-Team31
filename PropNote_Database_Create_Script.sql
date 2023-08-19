@@ -378,7 +378,6 @@ GO
 CREATE TABLE [dbo].[NOTIFICATION](
 	[NotificationID] [int] IDENTITY(1,1) NOT NULL,
 	[NotificationTypeID] [int] NULL,
-	[ScheduleID] [int] NULL,
 	[ReccurenceTypeID] [int] NULL,
 	[NotificationName] [varchar](50) NULL,
 	[NotificationDate] [date] NULL,
@@ -595,11 +594,11 @@ CREATE TABLE [dbo].[INSPECTION] (
 	[InpectionID] [int] IDENTITY(1,1) NOT NULL,
 	[PropertyID] [int] NULL,
 	[EmployeeID] [int] NULL,
-	[InspecitionTypeID] [int] NULL,
+	[InspectionTypeID] [int] NULL,
 	[InspectionStatusID] [int] NULL,
 	[InspectionDescription] [varchar] (50) NULL,
 	[InspectionDate] [date] NULL,
-	[InspectioTime] [time] NULL,
+	[InspectionTime] [time] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[InpectionID] ASC
@@ -812,7 +811,7 @@ CREATE TABLE [dbo].[USER](
 	[Email] [varchar](255) NOT NULL,
 	[Name] [varchar](255) NULL,
 	[Surname] [varchar](255) NULL,
-	[PhoneNumber] [varchar](255) NULL,
+	[PhoneNumber] [varchar](10) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC
@@ -826,7 +825,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VAT](
 	[VATID] [int] NOT NULL,
-	[Percentage] [varchar](5) NULL,
+	[Percentage] [decimal](5, 2) NULL,
 	[Date] [date] NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -856,8 +855,11 @@ GO
 ALTER TABLE [dbo].[LEASE]  WITH CHECK ADD FOREIGN KEY([TenantID])
 REFERENCES [dbo].[TENANT] ([TenantID])
 GO
-ALTER TABLE [dbo].[NOTIFICATION] WITH CHECK ADD FOREIGN KEY([ScheduleID])
-REFERENCES [dbo].[SCHEDULE] ([ScheduleID])
+ALTER TABLE [dbo].[SCHEDULE] WITH CHECK ADD FOREIGN KEY([NotificationID])
+REFERENCES [dbo].[NOTIFICATION] ([NotificationID])
+GO
+ALTER TABLE [dbo].[SCHEDULE] WITH CHECK ADD FOREIGN KEY([UserID])
+REFERENCES [dbo].[USER] ([UserID])
 GO
 ALTER TABLE [dbo].[NOTIFICATION]  WITH CHECK ADD FOREIGN KEY([ReccurenceTypeID])
 REFERENCES [dbo].[RECCURENCEITEMTYPE] ([ReccurenceTypeID])
@@ -958,8 +960,23 @@ GO
 ALTER TABLE [dbo].[SNAGLIST]  WITH CHECK ADD FOREIGN KEY([PropertyID])
 REFERENCES [dbo].[PROPERTY] ([PropertyID])
 GO
-ALTER TABLE [dbo].[SCHEDULE]  WITH CHECK ADD FOREIGN KEY([UserID])
-REFERENCES [dbo].[USER] ([UserID])
+ALTER TABLE [dbo].[RECOVERY]  WITH CHECK ADD FOREIGN KEY([PropertyID])
+REFERENCES [dbo].[PROPERTY] ([PropertyID])
+GO
+ALTER TABLE [dbo].[RECOVERY]  WITH CHECK ADD FOREIGN KEY([RecoveryTypeID])
+REFERENCES [dbo].[RECOVERYTYPE] ([RecoveryTypeID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([PropertyID])
+REFERENCES [dbo].[PROPERTY] ([PropertyID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([EmployeeID])
+REFERENCES [dbo].[EMPLOYEE] ([EmployeeID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([InspectionTypeID])
+REFERENCES [dbo].[INSPECTIONTYPE] ([InspectionTypeID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([InspectionStatusID])
+REFERENCES [dbo].[INSPECTIONSTATUS] ([InspectionStatusID])
 GO
 USE [master]
 GO

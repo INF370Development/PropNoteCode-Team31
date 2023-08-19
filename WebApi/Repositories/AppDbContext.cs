@@ -5,7 +5,7 @@ using WebApi.Models.Lease;
 using WebApi.Models.Data;
 using WebApi.Models;
 using WebApi.Models.Users;
-
+using WebApi.Models.Property;
 namespace WebApi.Repositories
 {
     public class AppDbContext : DbContext
@@ -24,11 +24,11 @@ namespace WebApi.Repositories
         public DbSet<DataType> DataType { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Deposit> Deposit { get; set; }
-        public DbSet<Models.Property.PropertyImage> PropertyImage { get; set; }
+        public DbSet<PropertyImage> PropertyImage { get; set; }
         public DbSet<Role> Role { get; set; }
-
+        public DbSet<Inspection> Inspection { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
-
+        public DbSet<Recovery> Recovery { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {           
             base.OnModelCreating(modelBuilder);

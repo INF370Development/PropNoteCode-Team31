@@ -49,5 +49,52 @@ namespace WebApi.Repositories
         {
             _appDbContext.Remove(entity);
         }
+
+        public async Task<List<Inspection>> GetAllInspectionsForPropertyAsync(int propertyID)
+        {
+            return await _appDbContext.Inspection
+                .Where(inspection => inspection.PropertyID == propertyID)
+                .ToListAsync();
+        }
+       
+        public async Task AddInspection(Inspection inspection)
+        {
+            _appDbContext.Add(inspection);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Inspection> GetInspectionByIDAsync(int inspectionID)
+        {
+            return await _appDbContext.Inspection.FindAsync(inspectionID);
+        }
+
+        public void DeleteInspection(Inspection inspection)
+        {
+            _appDbContext.Inspection.Remove(inspection);
+        }
+
+        public async Task<List<Recovery>> GetAllRecoveriesForPropertyAsync(int propertyID)
+        {
+            return await _appDbContext.Recovery
+                .Where(inspection => inspection.PropertyID == propertyID)
+                .ToListAsync();
+        }
+
+        public async Task AddRecovery(Recovery recovery)
+        {
+            _appDbContext.Add(recovery);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Recovery> GetRecoveryByIDAsync(int recoveryID)
+        {
+            return await _appDbContext.Recovery.FindAsync(recoveryID);
+        }
+
+        public void DeleteRecovery(Recovery recovery)
+        {
+            _appDbContext.Recovery.Remove(recovery);
+        }
+
     }
 }
