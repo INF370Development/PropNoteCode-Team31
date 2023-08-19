@@ -21,11 +21,14 @@ export class ContractorService {
 
   getContractors(): Observable<Contractor[]> {
     return this._httpClient
-      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
-      .pipe(map((result) => result));
+      .get<Contractor[]>(`${this.apiUrl}/Contractor/GetAllContractors`);
   }
 
-  getBroker(contractorID: number, contractor: Contractor) {
+  /*getContractor(): Observable<Contractor[]> {
+    return this._httpClient.get<Contractor[]>('your_api_endpoint_here');
+  }*/
+
+  getContractor(contractorID: number, contractor: Contractor) {
     return this._httpClient
       .post(
         `https://localhost:7251/api/Contractor/GetContractorByID/${contractorID}`,
@@ -34,13 +37,13 @@ export class ContractorService {
       .pipe(map((result) => result));
   }
 
-  deleteBroker(contractorID: number) {
+  deleteContractor(contractorID: number) {
     return this._httpClient
       .delete(`https://localhost:7251/api/Contractor/DeleteContractor/${contractorID}`)
       .pipe(map((result) => result));
   }
 
-  createBroker(contractor: Contractor) {
+  createContractor(contractor: Contractor) {
     return this._httpClient
       .post(`https://localhost:7251/api/Contractor/AddContractor`, contractor)
       .pipe(map((result) => result));

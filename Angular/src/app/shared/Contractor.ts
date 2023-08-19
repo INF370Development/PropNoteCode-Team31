@@ -4,4 +4,5 @@ export interface Contractor {
     lastName : string;
     email : string;
     contact : string;
+    action: string;
 }  
