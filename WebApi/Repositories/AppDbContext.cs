@@ -24,7 +24,7 @@ namespace WebApi.Repositories
         public DbSet<DataType> DataType { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Deposit> Deposit { get; set; }
-
+        public DbSet<Models.Property.PropertyImage> PropertyImage { get; set; }
         public DbSet<Role> Role { get; set; }
 
         public DbSet<UserRole> UserRole { get; set; }

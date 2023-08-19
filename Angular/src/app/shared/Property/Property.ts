@@ -8,7 +8,7 @@ export class Property {
   street: string = "";
   suburb: string = "";
   purchaseAmount: number = 0;
-  purchaseYear: string = "";
+  purchaseYear: Number = 2023;
   size: string = "";
   yard: string = "";
   brokerID: Number = 0;

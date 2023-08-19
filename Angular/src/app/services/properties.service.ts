@@ -43,4 +43,9 @@ export class PropertiesService {
       .post(`https://localhost:7251/api/Property/AddProperty`, property)
       .pipe(map((result) => result));
   }
+
+  uploadPropertyImage(propertyId: number, imageFormData: FormData): Observable<any> {
+    return this._httpClient.post(`https://localhost:7251/api/Property/uploadPhoto/${propertyId}`, imageFormData);
+  }
+
 }

@@ -5,7 +5,7 @@ export class PropertyRequest {
   street: string = "";
   suburb: string = "";
   purchaseAmount: number = 0;
-  purchaseYear: string = "";
+  purchaseYear: number = 2023;
   size: string = "";
   yard: string = "";
   brokerID: Number = 0;
