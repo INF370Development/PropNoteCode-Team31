@@ -68,9 +68,10 @@ import { UpdateUserRoleModalComponent } from './users/users/viewUserRoles/view-u
 import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/createEmployeeModal/create-employee-modal/create-employee-modal.component';
 import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
 import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
-import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
+import { UpdateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/updateTenantModal/update-tenant-modal.component';
 import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
+import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
     UpdateEmployeeModalComponent,
     UpdateTenantModalComponent,
     ViewAllPropertiesComponent,
+    CreateTenantModalComponent,
 
   ],
   imports: [
