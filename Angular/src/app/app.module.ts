@@ -74,6 +74,7 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
 import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
+import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 
 @NgModule({
   declarations: [
@@ -139,6 +140,7 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     CreateContractorModalComponent,
     DeleteContracorDialogComponent,
     UpdateContractorModalComponent,
+    CreateTenantModalComponent,
 
   ],
   imports: [
