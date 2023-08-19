@@ -59,7 +59,6 @@ import { MatRippleModule } from '@angular/material/core';
 import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
 import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
-import { AddcontractorComponent } from './contractors/contractors/addcontractor/addcontractor.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
 import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
@@ -71,6 +70,9 @@ import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/v
 import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
 import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
+import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
+import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
+import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +126,6 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
     AddEmployeeComponent,
     BrokerModelComponent,
     BrokercreatemodelComponent,
-    AddcontractorComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
     UpdateUserModalComponent,
@@ -134,6 +135,9 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
     UpdateEmployeeModalComponent,
     UpdateTenantModalComponent,
     ViewAllPropertiesComponent,
+    CreateContractorModalComponent,
+    DeleteContracorDialogComponent,
+    UpdateContractorModalComponent,
 
   ],
   imports: [

@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './view-broker.component.html',
   styleUrls: ['./view-broker.component.scss'],
 })
+
 export class ViewBrokerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'name',
