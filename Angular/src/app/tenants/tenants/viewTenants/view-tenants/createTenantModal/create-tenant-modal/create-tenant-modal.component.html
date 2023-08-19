@@ -1,1 +1,11 @@
-<p>create-tenant-modal works!</p>
+<h2>Create Tenant</h2>
+<form [formGroup]="tenantForm" (submit)="onSubmit()">
+  <!-- Add form controls here for tenant information -->
+  <mat-form-field>
+    <input matInput formControlName="email" placeholder="Email">
+  </mat-form-field>
+  <!-- Add more form fields for other tenant information -->
+  <br>
+  <button type="submit" mat-raised-button color="accent">Create</button>
+  <button mat-raised-button color="warn">Cancel</button>
+</form>

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { TenantService } from 'src/app/services/tenant.service';
 import { Tenant } from 'src/app/shared/Tenant';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateTenantModalComponent } from './createTenantModal/create-tenant-modal/create-tenant-modal.component';
 
 @Component({
   selector: 'app-view-tenants',
@@ -18,14 +19,15 @@ import { MatDialog } from '@angular/material/dialog';
 export class ViewTenantsComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = [
-    'id',
-    'email',
-    'name',
-    'surname',
-    'phone',
-    'jobTitle',
-    'updateButton',
-    'deleteButton',
+    'ID',
+    'Email',
+    'First Name',
+    'Surname',
+    'Phone Number',
+    'Job Title',
+    'Details',
+    'Update',
+    'Delete',
   ];
 
   dataSource = new MatTableDataSource<Tenant>();
@@ -67,6 +69,25 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
     );
     snackBarRef.afterDismissed().subscribe(() => {
       location.reload();
+    });
+  }
+
+  refreshTableData() {
+    // Implement the logic to refresh your table data here
+    this._tenantService.getTenants().subscribe((tenants: any) => {
+      this.dataSource.data = tenants;
+    });
+  }
+
+  openCreateTenantModal() {
+    const dialogRef = this.dialog.open(CreateTenantModalComponent, {
+      width: '400px', // Adjust the width as needed
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.refreshTableData(); 
+      }
     });
   }
 }
