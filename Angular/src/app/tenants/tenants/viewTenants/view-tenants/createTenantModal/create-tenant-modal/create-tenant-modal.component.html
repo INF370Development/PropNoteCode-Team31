@@ -1,11 +1,30 @@
-<h2>Create Tenant</h2>
+<div class="modal-container">
+  <h2>Create Tenant<button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2> 
+
 <form [formGroup]="tenantForm" (submit)="onSubmit()">
-  <!-- Add form controls here for tenant information -->
   <mat-form-field>
     <input matInput formControlName="email" placeholder="Email">
+    <mat-error *ngIf="tenantForm.get('email')?.hasError('required')">Email is required</mat-error>
+    <mat-error *ngIf="tenantForm.get('email')?.hasError('email')">Invalid email format</mat-error>
   </mat-form-field>
-  <!-- Add more form fields for other tenant information -->
+  <br>
+  <mat-form-field>
+    <input matInput formControlName="firstName" placeholder="First Name">
+    <mat-error *ngIf="tenantForm.get('firstName')?.hasError('required')">First Name is required</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput formControlName="surname" placeholder="Surname">
+    <mat-error *ngIf="tenantForm.get('surname')?.hasError('required')">Surname is required</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput formControlName="jobTitle" placeholder="Job Title">
+    <mat-error *ngIf="tenantForm.get('jobTitle')?.hasError('required')">Job Title is required</mat-error>
+  </mat-form-field>
   <br>
   <button type="submit" mat-raised-button color="accent">Create</button>
-  <button mat-raised-button color="warn">Cancel</button>
+  <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
 </form>
+
+</div>

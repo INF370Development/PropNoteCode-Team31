@@ -21,6 +21,12 @@ export class TenantService {
     }),
   };
 
+  //CREATE
+  createTenant(formData: any): Observable<any> {
+    const apiUrl = 'http://localhost:7251/api/Tenant/createTenant';
+    return this.http.post(apiUrl, formData);
+  }
+
   //READ
   getTenants(): Observable<Tenant[]> {
     return this.http

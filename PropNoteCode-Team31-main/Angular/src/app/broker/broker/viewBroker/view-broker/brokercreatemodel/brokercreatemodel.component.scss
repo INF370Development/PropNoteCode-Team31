@@ -1,12 +1,13 @@
 .modal-container {
     width: 600px;
     padding: 20px;
+    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
 }
   
 .modal-container h2 {
     margin-bottom: 10px;
-    color: white;
 }
   
 .modal-container ul {
@@ -34,8 +35,4 @@
 
 .end{
     padding: 10px;
-}
-
-mat-form-field {
-    width: 550px;
 }

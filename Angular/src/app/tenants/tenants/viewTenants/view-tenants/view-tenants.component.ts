@@ -73,7 +73,6 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
   }
 
   refreshTableData() {
-    // Implement the logic to refresh your table data here
     this._tenantService.getTenants().subscribe((tenants: any) => {
       this.dataSource.data = tenants;
     });
@@ -81,12 +80,14 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
 
   openCreateTenantModal() {
     const dialogRef = this.dialog.open(CreateTenantModalComponent, {
-      width: '400px', // Adjust the width as needed
+      
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.refreshTableData(); 
+    dialogRef.afterClosed().subscribe((formData: any) => {
+      if (formData) {
+        this._tenantService.createTenant(formData).subscribe((newTenant: any) => {
+          this.refreshTableData();
+        });
       }
     });
   }
