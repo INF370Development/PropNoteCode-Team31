@@ -30,7 +30,7 @@ export class TenantService {
   //READ
   getTenants(): Observable<Tenant[]> {
     return this.http
-      .get<Tenant[]>(`https://localhost:7251/api/User/getUsers`)
+      .get<Tenant[]>(`https://localhost:7251/api/User/getTenants`)
       .pipe(map((result) => result));
   }
   

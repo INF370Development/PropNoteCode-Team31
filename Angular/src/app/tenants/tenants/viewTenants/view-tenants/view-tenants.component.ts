@@ -9,6 +9,7 @@ import { TenantService } from 'src/app/services/tenant.service';
 import { Tenant } from 'src/app/shared/Tenant';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTenantModalComponent } from './createTenantModal/create-tenant-modal/create-tenant-modal.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-view-tenants',
@@ -35,7 +36,8 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
   constructor(
     private _tenantService: TenantService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {}
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -79,14 +81,13 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
   }
 
   openCreateTenantModal() {
-    const dialogRef = this.dialog.open(CreateTenantModalComponent, {
-      
-    });
+    const dialogRef = this.dialog.open(CreateTenantModalComponent);
   
     dialogRef.afterClosed().subscribe((formData: any) => {
       if (formData) {
         this._tenantService.createTenant(formData).subscribe((newTenant: any) => {
           this.refreshTableData();
+          this.cdr.detectChanges(); 
         });
       }
     });
