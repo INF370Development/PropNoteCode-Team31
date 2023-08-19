@@ -21,6 +21,8 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
     'surname',
     'phoneNumber',
     'officeAddress',
+    'licenseNumber',
+    'commissonRate',
     'detailsButton',
     'deleteButton',
   ];
