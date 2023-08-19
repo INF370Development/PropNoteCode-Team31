@@ -5,5 +5,5 @@ export class Broker {
   phoneNumber: string = "";
   officeAddress: string = "";
   licenseNumber: string = "";
-  commissionRate: string = "";
+  commissionRate: number = 0;
 }

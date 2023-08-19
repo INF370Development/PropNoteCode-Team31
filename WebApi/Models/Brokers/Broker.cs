@@ -8,6 +8,6 @@
         public string PhoneNumber { get; set; }
         public string OfficeAddress { get; set; }
         public string LicenseNumber { get; set; }
-        public string? CommissionRate { get; set; }
+        public decimal CommissionRate { get; set; }
     }
 }

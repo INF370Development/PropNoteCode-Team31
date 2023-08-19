@@ -28,11 +28,9 @@ export class BrokerService {
      .get<Broker>(`https://localhost:7251/api/Broker/GetBrokerByID` + "/" + brokerID);
  }
 
-  deleteBroker(brokerID: number) {
-    return this._httpClient
-      .delete(`https://localhost:7251/api/Broker/DeleteBroker/?propertyID=${brokerID}`)
-      .pipe(map((result) => result));
-  }
+ deleteBroker(brokerID: number): Observable<any> {
+  return this._httpClient.delete(`https://localhost:7251/api/Broker/DeleteBroker/${brokerID}`);
+}
 
   createBroker(broker: Broker) {
     return this._httpClient

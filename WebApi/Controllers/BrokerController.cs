@@ -95,7 +95,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        [Route("EditBroker")]
+        [Route("EditBroker/{brokerID}")]
         public async Task<IActionResult> EditBroker(int brokerID, BrokerViewModel brokerModel)
         {
             try
@@ -144,7 +144,7 @@ namespace WebApi.Controllers
                 {
                     existingBroker.LicenseNumber = brokerModel.LicenseNumber;
                 }
-                if (brokerModel.CommissionRate == "")
+                if (brokerModel.CommissionRate == null)
                 {
                     existingBroker.CommissionRate = existingBroker.CommissionRate;
                 }
@@ -166,7 +166,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteBroker")]
+        [Route("DeleteBroker/{brokerID}")]
         public async Task<IActionResult> DeleteBroker(int brokerID)
         {
             try
