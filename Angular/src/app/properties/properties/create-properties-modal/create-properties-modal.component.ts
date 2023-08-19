@@ -73,7 +73,7 @@ brokers: Broker[] = [];
 
   // Send the selected brokerID to the backend
   sendToBackend() {
-    debugger;
+  //  debugger;
     if (this.propertyModel.broker) {
       const brokerID = this.propertyModel.broker.brokerID;
       console.log("BrokerID", brokerID)

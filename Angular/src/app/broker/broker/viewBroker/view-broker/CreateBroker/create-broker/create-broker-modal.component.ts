@@ -42,7 +42,7 @@ export class CreateBrokerModalComponent implements OnInit {
     this.dialogRef.close();
   }
   AddBroker() {
-    debugger;
+    //debugger;
     this.brokerService.createBroker(this.brokerModel).subscribe(
       (response) => {
         console.log('Broker created successfully:', response);
