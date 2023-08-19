@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
-using WebApi.Models.Tenant;
 using WebApi.Models.Interfaces;
 
 namespace WebApi.Controllers
