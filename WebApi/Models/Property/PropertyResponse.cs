@@ -8,7 +8,7 @@
         public string Street { get; set; }
         public string Suburb { get; set; }
         public int PurchaseAmount { get; set; }
-        public string PurchaseYear { get; set; }
+        public int PurchaseYear { get; set; }
         public string Size { get; set; }
         public string Yard { get; set; }
 

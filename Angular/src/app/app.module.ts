@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -57,9 +58,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
-import { BrokerModelComponent } from './broker/broker/viewBroker/view-broker/broker-model/broker-model.component';
+import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
-import { AddcontractorComponent } from './contractors/contractors/addcontractor/addcontractor.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
 import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
@@ -71,6 +71,9 @@ import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/v
 import { UpdateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/updateTenantModal/update-tenant-modal.component';
 import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
+import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
+import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
+import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
 import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 
 @NgModule({
@@ -80,6 +83,7 @@ import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-t
     UsersComponent,
     ViewUsersComponent,
     ViewUserRolesComponent,
+    ViewBrokerDetailsComponent,
     PropertiesComponent,
     ViewPropertiesComponent,
     GeneratePropertiesReportComponent,
@@ -123,9 +127,7 @@ import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-t
     DeleteImageDialogComponent,
     SideNavComponent,
     AddEmployeeComponent,
-    BrokerModelComponent,
     BrokercreatemodelComponent,
-    AddcontractorComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
     UpdateUserModalComponent,
@@ -135,11 +137,15 @@ import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-t
     UpdateEmployeeModalComponent,
     UpdateTenantModalComponent,
     ViewAllPropertiesComponent,
+    CreateContractorModalComponent,
+    DeleteContracorDialogComponent,
+    UpdateContractorModalComponent,
     CreateTenantModalComponent,
 
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
