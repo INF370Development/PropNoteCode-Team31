@@ -12,7 +12,7 @@ interface TenantType {
   providedIn: 'root'
 })
 
-export class UserService {
+export class TenantService {
   tenantDetails: any[] = [];
 
   constructor() { }
