@@ -23,7 +23,7 @@ export class TenantService {
 
   //CREATE
   createTenant(userTenant: UserTenant) {
-    debugger;
+    //debugger;
     return this.httpClient
       .post(`https://localhost:7251/api/User/CreateTenantUser`, userTenant)
       .pipe(map((result) => result));

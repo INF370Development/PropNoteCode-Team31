@@ -43,7 +43,6 @@ export class CreateTenantModalComponent implements OnInit {
 
   CreateTenant() {
 
-    
     this.tenantService.createTenant(this.tenantModel).subscribe(
       (response) => {
         console.log('Tenant created successfully:', response);
