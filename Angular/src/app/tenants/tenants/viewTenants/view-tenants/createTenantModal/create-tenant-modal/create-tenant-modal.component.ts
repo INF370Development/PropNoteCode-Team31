@@ -4,9 +4,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TenantService } from 'src/app/services/tenant.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { Tenant } from 'src/app/shared/Tenant';
-import { User } from 'src/app/shared/User';
-import { UserTenant } from 'src/app/shared/UserTenant';
+import { Tenant } from 'src/app/shared/UserModels/Tenant';
+import { User } from 'src/app/shared/UserModels/User';
+import { UserTenant } from 'src/app/shared/UserModels/UserTenant';
 
 @Component({
   selector: 'app-create-tenant-modal',

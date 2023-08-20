@@ -28,22 +28,8 @@ namespace WebApi.Controllers
             //Test
             try
             {
-                List<Broker> brokers = new();
                 var results = await _brokerRepository.GetAllBrokersAsync();
-                foreach (var broker in results)
-                {
-                    brokers.Add(new Broker
-                    {
-                        BrokerID = broker.BrokerID,
-                        Name = broker.Name,
-                        Surname = broker.Surname,
-                        PhoneNumber = broker.PhoneNumber,
-                        OfficeAddress = broker.OfficeAddress,
-                        LicenseNumber = broker.LicenseNumber,
-                        CommissionRate = broker.CommissionRate
-                    });
-                }
-                return Ok(brokers);
+                return Ok(results);
             }
             catch (Exception)
             {

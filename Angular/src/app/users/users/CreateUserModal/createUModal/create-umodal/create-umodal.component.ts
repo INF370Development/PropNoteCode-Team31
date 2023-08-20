@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/shared/User';
+import { User } from 'src/app/shared/UserModels/User';
 
 @Component({
   selector: 'app-create-umodal',

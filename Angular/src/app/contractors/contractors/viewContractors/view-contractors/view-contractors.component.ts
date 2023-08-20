@@ -6,8 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ContractorService } from 'src/app/services/contractor.service';
-import { Contractor } from 'src/app/shared/Contractor';
 import { MatDialog } from '@angular/material/dialog';
+import { Contractor } from 'src/app/shared/UserModels/Contractor';
+import { CreateContractorModalComponent } from './createContractorModal/create-contractor-modal/create-contractor-modal.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-view-contractors',
@@ -16,23 +18,25 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class ViewContractorsComponent implements AfterViewInit, OnInit {
-  
+
   displayedColumns: string[] = [
-    'firstName', 
-    'lastName', 
-    'email', 
-    'contact', 
-    'action',
-    'updateButton',
-    'deleteButton'
+    'name',
+    'email',
+    'phoneNumber',
+    'areaOfBusiness',
+    'availability',
+    'contractorType',
+    'detailsButton',
+    'deleteButton',
   ];
 
   dataSource = new MatTableDataSource<Contractor>();
-  
+
   constructor(
     private _contractorService: ContractorService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {}
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -53,10 +57,6 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async deleteContractor(id: any) {
-    await this._contractorService.deleteContractor(id);
-    this.showSnackBar();
-  }
 
   showSnackBar() {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
@@ -69,73 +69,22 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     });
   }
 
-  /*openDialog(
-    enterAnimationDuration: string,
-    exitAnimationDuration: string
-  ): void {
-    this.dialog.open(CreateUModalComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
+  refreshTableData() {
+    this._contractorService.getContractors().subscribe((contractors: any) => {
+      this.dataSource.data = contractors;
     });
   }
 
-  openModal() {
-    const dialogRef = this.dialog.open(CreateUModalComponent);
+  openCreateTenantModal() {
+    const dialogRef = this.dialog.open(CreateContractorModalComponent);
 
-  dialogRef.afterClosed().subscribe((result) => {
-    if (result && result.success) {
-      this.dataSource.data = [...this.dataSource.data, result.user];
-    }
-  });
-  }*/
-}
-  
-
-
-
-
-/*private getUsers() {
-    this.userDetails = new MatTableDataSource<Element>(this.ContractorServiceService.getUser());
-  }
-
-  public openPopup() {
-    const dialogRef = this.dialog.open(AddcontractorComponent, {
-      width: '350px',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.getUsers();
-    });
-  }
-
-  public editUser(index: any, data: { id: any; action: string; }) {
-    data.id = index;
-    data.action = 'edit';
-    const dialogRef = this.dialog.open(AddcontractorComponent, {
-      width: '350px',
-      data: data
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.getUsers();
-    });
-  }
-
-  public deleteUser(index: number) {
-    const data = {
-      action: 'delete'
-    }
-    const dialogRef = this.dialog.open(AddcontractorComponent, {
-      width: '400px',
-      data: data
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.ContractorServiceService.deleteUser(index);
-        this.getUsers();
+    dialogRef.afterClosed().subscribe((formData: any) => {
+      if (formData) {
+        this._contractorService.createContractor(formData).subscribe((newContractor: any) => {
+          this.refreshTableData();
+          this.cdr.detectChanges();
+        });
       }
     });
-  }*/
+  }
+}

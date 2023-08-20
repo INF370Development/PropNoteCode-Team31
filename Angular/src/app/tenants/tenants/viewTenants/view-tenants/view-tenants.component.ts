@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TenantService } from 'src/app/services/tenant.service';
-import { Tenant } from 'src/app/shared/Tenant';
+import { Tenant } from 'src/app/shared/UserModels/Tenant';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTenantModalComponent } from './createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { ChangeDetectorRef } from '@angular/core';

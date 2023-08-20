@@ -23,7 +23,8 @@ namespace WebApi.Repositories
         }
         public async Task<Broker[]> GetAllBrokersAsync()
         {
-            IQueryable<Broker> query = _appDbContext.Broker;
+            IQueryable<Broker> query = (IQueryable<Broker>)_appDbContext.Broker;
+            Console.WriteLine(query);
             return await query.ToArrayAsync();
         }
 

@@ -31,6 +31,8 @@ namespace WebApi.Repositories
         public DbSet<Recovery> Recovery { get; set; }
         public DbSet<Access> Access { get; set; }
         public DbSet<UserAccess> UserAccess { get; set; }
+        public DbSet<Contractor> Contractor { get; set; }
+        public DbSet<ContractorType> ContractorType { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

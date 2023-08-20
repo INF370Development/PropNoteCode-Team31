@@ -1,14 +1,20 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpStatusCode, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Contractor } from '../shared/Contractor';
-import { map, Observable, Subject } from 'rxjs';
-
+import { map, Observable, Subject, of } from 'rxjs';
+import { UserTenant } from '../shared/UserModels/UserTenant';
+import { Tenant } from '../shared/UserModels/Tenant';
+import { UserContractor } from '../shared/UserModels/UserContractor';
+import { Contractor } from '../shared/UserModels/Contractor';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class ContractorService {
+  constructor(private httpClient: HttpClient) {}
+
+
+  //TENANTS
   apiUrl = 'http://localhost:7251/api/';
 
   httpOptions = {
@@ -17,35 +23,42 @@ export class ContractorService {
     }),
   };
 
-  constructor(private _httpClient: HttpClient) {}
-
-  getContractors(): Observable<Contractor[]> {
-    return this._httpClient
-      .get<Contractor[]>(`${this.apiUrl}/Contractor/GetAllContractors`);
+  //CREATE
+  createContractor(userContractor: UserContractor) {
+    debugger;
+    return this.httpClient
+      .post(`https://localhost:7251/api/User/CreateContractorUser`, userContractor)
+      .pipe(map((result) => result));
   }
 
-  /*getContractor(): Observable<Contractor[]> {
-    return this._httpClient.get<Contractor[]>('your_api_endpoint_here');
+  //READ
+  getContractors(): Observable<Contractor[]> {
+    return this.httpClient
+      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
+      .pipe(map((result) => result));
+  }
+
+  //UPDATE
+  /*updateUser(userID: number) {
+    return this.http
+      .put<User[]>(`https://localhost:7251/api/User/DeleteUser/${userID}`)
+      .pipe(map((result) => result));
   }*/
 
-  getContractor(contractorID: number, contractor: Contractor) {
-    return this._httpClient
-      .post(
-        `https://localhost:7251/api/Contractor/GetContractorByID/${contractorID}`,
-        contractor
-      )
-      .pipe(map((result) => result));
-  }
+  //DELETE
+  // deleteTenant(tenantID: number) {
+  //   return this.httpClient
+  //     .delete(`https://localhost:7251/api/User/DeleteUser/${tenantID}`)
+  //     .pipe(map((result) => result));
+  // }
 
-  deleteContractor(contractorID: number) {
-    return this._httpClient
-      .delete(`https://localhost:7251/api/Contractor/DeleteContractor/${contractorID}`)
-      .pipe(map((result) => result));
-  }
-
-  createContractor(contractor: Contractor) {
-    return this._httpClient
-      .post(`https://localhost:7251/api/Contractor/AddContractor`, contractor)
-      .pipe(map((result) => result));
-  }
+  // //SEARCH
+  // getTenant(tenantID: number, tenant: Tenant) {
+  //   return this.httpClient
+  //     .post(
+  //       `https://localhost:7251/api/User/GetUserByID/${tenantID}`,
+  //       tenant
+  //     )
+  //     .pipe(map((result) => result));
+  // }
 }
