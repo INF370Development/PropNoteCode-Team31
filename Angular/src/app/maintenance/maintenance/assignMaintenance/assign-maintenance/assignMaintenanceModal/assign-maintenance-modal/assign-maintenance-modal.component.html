@@ -12,15 +12,32 @@
       <mat-error *ngIf="assignMaintenanceForm.get('status')?.hasError('required')">Status is required</mat-error>
     </mat-form-field>
     <br>
-    <mat-form-field>
+    <!--<mat-form-field>
       <input matInput formControlName="property" placeholder="Property">
       <mat-error *ngIf="assignMaintenanceForm.get('property')?.hasError('required')">Property is required</mat-error>
-    </mat-form-field>
+    </mat-form-field>-->
+
+    <!--<mat-form-field>
+      <label>Property</label>
+      <mat-select [(ngModel)]="maintenanceModal.property name="property" (selectionChange)="updateSelectedProperty($event.value)">
+        <mat-option *ngFor="let property of properties" [value]="property">{{ property.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>-->
+
     <br>
-    <mat-form-field>
+
+    <!--<mat-form-field>
+      <label>Property</label>
+      <mat-select [(ngModel)]="maintenanceModal.contractor.name="contractor" (selectionChange)="updateSelectedContractor($event.value)">
+        <mat-option *ngFor="let contractor of contractors" [value]="contractor">{{ contactor.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>-->
+
+    <!--<mat-form-field>
       <input matInput formControlName="contractor" placeholder="Contractor">
       <mat-error *ngIf="assignMaintenanceForm.get('contractor')?.hasError('required')">Contractor is required</mat-error>
-    </mat-form-field>
+    </mat-form-field>-->
+
     <br>
     <button type="submit" mat-raised-button color="accent">Create</button>
     <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
