@@ -74,6 +74,9 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
 import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
+import { AssignMaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assignMaintenanceModal/assign-maintenance-modal/assign-maintenance-modal.component';
+import { DeleteMaintenanceDialogComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/deleteMaintenanceDialog/delete-maintenance-dialog/delete-maintenance-dialog.component';
+import { UpdateMiaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/updateMaintenanceModal/update-miaintenance-modal/update-miaintenance-modal.component';
 
 @NgModule({
   declarations: [
@@ -139,6 +142,9 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     CreateContractorModalComponent,
     DeleteContracorDialogComponent,
     UpdateContractorModalComponent,
+    AssignMaintenanceModalComponent,
+    DeleteMaintenanceDialogComponent,
+    UpdateMiaintenanceModalComponent,
 
   ],
   imports: [
