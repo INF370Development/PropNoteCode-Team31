@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/shared/User';
+import { User } from 'src/app/shared/UserModels/User';
 import { CreateUserModalComponent } from '../../CreateUserModal/createUModal/create-umodal/create-umodal.component';
 import { MatDialog } from '@angular/material/dialog';
 

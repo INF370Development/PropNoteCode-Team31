@@ -2,7 +2,7 @@ import { PropertiesComponent } from "../properties/properties/properties.compone
 import { Property } from "./Property/Property";
 
 import { ContractorsComponent } from "../contractors/contractors/contractors.component";
-import { Contractor } from "./Contractor";
+import { Contractor } from "./UserModels/Contractor";
 
 export class Maintenance {
     id : number = 0;

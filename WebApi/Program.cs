@@ -32,6 +32,8 @@ builder.Services.AddScoped<IDataRepository, DataRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
+builder.Services.AddScoped<IContractorRepository, ContractorRepository>();
+builder.Services.AddScoped<IContractorTypeRepository, ContractorTypeRepository>();
 
 var app = builder.Build();
 

@@ -2,11 +2,11 @@ import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Property } from 'src/app/shared/Property/Property';
-import { Contractor } from 'src/app/shared/Contractor';
 import { Maintenance } from 'src/app/shared/Maintenance';
 import { MaintenanceService } from 'src/app/services/maintenance.service';
 import { Router } from '@angular/router';
 import { ContractorService } from 'src/app/services/contractor.service';
+import { Contractor } from 'src/app/shared/UserModels/Contractor';
 
 @Component({
   selector: 'app-assign-maintenance-modal',
@@ -59,14 +59,14 @@ contractors: Contractor[] = [];
     this.contractorService.getContractors().subscribe((contractor) => {
         this.contractors = contractor;
     });
-    
+
     //PROPERTY?
   }
 
   onSubmit() {
     if (this.assignMaintenanceForm.valid) {
       const formData = this.assignMaintenanceForm.value;
-      this.dialogRef.close(formData); 
+      this.dialogRef.close(formData);
     }
   }
 
