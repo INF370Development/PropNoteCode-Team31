@@ -1,4 +1,7 @@
-﻿namespace WebApi.Interfaces
+﻿using WebApi.Models;
+using WebApi.Models.Users;
+
+namespace WebApi.Interfaces
 {
     public interface IUserRoleRepository
     {
@@ -8,6 +11,11 @@
 
         public int GetRoleIdByDescription(string roleName);
 
-        public string GetUserRoleNameByUserId(int UserId);
+        Task<Role> GetByIdAsync(int id);
+        Task<Role> GetRoleByNameAsync(string roleName);
+        Task AddAsync(Role role);
+        Task UpdateAsync(Role role);
+        Task DeleteAsync(Role role);
+        Task AddUserRoleAsync(UserRole userRole);
     }
 }

@@ -21,16 +21,76 @@ namespace WebApi.Controllers
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?";
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
+        private readonly ITenantRepository _tenantRepository;
 
         //Constructor for the User Controller
-        public UserController(IUserRepository userRepository,IUserRoleRepository userRoleRepository)
+        public UserController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, ITenantRepository tenantRepository)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
+            _tenantRepository = tenantRepository;
         }
 
-        //Loging Function
-        [HttpPost]
+        [HttpPost("CreateTenantUser")]
+        public async Task<IActionResult> CreateTenantUser(CreateTenantUserRequest request)
+        {
+            try
+            {
+                // Create User
+                var user = new User
+                {
+                    Username = request.Username,
+                    Password = request.Password,
+                    ProfilePhoto = request.ProfilePhoto,
+                    Email = request.Email,
+                    Name = request.Name,
+                    Surname = request.Surname,
+                    PhoneNumber = request.PhoneNumber
+                    // Populate other user properties
+                };
+
+                // Get or create Tenant role
+                var tenantRole = await _userRoleRepository.GetRoleByNameAsync("Tenant");
+                if (tenantRole == null)
+                {
+                    tenantRole = new Role { Name = "Tenant" };
+                    await _userRoleRepository.AddAsync(tenantRole);
+                }
+
+                await _userRepository.AddAsync(user);
+
+                // Create UserRole
+                var userRole = new UserRole
+                {
+                    RoleID = tenantRole.RoleID,
+                    UserID = user.UserID
+                };
+
+                await _userRoleRepository.AddUserRoleAsync(userRole);
+
+                
+                    // Create Tenant
+                    var tenant = new Tenant
+                    {
+                        UserID = user.UserID,
+                        CompanyName = request.CompanyName,
+                        CompanyNumber = request.CompanyNumber
+                    };
+                    await _tenantRepository.AddAsync(tenant);
+                    
+                
+                return Ok("User with Tenant role and linked Tenant created.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+    }
+}
+/*
+    //Loging Function
+    [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginDetailsRequest userLoginDetails)
         {
@@ -117,11 +177,11 @@ namespace WebApi.Controllers
                     //var userRoleId = _userRoleRepository.GetRoleIdByDescription(userDetails.userRole);
 
                     //Insert UserRole Link
-                    /*var userRole = new UserRole()
+                    *//*var userRole = new UserRole()
                     {
                         UserID = foundUser.UserID,
                         UserRoleID = userRoleId
-                    };*/
+                    };*//*
                     //_userRoleRepository.Add(userRole);
 
                     //Return Result
@@ -137,8 +197,8 @@ namespace WebApi.Controllers
 
 
                     //Send email to User
-                   /* var emailHelper = new EmailHelper();
-                    emailHelper.SendEmail(newUser.Username, newUser.Email, pass, newUser.Name!);*/
+                   *//* var emailHelper = new EmailHelper();
+                    emailHelper.SendEmail(newUser.Username, newUser.Email, pass, newUser.Name!);*//*
                     
                     return Ok(result);
                 }
@@ -212,5 +272,4 @@ namespace WebApi.Controllers
 
             return passwordBuilder.ToString();
         }
-    }
-}
+    }*/

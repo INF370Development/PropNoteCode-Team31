@@ -13,5 +13,11 @@ namespace WebApi.Models.Interfaces
         public bool CheckUserPassword(string username, string hashedPassword);
 
         public bool CheckIfUserNameExsists(string username);
+        Task<User> GetUserByUsernameAsync(string username);
+        Task AddUserRoleAsync(UserRole userRole);
+       
+        Task AddAsync(User entity);
+        Task UpdateAsync(User entity);
+        Task DeleteAsync(User entity);
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
 using WebApi.Models.Users;
-using WebApi.Models.Interfaces;
+using WebApi.Interfaces;
 using WebApi.Repositories;
 
 namespace WebApi.Controllers
@@ -28,18 +28,20 @@ namespace WebApi.Controllers
         {
             try
             {
-                List<Tenant> tenant = new();
+                List<Tenant> tenants = new();
                 var results = await _tenantRepository.GetAllTenantsAsync();
                 foreach (var tenant in results)
                 {
-                    tenant.Add(new Tenant
+                    tenants.Add(new Tenant
                     {
                         TenantID = tenant.TenantID,
+                        UserID = tenant.UserID,
+                        Leases = tenant.Leases,
                         CompanyName = tenant.CompanyName,
-                        CompanyNumber = tenant.CompanyNumber,
+                        CompanyNumber = tenant.CompanyNumber
                     });
                 }
-                return Ok(tenant);
+                return Ok(tenants);
             }
             catch (Exception)
             {
@@ -53,7 +55,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var result = await _tenantRepository.GetTenantByID(tenantID);
+                var result = await _tenantRepository.GetTenantByIDAsync(tenantID);
 
                 if (result == null) return NotFound("Tenant does not exist. You need to create it first");
 
@@ -65,30 +67,9 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("AddTenant")]
-        public async Task<IActionResult> AddTenant(TenantViewModel tenantModel)
-        {
-            var tenant = new Tenant
-            {
-                Email = tenantModel.Email,
-                FirstName = tenantModel.FirstName,
-                Surname = tenantModel.Surname,
-                JobTitle = tenantModel.JobTitle,
-            };
-            try
-            {
-                await _tenantRepository.AddTenant(tenant);
+       
 
-                return Ok(tenant);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-        }
-
-        [HttpPut]
+    /*[HttpPut]
         [Route("EditTenant")]
         public async Task<IActionResult> EditTenant(int tenantID, TenantViewModel tenantModel)
         {
@@ -163,6 +144,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
             return BadRequest("Your request is invalid.");
-        }
+        }*/
     }
 }

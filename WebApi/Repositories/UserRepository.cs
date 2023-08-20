@@ -78,5 +78,39 @@ namespace WebApi.Repositories
                 return true;
             }
         }
+
+        public async Task<User> GetByIdAsync(int id)
+        {
+            return await _appDbContext.User.FindAsync(id);
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _appDbContext.User.SingleOrDefaultAsync(u => u.Username == username);
+        }
+
+        public async Task AddAsync(User user)
+        {
+            await _appDbContext.User.AddAsync(user);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task AddUserRoleAsync(UserRole userRole)
+        {
+            await _appDbContext.UserRole.AddAsync(userRole);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            _appDbContext.User.Update(user);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            _appDbContext.User.Remove(user);
+            await _appDbContext.SaveChangesAsync();
+        }
     }
 }
