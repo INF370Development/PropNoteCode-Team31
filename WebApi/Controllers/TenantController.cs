@@ -38,7 +38,8 @@ namespace WebApi.Controllers
                         UserID = tenant.UserID,
                         Leases = tenant.Leases,
                         CompanyName = tenant.CompanyName,
-                        CompanyNumber = tenant.CompanyNumber
+                        CompanyNumber = tenant.CompanyNumber,
+                        User = tenant.User,
                     });
                 }
                 return Ok(tenants);

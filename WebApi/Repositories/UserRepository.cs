@@ -84,9 +84,9 @@ namespace WebApi.Repositories
             return await _appDbContext.User.FindAsync(id);
         }
 
-        public async Task<User> GetUserByUsernameAsync(string username)
+        public async Task<User> GetUserByIDAsync(int userID)
         {
-            return await _appDbContext.User.SingleOrDefaultAsync(u => u.Username == username);
+            return await _appDbContext.User.SingleOrDefaultAsync(u => u.UserID == userID);
         }
 
         public async Task AddAsync(User user)
@@ -111,6 +111,12 @@ namespace WebApi.Repositories
         {
             _appDbContext.User.Remove(user);
             await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task<User[]> GetAllUsersAsync()
+        {
+            IQueryable<User> query = (IQueryable<User>)_appDbContext.User;
+            return await query.ToArrayAsync();
         }
     }
 }

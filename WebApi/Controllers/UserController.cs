@@ -67,26 +67,46 @@ namespace WebApi.Controllers
                 };
 
                 await _userRoleRepository.AddUserRoleAsync(userRole);
+                var retrievedUser = await _userRepository.GetUserByIDAsync(user.UserID);
 
-                
-                    // Create Tenant
-                    var tenant = new Tenant
+                // Create Tenant
+                var tenant = new Tenant
                     {
                         UserID = user.UserID,
                         CompanyName = request.CompanyName,
-                        CompanyNumber = request.CompanyNumber
+                        CompanyNumber = request.CompanyNumber,
+                        User = retrievedUser,
                     };
                     await _tenantRepository.AddAsync(tenant);
-                    
+                Console.WriteLine(tenant);
                 
                 return Ok("User with Tenant role and linked Tenant created.");
+
+                Console.WriteLine(tenant.User);
             }
+
             catch (Exception ex)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
+            
+        }
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var results = await _userRepository.GetAllUsersAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
+            }
         }
     }
+
 }
 /*
     //Loging Function

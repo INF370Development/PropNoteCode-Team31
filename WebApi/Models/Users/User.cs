@@ -17,8 +17,6 @@ namespace WebApi.Models
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
 
-        public List<UserRole> UserRoles { get; set; }
-        public List<Tenant> Tenants { get; set; }
     }
 
     public class UserRole
