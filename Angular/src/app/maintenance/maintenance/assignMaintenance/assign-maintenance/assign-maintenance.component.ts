@@ -5,8 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TenantService } from 'src/app/services/tenant.service';
-import { Tenant } from 'src/app/shared/Tenant';
+import { MaintenanceService } from 'src/app/services/maintenance.service';
+import { Maintenance } from 'src/app/shared/Maintenance';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -19,20 +19,19 @@ export class AssignMaintenanceComponent implements AfterViewInit, OnInit {
 
     displayedColumns: string[] = [
       'ID',
-      'Email',
-      'First Name',
-      'Surname',
-      'Phone Number',
-      'Job Title',
+      'Maintenance Note',
+      'Status',
+      'Property',
+      'Contractor',
       'Details',
       'Update',
       'Delete',
     ];
   
-    dataSource = new MatTableDataSource<Tenant>();
+    dataSource = new MatTableDataSource<Maintenance>();
   
     constructor(
-      private _tenantService: TenantService,
+      private _maintenanceService: MaintenanceService,
       private snackBar: MatSnackBar,
       public dialog: MatDialog,
       private cdr: ChangeDetectorRef
@@ -46,8 +45,8 @@ export class AssignMaintenanceComponent implements AfterViewInit, OnInit {
     }
   
     ngOnInit(): void {
-      this._tenantService.getTenants().subscribe((tenants: any) => {
-        this.dataSource.data = tenants;
+      this._maintenanceService.getMaintenances().subscribe((maintenance: any) => {
+        this.dataSource.data = maintenance;
       });
     }
   
@@ -56,8 +55,8 @@ export class AssignMaintenanceComponent implements AfterViewInit, OnInit {
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
   
-    async deleteTenant(id: any) {
-      await this._tenantService.deleteTenant(id);
+    async deleteMaintenance(id: any) {
+      await this._maintenanceService.deleteMaintenances(id);
       this.showSnackBar();
     }
   
@@ -73,8 +72,8 @@ export class AssignMaintenanceComponent implements AfterViewInit, OnInit {
     }
   
     refreshTableData() {
-      this._tenantService.getTenants().subscribe((tenants: any) => {
-        this.dataSource.data = tenants;
+      this._maintenanceService.getMaintenances().subscribe((maintenance: any) => {
+        this.dataSource.data = maintenance;
       });
     }
 }

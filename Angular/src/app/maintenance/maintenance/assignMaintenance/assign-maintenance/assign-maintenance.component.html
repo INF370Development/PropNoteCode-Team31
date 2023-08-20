@@ -6,20 +6,20 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Start Typing..." #input>
     </mat-form-field>
   
-  <!--Create Button-->
+    <!--Create Button-->
     <div class="assign">
       <button mat-fab extended color="accent">
           <mat-icon>engineering</mat-icon>
           Assign Maintenance
       </button>
     </div>
-  </div>
+</div>
   
-  <br>
-  <br>
+<br>
+<br>
   
-  <!--Table-->
-  <!--<div class="mat-elevation-z8">
+<!--Table-->
+<div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container *ngFor="let column of displayedColumns; let i = index" [matColumnDef]="column">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
@@ -31,7 +31,7 @@
           <button mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button (click)="deleteTenant(element.id)">
+          <button mat-icon-button (click)="deleteMaintenance(element.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
@@ -40,4 +40,4 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
-  </div>-->
+  </div>
