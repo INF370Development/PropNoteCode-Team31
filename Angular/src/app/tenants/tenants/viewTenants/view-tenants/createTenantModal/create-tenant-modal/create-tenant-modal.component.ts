@@ -26,9 +26,9 @@ export class CreateTenantModalComponent implements OnInit {
     name : "",
     surname : "",
     phoneNumber : "",
-  companyName : "",
-  companyNumber : "",
-  profilePhoto : "",
+    companyName : "",
+    companyNumber : "",
+    profilePhoto : "",
   }
 
   constructor(
@@ -42,7 +42,8 @@ export class CreateTenantModalComponent implements OnInit {
   ngOnInit(): void {  }
 
   CreateTenant() {
-    debugger;
+
+    
     this.tenantService.createTenant(this.tenantModel).subscribe(
       (response) => {
         console.log('Tenant created successfully:', response);

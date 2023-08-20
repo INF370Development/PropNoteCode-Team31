@@ -1,6 +1,6 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Add New Tenant</h2>
+    <h2>Add New Tenant <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="CreateTenant()">
       <mat-form-field class="form-field">
         <label>Username:</label>
@@ -9,6 +9,7 @@
           [(ngModel)]="tenantModel.username"
           name="username"
           required
+          maxlength="50"
         />
       </mat-form-field>
       <mat-form-field class="form-field">
@@ -18,6 +19,7 @@
           [(ngModel)]="tenantModel.password"
           name="password"
           required
+          minlength="12"
         />
       </mat-form-field>
       <mat-form-field class="form-field">
@@ -27,6 +29,7 @@
           [(ngModel)]="tenantModel.email"
           name="email"
           required
+          maxlength="50"
         />
       </mat-form-field>
       <mat-form-field class="form-field">
@@ -36,6 +39,7 @@
           [(ngModel)]="tenantModel.name"
           name="name"
           required
+          maxlength="50"
         />
       </mat-form-field>
       <mat-form-field class="form-field">
@@ -45,6 +49,7 @@
           [(ngModel)]="tenantModel.surname"
           name="surname"
           required
+          maxlength="50"
         />
       </mat-form-field>
       <mat-form-field class="form-field">
@@ -54,6 +59,7 @@
           [(ngModel)]="tenantModel.phoneNumber"
           name="phoneNumber"
           required
+          maxlength="10"
         />
       </mat-form-field>
       <mat-form-field class="form-field">
@@ -63,6 +69,7 @@
           [(ngModel)]="tenantModel.companyName"
           name="companyName"
           required
+          maxlength="50"
         />
       </mat-form-field>
       <mat-form-field class="form-field">
@@ -72,13 +79,14 @@
           [(ngModel)]="tenantModel.companyNumber"
           name="companyNumber"
           required
+          maxlength="10"
         />
       </mat-form-field>
             <div class="modal-actions">
 
-        <button mat-raised-button type="submit" color="primary" (click)="closeModal()">
+        <button mat-raised-button type="submit" color="accent" (click)="closeModal()">
           Create Tenant
         </button>
-        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 
       </div>
