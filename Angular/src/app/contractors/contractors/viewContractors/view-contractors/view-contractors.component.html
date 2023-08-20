@@ -1,54 +1,93 @@
-<h1>Contractors</h1>  
+<h1>All Contractors</h1>
 
-<div class="search-container">
-    <input class="search-input" placeholder="Search Contractors">
-    <button class="search-button" mat-icon-button color="primary">
-      <mat-icon>search</mat-icon>
-    </button>
+<div class="create">
+  <button mat-fab extended color="accent" (click)="openCreateTenantModal()">
+    <mat-icon>add</mat-icon>
+    Add New Contractor
+  </button>
 </div>
 
+<br />
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6" style="text-align: right;">
-            <button mat-fab extended color="accent" style="float: right;">
-                <mat-icon>add</mat-icon>
-                Add Contractor </button>
-        </div>
-    </div>
-    <br>
-<br>
-<br>
-<br>
-    <table class="styled-table" mat-table>
-        <ng-container matColumnDef="Id">
-            <th mat-header-cell *matHeaderCellDef> Contractor ID </th>
-            <td mat-cell *matCellDef="let element; let i = index"> {{i}} </td>
-        </ng-container>
-        <ng-container matColumnDef="First Name">
-            <th mat-header-cell *matHeaderCellDef> First Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Last Name">
-            <th mat-header-cell *matHeaderCellDef> Last Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Email">
-            <th mat-header-cell *matHeaderCellDef> Email </th>
-            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Contact">
-            <th mat-header-cell *matHeaderCellDef> Contact </th>
-            <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element; let j = index">
-                <button class="edit-btn"><span class="material-icons" >create</span></button>
-                <button class="delete-btn"><span class="material-icons" style="color: red;">delete_outline</span></button>
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-</div>
+<div class="mat-elevation-z8">
+  <mat-form-field appearance="fill">
+    <mat-label> <mat-icon>search</mat-icon>  Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="start typing..."
+      #input
+    />
+  </mat-form-field>
+
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.user.name }} {{element.user.surname}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.user.email }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phoneNumber">
+    <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+    <td mat-cell *matCellDef="let element">{{ element.user.phoneNumber }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="areaOfBusiness">
+    <th mat-header-cell *matHeaderCellDef>Area Of Business:</th>
+    <td mat-cell *matCellDef="let element">{{ element.areaOfBusiness }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="availability">
+    <th mat-header-cell *matHeaderCellDef>Availability: </th>
+    <td mat-cell *matCellDef="let element">{{ element.availability }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="contractorType">
+    <th mat-header-cell *matHeaderCellDef>Contractor Type:</th>
+    <td mat-cell *matCellDef="let element">{{ element.contractorType.contractorTypeName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="detailsButton">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button [routerLink]="['/viewProperties', element.tenantID]">
+        <mat-icon>business</mat-icon>
+        Details
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="deleteButton">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-button
+        class="deletebutton"
+        style="color:red;"
+      >
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">
+      No data matching the filter "{{ input.value }}"
+    </td>
+  </tr>
+</table>
+<mat-paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[3, 5, 10]"
+  showFirstLastButtons
+>
+</mat-paginator>

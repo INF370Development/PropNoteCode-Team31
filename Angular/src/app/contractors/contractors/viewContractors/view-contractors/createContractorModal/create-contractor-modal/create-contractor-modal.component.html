@@ -1,1 +1,95 @@
-<p>create-contractor-modal works!</p>
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Add New Contractor</h2>
+    <form (submit)="CreateContractor()">
+      <mat-form-field class="form-field">
+        <label>Username:</label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.username"
+          name="username"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Password:</label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.password"
+          name="password"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Email:</label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.email"
+          name="email"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Name:</label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.name"
+          name="name"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Surname:</label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.surname"
+          name="surname"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Personal Number:</label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.phoneNumber"
+          name="phoneNumber"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Area Of Business:</label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.areaOfBusiness"
+          name="areaOfBusiness"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Availability: </label>
+        <input
+          matInput
+          [(ngModel)]="contractorModel.availability"
+          name="availability"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Contractor Type:</label>
+        <mat-select [(ngModel)]="contractorModel.contractorType" name="contractorType" (selectionChange)="updateSelectedContractorType($event.value)">
+          <mat-option *ngFor="let contractorType of contractorTypes" [value]="contractorType">{{ contractorType.contractorTypeName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <div class="modal-actions">
+
+        <button mat-raised-button type="submit" color="primary" (click)="sendToBackend()">
+          Add Contractor
+        </button>
+        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+
+      </div>
+    </form>
+  </div>
+</div>

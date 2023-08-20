@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild,OnInit } from '@angular/core';
 import jsPDF, { jsPDFAPI } from 'jspdf';
 import { ViewTenantsComponent } from '../../viewTenants/view-tenants/view-tenants.component';
-import { Tenant } from 'src/app/shared/Tenant';
+import { Tenant } from 'src/app/shared/UserModels/Tenant';
 import { TenantService } from './../../../../services/tenant.service';
 import { CreateTenantModalComponent } from '../../viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,7 +26,7 @@ export class GenerateTenantsReportComponent implements OnInit{
 title ="Tenant report";
 
 constructor(
- 
+
   private tenantService: TenantService,
   ){}
 
@@ -50,13 +50,13 @@ constructor(
       console.error("Error fetching data:", error);
     }
   }
-  
+
   downloadPDF(){
 
     if (this.cardData && this.cardData.length > 0) {
-      const doc = new jsPDF('landscape'); 
+      const doc = new jsPDF('landscape');
       let yPos = 20;
-  
+
       const today = new Date();
       const formattedDate = today.toDateString();
       doc.setFontSize(18);
@@ -66,9 +66,9 @@ constructor(
        const tableHeaders = ['Email','First Name', 'Surname', 'Job Title'];
        const colWidths = [30, 30, 40, 60, 40];
        doc.setFontSize(12);
-       
-       doc.setFillColor(105, 240, 174); 
-       doc.setTextColor(0); 
+
+       doc.setFillColor(105, 240, 174);
+       doc.setTextColor(0);
        doc.setFont('bold');
        doc.rect(10, yPos, colWidths.reduce((a, b) => a + b), 10, 'F');
        let xPos = 10;
@@ -77,20 +77,20 @@ constructor(
          xPos += colWidths[i];
        }
        yPos += 10;
-  
+
        doc.setFont('normal');
-       
+
        this.cardData.forEach(Tenant => {
          xPos = 10;
-        
+
          for (let i = 0; i < tableHeaders.length; i++) {
            const headerKey = tableHeaders[i];
            let cellContent = this.getCellContent(Tenant, headerKey);
            if (cellContent.length > colWidths[i] / 3) {
                         cellContent = doc.splitTextToSize(cellContent, colWidths[i] - 10);
                       }
-   
-   
+
+
            console.log(`cellContent: ${cellContent}, xPos: ${xPos}, yPos: ${yPos}`);
            doc.setTextColor(0);
            doc.text(cellContent, xPos, yPos + 8);
@@ -98,15 +98,15 @@ constructor(
          }
 
         yPos += 10;
-      
+
       });
-      
+
       doc.save('Tenant_Report.pdf');
     } else {
       console.error("No data to generate PDF.");
     }
   }
-  
+
   getCellContent(tenant: any, headerKey: any): any {
     switch (headerKey) {
       case 'email':
@@ -116,11 +116,11 @@ constructor(
       case 'surname':
         return tenant.surname;
       case 'jobtitle':
-        return tenant.jobtitle; 
+        return tenant.jobtitle;
       default:
         return tenant[headerKey] !== undefined && tenant[headerKey] !== null
             ? tenant[headerKey].toString()
             : '';
     }
-  }  
+  }
 }

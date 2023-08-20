@@ -2,7 +2,7 @@ import { HttpClient, HttpStatusCode, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginCredentials } from '../models/LoginCredentials';
 //User service
-import { User } from '../shared/User'
+import { User } from '../shared/UserModels/User'
 import { map, Observable, Subject, of } from 'rxjs';
 
 @Injectable({

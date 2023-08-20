@@ -1,8 +1,8 @@
 import { HttpClient, HttpStatusCode, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Tenant } from '../shared/Tenant';
+import { Tenant } from '../shared/UserModels/Tenant';
 import { map, Observable, Subject, of } from 'rxjs';
-import { UserTenant } from '../shared/UserTenant';
+import { UserTenant } from '../shared/UserModels/UserTenant';
 
 @Injectable({
   providedIn: 'root',
