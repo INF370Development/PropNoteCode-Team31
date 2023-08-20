@@ -11,7 +11,7 @@ import { map, Observable, Subject, of } from 'rxjs';
 
 export class UserService {
   constructor(private httpClient: HttpClient, private http: HttpClient) {}
-  
+
   private _apiUrl = 'https://localhost:7251/api/';
 
   Login(user: LoginCredentials) {
@@ -46,7 +46,7 @@ export class UserService {
       .get<User[]>(`https://localhost:7251/api/User/getUsers`)
       .pipe(map((result) => result));
   }
-  
+
   //UPDATE
   /*updateUser(userID: number) {
     return this.http

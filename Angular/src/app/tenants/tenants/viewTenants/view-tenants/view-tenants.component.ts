@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTenantModalComponent } from './createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { ChangeDetectorRef } from '@angular/core';
 
+
 @Component({
   selector: 'app-view-tenants',
   templateUrl: './view-tenants.component.html',
@@ -21,14 +22,13 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
 
 
   displayedColumns: string[] = [
-    'Name',
-    'Surname',
-    'Email',
-    'Phone Number',
-    'Company Name',
-    'Company Number',
-    'Update',
-    'Delete',
+    'name',
+    'email',
+    'phoneNumber',
+    'companyName',
+    'companyNumber',
+    'detailsButton',
+    'deleteButton',
   ];
 
   dataSource = new MatTableDataSource<Tenant>();
@@ -54,8 +54,22 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    // Filtering based on multiple columns (name, email, etc.)
+    this.dataSource.filterPredicate = (data: Tenant, filter: string) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      return (
+        data.user.name.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.surname.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.email.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.phoneNumber.includes(filter) ||
+        data.companyName.toLowerCase().includes(lowerCaseFilter) ||
+        data.companyNumber.includes(filter)
+      );
+    };
+
+    this.dataSource.filter = filterValue;
   }
 
   async deleteTenant(id: any) {

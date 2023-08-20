@@ -2,15 +2,15 @@ import { HttpClient, HttpStatusCode, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Tenant } from '../shared/Tenant';
 import { map, Observable, Subject, of } from 'rxjs';
+import { UserTenant } from '../shared/UserTenant';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class TenantService {
-  constructor(private httpClient: HttpClient, private http: HttpClient) {}
-  
-  private _apiUrl = 'https://localhost:7251/api/';
+  constructor(private httpClient: HttpClient) {}
+
 
   //TENANTS
   apiUrl = 'http://localhost:7251/api/';
@@ -22,18 +22,20 @@ export class TenantService {
   };
 
   //CREATE
-  createTenant(formData: any): Observable<any> {
-    const apiUrl = 'http://localhost:7251/api/Tenant/createTenant';
-    return this.http.post(apiUrl, formData);
+  createTenant(userTenant: UserTenant) {
+    debugger;
+    return this.httpClient
+      .post(`https://localhost:7251/api/User/CreateTenantUser`, userTenant)
+      .pipe(map((result) => result));
   }
 
   //READ
   getTenants(): Observable<Tenant[]> {
-    return this.http
-      .get<Tenant[]>(`https://localhost:7251/api/User/getTenants`)
+    return this.httpClient
+      .get<Tenant[]>(`https://localhost:7251/api/Tenant/GetAllTenants`)
       .pipe(map((result) => result));
   }
-  
+
   //UPDATE
   /*updateUser(userID: number) {
     return this.http
@@ -43,14 +45,14 @@ export class TenantService {
 
   //DELETE
   deleteTenant(tenantID: number) {
-    return this.http
+    return this.httpClient
       .delete(`https://localhost:7251/api/User/DeleteUser/${tenantID}`)
       .pipe(map((result) => result));
   }
 
   //SEARCH
   getTenant(tenantID: number, tenant: Tenant) {
-    return this.http
+    return this.httpClient
       .post(
         `https://localhost:7251/api/User/GetUserByID/${tenantID}`,
         tenant

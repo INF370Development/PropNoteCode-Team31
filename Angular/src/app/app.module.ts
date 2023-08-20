@@ -39,7 +39,7 @@ import { NotificationsComponent } from './profile/profile/notifications/notifica
 import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile/view-profile.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
-import { CreateUModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
+import { CreateUserModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
 import { CreatePropertiesModalComponent } from './properties/properties/create-properties-modal/create-properties-modal.component';
 import { ForgotPasswordComponent } from './forgotPassword/forgot-password/forgot-password.component';
 import { DeletePropertyDialogComponent } from './properties/properties/viewProperties/view-properties/deletePropertyDialog/delete-property-dialog/delete-property-dialog.component';
@@ -113,7 +113,7 @@ import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-t
     ViewProfileComponent,
     HelpproComponent,
     CreateURModalComponent,
-    CreateUModalComponent,
+    CreateUserModalComponent,
     CreatePropertiesModalComponent,
     ForgotPasswordComponent,
     DeletePropertyDialogComponent,
