@@ -5,19 +5,17 @@
 
 <div class="SearchButtonContainer">
   <div class="search-create-container">
-    <div class="mat-elevation-z8 search">
+    <div class="mat-elevation-z8">
 
       <mat-form-field appearance="fill">
-        <mat-label>Search Broker...</mat-label>
-        <input
-          matInput
-          (keyup)="applyFilter($event)"
-          placeholder="Search Broker by Name..."
-          #input
-        />
-
+        <mat-label> <mat-icon>search</mat-icon>  Search</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Start typing..."
+            #input
+          />
       </mat-form-field>
-    </div>
 
     <!--Create Broker-->
     <div class="create">
@@ -25,10 +23,8 @@
         <mat-icon>add</mat-icon>
         Create Broker
       </button>
-   </div>
-
+    </div>
   </div>
-
 
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="name">
