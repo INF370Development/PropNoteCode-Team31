@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Components.Forms;
-using System.Reflection.Metadata.Ecma335;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Interfaces;
 using WebApi.Models.Admin;
-
 
 namespace WebApi.Controllers
 {
@@ -20,9 +15,8 @@ namespace WebApi.Controllers
             _contractorTypeRepository = contractorTypeRepository;
         }
 
-        [HttpGet]
-        [Route("GetAllContractorType")]
-        public async Task<IActionResult> GetAllContractorTypes()
+        [HttpGet("GetAllContractorType")]
+        public async Task<ActionResult<List<ContractorType>>> GetAllContractorTypes()
         {
             try
             {
@@ -35,15 +29,17 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetContractorType/{ContractorTypeId}")]
-        public async Task<IActionResult> GetContractorType(int ContractorTypeId)
+        [HttpGet("GetContractorType/{ContractorTypeId}")]
+        public async Task<ActionResult<ContractorType>> GetContractorType(int ContractorTypeId)
         {
             try
             {
                 var result = await _contractorTypeRepository.GetContractorTypeByID(ContractorTypeId);
 
-                if (result == null) return NotFound("ContractorType does not exist");
+                if (result == null)
+                {
+                    return NotFound("ContractorType does not exist");
+                }
 
                 return Ok(result);
             }
@@ -52,59 +48,64 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpPost]
-        [Route("AddContractorType")]
-        public async Task<IActionResult> AddContractorType(string cvm)
-        {
-            var contractorType = new ContractorType 
-            { ContractorTypeName = cvm, };
 
+        [HttpPost("AddContractorType")]
+        public async Task<ActionResult<ContractorType>> AddContractorType(ContractorTypeViewModel contractorType)
+        {
             try
             {
-                await _contractorTypeRepository.AddContractorType(contractorType);
+                ContractorType x=new ContractorType { ContractorTypeName=contractorType.ContractorTypeName};
+                await _contractorTypeRepository.AddContractorType(x);
+                return Ok(x);
             }
             catch (Exception)
             {
                 return BadRequest("Invalid transaction");
             }
-
-            return Ok(contractorType);
         }
 
-        [HttpPut]
-        [Route("EditContractorType/{ContractorTypeId}")]
-        public async Task<ActionResult> EditContractorType(int ContractorTypeId, string contractorType)
+        [HttpPut("EditContractorType/{ContractorTypeId}")]
+        public async Task<ActionResult<ContractorType>> EditContractorType(int ContractorTypeId, ContractorTypeViewModel contractorType)
         {
             try
             {
-                ContractorType existingContractorType = (ContractorType)await _contractorTypeRepository.GetContractorTypeByID(ContractorTypeId);
-                if (existingContractorType == null) return NotFound("The Contractor Type does not exist");
-                return Ok(await _contractorTypeRepository.EditContractorType(ContractorTypeId,contractorType));
+                ContractorType existingContractorType = await _contractorTypeRepository.GetContractorTypeByID(ContractorTypeId);
+
+                if (existingContractorType == null)
+                {
+                    return NotFound("The Contractor Type does not exist");
+                }
+
+                existingContractorType.ContractorTypeName = contractorType.ContractorTypeName;
+                await _contractorTypeRepository.EditContractorType(ContractorTypeId, contractorType);
+
+                return Ok(existingContractorType);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid.");
         }
 
-        [HttpDelete]
-        [Route("DeleteContractorType/{ContractorTypeId}")]
+        [HttpDelete("DeleteContractorType/{ContractorTypeId}")]
         public async Task<IActionResult> DeleteContractorType(int ContractorTypeId)
         {
             try
             {
-                ContractorType existingContractorType = (ContractorType)await _contractorTypeRepository.GetContractorTypeByID(ContractorTypeId);
-                if (existingContractorType == null) return NotFound($"The Contractor Type does not exist");
-                return Ok(await _contractorTypeRepository.DeleteContractorTypeAsync(existingContractorType));
+                ContractorType existingContractorType = await _contractorTypeRepository.GetContractorTypeByID(ContractorTypeId);
 
+                if (existingContractorType == null)
+                {
+                    return NotFound("The Contractor Type does not exist");
+                }
+
+                await _contractorTypeRepository.DeleteContractorTypeAsync(existingContractorType);
+                return Ok(existingContractorType);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid.");
         }
-
     }
 }

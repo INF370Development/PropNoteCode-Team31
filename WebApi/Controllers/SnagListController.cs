@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Interfaces;
 using WebApi.Models.Admin;
+using WebApi.Repositories;
+using WebApi.ViewModels;
 
 namespace WebApi.Controllers
 {
@@ -11,20 +10,21 @@ namespace WebApi.Controllers
     [ApiController]
     public class SnagListController : ControllerBase
     {
-        private readonly ISnagListRepository _SnagListRepository;
+        private readonly ISnagListRepository _snagListRepository;
 
         public SnagListController(ISnagListRepository snagListRepository)
         {
-            _SnagListRepository = snagListRepository;
+            _snagListRepository = snagListRepository;
         }
 
-        [HttpGet]
-        [Route("GetAllSnagListItems")]
-        public async Task<IActionResult> GetAllSnagListItems()
+        // SnagList Actions
+
+        [HttpGet("GetAllSnagLists")]
+        public async Task<IActionResult> GetAllSnagLists()
         {
             try
             {
-                var results=await _SnagListRepository.GetAllSnagListItemsAsync();
+                var results = await _snagListRepository.GetAllSnagListsAsync();
                 return Ok(results);
             }
             catch (Exception)
@@ -32,113 +32,16 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpGet]
-        [Route("GetSnagListItem/{SnagListItemId}")]
-        public async Task<IActionResult> GetSnagListItem(int SnagListItemId)
-        {
-            try
-            {
-                var result = await _SnagListRepository.GetSnagListItemByID(SnagListItemId);
 
-                if (result == null) return NotFound("SnagListItem does not exist");
-
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
-            }
-        }
-
-        [HttpPost]
-        [Route("AddSnagListItem")]
-        public async Task<IActionResult> AddSnagListItem(string cvm)
-        {
-            var SnagListItem = new SnagListItem { SnagListItemDescription = cvm };
-
-            try
-            {
-                await _SnagListRepository.AddSnagListItem(SnagListItem);
-            }
-            catch (Exception)
-            {
-                return BadRequest("Invalid transaction");
-            }
-
-            return Ok(SnagListItem);
-        }
-        [HttpPut]
-        [Route("EditSnagListItem/{SnagListItemId}")]
-        public async Task<IActionResult> EditSnagListItem(int SnagListItemId, string SnagListIteDescription)
-        {
-            try
-            {
-                SnagListItem SnagListItem = (SnagListItem)await _SnagListRepository.GetSnagListItemByID(SnagListItemId);
-                if (SnagListItem == null) return NotFound($"The SnagListItem does not exist");
-                return Ok(await _SnagListRepository.EditSnagListItem(SnagListItemId, SnagListIteDescription));
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid.");
-        }
-        [HttpDelete]
-        [Route("DeleteSnagListItem/{SnagListItemId}")]
-        public async Task<IActionResult> DeleteSnagListItem(int SnagListItemId)
-        {
-            try
-            {
-                var existingSnagListItem = await _SnagListRepository.GetSnagListItemByID(SnagListItemId);
-                if (existingSnagListItem == null) return NotFound($"The SnagListItem does not exist");
-                return Ok(await _SnagListRepository.DeleteSnagListItemAsync(existingSnagListItem));
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid.");
-        }
-
-        [HttpGet]
-        [Route("GetAllSnagLists")]
-        public async Task<IActionResult> GetAllSnagLists()
-        {
-            try
-            {
-                return Ok(await _SnagListRepository.GetAllSnagListsAsync());
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-        }
-        [HttpGet]
-        [Route("GetSnagList/{SnagListId}")]
+        [HttpGet("GetSnagList/{SnagListId}")]
         public async Task<IActionResult> GetSnagList(int SnagListId)
         {
             try
             {
-                var result = await _SnagListRepository.GetSnagListByID(SnagListId);
+                var result = await _snagListRepository.GetSnagListByID(SnagListId);
 
-                if (result == null) return NotFound("SnagList does not exist");
-
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
-            }
-        }
-        [HttpGet]
-        [Route("CountSnagLists")]
-        public async Task<IActionResult> CountSnagList()
-        {
-            try
-            {
-                var result = await _SnagListRepository.CountSnagList();
-
-                if (result == null) return NotFound("SnagList does not exist");
+                if (result == null)
+                    return NotFound("SnagList does not exist");
 
                 return Ok(result);
             }
@@ -147,64 +50,122 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpPost]
-        [Route("AddSnagList")]
-        public async Task<IActionResult> AddSnagList(int PropertyId)
+        [HttpGet("lastSnagList")]
+        public async Task<IActionResult> lastSnagList()
         {
             try
             {
-                await _SnagListRepository.CreateSnagList(PropertyId);
+                int result = await _snagListRepository.CountSnagList();
+
+                if (result == null)
+                    return NotFound("SnagListItem does not exist");
+
+                return Ok(result);
             }
             catch (Exception)
             {
-                return BadRequest("Invalid transaction");
+                return StatusCode(500, "Internal Server Error. Please contact support");
             }
-
-            return Ok();
         }
 
-        [HttpPut]
-        [Route("EditSnagList/{SnagListId}")]
-        public async Task<IActionResult> EditSnagList(int SnagListId, int PropertyId)
+
+        [HttpPost("AddSnagList")]
+        public async Task<IActionResult> AddSnagList( SnagListViewModel snagListViewModel)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid input data");
+
+            SnagList snagList = new SnagList
+            {
+                PropertyId = snagListViewModel.PropertyId,
+                SnagListDescription=snagListViewModel.SnagListDescription,
+                Created=DateTime.Now,
+                Modified=DateTime.Now
+            };
+
             try
             {
-                SnagList SnagList = (SnagList)await _SnagListRepository.GetSnagListByID(SnagListId);
-                if (SnagList == null) return NotFound("The SnagListItem does not exist");
-                return Ok(await _SnagListRepository.EditSnagList(SnagListId,PropertyId));
+                await _snagListRepository.CreateSnagList(snagList);
+                return Ok(snagList);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid.");
         }
-        [HttpDelete]
-        [Route("DeleteSnagList/{SnagListId}")]
+
+        [HttpPut("EditSnagList/{SnagListId}")]
+        public async Task<IActionResult> EditSnagList(int SnagListId, SnagListViewModel snagListViewModel)
+        {
+            try
+            {
+                var existingSnagList = await _snagListRepository.GetSnagListByID(SnagListId);
+                if (existingSnagList == null) return NotFound("The SnagList does not exist");
+
+                if (snagListViewModel.SnagListDescription != "")
+                {
+                    existingSnagList.SnagListDescription = snagListViewModel.SnagListDescription;
+                }
+                if (snagListViewModel.PropertyId != 0)
+                {
+                    existingSnagList.PropertyId = snagListViewModel.PropertyId;
+                }
+                existingSnagList.Modified = DateTime.Now;
+                if (await _snagListRepository.SaveChangesAsync() == true)
+                {
+                    return Ok(existingSnagList);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid");
+        }
+
+        [HttpDelete("DeleteSnagList/{SnagListId}")]
         public async Task<IActionResult> DeleteSnagList(int SnagListId)
         {
             try
             {
-                SnagList existingSnagList = await _SnagListRepository.GetSnagListByID(SnagListId);
-                if (existingSnagList == null) return NotFound($"The SnagList does not exist");
-                return Ok(await _SnagListRepository.DeleteSnagListAsync(SnagListId));
+                var existingSnagList = await _snagListRepository.GetSnagListByID(SnagListId);
+                if (existingSnagList == null)
+                    return NotFound($"The SnagList does not exist");
+
+                await _snagListRepository.DeleteSnagListAsync(SnagListId);
+                return Ok(existingSnagList);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid.");
         }
-        [HttpGet]
-        [Route("GetSnagListItemLines/{SnagListId}")]
-        public async Task<IActionResult> GetSnagListItemLines(int SnagListId)
+
+        // SnagListItem Actions
+
+        [HttpGet("GetAllSnagListItems")]
+        public async Task<IActionResult> GetAllSnagListItems()
         {
-            if (SnagListId == 0) return NotFound("SnagList Invalid");
             try
             {
-                var result = await _SnagListRepository.GetAllSnagListItemLineAsync(SnagListId);
+                var results = await _snagListRepository.GetAllSnagListItemsAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
 
-                if (result == null) return NotFound("SnagList does not exist");
+        [HttpGet("GetSnagListItem/{SnagListItemId}")]
+        public async Task<IActionResult> GetSnagListItem(int SnagListItemId)
+        {
+            try
+            {
+                var result = await _snagListRepository.GetSnagListItemByID(SnagListItemId);
+
+                if (result == null)
+                    return NotFound("SnagListItem does not exist");
 
                 return Ok(result);
             }
@@ -213,17 +174,90 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpGet]
-        [Route("GetSnagListItemLineById/{SnagListId},{ItemId}")]
-        public async Task<IActionResult> GetSnagListItemLineById(int SnagListId,int ItemId)
+        [HttpPost("AddSnagListItem")]
+        public async Task<IActionResult> AddSnagListItem(SnagListItemViewModel snagListItemViewModel)
         {
-            if (SnagListId == 0) return NotFound("SnagList Invalid");
-            if (ItemId == 0) return NotFound("SnagList Invalid");
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid input data");
+
+            var snagListItem = new SnagListItem
+            {
+                SnagListItemDescription = snagListItemViewModel.SnagListItemDescription
+            };
+
             try
             {
-                var result = await _SnagListRepository.GetSnagListItemLineById(SnagListId,ItemId);
+                await _snagListRepository.AddSnagListItem(snagListItem);
+                return Ok(snagListItem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
 
-                if (result == null) return NotFound("SnagListItem does not exist");
+        [HttpPut("EditSnagListItem/{SnagListItemId}")]
+        public async Task<IActionResult> EditSnagListItem(int SnagListItemId, SnagListItemViewModel snagListItemViewModel)
+        {
+            try
+            {
+                var existingSnagListItem = await _snagListRepository.GetSnagListItemByID(SnagListItemId);
+                if (existingSnagListItem == null)
+                    return NotFound($"The SnagListItem does not exist");
+
+                existingSnagListItem.SnagListItemDescription = snagListItemViewModel.SnagListItemDescription;
+                await _snagListRepository.EditSnagListItem(SnagListItemId, existingSnagListItem.SnagListItemDescription);
+                return Ok(existingSnagListItem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpDelete("DeleteSnagListItem/{SnagListItemId}")]
+        public async Task<IActionResult> DeleteSnagListItem(int SnagListItemId)
+        {
+            try
+            {
+                var existingSnagListItem = await _snagListRepository.GetSnagListItemByID(SnagListItemId);
+                if (existingSnagListItem == null)
+                    return NotFound($"The SnagListItem does not exist");
+
+                await _snagListRepository.DeleteSnagListItemAsync(existingSnagListItem);
+                return Ok(existingSnagListItem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        // SnagListItem Actions
+
+        [HttpGet("GetAllSnagListItemLine")]
+        public async Task<IActionResult> GetAllSnagListItemLineAsync(int SnagListId)
+        {
+            try
+            {
+                var results = await _snagListRepository.GetAllSnagListItemLineAsync(SnagListId);
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpGet("GetSnagListItemLine/{SnagList},{item}")]
+        public async Task<IActionResult> GetSnagListItemLineById(int SnagList, int item)
+        {
+            try
+            {
+                var result = await _snagListRepository.GetSnagListItemLineById(SnagList,item);
+
+                if (result == null)
+                    return NotFound("SnagListItem does not exist");
 
                 return Ok(result);
             }
@@ -232,37 +266,39 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpPost]
-        [Route("AddSnagListItemLine")]
-        public async Task<IActionResult> AddSnagListItemLine(int SnagListId, int SnagListItemId)
+
+        [HttpPost("AddItem")]
+        public async Task<IActionResult> AddItem(int snag, int list)
         {
-            SnagListItemLine item = new SnagListItemLine { SnagListId = SnagListId, SnagListItemsId = SnagListItemId };
+
             try
             {
-                await _SnagListRepository.AddItem(SnagListId, SnagListItemId);
-            }
-            catch (Exception)
-            {
-                return BadRequest("Invalid transaction");
-            }
-            return Ok(item);
-        }
-        [HttpDelete]
-        [Route("DeleteSnagListItemLine/{SnagListId}")]
-        public async Task<IActionResult> DeleteSnagListItemLine(int SnagListId,int ItemId)
-        {
-            try
-            {
-                SnagListItemLine existingSnagListItemsList = await _SnagListRepository.GetSnagListItemLineById(SnagListId, ItemId);
-                if (existingSnagListItemsList == null) return NotFound($"The SnagListItem does not exist");
-                return Ok(await _SnagListRepository.DeleteSnagListItemLineAsync(existingSnagListItemsList));
+                SnagListItemLine snagListItem= await _snagListRepository.AddItem( snag, list);
+                return Ok(snagListItem);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid.");
         }
 
+
+        [HttpDelete("DeleteSnagListItemLine/{SnagList},{item}")]
+        public async Task<IActionResult> DeleteSnagListItemLineAsync(int SnagList, int item)
+        {
+            try
+            {
+                var existingSnagListItem = await _snagListRepository.GetSnagListItemLineById( SnagList, item);
+                if (existingSnagListItem == null)
+                    return NotFound($"The SnagListItem does not exist");
+
+                await _snagListRepository.DeleteSnagListItemLineAsync(existingSnagListItem);
+                return Ok(existingSnagListItem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
     }
 }

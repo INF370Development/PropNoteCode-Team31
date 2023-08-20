@@ -1,5 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using WebApi.Models;
+using WebApi.ViewModels;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml.Linq;
+using WebApi.Models.Admin;
+using WebApi.Models.Interfaces;
 using WebApi.Interfaces;
 using WebApi.Models.Admin;
 
@@ -10,6 +17,7 @@ namespace WebApi.Controllers
     public class BrokerController : Controller
     {
         private readonly IBrokerRepository _brokerRepository;
+
         public BrokerController(IBrokerRepository repository)
         {
             _brokerRepository = repository;
@@ -19,27 +27,41 @@ namespace WebApi.Controllers
         [Route("GetAllBrokers")]
         public async Task<IActionResult> GetAllBrokers()
         {
-            
+            //Test
             try
             {
                 List<Broker> brokers = new();
                 var results = await _brokerRepository.GetAllBrokersAsync();
-                return Ok(results);
+                foreach (var broker in results)
+                {
+                    brokers.Add(new Broker
+                    {
+                        BrokerID = broker.BrokerID,
+                        Name = broker.Name,
+                        Surname = broker.Surname,
+                        PhoneNumber = broker.PhoneNumber,
+                        OfficeAddress = broker.OfficeAddress,
+                        LicenseNumber = broker.LicenseNumber,
+                        CommissionRate = broker.CommissionRate
+                    });
+                }
+                return Ok(brokers);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal Server Error, please contact support");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
+
         [HttpGet]
-        [Route("GetBroker/{BrokerId}")]
-        public async Task<IActionResult> GetBroker(int BrokerId)
+        [Route("GetBrokerByID")]
+        public async Task<IActionResult> GetBrokerID(int brokerID)
         {
             try
             {
-                var result = await _brokerRepository.GetBrokerByID(BrokerId);
+                var result = await _brokerRepository.GetBrokerByID(brokerID);
 
-                if (result == null) return NotFound("Broker does not exist");
+                if (result == null) return NotFound("Broker does not exist. You need to create it first");
 
                 return Ok(result);
             }
@@ -48,75 +70,36 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+
         [HttpPost]
         [Route("AddBroker")]
-        public async Task<IActionResult> AddBroker(string Name, string Surname, string PhoneNumber, string OfficeAddress, string LicenseNumber, string CommissionRate)
+        public async Task<IActionResult> AddBroker(BrokerViewModel brokerModel)
         {
-            
-            try
-            {var broker = new Broker
+            var broker = new Broker
             {
-                Name = Name,
-                Surname = Surname,
-                PhoneNumber = PhoneNumber,
-                OfficeAddress = OfficeAddress,
-                LicenseNumber = LicenseNumber,
-                CommissionRate = CommissionRate
+                Name = brokerModel.Name,
+                Surname = brokerModel.Surname,
+                PhoneNumber = brokerModel.PhoneNumber,
+                OfficeAddress = brokerModel.OfficeAddress,
+                LicenseNumber = brokerModel.LicenseNumber,
+                CommissionRate = brokerModel.CommissionRate
             };
-                return Ok(await _brokerRepository.AddBroker(broker));
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-        }
-        [HttpPut]
-        [Route("EditBroker")]
-        public async Task<IActionResult> EditBroker(int brokerID, string Name, string Surname, string PhoneNumber, string OfficeAddress, string LicenseNumber, string CommissionRate)
-        {
-
             try
             {
-                var allBrokers = await _brokerRepository.GetAllBrokersAsync();
-                var existingBroker = allBrokers.FirstOrDefault(x => x.BrokerID == brokerID);
-                if (existingBroker == null) return NotFound($"The broker does not exist");
-                var broker = new Broker
-                {
-                    Name = Name,
-                    Surname = Surname,
-                    PhoneNumber = PhoneNumber,
-                    OfficeAddress = OfficeAddress,
-                    LicenseNumber = LicenseNumber,
-                    CommissionRate = CommissionRate
-                };
-                return Ok(await _brokerRepository.EditBroker(brokerID, broker));
+                await _brokerRepository.AddBroker(broker);
 
+                return Ok(broker);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteBroker(int brokerID)
-        {
-            try
-            {
-                Broker existingBroker = (Broker)await _brokerRepository.GetBrokerByID(brokerID);
-                if (existingBroker == null) return NotFound($"The Broker does not exist");
-                return Ok(await _brokerRepository.DeleteBrokerAsync(existingBroker));
 
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-        }
         [HttpPut]
         [Route("EditBroker")]
         public async Task<IActionResult> EditBroker(int brokerID, BrokerViewModel brokerModel)
         {
-
             try
             {
                 var allBrokers = await _brokerRepository.GetAllBrokersAsync();
@@ -176,7 +159,6 @@ namespace WebApi.Controllers
                 {
                     return Ok(existingBroker);
                 }
-
             }
             catch (Exception)
             {
@@ -186,6 +168,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
+        [Route("DeleteBroker")]
         public async Task<IActionResult> DeleteBroker(int brokerID)
         {
             try
@@ -195,10 +178,9 @@ namespace WebApi.Controllers
 
                 if (existingBrokers == null) return NotFound($"The Broker does not exist");
 
-                _brokerRepository.Delete(existingBrokers);
+                _brokerRepository.DeleteBrokerAsync(existingBrokers);
 
                 if (await _brokerRepository.SaveChangesAsync()) return Ok(existingBrokers);
-
             }
             catch (Exception)
             {

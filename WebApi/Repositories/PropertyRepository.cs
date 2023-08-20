@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Interfaces;
 using WebApi.Models.Property;
+using WebApi.Models;
 
 namespace WebApi.Repositories
 {
@@ -30,7 +31,12 @@ namespace WebApi.Repositories
             return await query.ToArrayAsync();
         }
 
-
+        public async Task<Property> GetPropertyAsync(int id)
+        {
+            // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
+            IQueryable<Property> query = (IQueryable<Property>)_appDbContext.Property.Where(x => x.PropertyID==id);
+            return await query.FirstOrDefaultAsync();
+        }
         public async Task AddProperty(Property property)
         {
             _appDbContext.Add(property);

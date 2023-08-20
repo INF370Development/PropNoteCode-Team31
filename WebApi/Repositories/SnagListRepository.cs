@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using WebApi.Migrations;
 using WebApi.Models.Admin;
 using WebApi.Interfaces;
+using WebApi.Models;
 
 namespace WebApi.Repositories
 {
@@ -53,14 +53,11 @@ namespace WebApi.Repositories
             return item;
         }
 
-        public async Task<int> CreateSnagList(int Prop)
+        public async Task<SnagList> CreateSnagList(SnagList x)
         {
-            SnagList x = new SnagList();
-            int snag = x.SnagListId;
-            x.PropertyId = Prop;
             _appDbContext.SnagList.Add(x);
             await _appDbContext.SaveChangesAsync();
-            return snag;
+            return x;
         }
         public async Task<SnagList[]> GetAllSnagListsAsync()
         {
@@ -140,9 +137,13 @@ namespace WebApi.Repositories
         }
         public async Task<int> CountSnagList()
         {
+            int x=0;
             IQueryable<SnagList> query = _appDbContext.SnagList;
-            SnagList x = await query.LastAsync();
-            return x.SnagListId + 1;
+            foreach (var item in query) 
+            {
+                x=item.SnagListId;
+            }
+            return x+1;
         }
 
 

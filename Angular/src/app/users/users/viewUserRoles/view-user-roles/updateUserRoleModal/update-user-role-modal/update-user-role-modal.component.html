@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Update User Role<button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h1>
+<div mat-dialog-content>
+    <h3>Please enter all required details to update a user role!</h3>
+    <mat-form-field class="form">
+        <h3>Role Name::</h3>
+        <input matInput [(ngModel)] = "roleName">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="form">
+        <h3>Access:</h3>
+        <mat-select [(ngModel)]="accessLevel">
+            <mat-option value="Access Level 1">Access Level 1</mat-option>
+            <mat-option value="Access Level 2">Access Level 2</mat-option>
+            <mat-option value="Access Level 3">Access Level 3</mat-option>
+            <mat-option value="Access Level 4">Access Level 4</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div class="end">
+    <button mat-raised-button color="primary" (click)="updateRole()">Update</button>
+    <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+</div>

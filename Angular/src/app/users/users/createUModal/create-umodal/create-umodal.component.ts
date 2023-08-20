@@ -1,15 +1,13 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input'
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 NgModule({
-  
   imports: [
-  BrowserAnimationsModule,
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule
   ],
@@ -22,18 +20,18 @@ NgModule({
 })
 
 export class CreateUModalComponent {
-  adminRole: boolean = false;
-  editorRole: boolean = false;
-  viewerRole: boolean = false;
+  email: string = '';
+  userRole: string = '';
 
-constructor(private dialogRef: MatDialogRef<CreateUModalComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<CreateUModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-createRole() {
-  this.dialogRef.close();
-}
+  closeModal() {
+    this.dialogRef.close();
+  }
 
-closeModal() {
-  this.dialogRef.close();
-}
-
+  createUser(): void {
+    this.dialogRef.close({ email: this.email, userRole: this.userRole });
+  }
 }

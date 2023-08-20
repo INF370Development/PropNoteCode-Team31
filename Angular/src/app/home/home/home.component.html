@@ -9,7 +9,7 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    
+
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/properties'">
         <mat-card class="card">
@@ -18,7 +18,7 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    
+
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/tenants'">
         <mat-card class="card">
@@ -27,7 +27,7 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    
+
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/contractors'">
         <mat-card class="card">
@@ -37,7 +37,7 @@
         </a>
     </mat-grid-tile>
     <br>
-    
+
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/employee'">
         <mat-card class="card">
@@ -46,7 +46,7 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    
+
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/broker'">
         <mat-card class="card">
@@ -55,7 +55,7 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    
+
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/maintenance'">
         <mat-card class="card">
@@ -64,7 +64,7 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    
+
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/calendar'">
         <mat-card class="card">
@@ -83,13 +83,13 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    
+
     <mat-grid-tile>
-        <a mat-list-item [routerLink]="'/login'">
+        <a mat-list-item (click)="Logout()">
         <mat-card class="card">
             <mat-icon class="card-icon">logout</mat-icon> <br>
             <mat-card-content>Log out</mat-card-content>
         </mat-card>
         </a>
     </mat-grid-tile>
-</mat-grid-list>    
+</mat-grid-list>

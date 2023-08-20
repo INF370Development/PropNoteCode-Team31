@@ -1,0 +1,24 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Add Maintenance Type</h2>
+      <form (submit)="AddMaintenanceType()">
+        <mat-form-field class="form-field">
+            <input
+              matInput
+              placeholder="Maintenace Status Name"
+              name="maintenaceStatusName"
+              #maintenaceStatusName
+              (keyup)="updateName(maintenaceStatusName.value)"
+              required
+            />
+          </mat-form-field>
+        <div class="modal-actions">
+          <button mat-button type="button" (click)="closeModal()">Cancel</button>
+          <button mat-raised-button type="submit" color="primary">
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

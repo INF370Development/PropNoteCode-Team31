@@ -1,6 +1,4 @@
-﻿using WebApi.Models.Admin;
-
-namespace WebApi.Models.Property
+﻿namespace WebApi.Models.Property
 {
     public class Property
     {
@@ -14,6 +12,6 @@ namespace WebApi.Models.Property
         public string Size { get; set; }
         public string Yard { get; set; }
         public int BrokerID { get; set; }
-        public Broker Broker { get; set; }
+        public WebApi.Models.Admin.Broker Broker { get; set; }
     }
 }

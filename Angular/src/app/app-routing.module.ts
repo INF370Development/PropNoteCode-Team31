@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login/login.component';
 import { PropertiesComponent } from './properties/properties/properties.component';
 import { ViewPropertiesComponent } from './properties/properties/viewProperties/view-properties/view-properties.component';
 import { GeneratePropertiesReportComponent } from './properties/properties/generatePropertiesReport/generate-properties-report/generate-properties-report.component';
+import { SnagListItemComponent } from './properties/snag-list-item/snag-list-item.component';
+import { SnagListComponent } from './properties/snag-list/snag-list.component';
 //Tenants
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
@@ -36,6 +38,9 @@ import { GenerateCalendarReportComponent } from './calendar/calendar/generateCal
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { AssignMaintenanceComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assign-maintenance.component';
 import { PaymentComponent } from './maintenance/maintenance/payment/payment/payment.component';
+import{MaintenanceTypeComponent} from './maintenance/maintenance/maintenance-type/maintenance-type.component';
+import{ViewMaintenanceComponent} from './maintenance/maintenance/maintenance/maintenance.component';
+import{MaintenanceStatusComponent} from './maintenance/maintenance/maintenance-status/maintenance-status.component';
 import { MaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/maintenance-note/maintenance-note.component';
 import { GenerateMaintenanceReportComponent } from './maintenance/maintenance/generateMaintenanceReport/generate-maintenance-report/generate-maintenance-report.component';
 //Settings
@@ -56,10 +61,13 @@ const routes: Routes = [
   {path: 'viewUserRoles', component:ViewUserRolesComponent},
   //Login
   {path: 'login', component:LoginComponent},
+  {path: '', component:LoginComponent},
   //Properties
   {path: 'properties', component:PropertiesComponent},
   {path: 'viewProperties', component:ViewPropertiesComponent},
   {path: 'generateProperties', component:GeneratePropertiesReportComponent},
+  {path: 'snagListItems',component:SnagListItemComponent},
+  {path: 'snagList',component:SnagListComponent},
   //Tenants
   {path: 'tenants', component:TenantsComponent},
   {path: 'viewTenants', component:ViewTenantsComponent},
@@ -82,8 +90,11 @@ const routes: Routes = [
   //Maintenace
   {path: 'maintenance', component:MaintenanceComponent},
   {path: 'assignMaintenance', component:AssignMaintenanceComponent},
+  {path: 'viewMaintenance', component:ViewMaintenanceComponent},
   {path: 'payment', component:PaymentComponent},
   {path: 'maintenanceNote', component:MaintenanceNoteComponent},
+  {path: 'maintenanceType',component:MaintenanceTypeComponent},
+  {path: 'maintenanceStatus',component:MaintenanceStatusComponent},
   {path: 'generateMaintenance', component:GenerateMaintenanceReportComponent},
   //Settings
   {path: 'settings', component:SettingsComponent},
