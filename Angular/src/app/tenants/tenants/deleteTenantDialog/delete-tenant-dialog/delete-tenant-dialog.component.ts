@@ -17,11 +17,38 @@ export class DeleteTenantDialogComponent {
     public dialogRef: MatDialogRef<DeleteTenantDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  closeModal() {
-    this.dialogRef.close();
-  }
+    onCancelClick(): void {
+      this.dialogRef.close(false);
+    }
+  
+    onDeleteClick(): void {
+      this.dialogRef.close(true);
+    }
 
-  deleteTenant(): void {
-    this.dialogRef.close('delete');
+  /*async deleteTenant(id: any) {
+    const confirmed = confirm('Are you sure you want to delete this tenant?');
+    if (!confirmed) {
+      return;
+    }
+    
+    try {
+      await this._tenantService.deleteTenant(id);
+      this.dataSource.data = this.dataSource.data.filter((tenant) => tenant.id !== id);
+      this.showSnackBar('Deleted successfully');
+    } catch (error) {
+      console.error('Error deleting tenant:', error);
+      this.showSnackBar('Error deleting tenant', true);
+    }
   }
+  showSnackBar(message: string, isError = false) {
+    const panelClass = isError ? 'error-snackbar' : '';
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'X', {
+      duration: 5000,
+      panelClass: panelClass,
+    });
+  
+    snackBarRef.afterDismissed().subscribe(() => {
+      // No need to reload the page; the table is already updated
+    });
+  }*/
 }

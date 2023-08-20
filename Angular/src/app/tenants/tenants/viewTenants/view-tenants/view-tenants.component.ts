@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { TenantService } from 'src/app/services/tenant.service';
 import { Tenant } from 'src/app/shared/Tenant';
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteTenantDialogComponent } from '../../deleteTenantDialog/delete-tenant-dialog/delete-tenant-dialog.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-tenants',
@@ -55,17 +57,34 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
   }
 
   async deleteTenant(id: any) {
-    await this._tenantService.deleteTenant(id);
-    this.showSnackBar();
+    const dialogRef: MatDialogRef<DeleteTenantDialogComponent> = this.dialog.open(DeleteTenantDialogComponent, {
+      width: '300px',
+      data: {
+        tenantId: id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(async (result: boolean) => {
+      if (result) {
+        try {
+          await this._tenantService.deleteTenant(id);
+          this.dataSource.data = this.dataSource.data.filter((tenant) => tenant.id !== id);
+          this.showSnackBar('Deleted successfully'); // Use the 'showSnackBar' method
+        } catch (error) {
+          console.error('Error deleting tenant:', error);
+          this.showSnackBar('Error deleting tenant', true);
+        }
+      }
+    });
   }
 
-  showSnackBar() {
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
-      'Deleted successfully',
-      'X',
-      { duration: 500 }
-    );
-    snackBarRef.afterDismissed().subscribe(() => {
+  showSnackBar(message: string, isError = false) {
+    const panelClass = isError ? 'error-snackbar' : '';
+  
+    this.snackBar.open(message, 'X', {
+      duration: 5000,
+      panelClass: panelClass,
+    }).afterDismissed().subscribe(() => {
       location.reload();
     });
   }
