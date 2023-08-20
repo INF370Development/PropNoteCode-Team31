@@ -1,6 +1,6 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Add New Tenant</h2>
+    <h2>Add New Tenant <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="CreateTenant()">
       <mat-form-field class="form-field">
         <label>Username:</label>
@@ -9,7 +9,10 @@
           [(ngModel)]="tenantModel.username"
           name="username"
           required
+          maxlength="50"
+          [formControl]="username"
         />
+        <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Password:</label>
@@ -18,7 +21,14 @@
           [(ngModel)]="tenantModel.password"
           name="password"
           required
+          maxlength="50"
+          [type]="hide ? 'password' : 'text'"
+          [formControl]="password"
         />
+        <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Email:</label>
@@ -27,8 +37,12 @@
           [(ngModel)]="tenantModel.email"
           name="email"
           required
+          maxlength="50"
+          [formControl]="email"
         />
+        <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
+
       <mat-form-field class="form-field">
         <label>Name:</label>
         <input
@@ -36,7 +50,10 @@
           [(ngModel)]="tenantModel.name"
           name="name"
           required
+          maxlength="50"
+          [formControl]="name"
         />
+        <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Surname:</label>
@@ -45,7 +62,10 @@
           [(ngModel)]="tenantModel.surname"
           name="surname"
           required
+          maxlength="50"
+          [formControl]="surname"
         />
+        <mat-error *ngIf="surname.invalid">{{getErrorMessageSurname()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Personal Number:</label>
@@ -54,7 +74,11 @@
           [(ngModel)]="tenantModel.phoneNumber"
           name="phoneNumber"
           required
+          maxlength="10"
+          minlength="10"
+          [formControl]="phoneNumber"
         />
+        <mat-error *ngIf="phoneNumber.invalid">{{getErrorMessagePhoneNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Company Name:</label>
@@ -63,7 +87,10 @@
           [(ngModel)]="tenantModel.companyName"
           name="companyName"
           required
+          maxlength="50"
+          [formControl]="companyName"
         />
+        <mat-error *ngIf="companyName.invalid">{{getErrorMessageCompanyName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Company Number: </label>
@@ -72,13 +99,17 @@
           [(ngModel)]="tenantModel.companyNumber"
           name="companyNumber"
           required
+          maxlength="10"
+          minlength="10"
+          [formControl]="companyNumber"
         />
+        <mat-error *ngIf="companyName.invalid">{{getErrorMessageCompanyNumber()}}</mat-error>
       </mat-form-field>
             <div class="modal-actions">
 
-        <button mat-raised-button type="submit" color="primary" (click)="closeModal()">
+        <button mat-raised-button type="submit" color="accent" (click)="closeModal()">
           Create Tenant
         </button>
-        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 
       </div>
