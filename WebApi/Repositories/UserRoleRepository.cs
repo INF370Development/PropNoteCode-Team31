@@ -39,29 +39,38 @@ namespace WebApi.Repositories
                 return 0;
             }
         }
-        public string GetUserRoleNameByUserId(int UserId)
+        public async Task<Role> GetByIdAsync(int id)
         {
-            try
-            {
-                UserRole userRole = _appDbContext.UserRole.Where(x => x.UserID == UserId).FirstOrDefault()!;
-                if (userRole != null)
-                {
-                    var UserRoleName = _appDbContext.Role.Where(x => x.RoleID == userRole.UserRoleID).FirstOrDefault();
-                    if (UserRoleName != null)
-                    {
-                        return UserRoleName.Name;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                return null;
-            }
-            catch
-            {
-                return null;
-            }
+            return await _appDbContext.Role.FindAsync(id);
+        }
+
+        public async Task<Role> GetRoleByNameAsync(string roleName)
+        {
+            return await _appDbContext.Role.SingleOrDefaultAsync(r => r.Name == roleName);
+        }
+
+        public async Task AddAsync(Role role)
+        {
+            _appDbContext.Role.Add(role);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task AddUserRoleAsync(UserRole userRole)
+        {
+            _appDbContext.UserRole.Add(userRole);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Role role)
+        {
+            _appDbContext.Role.Update(role);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(Role role)
+        {
+            _appDbContext.Role.Remove(role);
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }
