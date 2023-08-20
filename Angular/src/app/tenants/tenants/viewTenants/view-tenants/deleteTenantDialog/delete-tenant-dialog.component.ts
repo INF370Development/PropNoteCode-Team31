@@ -5,6 +5,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
 
 @Component({
   selector: 'app-delete-tenant-dialog',
@@ -17,38 +26,11 @@ export class DeleteTenantDialogComponent {
     public dialogRef: MatDialogRef<DeleteTenantDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-    onCancelClick(): void {
-      this.dialogRef.close(false);
-    }
-  
-    onDeleteClick(): void {
-      this.dialogRef.close(true);
-    }
-
-  /*async deleteTenant(id: any) {
-    const confirmed = confirm('Are you sure you want to delete this tenant?');
-    if (!confirmed) {
-      return;
-    }
-    
-    try {
-      await this._tenantService.deleteTenant(id);
-      this.dataSource.data = this.dataSource.data.filter((tenant) => tenant.id !== id);
-      this.showSnackBar('Deleted successfully');
-    } catch (error) {
-      console.error('Error deleting tenant:', error);
-      this.showSnackBar('Error deleting tenant', true);
-    }
+  closeModal() {
+    this.dialogRef.close();
   }
-  showSnackBar(message: string, isError = false) {
-    const panelClass = isError ? 'error-snackbar' : '';
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'X', {
-      duration: 5000,
-      panelClass: panelClass,
-    });
-  
-    snackBarRef.afterDismissed().subscribe(() => {
-      // No need to reload the page; the table is already updated
-    });
-  }*/
+
+  deleteTenant(): void {
+    this.dialogRef.close('delete');
+  }
 }
