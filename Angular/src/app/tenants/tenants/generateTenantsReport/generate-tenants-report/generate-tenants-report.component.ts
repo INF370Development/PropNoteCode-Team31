@@ -16,10 +16,18 @@ export class GenerateTenantsReportComponent implements OnInit{
 
   dataSource = new MatTableDataSource<Tenant>();
 
-  ngOnInit(): void {
+  /*ngOnInit(): void {
     this.tenantService.getTenants().subscribe((tenants: any) => {
       this.dataSource.data = tenants;
       this.fetchTableData();
+    });
+  }*/
+
+  ngOnInit(): void {
+    this.tenantService.getTenants().subscribe((tenants: any) => {
+      console.log('Fetched tenants:', tenants); 
+      this.dataSource.data = tenants;
+      this.downloadPDF();
     });
   }
 
@@ -52,6 +60,8 @@ constructor(
   }
   
   downloadPDF(){
+
+    console.log('Data for PDF:', this.cardData); 
 
     if (this.cardData && this.cardData.length > 0) {
       const doc = new jsPDF('landscape'); 
