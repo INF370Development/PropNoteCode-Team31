@@ -1,6 +1,6 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Add New Contractor</h2>
+    <h2>Add New Contractor <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="CreateContractor()">
       <mat-form-field class="form-field">
         <label>Username:</label>
@@ -84,10 +84,10 @@
 
       <div class="modal-actions">
 
-        <button mat-raised-button type="submit" color="primary" (click)="sendToBackend()">
+        <button mat-raised-button type="submit" color="accent" (click)="sendToBackend()">
           Add Contractor
         </button>
-        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 
       </div>
     </form>
