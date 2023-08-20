@@ -78,5 +78,45 @@ namespace WebApi.Repositories
                 return true;
             }
         }
+
+        public async Task<User> GetByIdAsync(int id)
+        {
+            return await _appDbContext.User.FindAsync(id);
+        }
+
+        public async Task<User> GetUserByIDAsync(int userID)
+        {
+            return await _appDbContext.User.SingleOrDefaultAsync(u => u.UserID == userID);
+        }
+
+        public async Task AddAsync(User user)
+        {
+            await _appDbContext.User.AddAsync(user);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task AddUserRoleAsync(UserRole userRole)
+        {
+            await _appDbContext.UserRole.AddAsync(userRole);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            _appDbContext.User.Update(user);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            _appDbContext.User.Remove(user);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task<User[]> GetAllUsersAsync()
+        {
+            IQueryable<User> query = (IQueryable<User>)_appDbContext.User;
+            return await query.ToArrayAsync();
+        }
     }
 }
