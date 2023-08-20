@@ -9,6 +9,7 @@ import { MaintenanceService } from 'src/app/services/maintenance.service';
 import { Maintenance } from 'src/app/shared/Maintenance';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
+import { AssignMaintenanceModalComponent } from './assignMaintenanceModal/assign-maintenance-modal/assign-maintenance-modal.component';
 
 @Component({
   selector: 'app-assign-maintenance',
@@ -76,4 +77,17 @@ export class AssignMaintenanceComponent implements AfterViewInit, OnInit {
         this.dataSource.data = maintenance;
       });
     }
-}
+
+    openAssignMaintenanceModal() {
+      const dialogRef = this.dialog.open(AssignMaintenanceModalComponent);
+    
+      dialogRef.afterClosed().subscribe((formData: any) => {
+        if (formData) {
+          this._maintenanceService.createMaintenance(formData).subscribe((newTenant: any) => {
+            this.refreshTableData();
+            this.cdr.detectChanges(); 
+          });
+        }
+      });
+    }
+  }
