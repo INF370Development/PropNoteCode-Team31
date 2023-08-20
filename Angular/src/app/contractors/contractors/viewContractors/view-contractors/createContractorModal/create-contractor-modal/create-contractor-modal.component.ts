@@ -81,4 +81,85 @@ contractorTypes: ContractorType[] = [];
 
   }
 
+  hide = true;
+  //Username
+  username = new FormControl('', [Validators.required]);
+
+  getErrorMessageUsername() {
+    if (this.username.hasError('required')) {
+      return 'Username required';
+    }
+
+    return this.username.hasError('username') ? 'Not a valid username' : '';
+  }
+  //Password
+  password = new FormControl('', [Validators.required]);
+
+  getErrorMessagePassword() {
+    if (this.password.hasError('required')) {
+      return 'Password required';
+    }
+
+    return this.password.hasError('password') ? 'Not a valid password' : '';
+  }
+  //Email
+  email = new FormControl('', [Validators.required, Validators.email]);
+
+  getErrorMessageEmail() {
+    if (this.email.hasError('required')) {
+      return 'Email required';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+  //Name
+  name = new FormControl('', [Validators.required]);
+
+  getErrorMessageName() {
+    if (this.name.hasError('required')) {
+      return 'Name required';
+    }
+
+    return this.email.hasError('name') ? 'Not a valid name' : '';
+  }
+  //Surname
+  surname = new FormControl('', [Validators.required]);
+
+  getErrorMessageSurname() {
+    if (this.surname.hasError('required')) {
+      return 'Surname required';
+    }
+
+    return this.surname.hasError('surname') ? 'Not a valid surname' : '';
+  }
+  //Phone Number
+  phoneNumber = new FormControl('', [Validators.required]);
+
+  getErrorMessagePhoneNumber() {
+    if (this.phoneNumber.hasError('required')) {
+      return 'Personal phone number required';
+    }
+
+    return this.surname.hasError('phoneNumber') ? 'Not a valid personal phone number' : '';
+  }
+  //Area of Business
+  areaBusiness = new FormControl('', [Validators.required]);
+
+  getErrorMessageAreaBusiness() {
+    if (this.areaBusiness.hasError('required')) {
+      return 'Area of Business required';
+    }
+
+    return this.areaBusiness.hasError('areaBusiness') ? 'Not a valid area of business' : '';
+  }
+  //Availability
+  availability = new FormControl('', [Validators.required]);
+
+  getErrorMessageAvailability() {
+    if (this.availability.hasError('required')) {
+      return 'Availibility required';
+    }
+
+    return this.availability.hasError('availability') ? 'Not a valid availability' : '';
+  }
 }
