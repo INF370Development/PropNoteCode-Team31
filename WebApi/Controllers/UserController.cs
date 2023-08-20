@@ -22,13 +22,15 @@ namespace WebApi.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly ITenantRepository _tenantRepository;
+        private readonly IContractorRepository _contractorRepository;
 
         //Constructor for the User Controller
-        public UserController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, ITenantRepository tenantRepository)
+        public UserController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, ITenantRepository tenantRepository, IContractorRepository contractorRepository)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _tenantRepository = tenantRepository;
+            _contractorRepository = contractorRepository;
         }
 
         [HttpPost("CreateTenantUser")]
@@ -104,6 +106,68 @@ namespace WebApi.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
+        }
+
+        [HttpPost("CreateContractorUser")]
+        public async Task<IActionResult> CreateContractorUser(CreateContractorUserRequest request)
+        {
+            try
+            {
+                // Create User
+                var user = new User
+                {
+                    Username = request.Username,
+                    Password = request.Password,
+                    ProfilePhoto = request.ProfilePhoto,
+                    Email = request.Email,
+                    Name = request.Name,
+                    Surname = request.Surname,
+                    PhoneNumber = request.PhoneNumber
+                    // Populate other user properties
+                };
+
+                // Get or create Tenant role
+                var contractorRole = await _userRoleRepository.GetRoleByNameAsync("Contractor");
+                if (contractorRole == null)
+                {
+                    contractorRole = new Role { Name = "Contractor" };
+                    await _userRoleRepository.AddAsync(contractorRole);
+                }
+
+                await _userRepository.AddAsync(user);
+
+                // Create UserRole
+                var userRole = new UserRole
+                {
+                    RoleID = contractorRole.RoleID,
+                    UserID = user.UserID
+                };
+
+                await _userRoleRepository.AddUserRoleAsync(userRole);
+                var retrievedUser = await _userRepository.GetUserByIDAsync(user.UserID);
+
+                // Create Tenant
+                var contractor = new Contractor
+                {
+                    UserID = user.UserID,
+                    AreaOfBusiness = request.AreaOfBusiness,
+                    Availability = request.Availability,
+                    ContractorTypeID = request.ContractorTypeID,
+                    User = retrievedUser
+                };
+                await _contractorRepository.AddAsync(contractor);
+                Console.WriteLine(contractor);
+
+                return Ok("User with Contractor role and linked Contractor created.");
+
+                Console.WriteLine(contractor.User);
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+
         }
     }
 
