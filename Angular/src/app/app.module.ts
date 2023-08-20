@@ -39,7 +39,7 @@ import { NotificationsComponent } from './profile/profile/notifications/notifica
 import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile/view-profile.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
-import { CreateUModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
+import { CreateUserModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
 import { CreatePropertiesModalComponent } from './properties/properties/create-properties-modal/create-properties-modal.component';
 import { ForgotPasswordComponent } from './forgotPassword/forgot-password/forgot-password.component';
 import { DeletePropertyDialogComponent } from './properties/properties/viewProperties/view-properties/deletePropertyDialog/delete-property-dialog/delete-property-dialog.component';
@@ -74,6 +74,7 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
 import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
+import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,7 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     ViewProfileComponent,
     HelpproComponent,
     CreateURModalComponent,
-    CreateUModalComponent,
+    CreateUserModalComponent,
     CreatePropertiesModalComponent,
     ForgotPasswordComponent,
     DeletePropertyDialogComponent,
@@ -139,6 +140,7 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     CreateContractorModalComponent,
     DeleteContracorDialogComponent,
     UpdateContractorModalComponent,
+    CreateTenantModalComponent,
 
   ],
   imports: [

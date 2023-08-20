@@ -2,7 +2,24 @@ button {
     margin-right: 8px;
 }
   
-.search-container {
+.container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+  
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 70%;
+}
+  
+.create {
+    float: right;
+    position: relative;
+    font-size: 30px;
+}
+
+/*.search-container {
     display: flex;
     float: left;
     align-items: left;
@@ -23,32 +40,106 @@ button {
     color: black;
     margin-right: 8px;
 }
-  
-.search-button {
-    margin-left: 8px;
-    font-size: 20px;
-    color: green;
-}  
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
 
 .create {
     float: right;
     position: relative;
     font-size: 30px;
+}*/
+/*button {
+    margin-right: 8px;
+}
+  
+.container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+  
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 70%;
+}
+  
+.create {
+    float: right;
+    position: relative;
+    font-size: 30px;
+}*/
+
+/*.modal-container {
+    width: 410px;
+    height:600px;
+    padding: 20px;
+    background-color: #2e2c2c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+  
+.modal-container h2 {
+    margin-bottom: 10px;
+}
+  
+.modal-container ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+  
+.modal-container li {
+    margin-bottom: 8px;
+}
+  
+.modal-container button {
+    margin-right: 10px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: dimgrey;
+.form {
+    width: 500px;
 }
 
-th {
-    border: 1px solid #ccc;
-    padding: 8px;
+.form-field{
+    width:400px;
 }
 
-td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
+.cancel {
+    float: right;
+    position: relative;
+    color:red; 
+    
 }
+
+.end{
+    padding: 10px;
+}
+
+.createBrokerButton{
+    background-color:rgb(32, 209, 47);
+    float: left;
+    position: relative;
+    width:80px;
+    height:35px;
+    color:white;
+}
+
+.cancelButton{
+    background-color:red;
+    float: right;
+    position: relative;
+    width:80px;
+    height:35px;
+    color:white;
+}
+
+.BrokerHeading{
+    color:white;
+}
+
+.BrokerSubHeading{
+    color:white;
+}*/

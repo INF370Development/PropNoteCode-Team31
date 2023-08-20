@@ -10,19 +10,19 @@ import { User } from 'src/app/shared/User';
   templateUrl: './create-umodal.component.html',
   styleUrls: ['./create-umodal.component.scss']
 })
-export class CreateUModalComponent implements OnInit {
+export class CreateUserModalComponent implements OnInit {
   adminRole: boolean = false;
   editorRole: boolean = false;
   viewerRole: boolean = false;
 
-  userModal: User = {
-    id: +1,
-    email: '',
-    userRole: '',
-  };
+  // userModal: User = {
+  //   id: +1,
+  //   email: '',
+  //   userRole: '',
+  // };
 
   constructor(
-    private dialogRef: MatDialogRef<CreateUModalComponent>,
+    private dialogRef: MatDialogRef<CreateUserModalComponent>,
     private userService: UserService,
     private router: Router
   ) {}
@@ -33,17 +33,17 @@ export class CreateUModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  CreateUser() {
-    this.userService.createUser(this.userModal).subscribe(
-      (response) => {
-        console.log('User created successfully:', response);
-        this.dialogRef.close({success: true, user: this.userModal}); 
-      },
-      (error) => {
-        console.error('Error creating user:', error);
-      }
-    );
-  }
+  // CreateUser() {
+  //   this.userService.createUser(this.userModal).subscribe(
+  //     (response) => {
+  //       console.log('User created successfully:', response);
+  //       this.dialogRef.close({success: true, user: this.userModal});
+  //     },
+  //     (error) => {
+  //       console.error('Error creating user:', error);
+  //     }
+  //   );
+  // }
 }
 
 /*import { Component, Inject } from '@angular/core';
