@@ -1,1 +1,84 @@
-<p>create-tenant-modal works!</p>
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Add New Tenant</h2>
+    <form (submit)="CreateTenant()">
+      <mat-form-field class="form-field">
+        <label>Username:</label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.username"
+          name="username"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Password:</label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.password"
+          name="password"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Email:</label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.email"
+          name="email"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Name:</label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.name"
+          name="name"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Surname:</label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.surname"
+          name="surname"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Personal Number:</label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.phoneNumber"
+          name="phoneNumber"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Company Name:</label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.companyName"
+          name="companyName"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Company Number: </label>
+        <input
+          matInput
+          [(ngModel)]="tenantModel.companyNumber"
+          name="companyNumber"
+          required
+        />
+      </mat-form-field>
+            <div class="modal-actions">
+
+        <button mat-raised-button type="submit" color="primary" (click)="closeModal()">
+          Create Tenant
+        </button>
+        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+
+      </div>

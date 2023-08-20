@@ -1,0 +1,35 @@
+name: Build Web Api
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+      # Mobile folder working directory.
+        working-directory: WebApi
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+          filters: |
+            WebApi:
+              - 'WebApi/**' 
+    - name: Setup .NET
+      if: steps.filter.outputs.WebApi == 'true'
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      if: steps.filter.outputs.WebApi == 'true'
+      run: dotnet restore
+    - name: Build Application
+      if: steps.filter.outputs.WebApi == 'true'
+      run: dotnet build --no-restore
