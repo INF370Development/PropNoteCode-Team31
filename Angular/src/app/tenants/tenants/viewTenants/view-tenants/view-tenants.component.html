@@ -1,153 +1,89 @@
-<!--Page heading-->
-<h1>Tenants</h1>
+<h1>All Tenants</h1>
 
-<!--Search Bar / Filter-->
-<div class="container">
-  <mat-form-field>
-    <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Start Typing.." #input>
-  </mat-form-field>
+<div class="create">
+  <button mat-fab extended color="accent" (click)="openCreateTenantModal()">
+    <mat-icon>add</mat-icon>
+    Add New Tenant
+  </button>
+</div>
 
+<br />
 
-<!--<div class="search-container">
+<div class="mat-elevation-z8">
   <mat-form-field appearance="fill">
-    <mat-label>Search</mat-label>
+    <mat-label> <mat-icon>search</mat-icon>  Filter</mat-label>
     <input
       matInput
       (keyup)="applyFilter($event)"
-      placeholder="Typing..."
+      placeholder="start typing..."
       #input
-      class="search-input"
     />
   </mat-form-field>
-</div>-->
 
-<br>
-<br>
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.user.name }} {{element.user.surname}}</td>
+  </ng-container>
 
-<!--Table-->
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.user.email }}
+    </td>
+  </ng-container>
 
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
+  <ng-container matColumnDef="phoneNumber">
+    <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+    <td mat-cell *matCellDef="let element">{{ element.user.phoneNumber }}</td>
+  </ng-container>
 
-    <ng-container matColumnDef="userRole">
-      <th mat-header-cell *matHeaderCellDef>User Role</th>
-      <td mat-cell *matCellDef="let element">{{ element.userRole }}</td>
-    </ng-container>
+  <ng-container matColumnDef="companyName">
+    <th mat-header-cell *matHeaderCellDef>Company Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.companyName }}</td>
+  </ng-container>
 
-<!--Details Button-->
-    <ng-container matColumnDef="detailsButton">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button [routerLink]="['/hero', element.id]">
-          <mat-icon>info</mat-icon>
-          User Details
-        </button>
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="companyNumber">
+    <th mat-header-cell *matHeaderCellDef>Company Number</th>
+    <td mat-cell *matCellDef="let element">{{ element.companyNumber }}</td>
+  </ng-container>
 
-<!--Update Button-->
-    <ng-container matColumnDef="updateButton">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-button
-          class="deletebutton"
-        >
-        <!--(click)="updateUser(element.id)"-->
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="detailsButton">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button [routerLink]="['/viewProperties', element.tenantID]">
+        <mat-icon>business</mat-icon>
+        Details
+      </button>
+    </td>
+  </ng-container>
 
-<!--Delete Button-->
-    <ng-container matColumnDef="deleteButton">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-button
-          class="deletebutton"
-          (click)="deleteTenant(element.id)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+  <ng-container matColumnDef="deleteButton">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-button
+        class="deletebutton"
+        (click)="deleteTenant(element.tenantID)"
+        style="color:red;"
+      >
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-<!--Paginator-->
-  <mat-paginator
-    [pageSize]="10"
-    [pageSizeOptions]="[3, 5, 10]"
-    showFirstLastButtons
-  >
-  </mat-paginator>
-</div>
-
-
-<!--<h1>Tenants</h1>
-
-<!--Search Bar--
-<div class="search-container">
-    <input class="search-input"  type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Search by Tenant Name">
-    <button class="search-button" mat-icon-button color="primary">
-      <mat-icon>search</mat-icon>
-    </button>
-</div>
-
-<!--Create Button--
-<div class="create">
-    <button mat-fab extended color="accent" (click)="openModal()">
-        <mat-icon>add</mat-icon>
-        Create User Role
-    </button>
-</div>--
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<!--Table--
-<table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Email</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Phone Number</th>
-        <th>Company Name</th>
-        <th>Company Number</th>
-        <th>Update</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tenant of filtered">
-        <td>{{ tenant.id }}</td>
-        <td>{{ tenant.email }}</td>
-        <td>{{ tenant.name }}</td>
-        <td>{{ tenant.surname }}</td>
-        <td>{{ tenant.phone }}</td>
-        <td>{{ tenant.cname }}</td>
-        <td>{{ tenant.cphone }}</td>
-        <!--Update Button--
-        <td><button mat-raised-button color="primary" (click)="openUpdateTenantModal(tenant)"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
-        <!--Delete Button--
-        <td><button mat-raised-button color="warn" (click)="openDeleteTenantDialog(tenant)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
-      </tr>
-    </tbody>
-  </table> -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">
+      No data matching the filter "{{ input.value }}"
+    </td>
+  </tr>
+</table>
+<mat-paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[3, 5, 10]"
+  showFirstLastButtons
+>
+</mat-paginator>

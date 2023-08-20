@@ -29,9 +29,33 @@ namespace WebApi.Repositories
         public DbSet<Inspection> Inspection { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<Recovery> Recovery { get; set; }
+        public DbSet<Access> Access { get; set; }
+        public DbSet<UserAccess> UserAccess { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {           
+        {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UserRole>()
+                .HasKey(ur => new { ur.UserID, ur.RoleID });
+
+            modelBuilder.Entity<UserAccess>()
+                .HasKey(ua => new { ua.RoleID, ua.AccessID });
+
+            modelBuilder.Entity<Role>()
+                .HasMany(u => u.UserRoles)
+                .WithOne()
+                .HasForeignKey(ur => ur.RoleID)
+                .IsRequired();
+
+            modelBuilder.Entity<Access>()
+                .HasMany(a => a.UserAccesses)
+                .WithOne()
+                .HasForeignKey(ua => ua.AccessID)
+                .IsRequired();
+
+           
         }
+
     }
 }

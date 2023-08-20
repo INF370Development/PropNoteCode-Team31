@@ -39,7 +39,7 @@ import { NotificationsComponent } from './profile/profile/notifications/notifica
 import { ViewProfileComponent } from './profile/profile/viewProfile/view-profile/view-profile.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { CreateURModalComponent } from './users/users/createURModal/create-urmodal/create-urmodal.component';
-import { CreateUModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
+import { CreateUserModalComponent } from './users/users/CreateUserModal/createUModal/create-umodal/create-umodal.component';
 import { CreatePropertiesModalComponent } from './properties/properties/create-properties-modal/create-properties-modal.component';
 import { ForgotPasswordComponent } from './forgotPassword/forgot-password/forgot-password.component';
 import { DeletePropertyDialogComponent } from './properties/properties/viewProperties/view-properties/deletePropertyDialog/delete-property-dialog/delete-property-dialog.component';
@@ -67,13 +67,17 @@ import { CreateBrokerModalModule } from './broker/broker/viewBroker/view-broker/
 import { UpdateUserRoleModalComponent } from './users/users/viewUserRoles/view-user-roles/updateUserRoleModal/update-user-role-modal/update-user-role-modal.component';
 import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/createEmployeeModal/create-employee-modal/create-employee-modal.component';
 import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
+import { UpdateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/updateTenantModal/update-tenant-modal.component';
 import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
-import { UpdateTenantModalComponent } from './tenants/tenants/updateTenantModal/update-tenant-modal/update-tenant-modal.component';
 import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
 import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
+import { AssignMaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assignMaintenanceModal/assign-maintenance-modal/assign-maintenance-modal.component';
+import { DeleteMaintenanceDialogComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/deleteMaintenanceDialog/delete-maintenance-dialog/delete-maintenance-dialog.component';
+import { UpdateMiaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/updateMaintenanceModal/update-miaintenance-modal/update-miaintenance-modal.component';
+import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +116,7 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     ViewProfileComponent,
     HelpproComponent,
     CreateURModalComponent,
-    CreateUModalComponent,
+    CreateUserModalComponent,
     CreatePropertiesModalComponent,
     ForgotPasswordComponent,
     DeletePropertyDialogComponent,
@@ -139,6 +143,10 @@ import { UpdateContractorModalComponent } from './contractors/contractors/viewCo
     CreateContractorModalComponent,
     DeleteContracorDialogComponent,
     UpdateContractorModalComponent,
+    AssignMaintenanceModalComponent,
+    DeleteMaintenanceDialogComponent,
+    UpdateMiaintenanceModalComponent,
+    CreateTenantModalComponent,
 
   ],
   imports: [

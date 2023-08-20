@@ -1,0 +1,46 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    }
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.assignCard, .paymentCard, .generateCard, .noteCard {
+    max-width: 400px;
+}
+
+.assignCard{
+    padding: 10px;
+}
+
+.paymentCard {
+    padding: 10px;
+}
+
+.noteCard {
+    padding: 10px;
+}
+
+.generateCard {
+    padding: 10px;
+}
+
+.cards{
+    display: flex;
+    padding: 10px;
+    flex: 1;
+    margin: 10px;
+}
+
+.icon {
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+}

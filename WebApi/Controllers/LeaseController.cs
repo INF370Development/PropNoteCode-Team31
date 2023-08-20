@@ -45,31 +45,7 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
-        [HttpGet]
-        [Route("GetAllTenants")]
-        public async Task<IActionResult> GetAllTenants()
-        {
-            try
-            {
-                var allTenants = await _leaseRepository.GetAllTenantsAsync();
-                List<Tenant> tenants = new();
-                foreach (var tenant in allTenants)
-                {
-                    tenants.Add(new Tenant
-                    {
-                        TenantID = tenant.TenantID,
-                        CompanyNumber = tenant.CompanyNumber,
-                        CompanyName = tenant.CompanyName
-                    });
-                }
-
-                return Ok(tenants);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
-            }
-        }
+        
         [HttpPost]
         [Route("AddLease")]
         public async Task<IActionResult> AddLease(LeaseRequest leaseRequest)
