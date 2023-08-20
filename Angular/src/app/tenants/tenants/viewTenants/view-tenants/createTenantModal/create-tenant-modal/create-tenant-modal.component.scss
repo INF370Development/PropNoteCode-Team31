@@ -1,9 +1,8 @@
 .modal-container {
   width: 600px;
   padding: 20px;
-  background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: black;
+  color: white;
 }
 
 .modal-container h2 {
@@ -47,8 +46,16 @@ label {
 color: #fff;
 }
 
-/* In your component's CSS or global stylesheet */
-.custom-red-button {
-background-color: red; /* Set the background color to red */
-color: white; /* Set the text color to white to improve visibility */
+.if {
+  color: rgb(252, 102, 102);
+  font-size: 14px;
+}
+
+.cancel {
+  float: right;
+  position: relative;
+}
+
+.end{
+  padding: 10px;
 }

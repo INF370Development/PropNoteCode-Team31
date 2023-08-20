@@ -1,15 +1,24 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Add New Tenant</h2>
-    <form (submit)="CreateTenant()">
+    <h2>Add New Tenant <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+    <!--<form (submit)="CreateTenant()">-->
+    <form (ngSubmit)="CreateTenant()" [formGroup]="tenantForm">
       <mat-form-field class="form-field">
-        <label>Username:</label>
+        <!--<label>Username:</label>-->
+        <label for="username">Username<span class="required-field"></span>:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.username"
           name="username"
+          maxlength="50"
           required
         />
+        <!--<div class="if" *ngIf="tenantForm.get('username')?.hasError('required') && tenantForm.get('username')?.touched">
+          {{ errorMessages.required }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('username')?.hasError('maxlength') && tenantForm.get('username')?.touched">
+          {{ errorMessages.maxlength }}
+        </div>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Password:</label>
@@ -17,8 +26,12 @@
           matInput
           [(ngModel)]="tenantModel.password"
           name="password"
+          [type]="showPassword ? 'text' : 'password'"
           required
         />
+        <!--<div class="if" *ngIf="tenantForm.get('password')?.hasError('required') && tenantForm.get('password')?.touched">
+          {{ errorMessages.required }}
+        </div>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Email:</label>
@@ -27,7 +40,14 @@
           [(ngModel)]="tenantModel.email"
           name="email"
           required
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|co\.za)"
         />
+        <!--<div class="if" *ngIf="tenantForm.get('email')?.hasError('required') && tenantForm.get('email')?.touched">
+          {{ errorMessages.required }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('email')?.hasError('email') && tenantForm.get('email')?.touched">
+          {{ errorMessages.email }}
+        </div>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Name:</label>
@@ -36,7 +56,14 @@
           [(ngModel)]="tenantModel.name"
           name="name"
           required
+          maxlength="50"
         />
+        <!--<div class="if" *ngIf="tenantForm.get('name')?.hasError('required') && tenantForm.get('name')?.touched">
+          {{ errorMessages.required }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('name')?.hasError('maxlength') && tenantForm.get('name')?.touched">
+          {{ errorMessages.maxlength }}
+        </div>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Surname:</label>
@@ -45,7 +72,14 @@
           [(ngModel)]="tenantModel.surname"
           name="surname"
           required
+          maxlength="50"
         />
+       <!--<div class="if" *ngIf="tenantForm.get('surname')?.hasError('required') && tenantForm.get('surname')?.touched">
+          {{ errorMessages.required }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('surname')?.hasError('maxlength') && tenantForm.get('surname')?.touched">
+          {{ errorMessages.maxlength }}
+        </div>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Personal Number:</label>
@@ -54,7 +88,18 @@
           [(ngModel)]="tenantModel.phoneNumber"
           name="phoneNumber"
           required
+          maxlength="10"
+          pattern="[0-9]*"
         />
+        <!--<div class="if" *ngIf="tenantForm.get('phoneNumber')?.hasError('required') && tenantForm.get('phoneNumber')?.touched">
+          {{ errorMessages.required }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('phoneNumber')?.hasError('maxlength') && tenantForm.get('phoneNumber')?.touched">
+          {{ errorMessages.maxlength }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('phoneNumber')?.hasError('pattern') && tenantForm.get('phoneNumber')?.touched">
+          {{ errorMessages.pattern }}
+        </div>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Company Name:</label>
@@ -63,7 +108,14 @@
           [(ngModel)]="tenantModel.companyName"
           name="companyName"
           required
+          maxlength="50"
         />
+        <!--<div class="if" *ngIf="tenantForm.get('companyName')?.hasError('required') && tenantForm.get('companyName')?.touched">
+          {{ errorMessages.required }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('companyName')?.hasError('maxlength') && tenantForm.get('companyName')?.touched">
+          {{ errorMessages.maxlength }}
+        </div>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Company Number: </label>
@@ -72,13 +124,24 @@
           [(ngModel)]="tenantModel.companyNumber"
           name="companyNumber"
           required
+          maxlength="10"
+          pattern="[0-9]*"
         />
+        <!--<div class="if" *ngIf="tenantForm.get('companyNumber')?.hasError('required') && tenantForm.get('companyNumber')?.touched">
+          {{ errorMessages.required }}
+        </div>
+        <div class="if" *ngIf="tenantForm.get('companyNumber')?.hasError('maxlength') && tenantForm.get('companyNumber')?.touched">
+          {{ errorMessages.maxlength }}
+        </div>
+        <div *ngIf="tenantForm.get('companyNumber')?.hasError('pattern') && tenantForm.get('companyNumber')?.touched">
+          {{ errorMessages.pattern }}
+        </div>-->
       </mat-form-field>
-            <div class="modal-actions">
-
-        <button mat-raised-button type="submit" color="primary" (click)="closeModal()">
+      <div class="modal-actions">
+        <button mat-raised-button type="submit" color="accent" (click)="CreateTenant()" >
           Create Tenant
         </button>
-        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
-
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
       </div>
+    </form>
+  </div>
