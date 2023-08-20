@@ -53,8 +53,9 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async deleteBroker(id: any) {
-    await this._brokerService.deleteBroker(id);
+  async deleteBroker(brokerID: any) {
+    debugger;
+    await this._brokerService.deleteBroker(brokerID).toPromise();
     this.showSnackBar();
   }
 

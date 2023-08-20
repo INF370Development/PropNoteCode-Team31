@@ -28,6 +28,7 @@ NgModule({
 export class ViewBrokerDetailsComponent implements AfterViewInit {
   brokerDetail : Broker = new Broker();
 
+
   constructor(public dialog: MatDialog, private _brokerService: BrokerService, private route:ActivatedRoute) {
     console.log("broker details", Broker)
   }

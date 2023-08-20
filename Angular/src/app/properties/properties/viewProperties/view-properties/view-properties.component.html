@@ -15,12 +15,11 @@
             <h5>Address: {{propertyDetail.buildingNumber}} {{propertyDetail.street}}, {{propertyDetail.suburb}}</h5>
             <h5>Property Size: {{propertyDetail.size}}m<sup>2</sup></h5>
             <h5>Yard Area: {{propertyDetail.yard}}m<sup>2</sup></h5>
-            <h5>Purchase Amount: {{propertyDetail.purchaseAmount}}</h5>
+            <h5>Purchase Amount: R {{propertyDetail.purchaseAmount}}</h5>
             <h5>Purchase Year: {{propertyDetail.purchaseYear}}</h5>
 <br>
             <div class="buttons">
                 <button mat-raised-button color="primary">UPDATE</button>
-                <button mat-raised-button color="warn"  (click)="openDeletePropertyDialog()">DELETE</button>
             </div>
 
     </div>
@@ -33,7 +32,7 @@
     <h4>{{propertyDetail.broker.name}} {{propertyDetail.broker.surname}}</h4>
     <h5>Phone Number: {{propertyDetail.broker.phoneNumber}}</h5>
     <h5>Office Address: {{propertyDetail.broker.officeAddress}}</h5>
-    <h5>Commission: {{propertyDetail.broker.commissionRate}}</h5>
+    <h5>Commission Paid: R {{propertyDetail.broker.commissionRate * propertyDetail.purchaseAmount}}</h5>
     <div class="buttons">
       <button mat-raised-button color="primary" [routerLink]="['/viewBrokerDetails', propertyDetail.broker.brokerID]">View Broker</button>
     </div>

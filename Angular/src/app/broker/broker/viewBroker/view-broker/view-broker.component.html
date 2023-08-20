@@ -58,7 +58,7 @@
 
     <ng-container matColumnDef="commissonRate">
       <th mat-header-cell *matHeaderCellDef>Commisson Rate</th>
-      <td mat-cell *matCellDef="let element">{{ element.commissionRate }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.commissionRate * 100}}%</td>
     </ng-container>
 
 <!--dont think details coloum is needed-->
@@ -75,15 +75,13 @@
 
 <!-- add edit button  -->
 
-
-<!--delete not functional-->
     <ng-container matColumnDef="deleteButton">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
         <button
           mat-button
           class="deletebutton"
-          (click)="deleteBroker(element.id)"
+          (click)="deleteBroker(element.brokerID)"
         >
           <mat-icon>delete</mat-icon>
         </button>

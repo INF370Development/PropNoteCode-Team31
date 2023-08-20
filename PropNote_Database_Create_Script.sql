@@ -81,8 +81,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ACCESS](
 	[AccessID] [int] IDENTITY(1,1) NOT NULL,
-	[AccessName] [varchar](100) NOT NULL,
-	[AccessDescription] [varchar](50) NOT NULL,
+	[AccessName] [varchar](50) NOT NULL,
+	[AccessDescription] [varchar](100) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[AccessID] ASC
@@ -98,7 +98,7 @@ CREATE TABLE [dbo].[ADMIN](
 	[AdminID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NULL,
 	[Name] [varchar](100) NOT NULL,
-	[PhoneNumber] [varchar](100) NOT NULL,
+	[PhoneNumber] [varchar](10) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[AdminID] ASC
@@ -114,10 +114,10 @@ CREATE TABLE [dbo].[BROKER](
 	[BrokerID] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](100) NOT NULL,
 	[Surname] [varchar](100) NOT NULL,
-	[PhoneNumber] [varchar](100) NOT NULL,
+	[PhoneNumber] [varchar](10) NOT NULL,
 	[OfficeAddress] [varchar](50) NOT NULL,
 	[LicenseNumber] [varchar](100) NOT NULL,
-	[CommissionRate] [varchar](10) NOT NULL,
+	[CommissionRate] [decimal](5, 2) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[BrokerID] ASC
@@ -192,7 +192,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[DISCOUNT](
 	[DiscountID] [int] IDENTITY(1,1) NOT NULL,
-	[Amount] [varchar](10) NULL,
+	[Amount] [decimal](10, 2) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[DiscountID] ASC
@@ -240,7 +240,7 @@ CREATE TABLE [dbo].[LEASE](
 	[PropertyID] [int] NULL,
 	[StartDate] [date] NULL,
 	[EndDate] [date] NULL,
-	[MonthlyAmount] [int] NULL,
+	[MonthlyAmount] [decimal](10, 2) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[LeaseID] ASC
@@ -377,11 +377,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[NOTIFICATION](
 	[NotificationID] [int] IDENTITY(1,1) NOT NULL,
-	[NotificationTypeID] [int] NOT NULL,
-	[ScheduleID] [int] NOT NULL,
-	[ReccurenceTypeID] [int] NOT NULL,
-	[NotificationName] [varchar](50) NOT NULL,
-	[NotificationDate] [date] NOT NULL,
+	[NotificationTypeID] [int] NULL,
+	[ReccurenceTypeID] [int] NULL,
+	[NotificationName] [varchar](50) NULL,
+	[NotificationDate] [date] NULL,
+	[StartTime] [time] NULL,
+	[EndTime] [time] NULL,
+	[Description] [varchar](max)
 PRIMARY KEY CLUSTERED 
 (
 	[NotificationID] ASC
@@ -512,10 +514,10 @@ CREATE TABLE [dbo].[PROPERTY](
 	[BuildingNumber] [int] NULL,
 	[Street] [varchar](100) NULL,
 	[Suburb] [varchar](100) NULL,
-	[PurchaseAmount] [int] NULL,
+	[PurchaseAmount] [decimal](20, 2) NULL,
 	[PurchaseYear] [int] NULL,
-	[Size] [varchar](100) NULL,
-	[Yard] [varchar](100) NULL,
+	[Size] [decimal](10, 2) NULL,
+	[Yard] [decimal](10, 2) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyID] ASC
@@ -549,6 +551,85 @@ CREATE TABLE [dbo].[PROPERTYSTATUS](
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyStatusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Recovery]    Script Date: 2023/07/27 11:38:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RECOVERY] (
+	[RecoveryID] [int] IDENTITY(1,1) NOT NULL,
+	[PropertyID] [int] NULL,
+	[RecoveryTypeID] [int] NULL,
+	[RecoveryDescription] [varchar](50) NULL,
+	[RecoveryAmount] [decimal] (10, 2) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RecoveryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RECOVERYTYPE]    Script Date: 2023/07/27 11:38:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RECOVERYTYPE] (
+	[RecoveryTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[RecoveryTypeDescription] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RecoveryTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[INSPECTION]    Script Date: 2023/07/27 11:38:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[INSPECTION] (
+	[InspectionID] [int] IDENTITY(1,1) NOT NULL,
+	[PropertyID] [int] NULL,
+	[EmployeeID] [int] NULL,
+	[InspectionTypeID] [int] NULL,
+	[InspectionStatusID] [int] NULL,
+	[InspectionDescription] [varchar] (50) NULL,
+	[InspectionDate] [date] NULL,
+	[InspectionTime] [time] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[InspectionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[INSPECTIONSTATUS]    Script Date: 2023/07/27 11:38:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[INSPECTIONSTATUS] (
+	[InspectionStatusID] [int] IDENTITY(1,1) NOT NULL,
+	[InspectionStatusName] [varchar](32) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[InspectionStatusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[INSPECTIONTYPE]    Script Date: 2023/07/27 11:38:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[INSPECTIONTYPE] (
+	[InspectionTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[InspectionTypeName] [varchar](32) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[InspectionTypeID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -632,14 +713,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[SCHEDULE](
-	[ScheduleID]  [int] IDENTITY(1,1) NOT NULL,
+	[NotificationID]  [int] NOT NULL,
 	[UserID] [int] NOT NULL,
-	[ScheduleDescription] [varchar](50) NULL,
-	[ScheduleDate] [date] NULL,
-	[ScheduleTime] [time](7) NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[ScheduleID] ASC
+	[NotificationID] ASC,
+	[UserID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -746,7 +825,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VAT](
 	[VATID] [int] NOT NULL,
-	[Percentage] [varchar](5) NULL,
+	[Percentage] [decimal](5, 2) NULL,
 	[Date] [date] NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -776,8 +855,11 @@ GO
 ALTER TABLE [dbo].[LEASE]  WITH CHECK ADD FOREIGN KEY([TenantID])
 REFERENCES [dbo].[TENANT] ([TenantID])
 GO
-ALTER TABLE [dbo].[NOTIFICATION] WITH CHECK ADD FOREIGN KEY([ScheduleID])
-REFERENCES [dbo].[SCHEDULE] ([ScheduleID])
+ALTER TABLE [dbo].[SCHEDULE] WITH CHECK ADD FOREIGN KEY([NotificationID])
+REFERENCES [dbo].[NOTIFICATION] ([NotificationID])
+GO
+ALTER TABLE [dbo].[SCHEDULE] WITH CHECK ADD FOREIGN KEY([UserID])
+REFERENCES [dbo].[USER] ([UserID])
 GO
 ALTER TABLE [dbo].[NOTIFICATION]  WITH CHECK ADD FOREIGN KEY([ReccurenceTypeID])
 REFERENCES [dbo].[RECCURENCEITEMTYPE] ([ReccurenceTypeID])
@@ -878,8 +960,23 @@ GO
 ALTER TABLE [dbo].[SNAGLIST]  WITH CHECK ADD FOREIGN KEY([PropertyID])
 REFERENCES [dbo].[PROPERTY] ([PropertyID])
 GO
-ALTER TABLE [dbo].[SCHEDULE]  WITH CHECK ADD FOREIGN KEY([UserID])
-REFERENCES [dbo].[USER] ([UserID])
+ALTER TABLE [dbo].[RECOVERY]  WITH CHECK ADD FOREIGN KEY([PropertyID])
+REFERENCES [dbo].[PROPERTY] ([PropertyID])
+GO
+ALTER TABLE [dbo].[RECOVERY]  WITH CHECK ADD FOREIGN KEY([RecoveryTypeID])
+REFERENCES [dbo].[RECOVERYTYPE] ([RecoveryTypeID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([PropertyID])
+REFERENCES [dbo].[PROPERTY] ([PropertyID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([EmployeeID])
+REFERENCES [dbo].[EMPLOYEE] ([EmployeeID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([InspectionTypeID])
+REFERENCES [dbo].[INSPECTIONTYPE] ([InspectionTypeID])
+GO
+ALTER TABLE [dbo].[INSPECTION]  WITH CHECK ADD FOREIGN KEY([InspectionStatusID])
+REFERENCES [dbo].[INSPECTIONSTATUS] ([InspectionStatusID])
 GO
 USE [master]
 GO

@@ -16,15 +16,9 @@ export class CreateBrokerModalComponent implements OnInit {
   editorRole: boolean = false;
   viewerRole: boolean = false;
 
-  brokerModel: Broker = {
-    brokerID: 0,
-    name: '',
-    surname: '',
-    phoneNumber: '',
-    officeAddress: '',
-    licenseNumber: '',
-    commissionRate: '',
-  };
+  brokerModel: Broker = new Broker();
+  commissionRatePercentage: number | null = null;
+  commissionRatePlaceholderText: string = "Commission Rate (%)";
 
   constructor(
     private dialogRef: MatDialogRef<CreateBrokerModalComponent>,
@@ -42,7 +36,14 @@ export class CreateBrokerModalComponent implements OnInit {
     this.dialogRef.close();
   }
   AddBroker() {
+    if (this.commissionRatePercentage === null) {
+      // Handle empty commission rate here
+      alert("Commission rate is empty.");
+      return;
+    }
     //debugger;
+    this.brokerModel.commissionRate = this.commissionRatePercentage/100;
+    this.commissionRatePlaceholderText = "";
     this.brokerService.createBroker(this.brokerModel).subscribe(
       (response) => {
         console.log('Broker created successfully:', response);
