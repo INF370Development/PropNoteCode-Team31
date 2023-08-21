@@ -49,6 +49,63 @@ recoveries: Recovery[] =[];
       this.brokers = brokers;
   });
 }
+validateInputs(): boolean {
+  // Description
+  if (this.propertyModel.description.length > 100) {
+    console.error('Description is too long');
+    return false;
+  }
+
+  // Building Number
+  if (isNaN(this.propertyModel.buildingNumber)) {
+    console.error('Invalid building number');
+    return false;
+  }
+
+  // Street
+  if (this.propertyModel.street.trim() === '' || this.propertyModel.street.length > 100) {
+    console.error('Invalid street');
+    return false;
+  }
+
+  // Suburb
+  if (this.propertyModel.suburb.trim() === '' || this.propertyModel.suburb.length > 100) {
+    console.error('Invalid suburb');
+    return false;
+  }
+
+  // Purchase Amount
+  if (isNaN(this.propertyModel.purchaseAmount) || this.propertyModel.purchaseAmount <= 0) {
+    console.error('Invalid purchase amount');
+    return false;
+  }
+
+  // Size
+  if (isNaN(this.propertyModel.size) || this.propertyModel.size <= 0) {
+    console.error('Invalid size');
+    return false;
+  }
+
+  // Yard
+  if (isNaN(this.propertyModel.yard) || this.propertyModel.yard <= 0) {
+    console.error('Invalid yard');
+    return false;
+  }
+
+  // Purchase Year
+  if (isNaN(this.propertyModel.purchaseYear) || this.propertyModel.purchaseYear > 4) {
+    console.error('Invalid purchase year');
+    return false;
+  }
+
+  // Broker
+  if (!this.propertyModel.broker || isNaN(this.propertyModel.broker.brokerID)) {
+    console.error('Invalid broker');
+    return false;
+  }
+
+  return true;
+}
 
   createRole() {
     this.dialogRef.close();
@@ -58,6 +115,58 @@ recoveries: Recovery[] =[];
     this.dialogRef.close();
   }
   CreateProperty() {
+    const validationErrors = [];
+
+  if (this.propertyModel.description.length > 100) {
+    validationErrors.push('Description is too long');
+  }
+
+  // Building Number
+  if (isNaN(this.propertyModel.buildingNumber)) {
+    validationErrors.push('Invalid building number');
+  }
+
+  // Street
+  if (this.propertyModel.street.trim() === '' || this.propertyModel.street.length > 100) {
+    validationErrors.push('Invalid street');
+  }
+
+  // Suburb
+  if (this.propertyModel.suburb.trim() === '' || this.propertyModel.suburb.length > 100) {
+    validationErrors.push('Invalid suburb');
+  }
+
+  // Purchase Amount
+  if (isNaN(this.propertyModel.purchaseAmount) || this.propertyModel.purchaseAmount <= 0) {
+    validationErrors.push('Invalid purchase amount');
+  }
+
+  // Size
+  if (isNaN(this.propertyModel.size) || this.propertyModel.size <= 0) {
+    validationErrors.push('Invalid size');
+  }
+
+  // Yard
+  if (isNaN(this.propertyModel.yard) || this.propertyModel.yard <= 0) {
+    validationErrors.push('Invalid yard');
+  }
+
+  // Purchase Year
+  if (isNaN(this.propertyModel.purchaseYear) || this.propertyModel.purchaseYear > 10000) {
+    validationErrors.push('Invalid purchase year');
+  }
+
+  // Broker
+  if (!this.propertyModel.broker || isNaN(this.propertyModel.broker.brokerID)) {
+    validationErrors.push('Invalid broker');
+  }
+
+  if (validationErrors.length > 0) {
+    const errorMessage = validationErrors.join('\n');
+    alert('Validation errors:\n' + errorMessage);
+    return;
+  }
+
     this.propertyService.CreateProperty(this.propertyModel).subscribe(
       (response) => {
         console.log('Property created successfully:', response);
