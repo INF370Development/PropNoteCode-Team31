@@ -24,13 +24,14 @@ export class DeleteTenantDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DeleteTenantDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
   closeModal() {
     this.dialogRef.close();
   }
 
-  deleteTenant(): void {
+  deleteTenant() {
     this.dialogRef.close('delete');
   }
 }

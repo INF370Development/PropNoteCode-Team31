@@ -10,6 +10,7 @@ import { Tenant } from 'src/app/shared/UserModels/Tenant';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTenantModalComponent } from './createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { DeleteTenantDialogComponent } from './deleteTenantDialog/delete-tenant-dialog.component';
 
 
 @Component({
@@ -72,7 +73,7 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  async deleteTenant(id: any) {
+/*async deleteTenant(id: any) {
     await this._tenantService.deleteTenant(id);
     this.showSnackBar();
   }
@@ -85,6 +86,38 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
     );
     snackBarRef.afterDismissed().subscribe(() => {
       location.reload();
+    });
+  }*/
+
+  openDeleteTenantDialog(tenantID: any) {
+    const dialogRef = this.dialog.open(DeleteTenantDialogComponent, {
+      data: { tenantID },
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'delete') {
+        this.deleteTenant(tenantID);
+      }
+    });
+  }
+  
+  async deleteTenant(id: any) {
+    try {
+      await this._tenantService.deleteTenant(id);
+      this.showSnackBar('Deleted successfully');
+      this.refreshTableData();
+    } catch (error) {
+      this.showSnackBar('Error deleting tenant', 'error');
+    }
+  }
+  
+  showSnackBar(message: string, panelClass: string = 'success') {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'X', {
+      duration: 500,
+      panelClass: panelClass,
+    });
+    snackBarRef.afterDismissed().subscribe(() => {
+      this.refreshTableData();
     });
   }
 
