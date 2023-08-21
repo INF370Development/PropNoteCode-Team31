@@ -76,7 +76,7 @@ namespace WebApi.Repositories
         public async Task<List<Recovery>> GetAllRecoveriesForPropertyAsync(int propertyID)
         {
             return await _appDbContext.Recovery
-                .Where(inspection => inspection.PropertyID == propertyID).Include(x => x.RecoveryType)
+                .Where(inspection => inspection.PropertyID == propertyID).Include(x => x.RecoveryType.RecoveryTypeDescription)
                 .ToListAsync();
         }
 
@@ -150,6 +150,20 @@ namespace WebApi.Repositories
         {
             IQueryable<RecoveryType> query = _appDbContext.RecoveryType.Where(c => c.RecoveryTypeID == recoveryTypeID);
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Recovery[]> GetAllRecoveriesAsync()
+        {
+            // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
+            IQueryable<Recovery> query = (IQueryable<Recovery>)_appDbContext.Recovery.Include(x=> x.RecoveryType);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Inspection[]> GetAllInspectionsAsync()
+        {
+            // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
+            IQueryable<Inspection> query = (IQueryable<Inspection>)_appDbContext.Inspection.Include(x => x.InspectionType).Include(x => x.InspectionStatus);
+            return await query.ToArrayAsync();
         }
 
     }

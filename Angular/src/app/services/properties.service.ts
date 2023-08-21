@@ -26,6 +26,21 @@ export class PropertiesService {
       )
       .pipe(map((result) => result));
   }
+  getInspections(): Observable<Inspection[]> {
+    return this._httpClient
+      .get<Inspection[]>(
+        `https://localhost:7251/api/Property/GetAllInspections`
+      )
+      .pipe(map((result) => result));
+  }
+
+  getRecoveries(): Observable<Recovery[]> {
+    return this._httpClient
+      .get<Recovery[]>(
+        `https://localhost:7251/api/Property/GetAllRecoveries`
+      )
+      .pipe(map((result) => result));
+  }
 
   getInspectionsForProperty(propertyID: number): Observable<Inspection[]> {
     return this._httpClient.get<Inspection[]>(`https://localhost:7251/api/Property/GetAllInspectionsForProperty/${propertyID}`);

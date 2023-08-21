@@ -1,6 +1,7 @@
 import { BrokerComponent } from "src/app/broker/broker/broker.component";
 import { Broker } from "../Broker";
 import { Recovery } from "./Recovery";
+import { Inspection } from "./Inspection";
 
 export class Property {
   propertyID: number = 0;
@@ -14,8 +15,8 @@ export class Property {
   yard: number = 0;
   brokerID: number = 0;
   broker: Broker = new Broker();
-  recoveries: Recovery = new Recovery();
-
+  recoveries: Recovery[] = [];
+  inspections: Inspection[] = [];
   constructor(){
   }
 }

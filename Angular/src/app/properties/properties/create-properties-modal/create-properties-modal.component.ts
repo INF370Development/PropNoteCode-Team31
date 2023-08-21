@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BrokerService } from 'src/app/services/broker.service';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Broker } from 'src/app/shared/Broker';
+import { Inspection } from 'src/app/shared/Property/Inspection';
 import { Property } from 'src/app/shared/Property/Property';
 import { Recovery } from 'src/app/shared/Property/Recovery';
 
@@ -30,7 +31,8 @@ export class CreatePropertiesModalComponent implements OnInit {
     yard:0,
     brokerID: 0,
     broker: new Broker(),
-    recoveries: new Recovery()
+    recoveries: [],
+    inspections: []
   };
 brokers: Broker[] = [];
 recoveries: Recovery[] =[];

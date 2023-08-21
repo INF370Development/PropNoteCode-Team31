@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
-import { Chart } from 'chart.js';
+import { Chart, ChartOptions } from 'chart.js';
 import jsPDF from 'jspdf';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Inspection } from 'src/app/shared/Property/Inspection';
@@ -21,6 +21,7 @@ export class GeneratePropertiesReportComponent implements OnInit{
   selectedPropertyId: number | undefined;
 
   @ViewChild('barChartCanvas') barChartCanvas!: ElementRef;
+  property: any;
 
   constructor(private _propertiesService : PropertiesService, private route : ActivatedRoute) {
 
@@ -28,6 +29,9 @@ export class GeneratePropertiesReportComponent implements OnInit{
 
   ngOnInit(): void {
     this.getAllProperties();
+    this.getAllInspections();
+    this.getAllRecoveries();
+    this.generateBarGraph();
   }
 
   loadProperty(propertyId: number) {
@@ -48,7 +52,6 @@ export class GeneratePropertiesReportComponent implements OnInit{
   loadInspections(propertyId: number) {
     this._propertiesService.getInspectionsForProperty(propertyId).subscribe((inspections) => {
       this.inspections = inspections;
-      this.generateBarChart(); // Update the chart with new data
     });
   }
 
@@ -59,31 +62,55 @@ getAllProperties() {
   });
 }
 
-// Inside your GeneratePropertiesReportComponent class
-
-generateBarChart() {
-  const ctx = document.getElementById('barChartCanvas') as HTMLCanvasElement;
-
-  const recoveriesCount = this.recoveries.length;
-  const inspectionsCount = this.inspections.length;
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Recoveries', 'Inspections'],
-      datasets: [
-        {
-          label: 'Count',
-          data: [recoveriesCount, inspectionsCount],
-          backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)'],
-          borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
-          borderWidth: 1,
-        },
-      ],
-    },
-
+getAllInspections() {
+  this._propertiesService.getInspections().subscribe((inspections: any) => {
+  this.inspections = inspections;
+  console.log("Inspection Array", inspections)
   });
 }
+
+getAllRecoveries() {
+  this._propertiesService.getRecoveries().subscribe((recoveries: any) => {
+  this.recoveries = recoveries;
+  console.log("Recovery Array", recoveries)
+  });
+}
+
+// Inside your GeneratePropertiesReportComponent class
+
+generateBarGraph() {
+  // Fetch properties data (replace with your actual data fetching code)
+  this._propertiesService.getProperties().subscribe((properties: Property[]) => {
+    const propertyLabels = properties.map(property => `Property ${property.propertyID}`);
+    const recoveryAmounts = properties.map(property => {
+      return property.recoveries.reduce((total, recovery) => total + recovery.recoveryAmount, 0);
+    });
+
+    const chartOptions: ChartOptions = { // Define the chart options
+      scales: {
+        y: {
+          beginAtZero: true // Adjust this to your requirements
+        }
+      }
+    };
+
+    new Chart(this.barChartCanvas.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: propertyLabels,
+        datasets: [{
+          label: 'Total Recovery Amounts',
+          data: recoveryAmounts,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: chartOptions // Use the defined chart options
+    });
+  });
+}
+
 
   generateReport() {
     if (this.selectedPropertyId !== undefined) {
@@ -91,36 +118,137 @@ generateBarChart() {
       // Your PDF generation code here
     }
   }
+
   generatePDF() {
     // Create a new jsPDF instance
     const doc = new jsPDF();
 
-    // Add content to the PDF
-    doc.text('Property Report', 10, 10);
+    // Set font styles
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(18);
 
-    // Generate and add the chart as a base64 image
-    const canvas = document.getElementById('chartCanvas') as HTMLCanvasElement;
-    // const chartDataURL = canvas.toDataURL('image/png');
-    // doc.addImage(chartDataURL, 'PNG', 10, 20, 190, 100);
+    // Add header
+    doc.text(`Property Report: ${this.propertyDetail.description}`, 105, 20, { align: 'center' });
+    // Add separator line
+    doc.setLineWidth(0.5);
+    doc.line(20, 25, 190, 25);
+
+    // Define margin and line height
+    const leftMargin = 20;
+    const lineHeight = 6; // Adjust line height for less space
 
     // Add broker information
-    doc.text('Broker Information:', 10, 130);
-    doc.text(`Name: ${this.propertyDetail.broker.name} ${this.propertyDetail.broker.surname}`, 10, 140);
-    doc.text(`Phone Number: ${this.propertyDetail.broker.phoneNumber}`, 10, 150);
+    doc.setFontSize(14);
+    doc.text('Broker Information', leftMargin, 40);
+    doc.setFontSize(12);
+    doc.text(`Name: ${this.propertyDetail.broker.name} ${this.propertyDetail.broker.surname}`, leftMargin, 40 + lineHeight);
+    doc.text(`Phone Number: ${this.propertyDetail.broker.phoneNumber}`, leftMargin, 40 + 2 * lineHeight);
+    doc.text(`Commission on Property: R${this.propertyDetail.broker.commissionRate * this.propertyDetail.purchaseAmount}`, leftMargin, 40 + 3 * lineHeight);
 
     // Add recoveries information
-    doc.text('Recoveries Information:', 10, 160);
+    doc.setFontSize(14);
+    doc.text('Recoveries Information', leftMargin, 40 + 5 * lineHeight);
+    doc.setFontSize(12);
     this.recoveries.forEach((recovery, index) => {
-      doc.text(`Recovery ${index + 1}: Amount: R ${recovery.recoveryAmount}, Description: ${recovery.recoveryDescription}`, 10, 170 + index * 10);
+        doc.text(`Recovery ${index + 1}:
+        Amount: R ${recovery.recoveryAmount}
+        Description: ${recovery.recoveryDescription}
+        Type: ${recovery.recoveryType.recoveryTypeDescription}`, leftMargin, 40 + (7 + index * 5) * lineHeight);
     });
 
     // Add inspections information
-    doc.text('Inspections Information:', 10, 180 + this.recoveries.length * 10);
+    doc.setFontSize(14);
+    const inspectionsTopMargin = 40 + (7 + this.recoveries.length * 5) * lineHeight;
+    doc.text('Inspections Information', leftMargin, inspectionsTopMargin);
+    doc.setFontSize(12);
+
+    const inspectionLineCount = 3; // Adjust as needed
+
     this.inspections.forEach((inspection, index) => {
-      doc.text(`Inspection ${index + 1}: Date: ${inspection.inspectionDate}, Description: ${inspection.inspectionDescription}`, 10, 190 + this.recoveries.length * 10 + index * 10);
+        const verticalPosition = inspectionsTopMargin + (2 + index * (inspectionLineCount + 1)) * lineHeight;
+        doc.text(`Inspection ${index + 1}:
+        Date: ${inspection.inspectionDate}
+        Description: ${inspection.inspectionDescription}
+        Type: ${inspection.inspectionType.inspectionTypeName}
+        Status: ${inspection.inspectionStatus.inspectionStatusName}`, leftMargin, verticalPosition);
     });
 
     // Save the PDF
     doc.save('property_report.pdf');
-  }
+}
+
+generateAllPropertiesReport() {
+  // Create a new jsPDF instance
+  const doc = new jsPDF();
+
+  // Set font styles
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
+
+  this.properties.forEach((property, propertyIndex) => {
+      // Add page for each property except the first one
+      if (propertyIndex > 0) {
+          doc.addPage();
+      }
+
+      // Add header
+      doc.text(`Property Report: ${property.description}`, 105, 20, { align: 'center' });
+
+      // Define margin and line height
+      const leftMargin = 20;
+      const lineHeight = 10;
+
+      // Add broker information
+      doc.setFontSize(14);
+      doc.text('Broker Information', leftMargin, 40);
+      doc.setFontSize(12);
+      doc.text(`Name: ${property.broker.name} ${property.broker.surname}`, leftMargin, 40 + lineHeight);
+      doc.text(`Phone Number: ${property.broker.phoneNumber}`, leftMargin, 40 + 2 * lineHeight);
+      doc.text(`Commission on Property: R${property.broker.commissionRate * property.purchaseAmount}`, leftMargin, 40 + 3 * lineHeight);
+
+      // Add line break
+      doc.line(20, 40 + 4 * lineHeight, 190, 40 + 4 * lineHeight);
+
+      // Add recoveries information
+      doc.setFontSize(14);
+      doc.text('Recoveries Information', leftMargin, 40 + 5 * lineHeight);
+      doc.setFontSize(12);
+      this.recoveries.forEach((recovery, index) => {
+          doc.text(`Recovery ${index + 1}:
+          Amount: R ${recovery.recoveryAmount}
+          Description: ${recovery.recoveryDescription}
+          Type: ${recovery.recoveryType.recoveryTypeDescription}`, leftMargin, 40 + (7 + index * 5) * lineHeight);
+          doc.text('', leftMargin, 40 + (8 + index * 5) * lineHeight); // Add line break
+      });
+
+      // Add line break
+      doc.line(20, 40 + (8 + property.recoveries.length * 5) * lineHeight, 190, 40 + (8 + property.recoveries.length * 5) * lineHeight);
+
+      // Add inspections information
+      doc.setFontSize(14);
+      doc.text('Inspections Information', leftMargin, 40 + (9 + property.recoveries.length * 5) * lineHeight);
+      doc.setFontSize(12);
+
+      const inspectionLineCount = 3; // Adjust as needed
+
+      this.inspections.forEach((inspection, index) => {
+          doc.text(`Inspection ${index + 1}:
+          Date: ${inspection.inspectionDate}
+          Description: ${inspection.inspectionDescription}
+          Type: ${inspection.inspectionType.inspectionTypeName}
+          Status: ${inspection.inspectionStatus.inspectionStatusName}`, leftMargin, 40 + (11 + property.recoveries.length * 5 + index * (inspectionLineCount + 1)) * lineHeight);
+          doc.text('', leftMargin, 40 + (12 + property.recoveries.length * 5 + index * (inspectionLineCount + 1)) * lineHeight); // Add line break
+      });
+
+      // Add line break
+      doc.line(20, 40 + (12 + property.recoveries.length * 5 + property.inspections.length * (inspectionLineCount + 1)) * lineHeight, 190, 40 + (12 + property.recoveries.length * 5 + property.inspections.length * (inspectionLineCount + 1)) * lineHeight);
+  });
+
+  // Save the PDF
+  doc.save('all_properties_report.pdf');
+}
+
+
+
+
 }

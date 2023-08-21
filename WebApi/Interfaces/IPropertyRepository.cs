@@ -32,6 +32,8 @@ namespace WebApi.Interfaces
         Task<RecoveryType[]> GetAllRecoveryTypesAsync();
         Task AddRecoveryType(RecoveryType recoveryType);
         Task<RecoveryType> GetRecoveryTypeByIDAsync(int recoveryTypeID);
+        Task<Recovery[]> GetAllRecoveriesAsync();
+        Task<Inspection[]> GetAllInspectionsAsync();
 
     }
 }
