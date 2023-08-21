@@ -7,6 +7,7 @@
         public int RecoveryTypeID { get; set; }
         public string RecoveryDescription { get; set; }
         public decimal RecoveryAmount { get; set; }
+        public RecoveryType RecoveryType { get; set; }
     }
 
     public class RecoveryType

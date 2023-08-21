@@ -10,6 +10,9 @@
         public string InspectionDescription { get; set; }
         public DateTime InspectionDate { get; set; }
         public TimeSpan InspectionTime { get; set; }
+
+        public InspectionStatus InspectionStatus { get; set; }
+        public InspectionType InspectionType { get; set; }
     }
 
     public class InspectionStatus
@@ -27,11 +30,14 @@
     public class InspectionRequest
     {
         public int PropertyID { get; set; }
-       /* public int? EmployeeID { get; set; }
-        public int InspectionStatusID { get; set; }*/
         public string InspectionDescription { get; set; }
         public DateTime InspectionDate { get; set; }
         public TimeSpan InspectionTime { get; set; }
+        public int InspectionStatusID { get; set; }
+        public int InspectionTypeID { get; set; }
     }
 
+    
 }
+
+
