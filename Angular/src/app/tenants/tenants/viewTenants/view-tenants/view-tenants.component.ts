@@ -89,7 +89,8 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
     });
   }*/
 
-  openDeleteTenantDialog(tenantID: any) {
+  //Test some time for the modal
+  /*openDeleteTenantDialog(tenantID: any) {
     const dialogRef = this.dialog.open(DeleteTenantDialogComponent, {
       data: { tenantID },
     });
@@ -118,6 +119,23 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
     });
     snackBarRef.afterDismissed().subscribe(() => {
       this.refreshTableData();
+    });
+  }*/
+
+  async deleteTenant(tenantID: any) {
+    debugger;
+    await this._tenantService.deleteTenant(tenantID).toPromise();
+    this.showSnackBar();
+  }
+
+  showSnackBar() {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+      'Deleted successfully',
+      'X',
+      { duration: 500 }
+    );
+    snackBarRef.afterDismissed().subscribe(() => {
+      location.reload();
     });
   }
 
