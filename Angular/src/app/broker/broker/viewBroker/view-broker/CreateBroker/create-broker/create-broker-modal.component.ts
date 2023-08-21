@@ -56,4 +56,68 @@ export class CreateBrokerModalComponent implements OnInit {
       }
     );
   }
-}
+
+  //Name
+  name = new FormControl('', [Validators.required]);
+
+  getErrorMessageName() {
+    if (this.name.hasError('required')) {
+      return 'Name required';
+    }
+
+    return this.name.hasError('name') ? 'Not a valid name' : '';
+  }
+
+    //Surname
+    surname = new FormControl('', [Validators.required]);
+
+    getErrorMessageSurname() {
+      if (this.surname.hasError('required')) {
+        return 'Surname required';
+      }
+  
+      return this.surname.hasError('surname') ? 'Not a valid surname' : '';
+    }
+    //Phone Number
+    phoneNumber = new FormControl('', [Validators.required]);
+  
+    getErrorMessagePhoneNumber() {
+      if (this.phoneNumber.hasError('required')) {
+        return 'Personal phone number required';
+      }
+  
+      return this.phoneNumber.hasError('phoneNumber') ? 'Not a valid personal phone number' : '';
+    }
+
+    //office address
+    officeAddress = new FormControl('', [Validators.required]);
+  
+    getErrorMessageOfficeAddress(){
+      if (this.officeAddress.hasError('required')) {
+        return 'Office Address required';
+      }
+  
+      return this.officeAddress.hasError('officeAddress') ? 'Not a valid office address' : '';
+    }
+    //license number
+    licenseNumber = new FormControl('', [Validators.required]);
+    getErrorMessageLicenseNumber(){
+      if (this.licenseNumber.hasError('required')) {
+        return 'License Number required';
+      }
+  
+      return this.licenseNumber.hasError('licenseNumber') ? 'Not a valid License Number' : '';
+    }
+
+    // //commision rate 
+    // commissionRatePercentage = new FormControl('', [Validators.required]);
+
+    // getErrorMessageCommissionRatePercentage() {
+    //   if (this.commissionRatePercentage.hasError('required')) {
+    //     return 'License Number required';
+    //   }
+  
+    //   return this.commissionRatePercentage.hasError('commissionRatePercentage') ? 'Not a valid License Number' : '';
+    // }
+    }
+
