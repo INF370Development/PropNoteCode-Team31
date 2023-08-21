@@ -78,6 +78,7 @@ import { AssignMaintenanceModalComponent } from './maintenance/maintenance/assig
 import { DeleteMaintenanceDialogComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/deleteMaintenanceDialog/delete-maintenance-dialog/delete-maintenance-dialog.component';
 import { UpdateMiaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/updateMaintenanceModal/update-miaintenance-modal/update-miaintenance-modal.component';
 import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
+import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 
 @NgModule({
   declarations: [
@@ -147,6 +148,7 @@ import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-t
     DeleteMaintenanceDialogComponent,
     UpdateMiaintenanceModalComponent,
     CreateTenantModalComponent,
+    TenantDetailsComponent,
 
   ],
   imports: [
