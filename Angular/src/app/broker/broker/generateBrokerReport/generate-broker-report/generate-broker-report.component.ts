@@ -89,7 +89,7 @@ calculateAverageCommissionRate(): string {
   doc.text('Extra Dimensions 188 Pty Ltd', 10, doc.internal.pageSize.height - 10);
 
        //  table headers
-       const tableHeaders = ['name', 'surname', 'phoneNumber', 'officeAddress', 'licenseNumber','commissionRate', 'totalBrokers'];
+       const tableHeaders = ['name', 'surname', 'phoneNumber', 'officeAddress', 'licenseNumber','commissionRate'];
        const colWidths = [30, 30, 40, 60, 40, 30,30,20];
        doc.setFontSize(12);
        
@@ -107,32 +107,35 @@ calculateAverageCommissionRate(): string {
       //Adding total brokers
         if (this.cardData && this.cardData.length > 0) {
          const totalBrokers = this.cardData.length;
-      
-            // Add subtotal row to the table data
-          this.cardData.push({
-            name: 'Total Brokers',
-            surname: '', // You can leave other fields empty or customize as needed
-            phoneNumber: '',
-            officeAddress: '',
-            licenseNumber: '',
-            commissionRate: '',
-            totalBrokers: totalBrokers.toString() // Display the total brokers count
+
+          // Calculate the content width of the table
+          const totalWidth = colWidths.reduce((total, width) => total + width, 0);
+
+          // Calculate the position for the total brokers
+          const totalBrokersX = 10; // X position (left)
+          const totalBrokersY = doc.internal.pageSize.height - 20; // Y position (bottom)
+
+          // Set the font size and color for the total brokers
+          doc.setFontSize(10);
+          doc.setTextColor(0);
+
+          // Draw the total brokers text
+          doc.text(`Total Brokers: ${totalBrokers}`, totalBrokersX, totalBrokersY, {
+            align: 'left'
           });
 
+          
            //avg broker commisson 
            // Calculate the average commission rate
           const averageCommissionRate = this.calculateAverageCommissionRate();
 
           //positioning rate at bottomleft 
-          // Calculate the content width of the table
-          const totalWidth = colWidths.reduce((total, width) => total + width, 0);
-
           // Calculate the position for the average commission rate
           const averageCommissionX = 10; // X position (left)
           const averageCommissionY = doc.internal.pageSize.height - 15; // Y position (bottom)
 
           // Set the font size and color for the average commission rate
-          doc.setFontSize(20);
+          doc.setFontSize(10);
           doc.setTextColor(0);
 
           // Draw the average commission rate text
@@ -196,8 +199,6 @@ calculateAverageCommissionRate(): string {
         return broker.licenseNumber;
       case 'commissonRate':
         return broker.commissionRate;
-        // case 'totalBrokers':
-        //   return broker.totalBrokers;
       default:
         return broker[headerKey] !== undefined && broker[headerKey] !== null
             ? broker[headerKey].toString()
