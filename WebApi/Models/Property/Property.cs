@@ -14,7 +14,9 @@
         public decimal Yard { get; set; }
         public int BrokerID { get; set; }
         public WebApi.Models.Broker.Broker Broker { get; set; }
-        
+        public virtual ICollection<Inspection> Inspections { get; set; }
+        public virtual ICollection<Recovery> Recoveries { get; set; }
+
     }
 
     public class PropertyImage

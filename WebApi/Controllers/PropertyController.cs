@@ -231,12 +231,15 @@ namespace WebApi.Controllers
                     return NotFound($"The Property does not exist");
                 }
 
+                
                 var inspection = new Inspection
                 {
                     PropertyID = inspectionRequest.PropertyID,
                     InspectionDescription = inspectionRequest.InspectionDescription,
                     InspectionDate = inspectionRequest.InspectionDate,
-                    InspectionTime = inspectionRequest.InspectionTime
+                    InspectionTime = inspectionRequest.InspectionTime,
+                    InspectionStatusID = inspectionRequest.InspectionStatusID,
+                    InspectionTypeID = inspectionRequest.InspectionTypeID,
                     // Other properties
                 };
 
@@ -249,7 +252,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
+        
 
         [HttpPut]
         [Route("EditInspection/{inspectionID}")]

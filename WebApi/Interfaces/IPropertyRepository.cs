@@ -23,6 +23,15 @@ namespace WebApi.Interfaces
         Task AddRecovery(Recovery recovery);
         Task<Recovery> GetRecoveryByIDAsync(int recoveryID);
         void DeleteRecovery(Recovery recovery);
+        Task<InspectionType[]> GetAllInspectionTypesAsync();
+        Task AddInspectionType(InspectionType inspectionType);
+        Task<InspectionStatus[]> GetAllInspectionStatusesAsync();
+        Task AddInspectionStatus(InspectionStatus inspectionStatus);
+        Task<InspectionType> GetInspectionTypeByIDAsync(int inspectionTypeID);
+        Task<InspectionStatus> GetInspectionStatusByIDAsync(int inspectionStatusID);
+        Task<RecoveryType[]> GetAllRecoveryTypesAsync();
+        Task AddRecoveryType(RecoveryType recoveryType);
+        Task<RecoveryType> GetRecoveryTypeByIDAsync(int recoveryTypeID);
 
     }
 }

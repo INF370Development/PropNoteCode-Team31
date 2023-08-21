@@ -39,4 +39,27 @@
   </div>
 </div>
 </div>
+ <!-- Display Recoveries -->
+ <div class="card">
+  <div class="details">
+    <h2>Recoveries</h2>
+    <div *ngFor="let recovery of recoveries">
+      <h5>Recovery Description: {{ recovery.recoveryDescription }}</h5>
+      <h5>Recovery Amount: R {{ recovery.recoveryAmount }}</h5>
+    </div>
+  </div>
 </div>
+
+<!-- Display Inspections -->
+<div class="card">
+  <div class="details">
+    <h2>Inspections</h2>
+    <div *ngFor="let inspection of inspections">
+      <h5>Inspection Description: {{ inspection.inspectionDescription }}</h5>
+      <h5>Inspection Date: {{ inspection.inspectionDate | date }}</h5>
+      <h5>Inspection Time: {{ inspection.inspectionTime }}</h5>
+    </div>
+  </div>
+</div>
+</div>
+

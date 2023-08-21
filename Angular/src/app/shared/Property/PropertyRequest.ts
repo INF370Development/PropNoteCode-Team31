@@ -8,7 +8,7 @@ export class PropertyRequest {
   purchaseYear: number = 2023;
   size: number = 0;
   yard: number = 0;
-  brokerID: Number = 0;
+  brokerID: number = 0;
 
   constructor(){
   }
