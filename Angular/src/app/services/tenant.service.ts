@@ -59,4 +59,9 @@ export class TenantService {
       )
       .pipe(map((result) => result));
   }
+
+  getTenantU(tenantID: number) {
+    return this.httpClient
+     .get<Tenant>(`https://localhost:7251/api/Tenant/GetTenantByID` + "/" + tenantID);
+  }
 }
