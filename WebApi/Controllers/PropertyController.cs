@@ -219,6 +219,21 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAllInspections")]
+        public async Task<IActionResult> GetAllInspections()
+        {
+            try
+            {
+                var inspections = await _propertyRepository.GetAllInspectionsAsync();
+                return Ok(inspections);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
+            }
+        }
+
         [HttpPost]
         [Route("AddInspection")]
         public async Task<IActionResult> AddInspection(InspectionRequest inspectionRequest)
@@ -231,12 +246,15 @@ namespace WebApi.Controllers
                     return NotFound($"The Property does not exist");
                 }
 
+                
                 var inspection = new Inspection
                 {
                     PropertyID = inspectionRequest.PropertyID,
                     InspectionDescription = inspectionRequest.InspectionDescription,
-                    InspectionDate = inspectionRequest.InspectionDate,
-                    InspectionTime = inspectionRequest.InspectionTime
+                    InspectionDate = inspectionRequest.InspectionDate.Date,
+                    InspectionTime = inspectionRequest.InspectionTime,
+                    InspectionStatusID = inspectionRequest.InspectionStatusID,
+                    InspectionTypeID = inspectionRequest.InspectionTypeID,
                     // Other properties
                 };
 
@@ -249,7 +267,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
+        
 
         [HttpPut]
         [Route("EditInspection/{inspectionID}")]
@@ -302,8 +320,23 @@ namespace WebApi.Controllers
         {
             try
             {
-                var inspections = await _propertyRepository.GetAllRecoveriesForPropertyAsync(propertyID);
-                return Ok(inspections);
+                var recoveries = await _propertyRepository.GetAllRecoveriesForPropertyAsync(propertyID);
+                return Ok(recoveries);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetAllRecoveries")]
+        public async Task<IActionResult> GetAllRecoveries()
+        {
+            try
+            {
+                var recoveries = await _propertyRepository.GetAllRecoveriesAsync();
+                return Ok(recoveries);
             }
             catch (Exception)
             {

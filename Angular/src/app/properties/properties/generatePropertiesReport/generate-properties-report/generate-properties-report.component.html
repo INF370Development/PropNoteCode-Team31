@@ -1,8 +1,25 @@
-<h1>Generate Properties Report</h1>
+<div class="report-container">
+  <h1 class="report-title">Generate Properties Report</h1>
+  <h2>Click Here to generate reports for all properties</h2>
+  <button mat-raised-button class="pdf-button" color="primary" (click)="generateAllPropertiesReport()">Generate All Properties Report PDF</button>
+  <br>
+  <br>
+  <h2>Select a specific property you want to view a report for:</h2>
 
-<div class="download">
-    <button mat-fab extended color="accent">
-        <mat-icon>download</mat-icon>
-        Download PDF
-    </button>
+  <!-- Dropdown to select properties -->
+  <mat-form-field class="select-container">
+    <mat-label>Select Property:</mat-label>
+    <mat-select [(ngModel)]="selectedPropertyId">
+      <mat-option *ngFor="let property of properties" [value]="property.propertyID">{{ property.description }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Button to generate the report -->
+  <button mat-raised-button class="generate-button" (click)="generateReport()">Generate Report</button>
+  <button mat-raised-button class="pdf-button" (click)="generatePDF()">Generate PDF</button>
+
+  <!-- Chart display -->
+  <div class="chart-container">
+    <canvas #barChartCanvas id="barChartCanvas" class="chart"></canvas>
+  </div>
 </div>

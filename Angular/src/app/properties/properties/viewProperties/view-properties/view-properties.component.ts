@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { ActivatedRoute } from '@angular/router';
 import { Property } from 'src/app/shared/Property/Property';
+import { Recovery } from 'src/app/shared/Property/Recovery';
+import { Inspection } from 'src/app/shared/Property/Inspection';
 
 NgModule({
   imports: [
@@ -37,6 +39,8 @@ NgModule({
 })
 export class ViewPropertiesComponent implements AfterViewInit {
   propertyDetail : Property = new Property();
+  recoveries : Recovery[] = [];
+  inspections : Inspection[] = [];
 
   constructor(public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute) {
     console.log("property details", Property)
@@ -44,6 +48,8 @@ export class ViewPropertiesComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 this.loadPropertry();
+this.loadRecoveries();
+this.loadInspections();
 }
 
 loadPropertry()
@@ -54,6 +60,17 @@ loadPropertry()
     console.log("Property Result", result)
   });
 
+}
+loadRecoveries() {
+  this._propertiesService.getRecoveriesForProperty(this.route.snapshot.params['id']).subscribe((recoveries) => {
+    this.recoveries = recoveries;
+  });
+}
+
+loadInspections() {
+  this._propertiesService.getInspectionsForProperty(this.route.snapshot.params['id']).subscribe((inspections) => {
+    this.inspections = inspections;
+  });
 }
 
   openDialog(

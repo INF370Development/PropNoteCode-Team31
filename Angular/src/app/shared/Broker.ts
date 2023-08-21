@@ -1,5 +1,5 @@
 export class Broker {
-  brokerID: Number = 0;
+  brokerID: number = 0;
   name: string = "";
   surname: string = "";
   phoneNumber: string = "";
