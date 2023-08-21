@@ -1,6 +1,6 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Add New Property</h2>
+    <h2>Add New Property <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="CreateProperty()">
       <mat-form-field class="form-field">
         <label>Description:</label>
@@ -9,7 +9,10 @@
           [(ngModel)]="propertyModel.description"
           name="description"
           required
+          maxlength="50"
+          [formControl]="description"
         />
+        <mat-error *ngIf="description.invalid">{{getErrorMessageDescription()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Building Number:</label>
@@ -18,7 +21,10 @@
           [(ngModel)]="propertyModel.buildingNumber"
           name="buildingNumber"
           required
+          maxlength="5"
+          [formControl]="buildingNumber"
         />
+        <mat-error *ngIf="buildingNumber.invalid">{{getErrorMessageBuildingNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Street:</label>
@@ -27,7 +33,10 @@
           [(ngModel)]="propertyModel.street"
           name="street"
           required
+          maxlength="50"
+          [formControl]="street"
         />
+        <mat-error *ngIf="street.invalid">{{getErrorMessageStreet()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Suburb:</label>
@@ -36,7 +45,10 @@
           [(ngModel)]="propertyModel.suburb"
           name="suburb"
           required
+          maxlength="50"
+          [formControl]="suburb"
         />
+        <mat-error *ngIf="suburb.invalid">{{getErrorMessageSuburb()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Purchase Amount:</label>
@@ -46,7 +58,9 @@
           [(ngModel)]="propertyModel.purchaseAmount"
           name="purchaseAmount"
           required
+          maxlength="10"
         />
+        <!--<mat-error *ngIf="purchaseAmount.invalid">{{getErrorMessagePurchaseAmount()}}</mat-error>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Purchase Year:</label>
@@ -55,7 +69,9 @@
           [(ngModel)]="propertyModel.purchaseYear"
           name="purchaseYear"
           required
+          maxlength="4"
         />
+        <!--<mat-error *ngIf="purchaseYear.invalid">{{getErrorMessagePurchaseYear()}}</mat-error>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Size</label>
@@ -64,7 +80,9 @@
           [(ngModel)]="propertyModel.size"
           name="size"
           required
+          maxlength="6"
         />
+        <!--<mat-error *ngIf="size.invalid">{{getErrorMessageSize()}}</mat-error>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Yard</label>
@@ -73,7 +91,9 @@
           [(ngModel)]="propertyModel.yard"
           name="yard"
           required
+          maxlength="6"
         />
+        <!--<mat-error *ngIf="yard.invalid">{{getErrorMessageYard()}}</mat-error>-->
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Broker</label>
@@ -85,10 +105,10 @@
 
       <div class="modal-actions">
 
-        <button mat-raised-button type="submit" color="primary" (click)="sendToBackend()">
+        <button mat-raised-button type="submit" color="accent" (click)="sendToBackend()">
           Add Property
         </button>
-        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 
       </div>
     </form>

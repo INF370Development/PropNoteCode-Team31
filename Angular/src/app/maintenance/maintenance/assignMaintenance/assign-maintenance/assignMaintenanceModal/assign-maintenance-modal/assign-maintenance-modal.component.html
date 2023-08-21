@@ -1,4 +1,45 @@
-<div class="modal-container">
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Assign Maintenance <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+    <form>
+      <mat-form-field class="form-field">
+        <label>Maintenance Note:</label>
+        <input
+          matInput
+          [(ngModel)]="maintenanceModal.maintenanceNote"
+          name="maintenanceNote"
+          required
+          maxlength="50"
+          [formControl]="maintenanceNote"
+        />
+        <mat-error *ngIf="maintenanceNote.invalid">{{getErrorMessageMaintenanceNote()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Status:</label>
+        <input
+          matInput
+          [(ngModel)]="maintenanceModal.status"
+          name="status"
+          required
+          maxlength="50"
+          [formControl]="status"
+        />
+        <mat-error *ngIf="status.invalid">{{getErrorMessageAvailability()}}</mat-error>
+      </mat-form-field>
+      <div class="modal-actions">
+
+        <button mat-raised-button type="submit" color="accent">
+          Add Contractor
+        </button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!--<div class="modal-container">
     <h2>Assign Maintenance<button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2> 
   
   <form [formGroup]="assignMaintenanceForm" (submit)="onSubmit()">
@@ -6,12 +47,12 @@
       <input matInput formControlName="maintenanceNote" placeholder="Maintenance Note">
       <mat-error *ngIf="assignMaintenanceForm.get('maintenanceNote')?.hasError('required')">Maintenance Note is required</mat-error>
     </mat-form-field>
-    <br>
+    
     <mat-form-field>
       <input matInput formControlName="status" placeholder="Status">
       <mat-error *ngIf="assignMaintenanceForm.get('status')?.hasError('required')">Status is required</mat-error>
     </mat-form-field>
-    <br>
+    
     <!--<mat-form-field>
       <input matInput formControlName="property" placeholder="Property">
       <mat-error *ngIf="assignMaintenanceForm.get('property')?.hasError('required')">Property is required</mat-error>
@@ -24,7 +65,7 @@
       </mat-select>
     </mat-form-field>-->
 
-    <br>
+
 
     <!--<mat-form-field>
       <label>Property</label>
@@ -36,10 +77,10 @@
     <!--<mat-form-field>
       <input matInput formControlName="contractor" placeholder="Contractor">
       <mat-error *ngIf="assignMaintenanceForm.get('contractor')?.hasError('required')">Contractor is required</mat-error>
-    </mat-form-field>-->
+    </mat-form-field>--
 
     <br>
     <button type="submit" mat-raised-button color="accent">Create</button>
     <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
   </form>
-  </div>
+  </div>-->

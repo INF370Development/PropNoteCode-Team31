@@ -195,4 +195,86 @@ validateInputs(): boolean {
 
   }
 
+
+  //Description
+  description = new FormControl('', [Validators.required]);
+
+  getErrorMessageDescription() {
+    if (this.description.hasError('required')) {
+      return 'Description required';
+    }
+
+    return this.description.hasError('description') ? 'Not a valid description' : '';
+  }
+  //Building Number
+  buildingNumber = new FormControl('', [Validators.required]);
+
+  getErrorMessageBuildingNumber() {
+    if (this.buildingNumber.hasError('required')) {
+      return 'Building number required';
+    }
+
+    return this.buildingNumber.hasError('buildingNumber') ? 'Not a valid building number' : '';
+  }
+  //Street
+  street = new FormControl('', [Validators.required]);
+
+  getErrorMessageStreet() {
+    if (this.street.hasError('required')) {
+      return 'Street required';
+    }
+
+    return this.street.hasError('street') ? 'Not a valid street' : '';
+  }
+  //Suburb
+  suburb = new FormControl('', [Validators.required]);
+
+  getErrorMessageSuburb() {
+    if (this.suburb.hasError('required')) {
+      return 'Suburb required';
+    }
+
+    return this.suburb.hasError('suburb') ? 'Not a valid suburb' : '';
+  }
+  //Purchase Amount
+  /*purchaseAmount = new FormControl('', [Validators.required]);
+
+  getErrorMessagePurchaseAmount() {
+    if (this.purchaseAmount.hasError('required')) {
+      return 'Purchase amount required';
+    }
+
+    return this.purchaseAmount.hasError('purchaseAmount') ? 'Not a valid purchase amount' : '';
+  }
+  //Purchase Year
+  purchaseYear = new FormControl('', [Validators.required]);
+
+  getErrorMessagePurchaseYear() {
+    if (this.purchaseYear.hasError('required')) {
+      return 'Purchase year required';
+    }
+
+    return this.purchaseYear.hasError('purchaseYear') ? 'Not a valid purchase year' : '';
+  }
+  //Size
+  size = new FormControl('', [Validators.required]);
+
+  getErrorMessageSize() {
+    if (this.size.hasError('required')) {
+      return 'Size required';
+    }
+
+    return this.size.hasError('size') ? 'Not a valid size' : '';
+  }
+  //Yard
+  yard = new FormControl('', [Validators.required]);
+
+  getErrorMessageYard() {
+    if (this.yard.hasError('required')) {
+      return 'Yard required';
+    }
+
+    return this.yard.hasError('yard') ? 'Not a valid yard' : '';
+  }*/
+
 }

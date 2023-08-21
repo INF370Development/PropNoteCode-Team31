@@ -1,6 +1,6 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Add New Contractor</h2>
+    <h2>Add New Contractor <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="CreateContractor()">
       <mat-form-field class="form-field">
         <label>Username:</label>
@@ -9,7 +9,10 @@
           [(ngModel)]="contractorModel.username"
           name="username"
           required
+          maxlength="50"
+          [formControl]="username"
         />
+        <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Password:</label>
@@ -18,7 +21,14 @@
           [(ngModel)]="contractorModel.password"
           name="password"
           required
+          maxlength="50"
+          [type]="hide ? 'password' : 'text'"
+          [formControl]="password"
         />
+        <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Email:</label>
@@ -27,7 +37,10 @@
           [(ngModel)]="contractorModel.email"
           name="email"
           required
+          maxlength="50"
+          [formControl]="email"
         />
+        <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Name:</label>
@@ -36,7 +49,10 @@
           [(ngModel)]="contractorModel.name"
           name="name"
           required
+          maxlength="50"
+          [formControl]="name"
         />
+        <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Surname:</label>
@@ -45,7 +61,10 @@
           [(ngModel)]="contractorModel.surname"
           name="surname"
           required
+          maxlength="50"
+          [formControl]="surname"
         />
+        <mat-error *ngIf="surname.invalid">{{getErrorMessageSurname()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Personal Number:</label>
@@ -54,7 +73,11 @@
           [(ngModel)]="contractorModel.phoneNumber"
           name="phoneNumber"
           required
+          maxlength="10"
+          minlength="10"
+          [formControl]="phoneNumber"
         />
+        <mat-error *ngIf="phoneNumber.invalid">{{getErrorMessagePhoneNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Area Of Business:</label>
@@ -63,7 +86,10 @@
           [(ngModel)]="contractorModel.areaOfBusiness"
           name="areaOfBusiness"
           required
+          maxlength="50"
+          [formControl]="areaBusiness"
         />
+        <mat-error *ngIf="areaBusiness.invalid">{{getErrorMessageAreaBusiness()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Availability: </label>
@@ -72,7 +98,10 @@
           [(ngModel)]="contractorModel.availability"
           name="availability"
           required
+          maxlength="50"
+          [formControl]="availability"
         />
+        <mat-error *ngIf="availability.invalid">{{getErrorMessageAvailability()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Contractor Type:</label>
@@ -84,10 +113,10 @@
 
       <div class="modal-actions">
 
-        <button mat-raised-button type="submit" color="primary" (click)="sendToBackend()">
+        <button mat-raised-button type="submit" color="accent" (click)="sendToBackend()">
           Add Contractor
         </button>
-        <button mat-raised-button color="primary" (click)="closeModal()" class="custom-red-button">Cancel</button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 
       </div>
     </form>

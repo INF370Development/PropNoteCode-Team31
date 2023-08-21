@@ -107,3 +107,25 @@ button {
     font-weight: bold;
     color: black;
 }
+
+
+button {
+    margin-right: 8px;
+}
+  
+.container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+  
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 70%;
+}
+  
+.create {
+    float: right;
+    position: relative;
+    font-size: 30px;
+}
