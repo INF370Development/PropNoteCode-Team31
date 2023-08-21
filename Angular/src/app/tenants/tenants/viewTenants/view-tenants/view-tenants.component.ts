@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTenantModalComponent } from './createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { DeleteTenantDialogComponent } from './deleteTenantDialog/delete-tenant-dialog.component';
+import { UpdateTenantModalComponent } from './updateTenantModal/update-tenant-modal.component';
 
 
 @Component({

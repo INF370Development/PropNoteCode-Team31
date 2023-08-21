@@ -45,6 +45,12 @@ export class TenantDetailsComponent implements AfterViewInit {
       console.log("Tenant Result", result)
     });
   }
+
+  /*onTenantSelected(tenantId: string) {
+    this._tenantService.getTenant(tenantId).subscribe((result: Tenant | any) => {
+      this.tenantModel = result as Tenant; 
+    });
+  }*/
 }
 
 
