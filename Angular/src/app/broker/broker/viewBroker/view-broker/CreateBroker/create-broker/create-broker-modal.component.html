@@ -11,6 +11,7 @@
           required
           maxlength="32"
         />
+        <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Surname:</label>
@@ -21,6 +22,7 @@
           required
           maxlength="32"
         />
+        <mat-error *ngIf="surname.invalid">{{getErrorMessageSurname()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Phone Number:</label>
@@ -30,7 +32,10 @@
           name="phoneNumber"
           required
           pattern="0\d{9}"
+          maxlength="10"
+          minlength="10"
         />
+        <mat-error *ngIf="phoneNumber.invalid">{{getErrorMessagePhoneNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Office Address:</label>
@@ -41,6 +46,7 @@
           required
           maxlength="50"
         />
+        <mat-error *ngIf="officeAddress.invalid">{{getErrorMessageOfficeAddress()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>License Number:</label>
@@ -51,6 +57,7 @@
           required
           maxlength="10"
         />
+        <mat-error *ngIf="licenseNumber.invalid">{{getErrorMessageLicenseNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Commission Rate:</label>
@@ -62,6 +69,7 @@
           required
           maxlength="10"
         />
+        <!-- <mat-error *ngIf="commissionRatePercentage.invalid">{{getErrorMessageCommissionRatePercentage()}}</mat-error> -->
       </mat-form-field>
       <div class="modal-actions">
         <button mat-raised-button type="submit" color="accent">
