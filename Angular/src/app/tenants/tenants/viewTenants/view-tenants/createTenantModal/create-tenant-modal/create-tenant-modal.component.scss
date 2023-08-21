@@ -36,3 +36,19 @@
 .end{
   padding: 10px;
 }
+.form-field{
+margin:5px;
+width: 45%;
+margin-right: 15px;
+border-radius: 50%;
+}
+
+label {
+color: #fff;
+}
+
+/* In your component's CSS or global stylesheet */
+.custom-red-button {
+background-color: red; /* Set the background color to red */
+color: white; /* Set the text color to white to improve visibility */
+}
