@@ -115,7 +115,6 @@ generateBarGraph() {
   generateReport() {
     if (this.selectedPropertyId !== undefined) {
       this.loadProperty(this.selectedPropertyId);
-      // Your PDF generation code here
     }
   }
 
