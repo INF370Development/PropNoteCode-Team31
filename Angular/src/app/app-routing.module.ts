@@ -46,6 +46,7 @@ import { ChangePasswordComponent } from './profile/profile/changePassword/change
 import { NotificationsComponent } from './profile/profile/notifications/notifications/notifications.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
+import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 
 const routes: Routes = [
   //Home
@@ -70,6 +71,7 @@ const routes: Routes = [
   { path: 'contractors', component: ContractorsComponent },
   { path: 'viewContractors', component: ViewContractorsComponent },
   { path: 'generateContractors', component: GenerateContractReportComponent },
+  { path: 'contractorTree', component: ContractorTreeComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },
@@ -83,13 +85,11 @@ const routes: Routes = [
   { path: 'viewCalendar', component: ViewCalendarComponent },
   { path: 'generateCalendar', component: GenerateCalendarReportComponent },
   //Maintenace
-
   {path: 'maintenance', component:MaintenanceComponent},
   {path: 'assignMaintenance', component:AssignMaintenanceComponent},
   {path: 'payment', component:PaymentComponent},
   {path: 'maintenanceNote', component:MaintenanceNoteComponent},
   {path: 'generateMaintenance', component:GenerateMaintenanceReportComponent},
-
   //Profile
   { path: 'profile', component: ProfileComponent },
   { path: 'viewProfile', component: ViewProfileComponent },
@@ -100,6 +100,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+exports: [RouterModule],
 })
 export class AppRoutingModule {}
