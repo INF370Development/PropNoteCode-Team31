@@ -31,7 +31,7 @@ public class CreateContractorUserRequest
 public class ContractorType
 {
     [Key]
-    public int ContractorTypeId { get; set; }
+    public int ContractorTypeID { get; set; }
 
     [MaxLength(50)]
     public string ContractorTypeName { get; set; } = string.Empty;
