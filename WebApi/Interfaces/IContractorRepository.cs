@@ -21,5 +21,7 @@ namespace WebApi.Interfaces
         Task AddAsync(Contractor contractor);
         Task UpdateAsync(Contractor contractor);
         Task DeleteAsync(Contractor contractor);
+
+        void Delete<T>(T entity) where T : class;
     }
 }

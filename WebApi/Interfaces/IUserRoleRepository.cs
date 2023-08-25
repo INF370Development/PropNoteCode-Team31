@@ -17,5 +17,6 @@ namespace WebApi.Interfaces
         Task UpdateAsync(Role role);
         Task DeleteAsync(Role role);
         Task AddUserRoleAsync(UserRole userRole);
+        //void Delete<T>(T entity) where T : class;
     }
 }

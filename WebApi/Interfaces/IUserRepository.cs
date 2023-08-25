@@ -20,5 +20,7 @@ namespace WebApi.Models.Interfaces
         Task UpdateAsync(User entity);
         Task DeleteAsync(User entity);
         Task<User[]> GetAllUsersAsync();
+
+        //void Delete<T>(T entity) where T : class;
     }
 }

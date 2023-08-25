@@ -57,7 +57,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
-import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
@@ -80,6 +79,7 @@ import { UpdateMiaintenanceModalComponent } from './maintenance/maintenance/assi
 import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
+import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +131,6 @@ import { ContractorTreeComponent } from './contractors/contractors/contractorTre
     AddImageModalComponent,
     DeleteImageDialogComponent,
     SideNavComponent,
-    AddEmployeeComponent,
     BrokercreatemodelComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
@@ -151,6 +150,7 @@ import { ContractorTreeComponent } from './contractors/contractors/contractorTre
     CreateTenantModalComponent,
     TenantDetailsComponent,
     ContractorTreeComponent,
+    GenerateEmployeeReportComponent,
 
   ],
   imports: [
