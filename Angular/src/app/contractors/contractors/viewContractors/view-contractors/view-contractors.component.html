@@ -70,6 +70,7 @@
         mat-button
         class="deletebutton"
         style="color:red;"
+        (click)="openDeleteConfirmationDialog(element.contractorId)"
       >
         <mat-icon>delete</mat-icon>
         Delete

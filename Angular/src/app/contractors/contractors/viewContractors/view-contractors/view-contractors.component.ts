@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Contractor } from 'src/app/shared/UserModels/Contractor';
 import { CreateContractorModalComponent } from './createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { DeleteContracorDialogComponent } from './deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 
 @Component({
   selector: 'app-view-contractors',
@@ -104,5 +105,35 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
         });
       }
     });
+  }
+
+
+  openDeleteConfirmationDialog(contractorId: number) {
+    const dialogRef = this.dialog.open(DeleteContracorDialogComponent, {
+      data: { contractorId }, 
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'delete') {
+        this.deleteContractor(contractorId);
+      }
+    });
+  }
+
+  deleteContractor(contractorId: number) {
+    this._contractorService.deleteContractor(contractorId).subscribe(
+      () => {
+        this.snackBar.open('Contractor deleted successfully', 'Close', {
+          duration: 2000,
+        });
+        this.refreshTableData();
+      },
+      (error) => {
+        console.error('Error deleting contractor:', error);
+        this.snackBar.open('Error deleting contractor', 'Close', {
+          duration: 2000,
+        });
+      }
+    );
   }
 }
