@@ -11,7 +11,6 @@ import { UserTenant } from '../shared/UserModels/UserTenant';
 export class TenantService {
   constructor(private httpClient: HttpClient) {}
 
-
   //TENANTS
   apiUrl = 'http://localhost:7251/api/';
 

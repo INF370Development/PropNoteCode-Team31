@@ -13,8 +13,7 @@ import { Contractor } from '../shared/UserModels/Contractor';
 export class ContractorService {
   constructor(private httpClient: HttpClient) {}
 
-
-  //TENANTS
+  //CONTRACTORS
   apiUrl = 'http://localhost:7251/api/';
 
   httpOptions = {
@@ -25,7 +24,7 @@ export class ContractorService {
 
   //CREATE
   createContractor(userContractor: UserContractor) {
-    debugger;
+    //debugger;
     return this.httpClient
       .post(`https://localhost:7251/api/User/CreateContractorUser`, userContractor)
       .pipe(map((result) => result));
@@ -36,6 +35,28 @@ export class ContractorService {
     return this.httpClient
       .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
       .pipe(map((result) => result));
+  }
+
+  //DELETE
+  deleteContractor(contractorID: number) {
+    return this.httpClient
+      .delete(`https://localhost:7251/api/User/DeleteUser/${contractorID}`)
+      .pipe(map((result) => result));
+  }
+
+  //SEARCH
+  getContractor(contractorID: number, contractor: Contractor) {
+    return this.httpClient
+      .post(
+        `https://localhost:7251/api/User/GetUserByID/${contractorID}`,
+        contractor
+      )
+    .pipe(map((result) => result));
+  }
+
+  getContractorU(contractorID: number) {
+    return this.httpClient
+    .get<Contractor>(`https://localhost:7251/api/Contractor/GetContractorByID` + "/" + contractorID);
   }
 
   //UPDATE

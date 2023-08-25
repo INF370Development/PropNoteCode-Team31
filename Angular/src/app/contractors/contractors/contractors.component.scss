@@ -12,7 +12,7 @@
     padding: 20px;
 }
 
-.contractorCard, .reportCard {
+.contractorCard, .reportCard, .treeCard {
     max-width: 400px;
 }
 
@@ -23,6 +23,11 @@
 .reportCard {
     padding: 10px;
 }
+
+.treeCard {
+    padding: 10px;
+}
+
 
 .cards{
     display: flex;

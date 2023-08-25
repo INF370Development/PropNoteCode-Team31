@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ContractorService } from 'src/app/services/contractor.service';
+import { UserService } from 'src/app/services/user.service';
 import { ContractorTypeService } from 'src/app/services/contractorType.service';
 import { ContractorType } from 'src/app/shared/UserModels/ContractorType';
 import { UserContractor } from 'src/app/shared/UserModels/UserContractor';
+import { Contractor } from 'src/app/shared/UserModels/Contractor';
+import { User } from 'src/app/shared/UserModels/User';
 
 @Component({
   selector: 'app-create-contractor-modal',
   templateUrl: './create-contractor-modal.component.html',
   styleUrls: ['./create-contractor-modal.component.scss'],
 })
+
 export class CreateContractorModalComponent implements OnInit {
   adminRole: boolean = false;
   editorRole: boolean = false;
   viewerRole: boolean = false;
+
+  hide = true;
 
   contractorModel: UserContractor = {
   username: "",
@@ -30,11 +36,14 @@ export class CreateContractorModalComponent implements OnInit {
   contractorTypeID : 0,
   contractorType : new ContractorType(),
   };
-contractorTypes: ContractorType[] = [];
+
+  contractorTypes: ContractorType[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<CreateContractorModalComponent>,
+    private fb: FormBuilder,
     private contractorService : ContractorService,
+    private userService : UserService,
     private router: Router,
     private contractorTypeService: ContractorTypeService
   ) {}
@@ -49,14 +58,10 @@ contractorTypes: ContractorType[] = [];
     this.dialogRef.close();
   }
 
-  closeModal() {
-    this.dialogRef.close();
-  }
   CreateContractor() {
     this.contractorService.createContractor(this.contractorModel).subscribe(
       (response) => {
         console.log('Contractor created successfully:', response);
-        // You can optionally close the modal after creating the broker
         this.dialogRef.close();
         location.reload();
       },
@@ -66,14 +71,16 @@ contractorTypes: ContractorType[] = [];
     );
   }
 
+  closeModal() {
+    this.dialogRef.close();
+  }
+
   updateSelectedContractorType(contractorType: ContractorType) {
     this.contractorModel.contractorType = contractorType;
     this.contractorModel.contractorTypeID = contractorType.contractorTypeID;
   }
 
-  // Send the selected brokerID to the backend
   sendToBackend() {
-  //  debugger;
     if (this.contractorModel.contractorType) {
       const contractorTypeID = this.contractorModel.contractorType.contractorTypeID;
       console.log("contractorTypeID", contractorTypeID)
@@ -81,7 +88,6 @@ contractorTypes: ContractorType[] = [];
 
   }
 
-  hide = true;
   //Username
   username = new FormControl('', [Validators.required]);
 

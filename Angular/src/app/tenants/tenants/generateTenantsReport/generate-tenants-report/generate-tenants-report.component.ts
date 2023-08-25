@@ -131,7 +131,7 @@ export class GenerateTenantsReportComponent implements OnInit {
   getCellContent(tenant: any, headerKey: any): any {
     switch (headerKey) {
       case 'name':
-        return tenant.user.name;
+        return tenant.user.name + " " + tenant.user.surname;
       case 'email':
         return tenant.user.email;
         case 'phoneNumber':
