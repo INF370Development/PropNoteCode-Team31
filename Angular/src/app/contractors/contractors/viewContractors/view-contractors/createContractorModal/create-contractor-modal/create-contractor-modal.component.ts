@@ -89,6 +89,7 @@ export class CreateContractorModalComponent implements OnInit {
     if (this.contractorModel.contractorType) {
       const contractorTypeID = this.contractorModel.contractorType.contractorTypeID;
       console.log("contractorTypeID", contractorTypeID);
+      this.closeModal;
     }
 }
 
