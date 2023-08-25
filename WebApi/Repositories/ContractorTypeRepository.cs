@@ -38,7 +38,7 @@ namespace WebApi.Repositories
 
         public async Task<ContractorType> GetContractorTypeByIDAsync(int contractorTypeID)
         {
-            IQueryable<ContractorType> query = _appDbContext.ContractorType.Where(c => c.ContractorTypeId == contractorTypeID);
+            IQueryable<ContractorType> query = _appDbContext.ContractorType.Where(c => c.ContractorTypeID == contractorTypeID);
             return await query.FirstOrDefaultAsync();
         }
 

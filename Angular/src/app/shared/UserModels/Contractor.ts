@@ -2,9 +2,9 @@ import { ContractorType } from "./ContractorType";
 import { User } from "./User";
 
 export class Contractor {
-contractorID: Number =0;
-userID : Number = 0;
-contractorTypeID : Number = 0;
+contractorID: number =0;
+userID : number = 0;
+contractorTypeID : number = 0;
 areaOfBusiness : string = "";
 availability : string = "";
 user : User = new User();
