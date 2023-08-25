@@ -18,14 +18,10 @@ export class GenerateContractReportComponent  implements OnInit {
   pdfGenerated: boolean = false
 
   ngOnInit(): void {
-    /*if (this.pdfGenerated) {
-      this.generatePDF();
-      
-    }*/
-      this.contractorService.getContractors().subscribe((contractor: any) => {
-        this.dataSource.data = contractor;
-        this.fetchTableData();
-      });
+    this.contractorService.getContractors().subscribe((contractor: any) => {
+      this.dataSource.data = contractor;
+      this.fetchTableData();
+    });
   }
 
   title = "Contractor report";
@@ -91,7 +87,7 @@ export class GenerateContractReportComponent  implements OnInit {
         //'contractorType',
         '',
       ];
-      const colWidths = [40, 40, 40, 40, 40, 40];
+      const colWidths = [40, 60, 40, 40, 40, 40];
       doc.setFontSize(12);
 
       doc.setFillColor(105, 240, 174);
