@@ -45,7 +45,7 @@ export class CreateTenantModalComponent implements OnInit {
 
   ngOnInit(): void {  }
 
-  /*CreateTenant() {
+  CreateTenant() {
     //debugger;
     this.tenantService.createTenant(this.tenantModel).subscribe(
       (response) => {
@@ -59,9 +59,9 @@ export class CreateTenantModalComponent implements OnInit {
         location.reload();
       }
     );
-  }*/
+  }
 
-  CreateTenant() {
+  /*CreateTenant() {
     this.tenantService.createTenant(this.tenantModel).subscribe(
       (response) => {
         console.log('Tenant created successfully:', response);
@@ -86,7 +86,7 @@ export class CreateTenantModalComponent implements OnInit {
     snackBarRef.afterDismissed().subscribe(() => {
       
     });
-  }
+  }*/
   
   closeModal() {
     this.dialogRef.close();
