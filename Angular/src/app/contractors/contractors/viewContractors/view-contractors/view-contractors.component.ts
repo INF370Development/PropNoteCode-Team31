@@ -93,7 +93,7 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     });
   }
 
-  openCreateTenantModal() {
+  openCreateContractorModal() {
     const dialogRef = this.dialog.open(CreateContractorModalComponent);
 
     dialogRef.afterClosed().subscribe((formData: any) => {
