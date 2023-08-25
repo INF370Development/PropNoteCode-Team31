@@ -155,6 +155,8 @@ namespace WebApi.Controllers
                     ContractorTypeID = request.ContractorTypeID,
                     User = retrievedUser
                 };
+                Console.WriteLine("Received ContractorTypeID: " + request.ContractorTypeID);
+
                 await _contractorRepository.AddAsync(contractor);
                 Console.WriteLine(contractor);
 

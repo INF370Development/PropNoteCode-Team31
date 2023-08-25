@@ -42,6 +42,7 @@ contractorTypes: ContractorType[] = [];
   ngOnInit(): void {
     this.contractorTypeService.getContractorTypes().subscribe((contractorTypes) => {
       this.contractorTypes = contractorTypes;
+      console.log('Contractor Types:', this.contractorTypes);
   });
 }
 
@@ -53,15 +54,17 @@ contractorTypes: ContractorType[] = [];
     this.dialogRef.close();
   }
   CreateContractor() {
+    //debugger;
     this.contractorService.createContractor(this.contractorModel).subscribe(
       (response) => {
         console.log('Contractor created successfully:', response);
-        // You can optionally close the modal after creating the broker
         this.dialogRef.close();
         location.reload();
       },
       (error) => {
-        console.error('Error creating contractor:', error);
+        console.error('Error creating Contractor:', error);
+        this.dialogRef.close();
+        location.reload();
       }
     );
   }
@@ -69,17 +72,16 @@ contractorTypes: ContractorType[] = [];
   updateSelectedContractorType(contractorType: ContractorType) {
     this.contractorModel.contractorType = contractorType;
     this.contractorModel.contractorTypeID = contractorType.contractorTypeID;
+    console.log('Updated Contractor Type:', this.contractorModel.contractorType);
   }
 
   // Send the selected brokerID to the backend
   sendToBackend() {
-  //  debugger;
     if (this.contractorModel.contractorType) {
       const contractorTypeID = this.contractorModel.contractorType.contractorTypeID;
-      console.log("contractorTypeID", contractorTypeID)
+      console.log("contractorTypeID", contractorTypeID);
     }
-
-  }
+}
 
   hide = true;
   //Username
@@ -162,4 +164,6 @@ contractorTypes: ContractorType[] = [];
 
     return this.availability.hasError('availability') ? 'Not a valid availability' : '';
   }
+
+
 }

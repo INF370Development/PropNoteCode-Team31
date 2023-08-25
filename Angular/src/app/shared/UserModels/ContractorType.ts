@@ -1,4 +1,4 @@
 export class ContractorType {
-contractorTypeID : Number = 0;
+  contractorTypeID : number = 0;
 contractorTypeName : string = "";
 }

@@ -75,6 +75,8 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     });
   }
 
+
+
   openCreateTenantModal() {
     const dialogRef = this.dialog.open(CreateContractorModalComponent);
 
