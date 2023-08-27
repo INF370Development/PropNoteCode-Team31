@@ -1,1 +1,101 @@
-<p>create-employee-modal works!</p>
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Add New Tenant <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+      <form (submit)="CreateTenant()">
+        <mat-form-field class="form-field">
+          <label>Username:</label>
+          <input
+            matInput
+            [(ngModel)]="employeeModel.username"
+            name="username"
+            required
+            maxlength="50"
+            [formControl]="username"
+          />
+          <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <label>Password:</label>
+          <input
+            matInput
+            [(ngModel)]="employeeModel.password"
+            name="password"
+            required
+            maxlength="50"
+            [type]="hide ? 'password' : 'text'"
+            [formControl]="password"
+          />
+          <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <label>Email:</label>
+          <input
+            matInput
+            [(ngModel)]="employeeModel.email"
+            name="email"
+            required
+            maxlength="50"
+            [formControl]="email"
+          />
+          <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="form-field">
+          <label>Name:</label>
+          <input
+            matInput
+            [(ngModel)]="employeeModel.name"
+            name="name"
+            required
+            maxlength="50"
+            [formControl]="name"
+          />
+          <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <label>Surname:</label>
+          <input
+            matInput
+            [(ngModel)]="employeeModel.surname"
+            name="surname"
+            required
+            maxlength="50"
+            [formControl]="surname"
+          />
+          <mat-error *ngIf="surname.invalid">{{getErrorMessageSurname()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <label>Personal Number:</label>
+          <input
+            matInput
+            [(ngModel)]="employeeModel.phoneNumber"
+            name="phoneNumber"
+            required
+            maxlength="10"
+            minlength="10"
+            [formControl]="phoneNumber"
+          />
+          <mat-error *ngIf="phoneNumber.invalid">{{getErrorMessagePhoneNumber()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <label>Job Title:</label>
+          <input
+            matInput
+            [(ngModel)]="employeeModel.jobTitle"
+            name="jobTitle"
+            required
+            maxlength="50"
+            [formControl]="jobTitle"
+          />
+          <mat-error *ngIf="jobTitle.invalid">{{getErrorMessageJobTitle()}}</mat-error>
+        </mat-form-field>
+        
+        <div class="modal-actions">
+          <button mat-raised-button type="submit" color="accent" (click)="closeModal()">
+            Create Employee
+          </button>
+          <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
+        </div>

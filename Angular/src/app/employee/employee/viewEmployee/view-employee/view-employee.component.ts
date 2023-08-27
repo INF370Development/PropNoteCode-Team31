@@ -1,134 +1,140 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ContractorService } from 'src/app/services/contractor.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIcon } from '@angular/material/icon';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { Employee } from 'src/app/shared/UserModels/Employee';
+import { CreateEmployeeModalComponent } from './createEmployeeModal/create-employee-modal/create-employee-modal.component';
+import { ChangeDetectorRef } from '@angular/core';
 import { DeleteEmployeeDialogComponent } from './deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
 import { UpdateEmployeeModalComponent } from './updateEmployeeModal/update-employee-modal/update-employee-modal.component';
-import { CreateEmployeeModalComponent } from './createEmployeeModal/create-employee-modal/create-employee-modal.component';
+import { EmployeeService } from 'src/app/services/employee.service';
 
-NgModule({
-  imports: [MatDialogModule, FormsModule, MatInputModule, MatButtonModule],
-});
-
-export interface DialogData {
-  id: number;
-  email: string;
-  name: string;
-  surname: string;
-  phone: string;
-  jobTitle: string;
-}
-
-interface Employee {
-  id: number;
-  email: string;
-  name: string;
-  surname: string;
-  phone: string;
-  jobTitle: string;
-}
-
-NgModule({
-  imports: [
-    MatDialogModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIcon,
-  ],
-});
 @Component({
   selector: 'app-view-employee',
   templateUrl: './view-employee.component.html',
   styleUrls: ['./view-employee.component.scss'],
 })
-export class ViewEmployeeComponent {
-  employee: Employee[] = [
-    {
-      id: 1,
-      email: 'johndoe@propco.co.za',
-      name: 'John',
-      surname: 'Doe',
-      phone: '0798903590',
-      jobTitle: 'Administator',
-    },
-    {
-      id: 2,
-      email: 'brandon@propco.co.za',
-      name: 'Brandon',
-      surname: 'Driver',
-      phone: '0834477955',
-      jobTitle: 'Asset Manager',
-    },
-    {
-      id: 3,
-      email: 'myles@propco.co.za',
-      name: 'Myles',
-      surname: 'Brown',
-      phone: '0824479855',
-      jobTitle: 'Financial Manager',
-    },
+
+export class ViewEmployeeComponent implements AfterViewInit, OnInit {
+
+  displayedColumns: string[] = [
+    'name',
+    'email',
+    'phoneNumber',
+    'jobTitle',
+    'detailsButton',
+    'deleteButton',
   ];
 
-  openDialog(): void {
-    this.dialog.open(CreateEmployeeModalComponent, {
-      width: '250px',
+  dataSource = new MatTableDataSource<Employee>();
+
+  constructor(
+    private _employeeService: EmployeeService,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) {}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  ngOnInit(): void {
+    this._employeeService.getEmployees().subscribe((employees: Employee[]) => {
+      this.dataSource.data = employees;
     });
   }
 
-  //Delete Dialog
-  openDeleteEmployeeDialog(employee: Employee): void {
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    // Filtering based on multiple columns (name, email, etc.)
+    this.dataSource.filterPredicate = (data: Employee, filter: string) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      return (
+        data.user.name.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.surname.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.email.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.phoneNumber.includes(filter) ||
+        data.jobTitle.toLowerCase().includes(lowerCaseFilter) 
+      );
+    };
+
+    this.dataSource.filter = filterValue;
+  }
+
+
+  /*showSnackBar() {
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+      'Deleted successfully',
+      'X',
+      { duration: 500 }
+    );
+    snackBarRef.afterDismissed().subscribe(() => {
+      location.reload();
+    });
+  }
+
+  refreshTableData() {
+    this._contractorService.getContractors().subscribe((contractors: any) => {
+      this.dataSource.data = contractors;
+    });
+  }*/
+
+  refreshTableData() {
+    this._employeeService.getEmployees().subscribe((employee: any) => {
+      this.dataSource.data = employee;
+    });
+  }
+
+  openCreateEmployeeModal() {
+    const dialogRef = this.dialog.open(CreateEmployeeModalComponent);
+
+    dialogRef.afterClosed().subscribe((formData: any) => {
+      if (formData) {
+        this._employeeService.createEmployee(formData).subscribe((newEmployee: any) => {
+          this.refreshTableData();
+          this.cdr.detectChanges();
+        });
+      }
+    });
+  }
+
+  openDeleteConfirmationDialog(employeeID: number) {
     const dialogRef = this.dialog.open(DeleteEmployeeDialogComponent, {
-      width: '300px',
-      data: employee,
+      data: { employeeID }, 
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'delete') {
-        this.employee = this.employee.filter((u) => u.id !== employee.id);
-        this.filtered = this.filtered.filter((u) => u.id !== employee.id);
+        this.deleteEmployee(employeeID);
       }
     });
   }
 
-  //Update Modal
-  openUpdateEmployeeModal(employee: Employee): void {
-    const dialogRef = this.dialog.open(UpdateEmployeeModalComponent, {
-      data: employee,
-    });
-
-    dialogRef.componentInstance.employeeUpdated.subscribe(
-      (updatedEmployee: Employee) => {
-        const index = this.employee.findIndex(
-          (u) => u.id === updatedEmployee.id
-        );
-        if (index !== -1) {
-          this.employee[index] = updatedEmployee;
-          this.filtered = this.employee.filter((u) =>
-            u.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-          );
-        }
+  deleteEmployee(employeeID: number) {
+    this._employeeService.deleteEmployee(employeeID).subscribe(
+      () => {
+        this.snackBar.open('Employee deleted successfully', 'Close', {
+          duration: 2000,
+        });
+        this.refreshTableData();
+      },
+      (error) => {
+        console.error('Error deleting employee:', error);
+        this.snackBar.open('Error deleting employee', 'Close', {
+          duration: 2000,
+        });
       }
     );
   }
-
-  //Search
-  searchTerm: string = '';
-  filtered: Employee[] = [];
-
-  constructor(public dialog: MatDialog) {
-    this.filtered = this.employee;
-  }
-
-  search() {
-    this.filtered = this.employee.filter((u) => {
-      const searchLower = this.searchTerm.toLowerCase();
-      const employeeNameLower = u.name.toLowerCase(); // Use 'roleName', not 'role'
-      return employeeNameLower.includes(searchLower);
-    });
-  }
-}
+} 

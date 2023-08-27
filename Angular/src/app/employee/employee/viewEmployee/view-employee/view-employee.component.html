@@ -1,53 +1,84 @@
-<h1>Employee</h1>
-
-
-<div class="search-container">
-  <input class="search-input"  type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Search by Employee Name">
-    <button class="search-button" mat-icon-button color="primary">
-      <mat-icon>search</mat-icon>
-    </button>
-</div>
-
+<h1>All Employees</h1>
 
 <div class="create">
-    <button mat-fab extended color="accent"  (click)="openDialog()" style="float: right;">
+  <button mat-fab extended color="accent" (click)="openCreateEmployeeModal()">
     <mat-icon>add</mat-icon>
-        Add Employee
-    </button>
+    Add New Employee
+  </button>
 </div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
+<br />
 
-<!--Table-->
-<table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Email</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Phone Number</th>
-        <th>Job Title</th>
-        <th>Update</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let employee of filtered">
-        <td>{{ employee.id }}</td>
-        <td>{{ employee.email }}</td>
-        <td>{{ employee.name }}</td>
-        <td>{{ employee.surname }}</td>
-        <td>{{ employee.phone }}</td>
-        <td>{{ employee.jobTitle }}</td>
-        <!--Update Button-->
-        <td><button mat-raised-button color="primary" (click)="openUpdateEmployeeModal(employee)"><mat-icon class="card-icon">edit</mat-icon><br></button></td>
-        <!--Delete Button-->
-        <td><button mat-raised-button color="warn" (click)="openDeleteEmployeeDialog(employee)"><mat-icon class="card-icon">delete</mat-icon><br></button></td>
-      </tr>
-    </tbody>
+<div class="mat-elevation-z8">
+  <mat-form-field appearance="fill">
+    <mat-label> <mat-icon>search</mat-icon>  Search</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Start typing..."
+      #input
+    />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.user.name }} {{element.user.surname}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.user.email }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <td mat-cell *matCellDef="let element">{{ element.user.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef>Job Title</th>
+      <td mat-cell *matCellDef="let element">{{ element.jobTitle }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="detailsButton">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button [routerLink]="['/viewProperties', element.tenantID]">
+          <mat-icon>business</mat-icon>
+          Details
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteButton">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-button
+          class="deletebutton"
+          (click)="deleteEmployee(element.tenantID)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
   </table>
+  <mat-paginator
+    [pageSize]="10"
+    [pageSizeOptions]="[3, 5, 10]"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

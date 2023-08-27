@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MatTableModule } from '@angular/material/table';
 import { LoginComponent } from './login/login/login.component';
 import { UsersComponent } from './users/users/users.component';
 import { ViewUsersComponent } from './users/users/viewUsers/view-users/view-users.component';
@@ -169,6 +170,7 @@ import { GenerateEmployeeReportComponent } from './employee/employee/generateEmp
     MatInputModule,
     MatRippleModule,
     LoginFailedComponent,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

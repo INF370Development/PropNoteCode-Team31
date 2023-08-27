@@ -1,4 +1,4 @@
-export class UserTenant {
+export class UserEmployee {
   username : string = "";
   password : string = "";
   profilePhoto : string = "";
@@ -6,6 +6,5 @@ export class UserTenant {
   name : string = "";
   surname : string = "";
   phoneNumber : string = "";
-  companyName : string = "";
-  companyNumber : string = "";
+  jobTitle: string = "";
   }
