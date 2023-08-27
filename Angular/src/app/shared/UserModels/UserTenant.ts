@@ -8,4 +8,4 @@ export class UserTenant {
   phoneNumber : string = "";
   companyName : string = "";
   companyNumber : string = "";
-  }
+}

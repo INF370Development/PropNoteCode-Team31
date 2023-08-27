@@ -22,6 +22,7 @@ import { GenerateTenantsReportComponent } from './tenants/tenants/generateTenant
 import { ContractorsComponent } from './contractors/contractors/contractors.component';
 import { ViewContractorsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractors.component';
 import { GenerateContractReportComponent } from './contractors/contractors/generateContractorReport/generate-contract-report/generate-contract-report.component';
+import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 //Employee
 import { EmployeeComponent } from './employee/employee/employee.component';
 import { ViewEmployeeComponent } from './employee/employee/viewEmployee/view-employee/view-employee.component';
@@ -47,7 +48,6 @@ import { ChangePasswordComponent } from './profile/profile/changePassword/change
 import { NotificationsComponent } from './profile/profile/notifications/notifications/notifications.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
-import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 
 const routes: Routes = [
   //Home

@@ -2,23 +2,20 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ContractorService } from 'src/app/services/contractor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Employee } from 'src/app/shared/UserModels/Employee';
 import { CreateEmployeeModalComponent } from './createEmployeeModal/create-employee-modal/create-employee-modal.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { DeleteEmployeeDialogComponent } from './deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
-import { UpdateEmployeeModalComponent } from './updateEmployeeModal/update-employee-modal/update-employee-modal.component';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
-  selector: 'app-view-employee',
+  selector: 'app-view-employees',
   templateUrl: './view-employee.component.html',
-  styleUrls: ['./view-employee.component.scss'],
+  styleUrls: ['./view-employee.component.scss']
 })
 
 export class ViewEmployeeComponent implements AfterViewInit, OnInit {
@@ -49,7 +46,7 @@ export class ViewEmployeeComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this._employeeService.getEmployees().subscribe((employees: Employee[]) => {
+    this._employeeService.getEmployees().subscribe((employees: any) => {
       this.dataSource.data = employees;
     });
   }
@@ -57,7 +54,6 @@ export class ViewEmployeeComponent implements AfterViewInit, OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
 
-    // Filtering based on multiple columns (name, email, etc.)
     this.dataSource.filterPredicate = (data: Employee, filter: string) => {
       const lowerCaseFilter = filter.toLowerCase();
       return (
@@ -65,13 +61,12 @@ export class ViewEmployeeComponent implements AfterViewInit, OnInit {
         data.user.surname.toLowerCase().includes(lowerCaseFilter) ||
         data.user.email.toLowerCase().includes(lowerCaseFilter) ||
         data.user.phoneNumber.includes(filter) ||
-        data.jobTitle.toLowerCase().includes(lowerCaseFilter) 
+        data.jobTitle.toLowerCase().includes(lowerCaseFilter)       
       );
     };
 
     this.dataSource.filter = filterValue;
   }
-
 
   /*showSnackBar() {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
@@ -101,7 +96,7 @@ export class ViewEmployeeComponent implements AfterViewInit, OnInit {
 
     dialogRef.afterClosed().subscribe((formData: any) => {
       if (formData) {
-        this._employeeService.createEmployee(formData).subscribe((newEmployee: any) => {
+        this._employeeService.createEmployee  (formData).subscribe((newEmployee: any) => {
           this.refreshTableData();
           this.cdr.detectChanges();
         });
@@ -109,20 +104,21 @@ export class ViewEmployeeComponent implements AfterViewInit, OnInit {
     });
   }
 
-  openDeleteConfirmationDialog(employeeID: number) {
+
+  openDeleteConfirmationDialog(employeeId: number) {
     const dialogRef = this.dialog.open(DeleteEmployeeDialogComponent, {
-      data: { employeeID }, 
+      data: { employeeId }, 
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'delete') {
-        this.deleteEmployee(employeeID);
+        this.deleteEmployee(employeeId);
       }
     });
   }
 
-  deleteEmployee(employeeID: number) {
-    this._employeeService.deleteEmployee(employeeID).subscribe(
+  deleteEmployee(employeeId: number) {
+    this._employeeService.deleteEmployee(employeeId).subscribe(
       () => {
         this.snackBar.open('Employee deleted successfully', 'Close', {
           duration: 2000,
@@ -130,11 +126,11 @@ export class ViewEmployeeComponent implements AfterViewInit, OnInit {
         this.refreshTableData();
       },
       (error) => {
-        console.error('Error deleting employee:', error);
+        console.error('Error deleting empliyee:', error);
         this.snackBar.open('Error deleting employee', 'Close', {
           duration: 2000,
         });
       }
     );
   }
-} 
+}

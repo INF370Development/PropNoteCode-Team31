@@ -6,5 +6,4 @@ userID : Number = 0;
 companyName : string = "";
 companyNumber : string = "";
 user : User = new User();
-
 }
