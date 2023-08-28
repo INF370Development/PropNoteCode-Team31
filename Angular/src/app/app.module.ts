@@ -81,6 +81,7 @@ import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-t
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
+import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
 @NgModule({
   declarations: [
@@ -152,6 +153,7 @@ import { GenerateEmployeeReportComponent } from './employee/employee/generateEmp
     TenantDetailsComponent,
     ContractorTreeComponent,
     GenerateEmployeeReportComponent,
+    ChatbotComponent,
 
   ],
   imports: [
