@@ -48,6 +48,8 @@ import { ChangePasswordComponent } from './profile/profile/changePassword/change
 import { NotificationsComponent } from './profile/profile/notifications/notifications/notifications.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
+//Chatbot
+import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
 const routes: Routes = [
   //Home
@@ -98,6 +100,8 @@ const routes: Routes = [
   { path: 'password', component: ChangePasswordComponent },
   { path: 'notifications', component: NotificationsComponent },
   { path: 'help', component: HelpproComponent },
+  //Chatbot
+  { path: 'chatbot', component: ChatbotComponent}
 ];
 
 @NgModule({
