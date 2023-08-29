@@ -107,9 +107,8 @@ getAllRecoveries() {
         }]
       },
       options: chartOptions // Use the defined chart options
-    });*/
-  });
-}*/
+    });
+  };*/
 
 
   generateReport() {
@@ -263,8 +262,4 @@ generateAllPropertiesReport() {
   // Save the PDF
   doc.save('all_properties_report.pdf');
 }
-
-
-
-
 }
