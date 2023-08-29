@@ -1,7 +1,7 @@
 <h1>All Contractors</h1>
 
 <div class="create">
-  <button mat-fab extended color="accent" (click)="openCreateTenantModal()">
+  <button mat-fab extended color="accent" (click)="openCreateContractorModal()">
     <mat-icon>add</mat-icon>
     Add New Contractor
   </button>
@@ -70,6 +70,7 @@
         mat-button
         class="deletebutton"
         style="color:red;"
+        (click)="openDeleteConfirmationDialog(element.contractorId)"
       >
         <mat-icon>delete</mat-icon>
         Delete

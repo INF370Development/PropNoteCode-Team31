@@ -61,7 +61,7 @@ namespace WebApi.Controllers
             {
                 var result = await _contractorRepository.GetContractorByIDAsync(contractorID);
 
-                if (result == null) return NotFound("Tenant does not exist. You need to create it first");
+                if (result == null) return NotFound("Contractor does not exist. You need to create it first");
 
                 return Ok(result);
             }
@@ -121,6 +121,28 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
+        }
+
+        [HttpDelete]
+        [Route("DeleteContractor")]
+        public async Task<IActionResult> DeleteContractor(int contractorID)
+        {
+            try
+            {
+                var allContractors = await _contractorRepository.GetAllContractorsAsync();
+                var existingContractor = allContractors.FirstOrDefault(x => x.ContractorID == contractorID);
+
+                if (existingContractor == null) return NotFound($"The Contractor does not exist");
+
+                _contractorRepository.Delete(existingContractor);
+
+                if (await _contractorRepository.SaveChangesAsync()) return Ok(existingContractor);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
         }
 
 

@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ContractorService } from 'src/app/services/contractor.service';
+import { UserService } from 'src/app/services/user.service';
 import { ContractorTypeService } from 'src/app/services/contractorType.service';
 import { ContractorType } from 'src/app/shared/UserModels/ContractorType';
 import { UserContractor } from 'src/app/shared/UserModels/UserContractor';
+import { Contractor } from 'src/app/shared/UserModels/Contractor';
+import { User } from 'src/app/shared/UserModels/User';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-contractor-modal',
   templateUrl: './create-contractor-modal.component.html',
   styleUrls: ['./create-contractor-modal.component.scss'],
 })
+
 export class CreateContractorModalComponent implements OnInit {
   adminRole: boolean = false;
   editorRole: boolean = false;
   viewerRole: boolean = false;
+
+  hide = true;
 
   contractorModel: UserContractor = {
   username: "",
@@ -30,14 +37,31 @@ export class CreateContractorModalComponent implements OnInit {
   contractorTypeID : 0,
   contractorType : new ContractorType(),
   };
-contractorTypes: ContractorType[] = [];
+
+  contractorTypes: ContractorType[] = [];
+
+  contractorForm!: FormGroup;
 
   constructor(
     private dialogRef: MatDialogRef<CreateContractorModalComponent>,
+    private fb: FormBuilder,
     private contractorService : ContractorService,
+    private userService : UserService,
     private router: Router,
-    private contractorTypeService: ContractorTypeService
-  ) {}
+    private contractorTypeService: ContractorTypeService,
+    private snackBar : MatSnackBar,
+  ) {
+    this.contractorForm = fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      areaOfBusiness: ['', Validators.required],
+      availability: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.contractorTypeService.getContractorTypes().subscribe((contractorTypes) => {
@@ -50,23 +74,29 @@ contractorTypes: ContractorType[] = [];
     this.dialogRef.close();
   }
 
+  CreateContractor() {
+    if (this.contractorForm.valid) {
+      this.contractorService.createContractor(this.contractorModel).subscribe(
+        (response) => {
+          console.log('Contractor created successfully:', response);
+          this.snackBar.open('Contractor added successfully', 'Close', {
+            duration: 2000,
+          });
+        },
+        (error) => {
+          console.error('Error creating Contractor:', error);
+          this.snackBar.open('Error creating contractor', 'Close', {
+            duration: 2000,
+          }).afterDismissed().subscribe(() => {
+            this.closeModal;
+          });
+        }
+      );
+    }
+  }
+
   closeModal() {
     this.dialogRef.close();
-  }
-  CreateContractor() {
-    //debugger;
-    this.contractorService.createContractor(this.contractorModel).subscribe(
-      (response) => {
-        console.log('Contractor created successfully:', response);
-        this.dialogRef.close();
-        location.reload();
-      },
-      (error) => {
-        console.error('Error creating Contractor:', error);
-        this.dialogRef.close();
-        location.reload();
-      }
-    );
   }
 
   updateSelectedContractorType(contractorType: ContractorType) {
@@ -75,15 +105,14 @@ contractorTypes: ContractorType[] = [];
     console.log('Updated Contractor Type:', this.contractorModel.contractorType);
   }
 
-  // Send the selected brokerID to the backend
   sendToBackend() {
     if (this.contractorModel.contractorType) {
       const contractorTypeID = this.contractorModel.contractorType.contractorTypeID;
       console.log("contractorTypeID", contractorTypeID);
+      this.closeModal;
     }
 }
 
-  hide = true;
   //Username
   username = new FormControl('', [Validators.required]);
 
@@ -164,6 +193,60 @@ contractorTypes: ContractorType[] = [];
 
     return this.availability.hasError('availability') ? 'Not a valid availability' : '';
   }
-
-
 }
+
+
+ /* CreateContractor() {
+    //debugger;
+    this.contractorService.createContractor(this.contractorModel).subscribe(
+      (response) => {
+        console.log('Contractor created successfully:', response);
+        this.dialogRef.close();
+        location.reload();
+      },
+      (error) => {
+        console.error('Error creating Contractor:', error);
+        this.dialogRef.close();
+        location.reload();
+      }
+    );
+  }*/
+
+  /*CreateContractor() {
+    this.contractorService.createContractor(this.contractorModel).subscribe(
+        (response) => {
+            console.log('Contractor created successfully:', response);
+            this.dialogRef.close();
+              location.reload();
+            this.snackBar.open('Contractor added successfully', 'Close', {
+                duration: 5000, 
+            });
+        },
+        (error) => {
+            console.error('Error creating Contractor:', error);
+            this.dialogRef.close();
+            this.snackBar.open('Error creating contractor', 'Close', {
+                duration: 5000, 
+            });
+        }
+    );
+  }*/
+
+   /*CreateContractor() {
+    this.contractorService.createContractor(this.contractorModel).subscribe(
+        (response) => {
+            console.log('Contractor created successfully:', response);
+            this.snackBar.open('Contractor added successfully', 'Close', {
+                duration: 2000, // Adjust the duration as needed
+            })
+        },
+        (error) => {
+            console.error('Error creating Contractor:', error);
+            this.snackBar.open('Error creating contractor', 'Close', {
+                duration: 2000, // Adjust the duration as needed
+            }).afterDismissed().subscribe(() => {
+                this.dialogRef.close();
+            });
+        }
+    );
+  }*/

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Tenant } from 'src/app/shared/UserModels/Tenant';
 import { User } from 'src/app/shared/UserModels/User';
 import { UserTenant } from 'src/app/shared/UserModels/UserTenant';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-tenant-modal',
@@ -38,7 +39,8 @@ export class CreateTenantModalComponent implements OnInit {
     private fb: FormBuilder,
     private tenantService : TenantService,
     private userService : UserService,
-    private router : Router
+    private router : Router,
+    private snackBar : MatSnackBar,
     ) {  }
 
   ngOnInit(): void {  }
@@ -59,6 +61,33 @@ export class CreateTenantModalComponent implements OnInit {
     );
   }
 
+  /*CreateTenant() {
+    this.tenantService.createTenant(this.tenantModel).subscribe(
+      (response) => {
+        console.log('Tenant created successfully:', response);
+        this.dialogRef.close();
+        this.showSnackBar('Tenant created successfully', 'success');
+        location.reload();
+      },
+      (error) => {
+        console.error('Error creating tenant:', error);
+        this.dialogRef.close();
+        this.showSnackBar('Error creating tenant: ' + error.message, 'error');
+      }
+    );
+  }
+
+  showSnackBar(message: string, panelClass: string = 'success') {
+    const snackBarRef = this.snackBar.open(message, 'X', {
+      duration: 50000, 
+      panelClass: panelClass,
+    });
+  
+    snackBarRef.afterDismissed().subscribe(() => {
+      
+    });
+  }*/
+  
   closeModal() {
     this.dialogRef.close();
   }

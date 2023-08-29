@@ -15,6 +15,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class GenerateTenantsReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Tenant>();
 
+  pdfGenerated: boolean = false
+
   ngOnInit(): void {
     this.tenantService.getTenants().subscribe((tenants: any) => {
       this.dataSource.data = tenants;
@@ -49,6 +51,11 @@ export class GenerateTenantsReportComponent implements OnInit {
   }
 
   downloadPDF() {
+    this.pdfGenerated = true;
+    this.generatePDF();
+  }
+
+  generatePDF() {
     if (this.cardData && this.cardData.length > 0) {
       const doc = new jsPDF('landscape');
       let yPos = 20;
@@ -79,7 +86,7 @@ export class GenerateTenantsReportComponent implements OnInit {
         'companyNumber',
         '',
       ];
-      const colWidths = [40, 40, 40, 40, 40];
+      const colWidths = [40, 60, 40, 40, 40];
       doc.setFontSize(12);
 
       doc.setFillColor(105, 240, 174);
@@ -131,7 +138,7 @@ export class GenerateTenantsReportComponent implements OnInit {
   getCellContent(tenant: any, headerKey: any): any {
     switch (headerKey) {
       case 'name':
-        return tenant.user.name;
+        return tenant.user.name + " " + tenant.user.surname;
       case 'email':
         return tenant.user.email;
         case 'phoneNumber':

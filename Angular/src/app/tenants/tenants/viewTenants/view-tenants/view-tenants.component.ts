@@ -13,7 +13,6 @@ import { ChangeDetectorRef } from '@angular/core';
 import { DeleteTenantDialogComponent } from './deleteTenantDialog/delete-tenant-dialog.component';
 import { UpdateTenantModalComponent } from './updateTenantModal/update-tenant-modal.component';
 
-
 @Component({
   selector: 'app-view-tenants',
   templateUrl: './view-tenants.component.html',

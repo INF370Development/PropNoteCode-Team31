@@ -171,6 +171,28 @@ namespace WebApi.Controllers
             }
 
         }
+
+        /*[HttpDelete]
+        [Route("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(int userID)
+        {
+            try
+            {
+                var allUsers = await _userRepository.GetAllUsersAsync();
+                var existingUser = allUsers.FirstOrDefault(x => x.UserID == userID);
+
+                if (existingUser == null) return NotFound($"The User does not exist");
+
+                _userRepository.Delete(existingUser);
+
+                if (await _userRepository.SaveChangesAsync()) return Ok(existingUser);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid.");
+        }*/
     }
 
 }

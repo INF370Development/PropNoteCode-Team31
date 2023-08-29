@@ -105,11 +105,10 @@
         />
         <mat-error *ngIf="companyName.invalid">{{getErrorMessageCompanyNumber()}}</mat-error>
       </mat-form-field>
+    
       <div class="modal-actions">
-
         <button mat-raised-button type="submit" color="accent" (click)="closeModal()">
           Create Tenant
         </button>
         <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
-
       </div>

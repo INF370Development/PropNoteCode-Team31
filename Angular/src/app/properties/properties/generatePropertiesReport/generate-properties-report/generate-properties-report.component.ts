@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
-import { Chart, ChartOptions } from 'chart.js';
+//import { Chart, ChartOptions } from 'chart.js';
 import jsPDF from 'jspdf';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Inspection } from 'src/app/shared/Property/Inspection';
@@ -31,7 +31,7 @@ export class GeneratePropertiesReportComponent implements OnInit{
     this.getAllProperties();
     this.getAllInspections();
     this.getAllRecoveries();
-    this.generateBarGraph();
+    //this.generateBarGraph();
   }
 
   loadProperty(propertyId: number) {
@@ -78,7 +78,7 @@ getAllRecoveries() {
 
 // Inside your GeneratePropertiesReportComponent class
 
-generateBarGraph() {
+/*generateBarGraph() {
   // Fetch properties data (replace with your actual data fetching code)
   this._propertiesService.getProperties().subscribe((properties: Property[]) => {
     const propertyLabels = properties.map(property => `Property ${property.propertyID}`);
@@ -109,7 +109,7 @@ generateBarGraph() {
       options: chartOptions // Use the defined chart options
     });
   });
-}
+}*/
 
 
   generateReport() {

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MatTableModule } from '@angular/material/table';
 import { LoginComponent } from './login/login/login.component';
 import { UsersComponent } from './users/users/users.component';
 import { ViewUsersComponent } from './users/users/viewUsers/view-users/view-users.component';
@@ -57,7 +58,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
-import { AddEmployeeComponent } from './employee/employee/add-employee-modal/add-employee.component';
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
 import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
@@ -79,6 +79,9 @@ import { DeleteMaintenanceDialogComponent } from './maintenance/maintenance/assi
 import { UpdateMiaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/updateMaintenanceModal/update-miaintenance-modal/update-miaintenance-modal.component';
 import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
+import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
+import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
+import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +133,6 @@ import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenan
     AddImageModalComponent,
     DeleteImageDialogComponent,
     SideNavComponent,
-    AddEmployeeComponent,
     BrokercreatemodelComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
@@ -149,6 +151,9 @@ import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenan
     UpdateMiaintenanceModalComponent,
     CreateTenantModalComponent,
     TenantDetailsComponent,
+    ContractorTreeComponent,
+    GenerateEmployeeReportComponent,
+    ChatbotComponent,
 
   ],
   imports: [
@@ -167,6 +172,7 @@ import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenan
     MatInputModule,
     MatRippleModule,
     LoginFailedComponent,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

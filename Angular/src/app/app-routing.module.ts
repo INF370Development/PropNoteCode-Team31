@@ -22,9 +22,11 @@ import { GenerateTenantsReportComponent } from './tenants/tenants/generateTenant
 import { ContractorsComponent } from './contractors/contractors/contractors.component';
 import { ViewContractorsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractors.component';
 import { GenerateContractReportComponent } from './contractors/contractors/generateContractorReport/generate-contract-report/generate-contract-report.component';
+import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 //Employee
 import { EmployeeComponent } from './employee/employee/employee.component';
 import { ViewEmployeeComponent } from './employee/employee/viewEmployee/view-employee/view-employee.component';
+import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
 //Broker
 import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
@@ -46,6 +48,8 @@ import { ChangePasswordComponent } from './profile/profile/changePassword/change
 import { NotificationsComponent } from './profile/profile/notifications/notifications/notifications.component';
 import { HelpproComponent } from './profile/profile/help/helppro/helppro.component';
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
+//Chatbot
+import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
 const routes: Routes = [
   //Home
@@ -70,9 +74,11 @@ const routes: Routes = [
   { path: 'contractors', component: ContractorsComponent },
   { path: 'viewContractors', component: ViewContractorsComponent },
   { path: 'generateContractors', component: GenerateContractReportComponent },
+  { path: 'contractorTree', component: ContractorTreeComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },
+  { path: 'generateEmployees', component: GenerateEmployeeReportComponent },
   //Broker
   { path: 'broker', component: BrokerComponent },
   { path: 'viewBroker', component: ViewBrokerComponent },
@@ -83,23 +89,23 @@ const routes: Routes = [
   { path: 'viewCalendar', component: ViewCalendarComponent },
   { path: 'generateCalendar', component: GenerateCalendarReportComponent },
   //Maintenace
-
   {path: 'maintenance', component:MaintenanceComponent},
   {path: 'assignMaintenance', component:AssignMaintenanceComponent},
   {path: 'payment', component:PaymentComponent},
   {path: 'maintenanceNote', component:MaintenanceNoteComponent},
   {path: 'generateMaintenance', component:GenerateMaintenanceReportComponent},
-
   //Profile
   { path: 'profile', component: ProfileComponent },
   { path: 'viewProfile', component: ViewProfileComponent },
   { path: 'password', component: ChangePasswordComponent },
   { path: 'notifications', component: NotificationsComponent },
   { path: 'help', component: HelpproComponent },
+  //Chatbot
+  { path: 'chatbot', component: ChatbotComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+exports: [RouterModule],
 })
 export class AppRoutingModule {}

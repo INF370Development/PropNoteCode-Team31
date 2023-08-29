@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Contractor } from 'src/app/shared/UserModels/Contractor';
 import { CreateContractorModalComponent } from './createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { DeleteContracorDialogComponent } from './deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 
 @Component({
   selector: 'app-view-contractors',
@@ -53,12 +54,24 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    this.dataSource.filterPredicate = (data: Contractor, filter: string) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      return (
+        data.user.name.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.surname.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.email.toLowerCase().includes(lowerCaseFilter) ||
+        data.user.phoneNumber.includes(filter) ||
+        data.areaOfBusiness.toLowerCase().includes(lowerCaseFilter) ||
+        data.availability.includes(filter)
+      );
+    };
+
+    this.dataSource.filter = filterValue;
   }
 
-
-  showSnackBar() {
+  /*showSnackBar() {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
       'Deleted successfully',
       'X',
@@ -73,11 +86,15 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     this._contractorService.getContractors().subscribe((contractors: any) => {
       this.dataSource.data = contractors;
     });
+  }*/
+
+  refreshTableData() {
+    this._contractorService.getContractors().subscribe((contractor: any) => {
+      this.dataSource.data = contractor;
+    });
   }
 
-
-
-  openCreateTenantModal() {
+  openCreateContractorModal() {
     const dialogRef = this.dialog.open(CreateContractorModalComponent);
 
     dialogRef.afterClosed().subscribe((formData: any) => {
@@ -88,5 +105,35 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
         });
       }
     });
+  }
+
+
+  openDeleteConfirmationDialog(contractorId: number) {
+    const dialogRef = this.dialog.open(DeleteContracorDialogComponent, {
+      data: { contractorId }, 
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'delete') {
+        this.deleteContractor(contractorId);
+      }
+    });
+  }
+
+  deleteContractor(contractorId: number) {
+    this._contractorService.deleteContractor(contractorId).subscribe(
+      () => {
+        this.snackBar.open('Contractor deleted successfully', 'Close', {
+          duration: 2000,
+        });
+        this.refreshTableData();
+      },
+      (error) => {
+        console.error('Error deleting contractor:', error);
+        this.snackBar.open('Error deleting contractor', 'Close', {
+          duration: 2000,
+        });
+      }
+    );
   }
 }
