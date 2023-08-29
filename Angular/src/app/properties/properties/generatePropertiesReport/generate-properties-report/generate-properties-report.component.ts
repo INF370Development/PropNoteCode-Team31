@@ -86,7 +86,7 @@ getAllRecoveries() {
       return property.recoveries.reduce((total, recovery) => total + recovery.recoveryAmount, 0);
     });
 
-    const chartOptions: ChartOptions = { // Define the chart options
+   /* const chartOptions: ChartOptions = { // Define the chart options
       scales: {
         y: {
           beginAtZero: true // Adjust this to your requirements
@@ -107,7 +107,7 @@ getAllRecoveries() {
         }]
       },
       options: chartOptions // Use the defined chart options
-    });
+    });*/
   });
 }*/
 
