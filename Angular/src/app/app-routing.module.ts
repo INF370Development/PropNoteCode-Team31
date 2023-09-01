@@ -14,6 +14,7 @@ import { PropertiesComponent } from './properties/properties/properties.componen
 import { ViewPropertiesComponent } from './properties/properties/viewProperties/view-properties/view-properties.component';
 import { GeneratePropertiesReportComponent } from './properties/properties/generatePropertiesReport/generate-properties-report/generate-properties-report.component';
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
+import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
 //Tenants
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
@@ -66,6 +67,7 @@ const routes: Routes = [
   { path: 'viewProperties/:id', component: ViewPropertiesComponent },
   { path: 'generateProperties', component: GeneratePropertiesReportComponent },
   { path: 'viewAllProperties', component: ViewAllPropertiesComponent },
+  { path: 'mapProperties', component: MapPropertiesComponent},
   //Tenants
   { path: 'tenants', component: TenantsComponent },
   { path: 'viewTenants', component: ViewTenantsComponent },

@@ -54,5 +54,25 @@
         </button>
       </mat-card-actions>
     </mat-card>
-  </div></mat-grid-list
->
+  </div>
+  <div class="cards">
+    <mat-card class="mapCard">
+      <mat-card-header>
+        <mat-card-title>Map of Properties</mat-card-title>
+        <mat-card-subtitle>View all the properties on the map</mat-card-subtitle>
+      </mat-card-header>
+      <mat-icon class="icon">map</mat-icon>
+      <mat-card-content>
+        <p>
+          Map of all the industrial properties. The rest of the
+          information that we need to establish.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>
+          <a mat-list-item [routerLink]="'/mapProperties'">MAP</a>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</mat-grid-list>
