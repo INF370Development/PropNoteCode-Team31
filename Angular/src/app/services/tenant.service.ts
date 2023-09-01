@@ -12,7 +12,7 @@ export class TenantService {
   constructor(private httpClient: HttpClient) {}
 
   //TENANTS
-  apiUrl = 'http://localhost:7251/api/';
+  apiUrl = 'https://localhost:7251/api/';
 
   httpOptions = {
     headers: new HttpHeaders({
