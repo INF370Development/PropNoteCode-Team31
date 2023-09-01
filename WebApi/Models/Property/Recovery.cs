@@ -15,10 +15,13 @@
         public int RecoveryTypeID { get; set; }
         public string RecoveryTypeDescription { get; set; }
     }
+    public class RecoveryTypeRequest
+    {
+        public string RecoveryTypeDescription { get; set; }
+    }
 
     public class RecoveryRequest
     {
-        public int PropertyID { get; set; }
         public int RecoveryTypeID { get; set; }
         public string RecoveryDescription { get; set; }
         public decimal RecoveryAmount { get; set; }

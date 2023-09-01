@@ -5,6 +5,16 @@
   Return
 </button>
 <br>
+
+<ngx-slick-carousel class="carousel-container" [config]="slideConfig">
+  <div ngxSlickItem *ngFor="let image of propertyDetail.propertyImage" class="slide">
+    <img [src]="getImageUrl(image.imageData)" class="image" alt="Property Image" width="100%">
+  </div>
+</ngx-slick-carousel>
+
+<br>
+<br>
+
 <button mat-raised-button color="accent" (click)="openAddImageModal()">ADD IMAGE</button>
 
 <div class="container">
@@ -39,6 +49,8 @@
   </div>
 </div>
 </div>
+</div>
+<div class="container">
  <!-- Display Recoveries -->
  <div class="card">
   <div class="details">
@@ -46,7 +58,12 @@
     <div *ngFor="let recovery of recoveries">
       <h5>Recovery Description: {{ recovery.recoveryDescription }}</h5>
       <h5>Recovery Amount: R {{ recovery.recoveryAmount }}</h5>
+<h5>Recovery Type: {{ recovery.recoveryType.recoveryTypeDescription }} </h5>
+      <mat-divider></mat-divider>
     </div>
+    <div class="buttons">
+      <button mat-raised-button color="accent" (click)="openAddRecoveriesModal()">Add Recovery</button>
+  </div>
   </div>
 </div>
 
@@ -55,10 +72,20 @@
   <div class="details">
     <h2>Inspections</h2>
     <div *ngFor="let inspection of inspections">
-      <h5>Inspection Description: {{ inspection.inspectionDescription }}</h5>
+      <h4>{{ inspection.inspectionDescription }}</h4>
       <h5>Inspection Date: {{ inspection.inspectionDate | date }}</h5>
       <h5>Inspection Time: {{ inspection.inspectionTime }}</h5>
+      <h5>Inspection Type: {{inspection.inspectionType.inspectionTypeName}}</h5>
+      <h5>Inspection Status: {{inspection.inspectionStatus.inspectionStatusName}}</h5>
+      <div>
+        <button class="updateButtons">Update Inspection</button>
+        <mat-divider></mat-divider>
     </div>
+    <br>
+    </div>
+    <div class="buttons">
+      <button mat-raised-button color="accent" (click)="openAddInspectionModal()">Add Inspection</button>
+  </div>
   </div>
 </div>
 </div>

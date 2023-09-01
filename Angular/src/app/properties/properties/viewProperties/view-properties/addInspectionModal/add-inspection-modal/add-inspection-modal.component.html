@@ -1,20 +1,69 @@
-<h1 mat-dialog-title>Add Inspection <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h1>
-<div mat-dialog-content>
-    <h3>Please enter all required details to add a new inspection!</h3>
-    <mat-form-field class="form">
-        <h3>Inspection Description:</h3>
-        <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form">
-        <h3>Inspection Date:</h3>
-        <input matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Add New Inspection <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+    <form (submit)="AddInspection()">
+      <mat-form-field class="form-field">
+        <label>Description:</label>
+        <input
+          matInput
+          [(ngModel)]="inspectionModal.inspectionDescription"
+          name="inspectionDescription"
+          required
+          maxlength="50"
+          [formControl]="inspectionDescription"
+        />
+        <mat-error *ngIf="inspectionDescription.invalid">{{getErrorMessageDescription()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Date</label>
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          [(ngModel)]="inspectionModal.inspectionDate"
+          name="inspectionDate"
+          required
+          (click)="datepicker.open()"
+        />
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker></mat-datepicker>
+        <mat-error *ngIf="inspectionDate.invalid">{{ getErrorMessageDate() }}</mat-error>
+      </mat-form-field>
 
-</div>
-<div class="end">
-    <button mat-raised-button color="accent">Add</button>
-    <button mat-raised-button color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+      <mat-form-field class="form-field">
+        <label>Time:</label>
+        <input
+        placeholder="00:00"
+          matInput
+          [(ngModel)]="inspectionModal.inspectionTime"
+          name="inspectionTime"
+          required
+        />
+        <mat-error *ngIf="inspectionTime.invalid">{{ getErrorMessageTime() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Status:</label>
+        <mat-select [(ngModel)]="inspectionModal.inspectionStatus" name="inspectionStatus" (selectionChange)="updateSelectedInspectionStatus($event.value)">
+          <mat-option *ngFor="let inspectionStatus of inspectionStatuses" [value]="inspectionStatus">{{ inspectionStatus.inspectionStatusName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Type:</label>
+        <mat-select [(ngModel)]="inspectionModal.inspectionType" name="inspectionType" (selectionChange)="updateSelectedInspectionType($event.value)">
+          <mat-option *ngFor="let inspectionType of inspectionTypes" [value]="inspectionType">{{ inspectionType.inspectionTypeName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <div class="modal-actions">
+
+        <button mat-raised-button type="submit" color="accent" (click)="sendToBackend()">
+          Add Property
+        </button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
+
+      </div>
+    </form>
   </div>
+</div>

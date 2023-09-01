@@ -1,9 +1,9 @@
 export class Inspection {
   inspectionID: number = 0;
-  inspectionTypeID?: number = 0;
+  inspectionTypeID: number = 0;
   propertyID: number = 0;
   employeeID?: number = 0;
-  inspectionStatusID?: number = 0;
+  inspectionStatusID: number = 0;
   inspectionDescription: string = "";
   inspectionDate: Date = new Date();
   inspectionTime: string = ""; // You can use string for TimeSpan representation

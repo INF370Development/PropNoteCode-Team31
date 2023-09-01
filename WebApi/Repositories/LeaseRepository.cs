@@ -2,6 +2,7 @@
 using WebApi.Interfaces;
 using WebApi.Models.Lease;
 using WebApi.Models;
+using WebApi.Models.Property;
 
 namespace WebApi.Repositories
 {
@@ -25,7 +26,7 @@ namespace WebApi.Repositories
 
         public async Task<Lease[]> GetAllLeasesAsync()
         {
-            IQueryable<Lease> query = _appDbContext.Lease.Include(x => x.Property).Include(x => x.Tenant);
+            IQueryable<Lease> query = _appDbContext.Lease;
             return await query.ToArrayAsync();
         }
 

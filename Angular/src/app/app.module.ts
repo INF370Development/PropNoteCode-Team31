@@ -82,6 +82,8 @@ import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenan
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
+import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -127,7 +129,6 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     DeleteTenantDialogComponent,
     DeleteInspectionDialogComponent,
     DeleteRecoveriesDialogComponent,
-    AddRecoveriesModalComponent,
     AddInspectionModalComponent,
     AddTenantModalComponent,
     AddImageModalComponent,
@@ -154,6 +155,8 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     ContractorTreeComponent,
     GenerateEmployeeReportComponent,
     ChatbotComponent,
+    ViewLeasesComponent,
+    AddRecoveriesModalComponent,
 
   ],
   imports: [
@@ -173,6 +176,7 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     MatRippleModule,
     LoginFailedComponent,
     MatTableModule,
+    SlickCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

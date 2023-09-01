@@ -21,18 +21,27 @@
         public string InspectionStatusName { get; set; }
     }
 
+    public class InspectionStatusRequest
+    {
+        public string InspectionStatusName { get; set; }
+    }
+
     public class InspectionType
     {
         public int InspectionTypeID { get; set; }
         public string InspectionTypeName { get; set; }
     }
 
+    public class InspectionTypeRequest
+    {
+        public string InspectionTypeName { get; set; }
+    }
+
     public class InspectionRequest
     {
-        public int PropertyID { get; set; }
         public string InspectionDescription { get; set; }
         public DateTime InspectionDate { get; set; }
-        public TimeSpan InspectionTime { get; set; }
+        public long InspectionTimeTicks { get; set; }
         public int InspectionStatusID { get; set; }
         public int InspectionTypeID { get; set; }
     }

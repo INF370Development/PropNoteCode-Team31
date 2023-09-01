@@ -16,20 +16,20 @@
         public WebApi.Models.Broker.Broker Broker { get; set; }
         public virtual ICollection<Inspection> Inspections { get; set; }
         public virtual ICollection<Recovery> Recoveries { get; set; }
+        public virtual ICollection<PropertyImage> PropertyImages { get; set; }
 
     }
 
     public class PropertyImage
     {
-        public int PropertyImageId { get; set; } // Primary key
+        public int PropertyImageID { get; set; } // Primary key
 
         // Other properties
         public string ImageName { get; set; }
-        public byte[] ImageData { get; set; }
+        public string ImageData { get; set; }
 
         // Foreign key
-        public int PropertyId { get; set; }
-        public Property Property { get; set; }
+        public int PropertyID { get; set; }
     }
 
     public class PropertyStatus

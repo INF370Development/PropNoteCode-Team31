@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PropertiesService } from 'src/app/services/properties.service';
 
@@ -9,62 +9,56 @@ import { PropertiesService } from 'src/app/services/properties.service';
   styleUrls: ['./add-image-modal.component.scss']
 })
 export class AddImageModalComponent {
+  @Output() imageUploaded = new EventEmitter<void>();
   fileName = '';
+  fileUrl: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null; // Add this variable
 
   constructor(
     public dialogRef: MatDialogRef<AddImageModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { propertyId: number }, // Inject propertyId
+    @Inject(MAT_DIALOG_DATA) public data: { propertyId: number },
     private _propertiesService: PropertiesService,
     private http: HttpClient,
   ) {}
 
   onFileSelected(event: any)  {
     event.preventDefault();
-    const file:File = event.target.files[0];
-console.log('Files:', file)
-    if (file) {
+    this.selectedFile = event.target.files[0]; // Save the selected file
 
-        this.fileName = file.name;
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
 
-        const formData = new FormData();
-
-        formData.append("thumbnail", file);
-
-        const upload$ = this._propertiesService.uploadPropertyImage(this.data.propertyId, formData)
-
-        upload$.subscribe();
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.fileUrl = e.target.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
+  }
+
+  closeModal() {
+    this.dialogRef.close();
+  }
+
+  uploadFile() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append("photo", this.selectedFile, this.selectedFile.name);
+
+      const upload$ = this._propertiesService.uploadPropertyImage(this.data.propertyId, formData);
+
+      upload$.subscribe(
+        response => {
+          // Handle successful response
+          this.imageUploaded.emit();
+          this.dialogRef.close();
+          location.reload();
+        },
+        error => {
+          console.error('Error uploading image:', error);
+          // Handle error
+        }
+      );
+    }
+  }
 }
-}
-
-//   uploadImage(event: Event): void {
-//     event.preventDefault();
-//     console.log('Upload button clicked.');
-// debugger;
-//     const imageInput = event.target as HTMLInputElement;
-//     console.log('Selected files:', imageInput.files);
-
-//     if (!imageInput.files || !imageInput.files[0]) {
-//       alert('Please select an image.');
-//       return;
-//     }
-
-//     const selectedFile = imageInput.files[0];
-// console.log("Selected File:", selectedFile);
-
-//     const formData = new FormData();
-//     formData.append('photo', selectedFile);
-
-//     // Assuming this.selectedPropertyId is set in your component
-//     this._propertiesService.uploadPropertyImage(this.data.propertyId, formData)
-//       .subscribe(
-//         response => {
-//           alert('Image uploaded successfully');
-//           this.dialogRef.close();
-//         },
-//         error => {
-//           console.error('Error uploading image:', error);
-//           alert('Error uploading image. Please try again.');
-//         }
-//       );
-//   }

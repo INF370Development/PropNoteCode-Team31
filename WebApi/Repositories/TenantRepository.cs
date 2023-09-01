@@ -24,7 +24,7 @@ namespace WebApi.Repositories
 
         public async Task<Tenant[]> GetAllTenantsAsync()
         {
-            IQueryable<Tenant> query = (IQueryable<Tenant>)_appDbContext.Tenant.Include(x => x.Leases).Include(t => t.User);
+            IQueryable<Tenant> query = (IQueryable<Tenant>)_appDbContext.Tenant.Include(t => t.User).Include(t => t.Leases);
             return await query.ToArrayAsync();
         }
 

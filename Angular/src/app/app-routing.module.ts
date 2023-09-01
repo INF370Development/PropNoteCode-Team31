@@ -14,6 +14,7 @@ import { PropertiesComponent } from './properties/properties/properties.componen
 import { ViewPropertiesComponent } from './properties/properties/viewProperties/view-properties/view-properties.component';
 import { GeneratePropertiesReportComponent } from './properties/properties/generatePropertiesReport/generate-properties-report/generate-properties-report.component';
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
+import { AddInspectionModalComponent } from './properties/properties/viewProperties/view-properties/addInspectionModal/add-inspection-modal/add-inspection-modal.component';
 //Tenants
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
@@ -50,6 +51,8 @@ import { HelpproComponent } from './profile/profile/help/helppro/helppro.compone
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
 //Chatbot
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
+import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
+import { AddRecoveriesModalComponent } from './properties/properties/viewProperties/view-properties/addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 
 const routes: Routes = [
   //Home
@@ -66,6 +69,8 @@ const routes: Routes = [
   { path: 'viewProperties/:id', component: ViewPropertiesComponent },
   { path: 'generateProperties', component: GeneratePropertiesReportComponent },
   { path: 'viewAllProperties', component: ViewAllPropertiesComponent },
+  { path: 'addInspection', component: AddInspectionModalComponent},
+  { path: 'addRecoveries', component: AddRecoveriesModalComponent},
   //Tenants
   { path: 'tenants', component: TenantsComponent },
   { path: 'viewTenants', component: ViewTenantsComponent },
@@ -101,7 +106,9 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationsComponent },
   { path: 'help', component: HelpproComponent },
   //Chatbot
-  { path: 'chatbot', component: ChatbotComponent}
+  { path: 'chatbot', component: ChatbotComponent},
+  //Leases
+  { path: 'viewLeases', component: ViewLeasesComponent }
 ];
 
 @NgModule({

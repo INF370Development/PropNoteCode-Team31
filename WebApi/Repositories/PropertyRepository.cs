@@ -26,7 +26,7 @@ namespace WebApi.Repositories
         public async Task<Property[]> GetAllPropertiesAsync()
         {
             // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
-            IQueryable<Property> query = (IQueryable<Property>)_appDbContext.Property.Include(x => x.Broker).Include(x => x.Inspections).Include(x => x.Recoveries);
+            IQueryable<Property> query = (IQueryable<Property>)_appDbContext.Property.Include(x => x.Broker).Include(x => x.Inspections).Include(x => x.Recoveries).Include(x => x.PropertyImages);
             return await query.ToArrayAsync();
         }
 
@@ -76,7 +76,7 @@ namespace WebApi.Repositories
         public async Task<List<Recovery>> GetAllRecoveriesForPropertyAsync(int propertyID)
         {
             return await _appDbContext.Recovery
-                .Where(inspection => inspection.PropertyID == propertyID).Include(x => x.RecoveryType.RecoveryTypeDescription)
+                .Where(inspection => inspection.PropertyID == propertyID).Include(x => x.RecoveryType)
                 .ToListAsync();
         }
 
