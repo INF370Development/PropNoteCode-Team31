@@ -411,19 +411,17 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEM](
 	[ProblemID] [int] IDENTITY(1,1) NOT NULL,
-	[PropertyID] [int] NOT NULL,
-	[EmployeeID] [int] NOT NULL,
-	[TenantID] [int] NOT NULL,
-	[CorrespondanceID] [int] NOT NULL,
+	[InspectionID] [int] NOT NULL,
 	[ProblemStatusID] [int] NOT NULL,
-	[ProblemSubject] [varchar](100) NULL,
-	[ProblemDescription] [varchar](max) NULL,
+	[ProblemSubject] [varchar](32) NULL,
+	[ProblemDescription] [varchar](100) NULL,
 	[ProblemDate] [date] NULL,
+	[ProblemSeverity] [varchar](20)
 PRIMARY KEY CLUSTERED 
 (
 	[ProblemID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[ProblemPhoto]    Script Date: 2023/07/27 11:38:26 ******/
 SET ANSI_NULLS ON
@@ -432,9 +430,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEMPHOTO](
 	[ProblemPhotoID] [int] IDENTITY(1,1) NOT NULL,
-	[ProblemPhotoTitle] [varchar](100) NULL,
-	[ProblemPhotoURL] [varchar](max) NULL,
-	[ProblemPhotoDate] [date] NULL,
+	[ProblemID] [int] NOT NULL,
+	[ImageName] [varchar](max) NULL,
+	[ImageData] [varchar] (max),
 PRIMARY KEY CLUSTERED 
 (
 	[ProblemPhotoID] ASC
@@ -447,7 +445,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEMSTATUS](
-	[ProblemStatusID] [int] NOT NULL,
+	[ProblemStatusID] [int] IDENTITY(1,1) NOT NULL,
 	[ProblemStatusName] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -461,45 +459,17 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEMVIDEO](
-	[ProblemVideoID] [int] NOT NULL,
-	[ProblemVideoTitle] [varchar](100) NULL,
-	[ProblemVideoURL] [varchar](max) NULL,
-	[ProblemVideoDate] [date] NULL,
+	[ProblemVideoID] [int] IDENTITY(1,1) NOT NULL,
+	[ProblemID] [int] NOT NULL,
+	[FileName] [nvarchar](255) NULL,
+	[ContentType] [nvarchar](100) NULL,
+	[UploadDate] [date] NULL,
+	[VideoData] [varchar](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ProblemVideoID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[PROBLEMVIDEOLINE]    Script Date: 2023/07/27 11:38:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[PROBLEMVIDEOLINE](
-	[ProblemID] [int] NOT NULL,
-	[ProblemVideoID] [int] NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[ProblemID] ASC,
-	[ProblemVideoID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[PROBLEMPHOTOLINE]    Script Date: 2023/07/27 11:38:26 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[PROBLEMPHOTOLINE](
-	[ProblemID] [int] NOT NULL,
-	[ProblemPhotoID] [int] NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[ProblemID] ASC,
-	[ProblemPhotoID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[PROPERTY]    Script Date: 2023/07/27 11:38:26 ******/
 SET ANSI_NULLS ON
@@ -533,7 +503,7 @@ CREATE TABLE [dbo].[PROPERTYIMAGE](
 	[PropertyImageID] [int] IDENTITY(1,1) NOT NULL,
 	[PropertyID] [int] NOT NULL,
 	[ImageName] [varchar](max) NULL,
-	[ImageData] [varbinary] (max),
+	[ImageData] [varchar] (max),
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyImageID] ASC
@@ -903,29 +873,14 @@ GO
 ALTER TABLE [dbo].[USERROLE]  WITH CHECK ADD FOREIGN KEY([RoleID])
 REFERENCES [dbo].[ROLE] ([RoleID])
 GO
-ALTER TABLE [dbo].[PROBLEMVIDEOLINE]  WITH CHECK ADD FOREIGN KEY([ProblemID])
+ALTER TABLE [dbo].[PROBLEMVIDEO]  WITH CHECK ADD FOREIGN KEY([ProblemID])
 REFERENCES [dbo].[PROBLEM] ([ProblemID])
 GO
-ALTER TABLE [dbo].[PROBLEMVIDEOLINE]  WITH CHECK ADD FOREIGN KEY([ProblemVideoID])
-REFERENCES [dbo].[PROBLEMVIDEO] ([ProblemVideoID])
-GO
-ALTER TABLE [dbo].[PROBLEMPHOTOLINE]  WITH CHECK ADD FOREIGN KEY([ProblemID])
+ALTER TABLE [dbo].[PROBLEMPHOTO]  WITH CHECK ADD FOREIGN KEY([ProblemID])
 REFERENCES [dbo].[PROBLEM] ([ProblemID])
 GO
-ALTER TABLE [dbo].[PROBLEMPHOTOLINE]  WITH CHECK ADD FOREIGN KEY([ProblemPhotoID])
-REFERENCES [dbo].[PROBLEMPHOTO] ([ProblemPhotoID])
-GO
-ALTER TABLE [dbo].[PROBLEM]  WITH CHECK ADD FOREIGN KEY([TenantID])
-REFERENCES [dbo].[TENANT] ([TenantID])
-GO
-ALTER TABLE [dbo].[PROBLEM]  WITH CHECK ADD FOREIGN KEY([EmployeeID])
-REFERENCES [dbo].[EMPLOYEE] ([EmployeeID])
-GO
-ALTER TABLE [dbo].[PROBLEM]  WITH CHECK ADD FOREIGN KEY([PropertyID])
-REFERENCES [dbo].[PROPERTY] ([PropertyID])
-GO
-ALTER TABLE [dbo].[PROBLEM]  WITH CHECK ADD FOREIGN KEY([CorrespondanceID])
-REFERENCES [dbo].[CORRESPONDANCE] ([CorrespondanceID])
+ALTER TABLE [dbo].[PROBLEM]  WITH CHECK ADD FOREIGN KEY([InspectionID])
+REFERENCES [dbo].[INSPECTION] ([InspectionID])
 GO
 ALTER TABLE [dbo].[PROBLEM]  WITH CHECK ADD FOREIGN KEY([ProblemStatusID])
 REFERENCES [dbo].[PROBLEMSTATUS] ([ProblemStatusID])
