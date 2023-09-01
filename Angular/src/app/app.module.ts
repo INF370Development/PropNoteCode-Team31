@@ -84,6 +84,7 @@ import { GenerateEmployeeReportComponent } from './employee/employee/generateEmp
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
 
 @NgModule({
   declarations: [
@@ -157,6 +158,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     ChatbotComponent,
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
+    ProblemsPageComponent,
 
   ],
   imports: [

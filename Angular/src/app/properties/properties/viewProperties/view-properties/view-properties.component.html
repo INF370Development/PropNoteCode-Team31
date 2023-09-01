@@ -5,13 +5,13 @@
   Return
 </button>
 <br>
-
+<div class="container">
 <ngx-slick-carousel class="carousel-container" [config]="slideConfig">
   <div ngxSlickItem *ngFor="let image of propertyDetail.propertyImage" class="slide">
     <img [src]="getImageUrl(image.imageData)" class="image" alt="Property Image" width="100%">
   </div>
 </ngx-slick-carousel>
-
+</div>
 <br>
 <br>
 
@@ -19,7 +19,6 @@
 
 <div class="container">
 <div class="card">
-  <div class="left">
             <div class="details">
               <h2>Property</h2>
             <h5>Address: {{propertyDetail.buildingNumber}} {{propertyDetail.street}}, {{propertyDetail.suburb}}</h5>
@@ -33,10 +32,8 @@
             </div>
 
     </div>
-  </div>
 </div>
 <div class="card">
-  <div class="right">
     <div class="details">
       <h2>Broker</h2>
     <h4>{{propertyDetail.broker.name}} {{propertyDetail.broker.surname}}</h4>
@@ -49,7 +46,7 @@
   </div>
 </div>
 </div>
-</div>
+
 <div class="container">
  <!-- Display Recoveries -->
  <div class="card">
@@ -78,9 +75,9 @@
       <h5>Inspection Type: {{inspection.inspectionType.inspectionTypeName}}</h5>
       <h5>Inspection Status: {{inspection.inspectionStatus.inspectionStatusName}}</h5>
       <div>
-        <button class="updateButtons" *ngIf="inspection.inspectionStatus.inspectionStatusName !== 'Completed'">Update Inspection</button>
-        <button class="updateButtons" *ngIf="inspection.inspectionStatus.inspectionStatusName === 'Completed'" (click)="openReportProblemModal()">Report Problem</button>
-        <mat-divider></mat-divider>
+        <button class="button-38" *ngIf="inspection.inspectionStatus.inspectionStatusName !== 'Completed'">Update Inspection</button>
+        <button class="button-38" *ngIf="inspection.inspectionStatus.inspectionStatusName === 'Completed'" [routerLink]="['/problemsPage', inspection.inspectionID]">Report Problem</button>
+
     </div>
     <br>
     </div>

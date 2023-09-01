@@ -1,0 +1,56 @@
+<div fxLayout="row" fxLayoutGap="24px" class="container">
+  <!-- Left container for adding problems -->
+  <div fxFlex="30%">
+    <div class="add-problem">
+      <h2>Add New Problem</h2>
+      <form (submit)="addProblem()">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Subject</mat-label>
+            <input matInput [(ngModel)]="newProblem.problemSubject" name="problemSubject" required>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="newProblem.problemDescription" name="problemDescription" required></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Severity</mat-label>
+            <input matInput [(ngModel)]="newProblem.problemSeverity" name="problemSeverity" required>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" type="submit">Add Problem</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right container for displaying problems in a table -->
+  <div fxFlex="70%">
+    <h2>Problems</h2>
+    <table mat-table [dataSource]="problems">
+      <!-- Problem Subject Column -->
+      <ng-container matColumnDef="problemSubject">
+        <th mat-header-cell *matHeaderCellDef>Subject</th>
+        <td mat-cell *matCellDef="let problem">{{ problem.problemSubject }}</td>
+      </ng-container>
+
+      <!-- Problem Description Column -->
+      <ng-container matColumnDef="problemDescription">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let problem">{{ problem.problemDescription }}</td>
+      </ng-container>
+
+      <!-- Problem Severity Column -->
+      <ng-container matColumnDef="problemSeverity">
+        <th mat-header-cell *matHeaderCellDef>Severity</th>
+        <td mat-cell *matCellDef="let problem">{{ problem.problemSeverity }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

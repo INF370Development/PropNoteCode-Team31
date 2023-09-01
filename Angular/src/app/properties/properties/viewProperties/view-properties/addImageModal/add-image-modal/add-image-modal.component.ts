@@ -16,7 +16,7 @@ export class AddImageModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AddImageModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { propertyId: number },
+    @Inject(MAT_DIALOG_DATA) public data: { propertyID: number },
     private _propertiesService: PropertiesService,
     private http: HttpClient,
   ) {}
@@ -45,7 +45,7 @@ export class AddImageModalComponent {
       const formData = new FormData();
       formData.append("photo", this.selectedFile, this.selectedFile.name);
 
-      const upload$ = this._propertiesService.uploadPropertyImage(this.data.propertyId, formData);
+      const upload$ = this._propertiesService.uploadPropertyImage(this.data.propertyID, formData);
 
       upload$.subscribe(
         response => {

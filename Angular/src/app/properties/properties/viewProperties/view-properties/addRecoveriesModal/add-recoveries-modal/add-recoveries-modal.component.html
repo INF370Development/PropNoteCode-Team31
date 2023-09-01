@@ -1,6 +1,6 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Add New Inspection <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+    <h2>Add New Recovery <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="AddRecovery()">
       <mat-form-field class="form-field">
         <label>Description:</label>
@@ -38,7 +38,7 @@
       <div class="modal-actions">
 
         <button mat-raised-button type="submit" color="accent" (click)="sendToBackend()">
-          Add Property
+          Add Recovery
         </button>
         <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 

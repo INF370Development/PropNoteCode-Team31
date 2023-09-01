@@ -520,6 +520,97 @@ namespace WebApi.Controllers
             }
         }
 
+
+        [HttpPost("AddProblemStatus")]
+        public async Task<ActionResult> AddProblemStatus(ProblemStatusRequest problemStatusRequest)
+        {
+            var problemStatus = new ProblemStatus
+            {
+                ProblemStatusName = problemStatusRequest.ProblemStatusName,
+            };
+            try
+            {
+                await _propertyRepository.AddProblemStatus(problemStatus);
+                return Ok(problemStatus);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpPost]
+        [Route("AddProblem/{inspectionID}")]
+        public async Task<IActionResult> AddProblem(int inspectionID, ProblemRequest problemRequest)
+        {
+            try
+            {
+                var inspection = await _context.Inspection.FindAsync(inspectionID);
+                if (inspection == null)
+                {
+                    return NotFound($"The Property with ID {inspectionID} does not exist");
+                }
+
+                var problem = new Problem
+                {
+                    InspectionID = inspectionID,
+                    ProblemDate = DateTime.Now,
+                    ProblemDescription = problemRequest.ProblemDescription,
+                    ProblemSeverity = problemRequest.ProblemSeverity,
+                    ProblemStatusID = problemRequest.ProblemStatusID,
+                    ProblemSubject = problemRequest.ProblemSubject,
+                    
+                };
+
+                // Assuming _propertyRepository.AddRecovery handles saving to the database
+                await _propertyRepository.AddProblem(problem);
+
+                return Ok(problem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpGet("GetAllProblemStatuses")]
+        public async Task<ActionResult<IEnumerable<ProblemStatus>>> GetAllProblemStatuses()
+        {
+            try
+            {
+                var problemStatuses = await _propertyRepository.GetAllProblemStatusesAsync();
+                return Ok(problemStatuses);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpGet("GetAllProblemsForInspection/{inspectionID}")]
+        public async Task<IActionResult> GetAllProblemsForInspection(int inspectionID)
+        {
+            try
+            {
+                // Retrieve all problems associated with the given inspection ID
+                var problems = await _context.Problem
+                    .Where(p => p.InspectionID == inspectionID).Include(x => x.Inspection)
+                    .ToListAsync();
+
+                if (problems == null || !problems.Any())
+                {
+                    return NotFound("No problems found for the specified inspection.");
+                }
+
+                return Ok(problems);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
+
         [HttpGet]
         [Route("GetPropertyImagesByPropertyID/{propertyID}")]
         public async Task<IActionResult> GetPropertyImagesByPropertyID(int propertyID)

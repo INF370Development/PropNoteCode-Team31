@@ -5,6 +5,7 @@ import { map, Observable, Subject } from 'rxjs';
 import { Recovery, RecoveryType } from '../shared/Property/Recovery';
 import { Inspection, InspectionRequest, InspectionStatus, InspectionType } from '../shared/Property/Inspection';
 import { PropertyImage } from '../shared/Property/PropertyImage';
+import { Problem } from '../shared/Property/Problem';
 
 @Injectable({
   providedIn: 'root',
@@ -113,4 +114,16 @@ export class PropertiesService {
       .post(`https://localhost:7251/api/Property/AddRecovery/${propertyID}`, recovery)
       .pipe(map((result) => result));
   }
+
+  AddProblem(inspectionID: number, problem: Problem) {
+    return this._httpClient
+      .post(`https://localhost:7251/api/Property/AddProblem/${inspectionID}`, problem)
+      .pipe(map((result) => result));
+  }
+
+  getProblemsforInspection(inspectionID: number): Observable<Problem[]> {
+    return this._httpClient.get<Problem[]>(`https://localhost:7251/api/Property/GetAllProblemsForInspection/${inspectionID}`);
+  }
+
+
 }

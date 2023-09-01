@@ -36,6 +36,8 @@ namespace WebApi.Repositories
         public DbSet<InspectionType> InspectionType { get; set; }
         public DbSet<InspectionStatus> InspectionStatus { get; set; }
         public DbSet<RecoveryType> RecoveryType { get; set; }
+        public DbSet<Problem> Problem { get; set; }
+        public DbSet<ProblemStatus> ProblemStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

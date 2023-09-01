@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -33,6 +33,8 @@ NgModule({
   ],
 });
 
+
+declare var $: any;
 @Component({
   selector: 'app-view-properties',
   templateUrl: './view-properties.component.html',
@@ -45,7 +47,7 @@ export class ViewPropertiesComponent implements AfterViewInit {
 
   slideConfig = { slidesToShow: 1, slidesToScroll: 1 };
 
-  @ViewChild('slickModal') slickModal: any;
+  @ViewChild('slickModal') slickModal!: ElementRef;
 
 
   slickInit(e : any) {
@@ -111,10 +113,6 @@ loadPropertyImages() {
     .subscribe((propertyImages) => {
       this.propertyDetail.propertyImage = propertyImages;
 
-      // Initialize the slick carousel after images are loaded
-      setTimeout(() => {
-        this.slickModal.slickGoTo(0);
-      }, 0);
     });
 }
 

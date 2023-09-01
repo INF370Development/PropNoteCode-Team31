@@ -166,5 +166,22 @@ namespace WebApi.Repositories
             return await query.ToArrayAsync();
         }
 
+        public async Task AddProblemStatus(ProblemStatus problemStatus)
+        {
+            _appDbContext.Add(problemStatus);
+            await _appDbContext.SaveChangesAsync();
+        }
+        public async Task AddProblem(Problem problem)
+        {
+            _appDbContext.Add(problem);
+            await _appDbContext.SaveChangesAsync();
+        }
+        public async Task<ProblemStatus[]> GetAllProblemStatusesAsync()
+        {
+            // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
+            IQueryable<ProblemStatus> query = (IQueryable<ProblemStatus>)_appDbContext.ProblemStatus;
+            return await query.ToArrayAsync();
+        }
+
     }
 }
