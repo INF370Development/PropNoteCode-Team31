@@ -6,6 +6,9 @@ using WebApi.Models.Data;
 using WebApi.Models;
 using WebApi.Models.Users;
 using WebApi.Models.Property;
+using WebApi.Models.Admin;
+using WebApi.Models.Maintenance;
+
 namespace WebApi.Repositories
 {
     public class AppDbContext : DbContext
@@ -28,6 +31,14 @@ namespace WebApi.Repositories
         public DbSet<Role> Role { get; set; }
         public DbSet<Inspection> Inspection { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<SnagListItem> SnagListItem { get; set; }
+        public DbSet<SnagList> SnagList { get; set; }
+        public DbSet<SnagListItemLine> SnagListItemLine { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<MaintenanceType> MaintenanceType { get; set; }
+        public DbSet<MaintenanceStatus> MaintenanceStatus { get; set; }
+        public DbSet<MaintenanceNote> MaintenanceNote { get; set; }
+        public DbSet<Maintenance> Maintenance { get; set; }
         public DbSet<Recovery> Recovery { get; set; }
         public DbSet<Access> Access { get; set; }
         public DbSet<UserAccess> UserAccess { get; set; }
