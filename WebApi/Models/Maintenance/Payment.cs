@@ -6,8 +6,8 @@ namespace WebApi.Models.Maintenance
     {
         [Key]
         public int PaymentID { get; set; }
-        public int MaintenaceID { get; set; }
-        public double Amount { get; set; }
+        public int MaintenanceID { get; set; }
+        public string Amount { get; set; }
 
     }
 }

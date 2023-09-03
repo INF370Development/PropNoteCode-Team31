@@ -22,7 +22,7 @@ namespace WebApi.Repositories
 
         public async Task<Payment> AddPayment(Payment item)
         {
-            _appDbContext.Payment.Add(item);
+            _appDbContext.Add(item);
             await _appDbContext.SaveChangesAsync();
             return item;
         }
@@ -33,15 +33,15 @@ namespace WebApi.Repositories
         }
         public async Task<Payment> GetPaymentByID(int PaymentID)
         {
-            IQueryable<Payment> query = _appDbContext.Payment.Where(x => x.MaintenaceID == PaymentID);
+            IQueryable<Payment> query = _appDbContext.Payment.Where(x => x.MaintenanceID == PaymentID);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Payment> EditPayment(int PaymentId,int MaintenanceId, double amount)
+        public async Task<Payment> EditPayment(int PaymentId,int MaintenanceId, string amount)
         {
             Payment x = (Payment)await GetPaymentByID(PaymentId);
             if (x != null)
             {
-                x.MaintenaceID = MaintenanceId;
+                x.MaintenanceID = MaintenanceId;
                 x.Amount = amount;
                 await _appDbContext.SaveChangesAsync();
             }
@@ -56,7 +56,7 @@ namespace WebApi.Repositories
 
         public async Task<MaintenanceType> AddMaintenanceType(MaintenanceType item)
         {
-            _appDbContext.MaintenanceType.Add(item);
+            _appDbContext.Add(item);
             await _appDbContext.SaveChangesAsync();
             return item;
         }
@@ -67,7 +67,7 @@ namespace WebApi.Repositories
         }
         public async Task<MaintenanceType> GetMaintenanceTypeByID(int MaintenanceTypeID)
         {
-            IQueryable<MaintenanceType> query = _appDbContext.MaintenanceType.Where(x => x.MaintenaceTypeID == MaintenanceTypeID);
+            IQueryable<MaintenanceType> query = _appDbContext.MaintenanceType.Where(x => x.MaintenanceTypeID == MaintenanceTypeID);
             return await query.FirstOrDefaultAsync();
         }
         public async Task<MaintenanceType> EditMaintenanceType(int MaintenanceTypeId, string MaintenanceTypeName)
@@ -75,7 +75,7 @@ namespace WebApi.Repositories
             MaintenanceType x = await GetMaintenanceTypeByID(MaintenanceTypeId);
             if (x != null)
             {
-                x.MaintenaceTypeName = MaintenanceTypeName;
+                x.MaintenanceTypeName = MaintenanceTypeName;
                 await _appDbContext.SaveChangesAsync();
             }
             return x;
@@ -90,7 +90,7 @@ namespace WebApi.Repositories
 
         public async Task<MaintenanceStatus> AddMaintenanceStatus(MaintenanceStatus item)
         {
-            _appDbContext.MaintenanceStatus.Add(item);
+            _appDbContext.Add(item);
             await _appDbContext.SaveChangesAsync();
             return item;
         }
@@ -101,7 +101,7 @@ namespace WebApi.Repositories
         }
         public async Task<MaintenanceStatus> GetMaintenanceStatusByID(int MaintenanceStatusID)
         {
-            IQueryable<MaintenanceStatus> query = _appDbContext.MaintenanceStatus.Where(x => x.MaintenaceStatusID == MaintenanceStatusID);
+            IQueryable<MaintenanceStatus> query = _appDbContext.MaintenanceStatus.Where(x => x.MaintenanceStatusID == MaintenanceStatusID);
             return await query.FirstOrDefaultAsync();
         }
         public async Task<MaintenanceStatus> EditMaintenanceStatus(int MaintenanceStatusId, string MaintenanceStatusName)
@@ -109,7 +109,7 @@ namespace WebApi.Repositories
             MaintenanceStatus x = await GetMaintenanceStatusByID(MaintenanceStatusId);
             if (x != null)
             {
-                x.MaintenaceStatusName = MaintenanceStatusName;
+                x.MaintenanceStatusName = MaintenanceStatusName;
                 await _appDbContext.SaveChangesAsync();
             }
             return x;
@@ -125,7 +125,7 @@ namespace WebApi.Repositories
 
         public async Task<MaintenanceNote> AddMaintenanceNote(MaintenanceNote item)
         {
-            _appDbContext.MaintenanceNote.Add(item);
+            _appDbContext.Add(item);
             await _appDbContext.SaveChangesAsync();
             return item;
         }
@@ -137,7 +137,7 @@ namespace WebApi.Repositories
         public async Task<MaintenanceNote> GetMaintenanceNoteByID(int MaintenanceNoteID)
         {
             IQueryable<MaintenanceNote> query = _appDbContext.MaintenanceNote
-                .Where(x => x.MaintenaceID == MaintenanceNoteID);
+                .Where(x => x.MaintenanceID == MaintenanceNoteID);
             return await query.FirstOrDefaultAsync();
         }
         public async Task<MaintenanceNote> EditMaintenanceNote(int MaintenanceNoteId,int maintenance, string MaintenanceNoteDescription)
@@ -145,8 +145,8 @@ namespace WebApi.Repositories
             MaintenanceNote x = await GetMaintenanceNoteByID(MaintenanceNoteId);
             if (x != null)
             {
-                x.MaintenaceID = maintenance;
-                x.MaintenaceNoteDescription = MaintenanceNoteDescription;
+                x.MaintenanceID = maintenance;
+                x.MaintenanceNoteDescription = MaintenanceNoteDescription;
                 await _appDbContext.SaveChangesAsync();
             }
             return x;
@@ -161,22 +161,25 @@ namespace WebApi.Repositories
 
         public async Task<Maintenance> AddMaintenance(Maintenance item)
         {
-            _appDbContext.Maintenance.Add(item);
+            _appDbContext.Add(item);
             await _appDbContext.SaveChangesAsync();
             return item;
         }
         public async Task<Maintenance[]> GetAllMaintenanceAsync()
         {
-            IQueryable<Maintenance> query = _appDbContext.Maintenance;
+            IQueryable<Maintenance> query = _appDbContext.Maintenance.
+                Include(t => t.Property).Include(t => t.Contractor).Include(t => t.MaintenanceStatus).
+                Include(t => t.MaintenanceType); 
             return await query.ToArrayAsync();
         }
         public async Task<Maintenance> GetMaintenanceByID(int MaintenanceID)
         {
             IQueryable<Maintenance> query = _appDbContext.Maintenance
-                .Where(x => x.MaintenaceID == MaintenanceID);
+                .Where(x => x.MaintenanceID == MaintenanceID).Include(t => t.Property).Include(t => t.Contractor).Include(t => t.MaintenanceStatus).
+                Include(t => t.MaintenanceType);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, DateTime Time)
+        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, TimeSpan Time)
         {
             Maintenance x = await GetMaintenanceByID(MaintenanceId);
             if (x != null)

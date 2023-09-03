@@ -11,7 +11,7 @@ namespace WebApi.Interfaces
         Task<Payment> AddPayment(Payment item);
         Task<Payment[]> GetAllPaymentAsync();
         Task<Payment> GetPaymentByID(int PaymentID);
-        Task<Payment> EditPayment(int PaymentId, int MaintenanceId, double amoun);
+        Task<Payment> EditPayment(int PaymentId, int MaintenanceId, string amoun);
         Task<Payment> DeletePaymentAsync(Payment item);
 
         Task<MaintenanceType> AddMaintenanceType(MaintenanceType item);
@@ -35,7 +35,7 @@ namespace WebApi.Interfaces
         Task<Maintenance> AddMaintenance(Maintenance item);
         Task<Maintenance[]> GetAllMaintenanceAsync();
         Task<Maintenance> GetMaintenanceByID(int MaintenanceID);
-        Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, DateTime Time);
+        Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, TimeSpan Time);
         Task<Maintenance> DeleteMaintenanceAsync(Maintenance item);
 
 

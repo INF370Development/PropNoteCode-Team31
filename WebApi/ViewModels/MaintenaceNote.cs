@@ -4,8 +4,8 @@ namespace WebApi.Models.Maintenance
 {
     public class MaintenanceNoteViewModel
     {
-        public int MaintenaceID { get; set; }
-        public string MaintenaceNoteDescription { get; set; }
+        public int MaintenanceID { get; set; }
+        public string MaintenanceNoteDescription { get; set; }
 
     }
 }

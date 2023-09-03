@@ -7,7 +7,7 @@ namespace WebApi.Interfaces
     {
 
         Task<bool> SaveChangesAsync();
-        Task AddSnagListItem(SnagListItem item);
+        /*Task AddSnagListItem(SnagListItem item);
         Task<SnagListItem[]> GetAllSnagListItemsAsync();
         Task<SnagListItem> GetSnagListItemByID(int SnagListItemID);
         Task<SnagListItem> EditSnagListItem(int SnagListItemId, string item);
@@ -23,6 +23,6 @@ namespace WebApi.Interfaces
         Task<SnagListItemLine> GetSnagListItemLineById(int SnagList, int item);
         Task<SnagListItemLine> AddItem(int snag, int list);
         Task<SnagListItemLine> DeleteSnagListItemLineAsync(SnagListItemLine item);
-        Task<int> CountSnagList();
+        Task<int> CountSnagList();*/
     }
 }

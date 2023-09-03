@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net.NetworkInformation;
 using WebApi.Interfaces;
+using WebApi.Models;
 using WebApi.Models.Admin;
 using WebApi.Models.Data;
 using WebApi.Models.Maintenance;
+using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
@@ -59,7 +61,7 @@ namespace WebApi.Controllers
 
             var payment = new Payment
             {
-                MaintenaceID = paymentViewModel.MaintenanceID,
+                MaintenanceID = paymentViewModel.MaintenanceID,
                 Amount = paymentViewModel.Amount
             };
 
@@ -82,8 +84,8 @@ namespace WebApi.Controllers
                     return NotFound($"The payment does not exist");
 
                 if (paymentViewModel.MaintenanceID != 0)
-                { existingPayment.MaintenaceID = paymentViewModel.MaintenanceID; }
-                if (paymentViewModel.Amount != 0)
+                { existingPayment.MaintenanceID = paymentViewModel.MaintenanceID; }
+                if (paymentViewModel.Amount != "0")
                 { existingPayment.Amount = paymentViewModel.Amount; }
 
                 return Ok(await _maintenanceRepository.SaveChangesAsync());
@@ -149,7 +151,7 @@ namespace WebApi.Controllers
 
             var maintenanceType = new MaintenanceType
             {
-                MaintenaceTypeName = maintenanceTypeViewModel.MaintenaceTypeName
+                MaintenanceTypeName = maintenanceTypeViewModel.MaintenanceTypeName
             };
 
             try
@@ -168,8 +170,8 @@ namespace WebApi.Controllers
             {
                 var existingMaintenanceType = await _maintenanceRepository.GetMaintenanceTypeByID(id);
                 if (existingMaintenanceType == null) return NotFound($"The MaintenanceType does not exist");
-                if (maintenanceTypeViewModel.MaintenaceTypeName != "")
-                { existingMaintenanceType.MaintenaceTypeName = maintenanceTypeViewModel.MaintenaceTypeName; }
+                if (maintenanceTypeViewModel.MaintenanceTypeName != "")
+                { existingMaintenanceType.MaintenanceTypeName = maintenanceTypeViewModel.MaintenanceTypeName; }
 
                 return Ok(await _maintenanceRepository.SaveChangesAsync());
             }
@@ -233,7 +235,7 @@ namespace WebApi.Controllers
 
             var maintenanceStatus = new MaintenanceStatus
             {
-                MaintenaceStatusName = maintenanceStatusViewModel.MaintenaceStatusName
+                MaintenanceStatusName = maintenanceStatusViewModel.MaintenanceStatusName
             };
 
             try
@@ -252,8 +254,8 @@ namespace WebApi.Controllers
             {
                 var existingMaintenanceStatus = await _maintenanceRepository.GetMaintenanceStatusByID(id);
                 if (existingMaintenanceStatus == null) return NotFound($"The MaintenanceStatus does not exist");
-                if (maintenanceStatusViewModel.MaintenaceStatusName != "")
-                { existingMaintenanceStatus.MaintenaceStatusName = maintenanceStatusViewModel.MaintenaceStatusName; }
+                if (maintenanceStatusViewModel.MaintenanceStatusName != "")
+                { existingMaintenanceStatus.MaintenanceStatusName = maintenanceStatusViewModel.MaintenanceStatusName; }
 
                 return Ok(await _maintenanceRepository.SaveChangesAsync());
             }
@@ -317,8 +319,8 @@ namespace WebApi.Controllers
 
             var maintenanceNote = new MaintenanceNote
             {
-                MaintenaceID=maintenanceNoteViewModel.MaintenaceID,
-                MaintenaceNoteDescription = maintenanceNoteViewModel.MaintenaceNoteDescription
+                MaintenanceID=maintenanceNoteViewModel.MaintenanceID,
+                MaintenanceNoteDescription = maintenanceNoteViewModel.MaintenanceNoteDescription
             };
 
             try
@@ -337,10 +339,10 @@ namespace WebApi.Controllers
             {
                 var existingMaintenanceNote = await _maintenanceRepository.GetMaintenanceNoteByID(id);
                 if (existingMaintenanceNote == null) return NotFound($"The MaintenanceStatus does not exist");
-                if (existingMaintenanceNote.MaintenaceNoteDescription != "")
-                { existingMaintenanceNote.MaintenaceNoteDescription = maintenanceNoteViewModel.MaintenaceNoteDescription; }
-                if (existingMaintenanceNote.MaintenaceID != 0)
-                { existingMaintenanceNote.MaintenaceID = maintenanceNoteViewModel.MaintenaceID; }
+                if (existingMaintenanceNote.MaintenanceNoteDescription != "")
+                { existingMaintenanceNote.MaintenanceNoteDescription = maintenanceNoteViewModel.MaintenanceNoteDescription; }
+                if (existingMaintenanceNote.MaintenanceID != 0)
+                { existingMaintenanceNote.MaintenanceID = maintenanceNoteViewModel.MaintenanceID; }
 
                 return Ok(await _maintenanceRepository.SaveChangesAsync());
             }
@@ -374,8 +376,28 @@ namespace WebApi.Controllers
         {
             try
             {
+                List<MaintenanceView> maintenances = new();
+            
                 var results = await _maintenanceRepository.GetAllMaintenanceAsync();
-                return Ok(results);
+                foreach (var maintenance in results)
+                {
+                    maintenances.Add(new MaintenanceView
+                    {
+                        MaintenanceID = maintenance.MaintenanceID,
+                        PropertyID = maintenance.PropertyID,
+                        ContractorID = maintenance.ContractorID,
+                        MaintenanceStatusID = maintenance.MaintenanceStatusID,
+                        MaintenanceTypeID = maintenance.MaintenanceTypeID,
+                        MaintenanceDate = maintenance.MaintenanceDate,
+                        Property = maintenance.Property,
+                        Contractor = maintenance.Contractor,
+                        MaintenanceStatus = maintenance.MaintenanceStatus,
+                        MaintenanceType = maintenance.MaintenanceType,
+                        MaintenanceNote = (MaintenanceNote) await  _maintenanceRepository.GetMaintenanceNoteByID(maintenance.MaintenanceID),
+                        Payment=(Payment) await _maintenanceRepository.GetPaymentByID(maintenance.MaintenanceID)
+                    }); ;
+                }
+                return Ok(maintenances);
             }
             catch (Exception)
             {

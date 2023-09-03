@@ -16,7 +16,7 @@ namespace WebApi.Controllers
         {
             _snagListRepository = snagListRepository;
         }
-
+        /*
         // SnagList Actions
 
         [HttpGet("GetAllSnagLists")]
@@ -79,8 +79,8 @@ namespace WebApi.Controllers
             {
                 PropertyId = snagListViewModel.PropertyId,
                 SnagListDescription=snagListViewModel.SnagListDescription,
-                Created=DateTime.Now,
-                Modified=DateTime.Now
+                SnagListCreated = DateTime.Now,
+                SnagListModified = DateTime.Now
             };
 
             try
@@ -110,7 +110,7 @@ namespace WebApi.Controllers
                 {
                     existingSnagList.PropertyId = snagListViewModel.PropertyId;
                 }
-                existingSnagList.Modified = DateTime.Now;
+                existingSnagList.SnagListModified = DateTime.Now;
                 if (await _snagListRepository.SaveChangesAsync() == true)
                 {
                     return Ok(existingSnagList);
@@ -299,6 +299,6 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-        }
+        }*/
     }
 }

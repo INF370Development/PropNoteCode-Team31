@@ -5,8 +5,8 @@ namespace WebApi.Models.Maintenance
     public class MaintenanceType
     {
         [Key]
-        public int MaintenaceTypeID { get; set; }
-        public string MaintenaceTypeName { get; set; }
+        public int MaintenanceTypeID { get; set; }
+        public string MaintenanceTypeName { get; set; }
 
     }
 }

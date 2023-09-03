@@ -4,7 +4,7 @@ namespace WebApi.Models.Maintenance
 {
     public class MaintenanceStatusViewModel
     {
-        public string MaintenaceStatusName { get; set; }
+        public string MaintenanceStatusName { get; set; }
 
     }
 }
