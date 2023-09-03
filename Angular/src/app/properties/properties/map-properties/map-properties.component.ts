@@ -23,9 +23,9 @@ export class MapPropertiesComponent  {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       })
     ],
-    zoom: 12,
-    /*JHB*/ center: { lat: -26.2041, lng: 28.0473 }
-    //center: { lat: 29.5595, lng: 24.9375 }
+    zoom: 6,
+    /*JHB center: { lat: -26.2041, lng: 28.0473 }*/
+    center: {lat: -29.0, lng: 24.0}
   }
 
   /*initMarkers() {
