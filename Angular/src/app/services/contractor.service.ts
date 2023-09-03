@@ -102,4 +102,38 @@ export class ContractorService {
         })
       );
   }
+
+  getContractorsGroupedByLocation(): Observable<Map<string, Contractor[]>> {
+    return this.httpClient
+      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
+      .pipe(
+        map((contractors) => {
+          const groupedContractors = new Map<string, Contractor[]>();
+          contractors.forEach((contractor) => {
+            if (!groupedContractors.has(contractor.areaOfBusiness)) {
+              groupedContractors.set(contractor.areaOfBusiness, []);
+            }
+            groupedContractors.get(contractor.areaOfBusiness)?.push(contractor);
+          });
+          return groupedContractors;
+        })
+      );
+  }
+
+  getContractorsGroupedByAvailability(): Observable<Map<string, Contractor[]>> {
+    return this.httpClient
+      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
+      .pipe(
+        map((contractors) => {
+          const groupedContractors = new Map<string, Contractor[]>();
+          contractors.forEach((contractor) => {
+            if (!groupedContractors.has(contractor.availability)) {
+              groupedContractors.set(contractor.availability, []);
+            }
+            groupedContractors.get(contractor.availability)?.push(contractor);
+          });
+          return groupedContractors;
+        })
+      );
+  }
 }

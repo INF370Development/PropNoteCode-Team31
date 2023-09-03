@@ -1,16 +1,51 @@
+Contractor Tree HTML:
 <h1>Contractor Hierarchy</h1>
 
-<div *ngFor="let specialty of groupedContractors.keys()">
-  <h2>{{ specialty }}</h2>
-  <mat-card *ngFor="let contractor of groupedContractors.get(specialty)">
-    <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
-    <mat-card-content>
-      <p>Email: {{ contractor.user.email }}</p>
-      <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
-      <!-- Add other contractor information as needed -->
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-tab-group>
+  <mat-tab label=" Contractor Type ">
+    <div *ngFor="let specialty of groupedContractors.keys()">
+      <h2>{{ specialty }}</h2>
+      <mat-card *ngFor="let contractor of groupedContractors.get(specialty)">
+        <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
+        <mat-card-content>
+          <p>Email: {{ contractor.user.email }}</p>
+          <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Location">
+    <div *ngFor="let location of groupedLocations.keys()">
+      <h2>{{ location }}</h2>
+      <div *ngFor="let contractor of groupedLocations.get(location)">
+        <mat-card>
+          <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
+          <mat-card-content>
+            <p>Email: {{ contractor.user.email }}</p>
+            <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Available">
+    <div *ngFor="let availability of groupedAvailability.keys()">
+      <h2>{{ availability }}</h2>
+      <div *ngFor="let contractor of groupedAvailability.get(availability)">
+        <mat-card>
+          <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
+          <mat-card-content>
+            <p>Email: {{ contractor.user.email }}</p>
+            <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
 
 <!--<mat-tree [dataSource]="treeDataSource" [treeControl]="treeControl">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
