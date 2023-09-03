@@ -50,18 +50,7 @@ export class CreateContractorModalComponent implements OnInit {
     private router: Router,
     private contractorTypeService: ContractorTypeService,
     private snackBar : MatSnackBar,
-  ) {
-    this.contractorForm = fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      areaOfBusiness: ['', Validators.required],
-      availability: ['', Validators.required],
-    });
-  }
+  ) {  }
 
   ngOnInit(): void {
     this.contractorTypeService.getContractorTypes().subscribe((contractorTypes) => {
@@ -75,24 +64,18 @@ export class CreateContractorModalComponent implements OnInit {
   }
 
   CreateContractor() {
-    if (this.contractorForm.valid) {
-      this.contractorService.createContractor(this.contractorModel).subscribe(
-        (response) => {
-          console.log('Contractor created successfully:', response);
-          this.snackBar.open('Contractor added successfully', 'Close', {
-            duration: 2000,
-          });
-        },
-        (error) => {
-          console.error('Error creating Contractor:', error);
-          this.snackBar.open('Error creating contractor', 'Close', {
-            duration: 2000,
-          }).afterDismissed().subscribe(() => {
-            this.closeModal;
-          });
-        }
-      );
-    }
+    this.contractorService.createContractor(this.contractorModel).subscribe(
+      (response) => {
+        console.log('Tenant created successfully:', response);
+        this.dialogRef.close();
+        location.reload();
+      },
+      (error) => {
+        console.error('Error creating tenant:', error);
+        this.dialogRef.close();
+        location.reload();
+      }
+    );
   }
 
   closeModal() {
@@ -194,59 +177,3 @@ export class CreateContractorModalComponent implements OnInit {
     return this.availability.hasError('availability') ? 'Not a valid availability' : '';
   }
 }
-
-
- /* CreateContractor() {
-    //debugger;
-    this.contractorService.createContractor(this.contractorModel).subscribe(
-      (response) => {
-        console.log('Contractor created successfully:', response);
-        this.dialogRef.close();
-        location.reload();
-      },
-      (error) => {
-        console.error('Error creating Contractor:', error);
-        this.dialogRef.close();
-        location.reload();
-      }
-    );
-  }*/
-
-  /*CreateContractor() {
-    this.contractorService.createContractor(this.contractorModel).subscribe(
-        (response) => {
-            console.log('Contractor created successfully:', response);
-            this.dialogRef.close();
-              location.reload();
-            this.snackBar.open('Contractor added successfully', 'Close', {
-                duration: 5000, 
-            });
-        },
-        (error) => {
-            console.error('Error creating Contractor:', error);
-            this.dialogRef.close();
-            this.snackBar.open('Error creating contractor', 'Close', {
-                duration: 5000, 
-            });
-        }
-    );
-  }*/
-
-   /*CreateContractor() {
-    this.contractorService.createContractor(this.contractorModel).subscribe(
-        (response) => {
-            console.log('Contractor created successfully:', response);
-            this.snackBar.open('Contractor added successfully', 'Close', {
-                duration: 2000, // Adjust the duration as needed
-            })
-        },
-        (error) => {
-            console.error('Error creating Contractor:', error);
-            this.snackBar.open('Error creating contractor', 'Close', {
-                duration: 2000, // Adjust the duration as needed
-            }).afterDismissed().subscribe(() => {
-                this.dialogRef.close();
-            });
-        }
-    );
-  }*/
