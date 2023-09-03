@@ -26,7 +26,7 @@ namespace WebApi.Repositories
         public async Task<Property[]> GetAllPropertiesAsync()
         {
             // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
-            IQueryable<Property> query = (IQueryable<Property>)_appDbContext.Property.Include(x => x.Broker).Include(x => x.Inspections).Include(x => x.Recoveries);
+            IQueryable<Property> query = (IQueryable<Property>)_appDbContext.Property.Include(x => x.Broker).Include(x => x.Inspections).Include(x => x.Recoveries).Include(x => x.PropertyImages);
             return await query.ToArrayAsync();
         }
 
@@ -76,7 +76,7 @@ namespace WebApi.Repositories
         public async Task<List<Recovery>> GetAllRecoveriesForPropertyAsync(int propertyID)
         {
             return await _appDbContext.Recovery
-                .Where(inspection => inspection.PropertyID == propertyID).Include(x => x.RecoveryType.RecoveryTypeDescription)
+                .Where(inspection => inspection.PropertyID == propertyID).Include(x => x.RecoveryType)
                 .ToListAsync();
         }
 
@@ -163,6 +163,23 @@ namespace WebApi.Repositories
         {
             // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
             IQueryable<Inspection> query = (IQueryable<Inspection>)_appDbContext.Inspection.Include(x => x.InspectionType).Include(x => x.InspectionStatus);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task AddProblemStatus(ProblemStatus problemStatus)
+        {
+            _appDbContext.Add(problemStatus);
+            await _appDbContext.SaveChangesAsync();
+        }
+        public async Task AddProblem(Problem problem)
+        {
+            _appDbContext.Add(problem);
+            await _appDbContext.SaveChangesAsync();
+        }
+        public async Task<ProblemStatus[]> GetAllProblemStatusesAsync()
+        {
+            // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);
+            IQueryable<ProblemStatus> query = (IQueryable<ProblemStatus>)_appDbContext.ProblemStatus;
             return await query.ToArrayAsync();
         }
 

@@ -87,6 +87,9 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { GoogleMapsModule } from '@angular/google-maps'
+import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +135,6 @@ import { GoogleMapsModule } from '@angular/google-maps'
     DeleteTenantDialogComponent,
     DeleteInspectionDialogComponent,
     DeleteRecoveriesDialogComponent,
-    AddRecoveriesModalComponent,
     AddInspectionModalComponent,
     AddTenantModalComponent,
     AddImageModalComponent,
@@ -159,7 +161,11 @@ import { GoogleMapsModule } from '@angular/google-maps'
     ContractorTreeComponent,
     GenerateEmployeeReportComponent,
     ChatbotComponent,
-    MapPropertiesComponent
+    MapPropertiesComponent,
+    ViewLeasesComponent,
+    AddRecoveriesModalComponent,
+    ProblemsPageComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -181,6 +187,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
     //MAP STUFF
     LeafletModule,
     GoogleMapsModule,
+    SlickCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

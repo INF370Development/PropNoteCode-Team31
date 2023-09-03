@@ -129,7 +129,12 @@
           <a mat-list-item [routerLink]="'/generateBroker'">Generate Broker Report</a>
         </mat-nav-list>
       </mat-expansion-panel>
-
+      <mat-expansion-panel [routerLink]="'/viewLeases'">
+        <mat-expansion-panel-header>
+          <mat-icon>library_books</mat-icon>
+          <a mat-list-item> Leases</a>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-icon>engineering</mat-icon>

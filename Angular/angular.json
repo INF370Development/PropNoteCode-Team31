@@ -28,7 +28,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-    
               {
                 "glob": "**/*",
                 "input": "./node_modules/leaflet/dist/images",
@@ -39,7 +38,10 @@
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+      "node_modules/slick-carousel/slick/slick.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -83,7 +85,10 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "admin:build"
+            "browserTarget": "admin:build",
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/slick-carousel/slick/slick.min.js"]
           }
         },
         "test": {
@@ -102,9 +107,15 @@
             "styles": [
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss",
-              "node_modules/leaflet/dist/leaflet.css"
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/slick-carousel/slick/slick.scss",
+              "node_modules/slick-carousel/slick/slick-theme.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+  "node_modules/slick-carousel/slick/slick.min.js"
+
+            ]
           }
         }
       }

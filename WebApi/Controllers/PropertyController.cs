@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using WebApi.Models.Property;
 using WebApi.Interfaces;
 using WebApi.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers
 {
@@ -18,9 +19,10 @@ namespace WebApi.Controllers
         public readonly IPropertyRepository _propertyRepository;
         private readonly AppDbContext _context;
 
-        public PropertyController(IPropertyRepository repository)
+        public PropertyController(IPropertyRepository repository, AppDbContext context)
         {
             _propertyRepository = repository;
+            _context = context;
         }
 
         [HttpGet]
@@ -235,24 +237,24 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("AddInspection")]
-        public async Task<IActionResult> AddInspection(InspectionRequest inspectionRequest)
+        [Route("AddInspection/{propertyID}")]
+        public async Task<IActionResult> AddInspection(int propertyID, [FromBody] InspectionRequest inspectionRequest)
         {
             try
             {
-                var existingProperty = await _propertyRepository.GetPropertyByIDAsync(inspectionRequest.PropertyID);
-                if (existingProperty == null)
+                var property = await _context.Property.FindAsync(propertyID);
+                if (property == null)
                 {
                     return NotFound($"The Property does not exist");
                 }
 
-                
+
                 var inspection = new Inspection
                 {
-                    PropertyID = inspectionRequest.PropertyID,
+                    PropertyID = propertyID,
                     InspectionDescription = inspectionRequest.InspectionDescription,
                     InspectionDate = inspectionRequest.InspectionDate.Date,
-                    InspectionTime = inspectionRequest.InspectionTime,
+                    InspectionTime = TimeSpan.FromTicks(inspectionRequest.InspectionTimeTicks),
                     InspectionStatusID = inspectionRequest.InspectionStatusID,
                     InspectionTypeID = inspectionRequest.InspectionTypeID,
                     // Other properties
@@ -267,7 +269,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-        
+
 
         [HttpPut]
         [Route("EditInspection/{inspectionID}")]
@@ -344,26 +346,28 @@ namespace WebApi.Controllers
             }
         }
 
+
         [HttpPost]
-        [Route("AddRecovery")]
-        public async Task<IActionResult> AddRecovery(RecoveryRequest recoveryRequest)
+        [Route("AddRecovery/{propertyID}")]
+        public async Task<IActionResult> AddRecovery(int propertyID, RecoveryRequest recoveryRequest)
         {
             try
             {
-                var existingProperty = await _propertyRepository.GetPropertyByIDAsync(recoveryRequest.PropertyID);
-                if (existingProperty == null)
+                var property = await _context.Property.FindAsync(propertyID);
+                if (property == null)
                 {
-                    return NotFound($"The Property does not exist");
+                    return NotFound($"The Property with ID {propertyID} does not exist");
                 }
 
                 var recovery = new Recovery
                 {
-                    PropertyID = recoveryRequest.PropertyID,
+                    PropertyID = propertyID, // Set the PropertyID to the input ID
                     RecoveryDescription = recoveryRequest.RecoveryDescription,
                     RecoveryAmount = recoveryRequest.RecoveryAmount,
                     RecoveryTypeID = recoveryRequest.RecoveryTypeID
                 };
 
+                // Assuming _propertyRepository.AddRecovery handles saving to the database
                 await _propertyRepository.AddRecovery(recovery);
 
                 return Ok(recovery);
@@ -373,7 +377,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
 
         [HttpPut]
         [Route("EditRecovery/{recoveryID}")]
@@ -419,42 +422,250 @@ namespace WebApi.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
-    }
 
-    /*[HttpPost]
-    [Route("uploadPhoto/{propertyID}")]
-    public async Task<IActionResult> UploadPhoto(int propertyID, [FromForm] IFormFile photo)
-    {
-        try
+        [HttpGet("GetAllInspectionTypes")]
+        public async Task<ActionResult<List<InspectionType>>> GetAllInspectionTypes()
         {
-            var property = await _context.Property.FindAsync(propertyID);
-
-            if (property != null && photo != null)
+            try
             {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await photo.CopyToAsync(memoryStream);
-                    var photoData = memoryStream.ToArray();
-
-                    var newPhoto = new PropertyImage
-                    {
-                        ImageName = photo.FileName,
-                        ImageData = photoData,
-                        PropertyID = propertyID
-                    };
-
-                    _context.PropertyImage.Add(newPhoto);
-                    await _context.SaveChangesAsync();
-
-                    return Ok(new { Message = "Photo uploaded successfully" });
-                }
+                var results = await _propertyRepository.GetAllInspectionTypesAsync();
+                return Ok(results);
             }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
 
-            return BadRequest("Invalid property ID or photo upload failed");
-        }
-        catch (Exception ex)
+        [HttpGet("GetAllInspectionStatuses")]
+        public async Task<ActionResult<List<InspectionStatus>>> GetAllInspectionStatuses()
         {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
+            try
+            {
+                var results = await _propertyRepository.GetAllInspectionStatusesAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
         }
-    }*/
+
+        [HttpGet("GetAllRecoveryTypes")]
+        public async Task<ActionResult<List<RecoveryType>>> GetAllRecoveryTypes()
+        {
+            try
+            {
+                var results = await _propertyRepository.GetAllRecoveryTypesAsync();
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpPost("AddInspectionType")]
+        public async Task<ActionResult> AddInspectionType(InspectionTypeRequest inspectionTypeRequest)
+        {
+            var inspectionType = new InspectionType
+            {
+                InspectionTypeName = inspectionTypeRequest.InspectionTypeName,
+            };
+            try
+            {
+                await _propertyRepository.AddInspectionType(inspectionType);
+                return Ok(inspectionType);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpPost("AddInspectionStatus")]
+        public async Task<ActionResult> AddInspectionStatus(InspectionStatusRequest inspectionStatusRequest)
+        {
+            var inspectionStatus = new InspectionStatus
+            {
+                InspectionStatusName = inspectionStatusRequest.InspectionStatusName,
+            };
+            try
+            {
+                await _propertyRepository.AddInspectionStatus(inspectionStatus);
+                return Ok(inspectionStatus);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+        [HttpPost("AddRecoveryType")]
+        public async Task<ActionResult> AddRecoveryType(RecoveryTypeRequest recoveryTypeRequest)
+        {
+            var recoveryType = new RecoveryType
+            {
+                RecoveryTypeDescription = recoveryTypeRequest.RecoveryTypeDescription,
+            };
+            try
+            {
+                await _propertyRepository.AddRecoveryType(recoveryType);
+                return Ok(recoveryType);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+        [HttpPost("AddProblemStatus")]
+        public async Task<ActionResult> AddProblemStatus(ProblemStatusRequest problemStatusRequest)
+        {
+            var problemStatus = new ProblemStatus
+            {
+                ProblemStatusName = problemStatusRequest.ProblemStatusName,
+            };
+            try
+            {
+                await _propertyRepository.AddProblemStatus(problemStatus);
+                return Ok(problemStatus);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpPost]
+        [Route("AddProblem/{inspectionID}")]
+        public async Task<IActionResult> AddProblem(int inspectionID, ProblemRequest problemRequest)
+        {
+            try
+            {
+                var inspection = await _context.Inspection.FindAsync(inspectionID);
+                if (inspection == null)
+                {
+                    return NotFound($"The Property with ID {inspectionID} does not exist");
+                }
+
+                var problem = new Problem
+                {
+                    InspectionID = inspectionID,
+                    ProblemDate = DateTime.Now,
+                    ProblemDescription = problemRequest.ProblemDescription,
+                    ProblemSeverity = problemRequest.ProblemSeverity,
+                    ProblemStatusID = problemRequest.ProblemStatusID,
+                    ProblemSubject = problemRequest.ProblemSubject,
+                    
+                };
+
+                // Assuming _propertyRepository.AddRecovery handles saving to the database
+                await _propertyRepository.AddProblem(problem);
+
+                return Ok(problem);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpGet("GetAllProblemStatuses")]
+        public async Task<ActionResult<IEnumerable<ProblemStatus>>> GetAllProblemStatuses()
+        {
+            try
+            {
+                var problemStatuses = await _propertyRepository.GetAllProblemStatusesAsync();
+                return Ok(problemStatuses);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpGet("GetAllProblemsForInspection/{inspectionID}")]
+        public async Task<IActionResult> GetAllProblemsForInspection(int inspectionID)
+        {
+            try
+            {
+                // Retrieve all problems associated with the given inspection ID
+                var problems = await _context.Problem
+                    .Where(p => p.InspectionID == inspectionID).Include(x => x.Inspection)
+                    .ToListAsync();
+
+                if (problems == null || !problems.Any())
+                {
+                    return NotFound("No problems found for the specified inspection.");
+                }
+
+                return Ok(problems);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetPropertyImagesByPropertyID/{propertyID}")]
+        public async Task<IActionResult> GetPropertyImagesByPropertyID(int propertyID)
+        {
+            try
+            {
+                var propertyImages = await _context.PropertyImage
+                    .Where(pi => pi.PropertyID == propertyID)
+                    .ToListAsync();
+
+                return Ok(propertyImages);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
+        }
+
+
+        [HttpPost]
+        [Route("uploadPhoto/{propertyID}")]
+        public async Task<IActionResult> UploadPhoto(int propertyID, [FromForm] IFormFile photo)
+        {
+            try
+            {
+                var property = await _context.Property.FindAsync(propertyID);
+
+                if (property != null && photo != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await photo.CopyToAsync(memoryStream);
+                        var photoData = memoryStream.ToArray();
+                        string base64 = Convert.ToBase64String(photoData);
+
+                        var newPhoto = new PropertyImage
+                        {
+                            ImageName = photo.FileName,
+                            ImageData = base64,
+                            PropertyID = propertyID
+                        };
+
+                        _context.PropertyImage.Add(newPhoto);
+                        await _context.SaveChangesAsync();
+
+                        return Ok(new { Message = "Photo uploaded successfully" });
+                    }
+                }
+
+                return BadRequest("Invalid property ID or photo upload failed");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+    }
 }

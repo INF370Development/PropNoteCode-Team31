@@ -25,17 +25,18 @@ namespace WebApi.Controllers
             try
             {
                 var allLeases = await _leaseRepository.GetAllLeasesAsync();
-                List<LeaseResponse> leases = new List<LeaseResponse>();
+                List<Lease> leases = new List<Lease>();
                 foreach (var lease in allLeases)
                 {
-                    leases.Add(new LeaseResponse
+                    leases.Add(new Lease
                     {
-                        StartDate = lease.StartDate,
                         EndDate = lease.EndDate,
-                        PropertyDescription = lease.Property.Description,
-                        TenantID = lease.TenantID,
                         MonthlyAmount = lease.MonthlyAmount,
-                    });
+                        StartDate = lease.StartDate,
+                        LeaseID = lease.LeaseID,
+                        TenantID = lease.TenantID,
+                        PropertyID = lease.PropertyID,
+                    });;
                 }
 
                 return Ok(leases);
@@ -57,6 +58,7 @@ namespace WebApi.Controllers
                 EndDate = leaseRequest.EndDate,
                 TenantID = leaseRequest.TenantID,
                 PropertyID = leaseRequest.PropertyID,
+
                 MonthlyAmount = leaseRequest.MonthlyAmount,
             };
             await _leaseRepository.AddLease(lease);
