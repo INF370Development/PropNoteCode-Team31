@@ -7,8 +7,8 @@ export class Inspection {
   inspectionDescription: string = "";
   inspectionDate: Date = new Date();
   inspectionTime: string = ""; // You can use string for TimeSpan representation
-  inspectionStatus: InspectionStatus = new InspectionStatus();
-  inspectionType: InspectionType = new InspectionType();
+  inspectionStatus?: InspectionStatus = new InspectionStatus();
+  inspectionType?: InspectionType = new InspectionType();
 }
 
 export class InspectionStatus {

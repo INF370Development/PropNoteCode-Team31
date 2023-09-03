@@ -248,51 +248,82 @@ namespace WebApi.Controllers
                     return NotFound($"The Property does not exist");
                 }
 
+                // Assuming inspectionRequest.InspectionDate is the date you receive from the frontend
+                DateTime receivedDate = inspectionRequest.InspectionDate;
 
-                var inspection = new Inspection
+                // Add one day to the received date
+                DateTime adjustedDate = receivedDate.AddDays(1);
+
+                TimeSpan inspectionTimeSpan;
+                if (TimeSpan.TryParse(inspectionRequest.InspectionTime, out inspectionTimeSpan))
                 {
-                    PropertyID = propertyID,
-                    InspectionDescription = inspectionRequest.InspectionDescription,
-                    InspectionDate = inspectionRequest.InspectionDate.Date,
-                    InspectionTime = TimeSpan.FromTicks(inspectionRequest.InspectionTimeTicks),
-                    InspectionStatusID = inspectionRequest.InspectionStatusID,
-                    InspectionTypeID = inspectionRequest.InspectionTypeID,
-                    // Other properties
-                };
 
-                await _propertyRepository.AddInspection(inspection);
+                    var inspection = new Inspection
+                    {
+                        PropertyID = propertyID,
+                        InspectionDescription = inspectionRequest.InspectionDescription,
+                        InspectionDate = adjustedDate,
+                        InspectionTime = inspectionTimeSpan, // Set the parsed TimeSpan
+                        InspectionStatusID = inspectionRequest.InspectionStatusID,
+                        InspectionTypeID = inspectionRequest.InspectionTypeID,
+                        // Other properties
+                    };
 
-                return Ok(inspection);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-        }
+                    await _propertyRepository.AddInspection(inspection);
 
-
-        [HttpPut]
-        [Route("EditInspection/{inspectionID}")]
-        public async Task<IActionResult> EditInspection(int inspectionID, Inspection inspection)
-        {
-            try
-            {
-                var existingInspection = await _propertyRepository.GetInspectionByIDAsync(inspectionID);
-                if (existingInspection == null) return NotFound($"The Inspection does not exist");
-
-                // Update inspection properties here
-
-                if (await _propertyRepository.SaveChangesAsync())
+                    return Ok(inspection);
+                }
+                else
                 {
-                    return Ok(existingInspection);
+                    // Handle parsing error
+                    return BadRequest("Invalid InspectionTime format");
                 }
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-            return BadRequest("Your request is invalid");
         }
+
+
+        [HttpPut("EditInspection/{inspectionID}")]
+        public IActionResult EditInspection(int inspectionID, [FromBody] InspectionRequest updatedInspection)
+        {
+            var existingInspection = _context.Inspection.FirstOrDefault(i => i.InspectionID == inspectionID);
+
+            if (existingInspection != null)
+            {
+                // Parse the updated inspection time string to TimeSpan
+                TimeSpan inspectionTimeSpan;
+                if (TimeSpan.TryParse(updatedInspection.InspectionTime, out inspectionTimeSpan))
+                {
+                    // Update properties of the existing inspection based on updatedInspection
+                    existingInspection.InspectionDescription = updatedInspection.InspectionDescription;
+                    existingInspection.InspectionDate = updatedInspection.InspectionDate;
+                    existingInspection.InspectionTime = inspectionTimeSpan; // Assign the parsed TimeSpan
+                    existingInspection.InspectionStatusID = updatedInspection.InspectionStatusID;
+                    existingInspection.InspectionTypeID = updatedInspection.InspectionTypeID;
+
+                    // Save changes to the database
+                    _context.SaveChanges();
+
+                    // Return a success response, e.g., 200 OK
+                    return Ok();
+                }
+                else
+                {
+                    // Handle the case where parsing the time string fails
+                    return BadRequest("Invalid InspectionTime format");
+                }
+            }
+            else
+            {
+                // Inspection with the specified ID not found
+                return NotFound();
+            }
+        }
+
+
 
         [HttpDelete]
         [Route("DeleteInspection/{inspectionID}")]
@@ -572,6 +603,29 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
+        [HttpGet("GetProblemStatus/{problemStatusID}")]
+        public async Task<IActionResult> GetProblemStatus(int problemStatusID)
+        {
+            try
+            {
+                // Retrieve the ProblemStatus from your data source by problemStatusID
+                var problemStatus = await _context.ProblemStatus.FindAsync(problemStatusID);
+
+                if (problemStatus == null)
+                {
+                    return NotFound($"ProblemStatus with ID {problemStatusID} not found");
+                }
+
+                // Return the ProblemStatus
+                return Ok(problemStatus);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
 
         [HttpGet("GetAllProblemStatuses")]
         public async Task<ActionResult<IEnumerable<ProblemStatus>>> GetAllProblemStatuses()

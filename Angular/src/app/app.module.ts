@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -90,6 +90,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
+import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -165,6 +167,7 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
+    UpdateInspectionModalComponent,
 
   ],
   imports: [
@@ -189,7 +192,10 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
     GoogleMapsModule,
     SlickCarouselModule,
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'en-ZA' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

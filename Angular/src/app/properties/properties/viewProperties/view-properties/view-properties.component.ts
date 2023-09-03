@@ -22,6 +22,7 @@ import { Property } from 'src/app/shared/Property/Property';
 import { Recovery } from 'src/app/shared/Property/Recovery';
 import { Inspection } from 'src/app/shared/Property/Inspection';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { UpdateInspectionModalComponent } from './update-inspection-modal/update-inspection-modal.component';
 
 NgModule({
   imports: [
@@ -195,6 +196,46 @@ loadPropertyImages() {
 
     dialogRef.afterClosed().subscribe(result => {
       // Handle any actions after the modal is closed
+    });
+  }
+
+  confirmDeleteInspection(inspection: Inspection) {
+    const dialogRef = this.dialog.open(DeleteInspectionDialogComponent, {
+      data: { inspection }, // Pass the inspection data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        // User confirmed the deletion, implement the deletion logic here
+        this.deleteInspection(inspection.inspectionID);
+      }
+    });
+  }
+
+  deleteInspection(inspectionID: number) {
+    // Call your API to delete the inspection here, e.g., using your PropertiesService
+    this._propertiesService.deleteInspection(inspectionID).subscribe(
+      () => {
+        console.log('Inspection deleted successfully');
+        // You may want to reload the inspections or update the view
+        this.loadInspections();
+      },
+      (error) => {
+        console.error('Error deleting inspection:', error);
+      }
+    );
+  }
+
+  openUpdateInspectionModal(inspection: Inspection) {
+    const dialogRef = this.dialog.open(UpdateInspectionModalComponent, {
+      data: { inspection }, // Pass the inspection to the modal
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        // Refresh the inspections or take any other necessary actions
+        this.loadInspections();
+      }
     });
   }
 

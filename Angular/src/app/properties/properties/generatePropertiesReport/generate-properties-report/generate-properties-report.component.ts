@@ -184,8 +184,8 @@ getAllRecoveries() {
         doc.text(`Inspection ${index + 1}:
         Date: ${inspection.inspectionDate}
         Description: ${inspection.inspectionDescription}
-        Type: ${inspection.inspectionType.inspectionTypeName}
-        Status: ${inspection.inspectionStatus.inspectionStatusName}`, leftMargin, verticalPosition);
+        Type: ${inspection.inspectionType?.inspectionTypeName}
+        Status: ${inspection.inspectionStatus?.inspectionStatusName}`, leftMargin, verticalPosition);
     });
 
     // Save the PDF
@@ -251,8 +251,8 @@ generateAllPropertiesReport() {
           doc.text(`Inspection ${index + 1}:
           Date: ${inspection.inspectionDate}
           Description: ${inspection.inspectionDescription}
-          Type: ${inspection.inspectionType.inspectionTypeName}
-          Status: ${inspection.inspectionStatus.inspectionStatusName}`, leftMargin, 40 + (11 + property.recoveries.length * 5 + index * (inspectionLineCount + 1)) * lineHeight);
+          Type: ${inspection.inspectionType?.inspectionTypeName}
+          Status: ${inspection.inspectionStatus?.inspectionStatusName}`, leftMargin, 40 + (11 + property.recoveries.length * 5 + index * (inspectionLineCount + 1)) * lineHeight);
           doc.text('', leftMargin, 40 + (12 + property.recoveries.length * 5 + index * (inspectionLineCount + 1)) * lineHeight); // Add line break
       });
 
