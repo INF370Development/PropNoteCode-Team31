@@ -161,7 +161,7 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
     ContractorTreeComponent,
     GenerateEmployeeReportComponent,
     ChatbotComponent,
-    MapPropertiesComponent
+    MapPropertiesComponent,
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
