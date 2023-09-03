@@ -13,11 +13,18 @@
     </span>
     <span class="propnote"><h1>PropNote</h1></span>
 
-    <span class="account">
+    <span class="chat">
+      <button mat-icon-button class="bigger-icon" (click)="onClickChat()">
+        <mat-icon> chat </mat-icon>
+      </button>
+    </span>
+
+
+    <!--<span class="account">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon class="bigger-icon">account_circle</mat-icon>
       </button>
-      <!--RIGHT SIDE DROPDOWN-->
+      <!--RIGHT SIDE DROPDOWN--
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
           <a mat-list-item [routerLink]="'/viewProfile'"> View Profile</a>
@@ -32,7 +39,7 @@
           <a mat-list-item [routerLink]="'/help'"> Help</a>
         </button>
       </mat-menu>
-    </span>
+    </span>-->
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -62,6 +69,9 @@
         </mat-nav-list>
         <mat-nav-list>
           <a mat-list-item [routerLink]="'/generateProperties'">Generate Property Report</a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <a mat-list-item [routerLink]="'/mapProperties'">Properties Map</a>
         </mat-nav-list>
       </mat-expansion-panel>
 

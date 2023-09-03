@@ -82,6 +82,11 @@ import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenan
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
+
+//TRYING MAP STUFF
+import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { GoogleMapsModule } from '@angular/google-maps'
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
@@ -156,6 +161,7 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
     ContractorTreeComponent,
     GenerateEmployeeReportComponent,
     ChatbotComponent,
+    MapPropertiesComponent
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
@@ -178,6 +184,9 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
     MatRippleModule,
     LoginFailedComponent,
     MatTableModule,
+    //MAP STUFF
+    LeafletModule,
+    GoogleMapsModule,
     SlickCarouselModule,
   ],
   providers: [],
