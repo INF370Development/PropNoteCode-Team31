@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
-
-//Leaflet.Icon.Default.imagePath = 'assets/';
-/*Leaflet.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'assets/marker-icon-2x.png',
-  iconUrl: 'assets/marker-icon.png',
-  shadowUrl: 'assets/marker-shadow.png'
-});*/
+import { PropertiesService } from 'src/app/services/properties.service';
 
 @Component({
   selector: 'app-map-properties',
@@ -14,43 +8,18 @@ import * as Leaflet from 'leaflet';
   styleUrls: ['./map-properties.component.scss']
 })
 
-export class MapPropertiesComponent  {
+export class MapPropertiesComponent implements OnInit {
   map!: Leaflet.Map;
+
   markers: Leaflet.Marker[] = [];
+
   options = {
     layers: [
-      Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      })
+      Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {})
     ],
     zoom: 6,
-    /*JHB center: { lat: -26.2041, lng: 28.0473 }*/
     center: {lat: -29.0, lng: 24.0}
   }
-
-  /*initMarkers() {
-    const initialMarkers = [
-      {
-        position: { lat: 28.625485, lng: 79.821091 },
-        draggable: true
-      },
-      {
-        position: { lat: 28.625293, lng: 79.817926 },
-        draggable: false
-      },
-      {
-        position: { lat: 28.625182, lng: 79.81464 },
-        draggable: true
-      }
-    ];
-    for (let index = 0; index < initialMarkers.length; index++) {
-      const data = initialMarkers[index];
-      const marker = this.generateMarker(data, index);
-      marker.addTo(this.map).bindPopup(`<b>${data.position.lat},  ${data.position.lng}</b>`);
-      this.map.panTo(data.position);
-      this.markers.push(marker)
-    }
-  }*/
 
   generateMarker(data: any, index: number) {
     return Leaflet.marker(data.position, { draggable: data.draggable })
@@ -60,7 +29,6 @@ export class MapPropertiesComponent  {
 
   onMapReady($event: Leaflet.Map) {
     this.map = $event;
-    //this.initMarkers();
   }
 
   mapClicked($event: any) {
@@ -74,6 +42,19 @@ export class MapPropertiesComponent  {
   markerDragEnd($event: any, index: number) {
     console.log($event.target.getLatLng());
   } 
+
+  //Markers
+  constructor(private propertyServices: PropertiesService) {}
+
+  ngOnInit() {
+    this.propertyServices.getProperties().subscribe(properties => {
+      properties.forEach((property, index) => {
+        const marker = this.generateMarker(property, index);
+        this.markers.push(marker);
+        marker.addTo(this.map);
+      });
+    });
+  }
 }
 
 //import { Component, OnInit  } from '@angular/core';
