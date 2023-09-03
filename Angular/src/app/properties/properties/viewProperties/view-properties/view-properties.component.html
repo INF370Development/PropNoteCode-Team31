@@ -51,39 +51,41 @@
  <!-- Display Recoveries -->
  <div class="card">
   <div class="details">
-    <h2>Recoveries</h2>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <h2>Recoveries</h2>
+      <button mat-raised-button color="accent" (click)="openAddRecoveriesModal()">Add Recovery</button>
+    </div>
     <div *ngFor="let recovery of recoveries">
       <h4>{{ recovery.recoveryDescription }}</h4>
       <h5>Recovery Amount: R {{ recovery.recoveryAmount }}</h5>
 <h5>Recovery Type: {{ recovery.recoveryType.recoveryTypeDescription }} </h5>
       <mat-divider></mat-divider>
     </div>
-    <div class="buttons">
-      <button mat-raised-button color="accent" (click)="openAddRecoveriesModal()">Add Recovery</button>
-  </div>
   </div>
 </div>
 
 <!-- Display Inspections -->
 <div class="card">
   <div class="details">
-    <h2>Inspections</h2>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <h2>Inspections</h2>
+      <button mat-raised-button color="accent" (click)="openAddInspectionModal()">Add Inspection</button>
+    </div>
     <div *ngFor="let inspection of inspections">
       <h4>{{ inspection.inspectionDescription }}</h4>
       <h5>Inspection Date: {{ inspection.inspectionDate | date }}</h5>
       <h5>Inspection Time: {{ inspection.inspectionTime }}</h5>
-      <h5>Inspection Type: {{inspection.inspectionType.inspectionTypeName}}</h5>
-      <h5>Inspection Status: {{inspection.inspectionStatus.inspectionStatusName}}</h5>
+      <h5>Inspection Type: {{inspection.inspectionType?.inspectionTypeName}}</h5>
+      <h5>Inspection Status: {{inspection.inspectionStatus?.inspectionStatusName}}</h5>
       <div>
-        <button class="button-38" *ngIf="inspection.inspectionStatus.inspectionStatusName !== 'Completed'">Update Inspection</button>
-        <button class="button-38" *ngIf="inspection.inspectionStatus.inspectionStatusName === 'Completed'" [routerLink]="['/problemsPage', inspection.inspectionID]">Report Problem</button>
 
+        <button class="button-38" *ngIf="inspection.inspectionStatus?.inspectionStatusName !== 'Completed'" (click)="openUpdateInspectionModal(inspection)">Update Inspection</button>
+        <button class="button-38" *ngIf="inspection.inspectionStatus?.inspectionStatusName === 'Completed'" [routerLink]="['/problemsPage', inspection.inspectionID]">Report Problem</button>
+        <button class="button-38" style="background-color: red; color: white;" (click)="confirmDeleteInspection(inspection)">Delete Inspection</button>
     </div>
     <br>
     </div>
-    <div class="buttons">
-      <button mat-raised-button color="accent" (click)="openAddInspectionModal()">Add Inspection</button>
-  </div>
+
   </div>
 </div>
 </div>

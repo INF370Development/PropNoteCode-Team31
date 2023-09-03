@@ -30,7 +30,7 @@ namespace WebApi.Repositories
 
         public async Task<Tenant> GetTenantByIDAsync(int tenantID)
         {
-            IQueryable<Tenant> query = _appDbContext.Tenant.Where(c => c.TenantID == tenantID).Include(x => x.Leases);
+            IQueryable<Tenant> query = _appDbContext.Tenant.Where(c => c.TenantID == tenantID).Include(x => x.Leases).Include(x => x.User);
             return await query.FirstOrDefaultAsync();
         }
         public async Task AddTenant(Tenant tenant)

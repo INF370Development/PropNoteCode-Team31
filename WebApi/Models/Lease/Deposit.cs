@@ -6,4 +6,9 @@
         public int LeaseID { get; set; }
         public string Amount { get; set; }
     }
+
+    public class DepositRequest
+    {
+        public string Amount { get; set; }
+    }
 }

@@ -73,55 +73,6 @@ export class ViewTenantsComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue;
   }
 
-/*async deleteTenant(id: any) {
-    await this._tenantService.deleteTenant(id);
-    this.showSnackBar();
-  }
-
-  showSnackBar() {
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
-      'Deleted successfully',
-      'X',
-      { duration: 500 }
-    );
-    snackBarRef.afterDismissed().subscribe(() => {
-      location.reload();
-    });
-  }*/
-
-  //Test some time for the modal
-  /*openDeleteTenantDialog(tenantID: any) {
-    const dialogRef = this.dialog.open(DeleteTenantDialogComponent, {
-      data: { tenantID },
-    });
-  
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'delete') {
-        this.deleteTenant(tenantID);
-      }
-    });
-  }
-  
-  async deleteTenant(id: any) {
-    try {
-      await this._tenantService.deleteTenant(id);
-      this.showSnackBar('Deleted successfully');
-      this.refreshTableData();
-    } catch (error) {
-      this.showSnackBar('Error deleting tenant', 'error');
-    }
-  }
-  
-  showSnackBar(message: string, panelClass: string = 'success') {
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, 'X', {
-      duration: 500,
-      panelClass: panelClass,
-    });
-    snackBarRef.afterDismissed().subscribe(() => {
-      this.refreshTableData();
-    });
-  }*/
-
   async deleteTenant(tenantID: any) {
     debugger;
     await this._tenantService.deleteTenant(tenantID).toPromise();

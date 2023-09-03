@@ -9,6 +9,7 @@ export class Problem {
   problemDate: Date = new Date();
   problemSeverity: string = "";
   inspections: Inspection = new Inspection();
+  problemStatus : ProblemStatus = new ProblemStatus();
   constructor(){
   }
 }

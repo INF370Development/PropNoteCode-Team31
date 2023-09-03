@@ -51,11 +51,6 @@ namespace WebApi.Repositories
             return await query.ToArrayAsync();
         }
 
-        public async Task<Deposit[]> GetAllDepositsAsync()
-        {
-            IQueryable<Deposit> query = _appDbContext.Deposit;
-            return await query.ToArrayAsync();
-        }
         public async Task AddDeposit(Deposit deposit)
         {
             _appDbContext.Add(deposit);
@@ -72,5 +67,57 @@ namespace WebApi.Repositories
             return query.FirstOrDefault();
         }
 
+        public async Task<IEnumerable<Deposit>> GetAllDepositsAsync()
+        {
+            IQueryable<Deposit> query = _appDbContext.Deposit;
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Deposit> GetDepositByIdAsync(int depositId)
+        {
+            IQueryable<Deposit> query = _appDbContext.Deposit.Where(d => d.DepositID == depositId);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> AddDepositAsync(Deposit deposit)
+        {
+            _appDbContext.Add(deposit);
+            return await _appDbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> EditDepositAsync(int depositId, Deposit deposit)
+        {
+            var existingDeposit = await _appDbContext.Deposit.FirstOrDefaultAsync(d => d.DepositID == depositId);
+            if (existingDeposit == null)
+            {
+                return false;
+            }
+
+            // Update the existing deposit properties
+            existingDeposit.LeaseID = deposit.LeaseID;
+            existingDeposit.Amount = deposit.Amount;
+
+            _appDbContext.Entry(existingDeposit).State = EntityState.Modified;
+            return await _appDbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DeleteDepositAsync(int depositId)
+        {
+            var existingDeposit = await _appDbContext.Deposit.FirstOrDefaultAsync(d => d.DepositID == depositId);
+            if (existingDeposit == null)
+            {
+                return false;
+            }
+
+            _appDbContext.Deposit.Remove(existingDeposit);
+            return await _appDbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<Deposit[]> GetAllDepositsByLeaseAsync(int leaseId)
+        {
+            IQueryable<Deposit> query = _appDbContext.Deposit.Where(d => d.LeaseID == leaseId);
+            return await query.ToArrayAsync();
+        }
+
     }
-    }
+}
