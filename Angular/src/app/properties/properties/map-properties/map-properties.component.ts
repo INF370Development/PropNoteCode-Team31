@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import { PropertiesService } from 'src/app/services/properties.service';
+import 'leaflet-tooltip';
 
 @Component({
   selector: 'app-map-properties',
@@ -41,10 +42,21 @@ export class MapPropertiesComponent implements OnInit {
     });
   }
 
-  generateMarker(data: any, index: number) {
+  /*generateMarker(data: any, index: number) {
     return Leaflet.marker(data.position, { draggable: data.draggable })
       .on('click', (event) => this.markerClicked(event, index))
       .on('dragend', (event) => this.markerDragEnd(event, index));
+  }*/
+
+  generateMarker(data: any, index: number) {
+    const marker = Leaflet.marker(data.position, { draggable: data.draggable })
+      .on('click', (event) => this.markerClicked(event, index))
+      .on('dragend', (event) => this.markerDragEnd(event, index));
+  
+    // Add a tooltip with the property description
+    marker.bindTooltip(data.description);
+  
+    return marker;
   }
 
   onMapReady($event: Leaflet.Map) {
