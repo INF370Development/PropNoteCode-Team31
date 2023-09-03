@@ -10,5 +10,6 @@ namespace WebApi.Models.Lease
         public decimal MonthlyAmount { get; set; }
         public int TenantID { get; set; }
         public int PropertyID { get; set; }
+        public Deposit Deposit { get; set; }
     }
 }

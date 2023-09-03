@@ -5,7 +5,7 @@ import { map, Observable, Subject } from 'rxjs';
 import { Recovery, RecoveryType } from '../shared/Property/Recovery';
 import { Inspection, InspectionRequest, InspectionStatus, InspectionType } from '../shared/Property/Inspection';
 import { PropertyImage } from '../shared/Property/PropertyImage';
-import { Problem } from '../shared/Property/Problem';
+import { Problem, ProblemStatus } from '../shared/Property/Problem';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +36,16 @@ export class PropertiesService {
       .pipe(map((result) => result));
   }
 
+  updateInspection(inspection: Inspection): Observable<any> {
+    const url = `https://localhost:7251/api/Property/EditInspection/${inspection.inspectionID}`;
+    return this._httpClient.put(url, inspection);
+  }
+
+
+  deleteInspection(inspectionID: number): Observable<any> {
+    return this._httpClient.delete(`https://localhost:7251/api/Property/DeleteInspection/${inspectionID}`);
+  }
+
   getInspectionTypes(): Observable<InspectionType[]> {
     return this._httpClient
       .get<InspectionType[]>(
@@ -51,6 +61,8 @@ export class PropertiesService {
       )
       .pipe(map((result) => result));
   }
+
+
   getRecoveries(): Observable<Recovery[]> {
     return this._httpClient
       .get<Recovery[]>(
@@ -123,6 +135,18 @@ export class PropertiesService {
 
   getProblemsforInspection(inspectionID: number): Observable<Problem[]> {
     return this._httpClient.get<Problem[]>(`https://localhost:7251/api/Property/GetAllProblemsForInspection/${inspectionID}`);
+  }
+
+  getProblemStatuses(): Observable<ProblemStatus[]> {
+    return this._httpClient
+      .get<ProblemStatus[]>(
+        `https://localhost:7251/api/Property/GetAllProblemStatuses`
+      )
+      .pipe(map((result) => result));
+  }
+
+  getProblemStatus(problemStatusID: number): Observable<ProblemStatus> {
+    return this._httpClient.get<ProblemStatus>(`https://localhost:7251/api/Property/GetProblemStatus/${problemStatusID}`);
   }
 
 

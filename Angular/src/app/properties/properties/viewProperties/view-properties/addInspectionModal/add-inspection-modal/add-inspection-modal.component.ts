@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -38,7 +39,8 @@ inspectionTypes: InspectionType[] =[];
     private dialogRef: MatDialogRef<AddInspectionModalComponent>,
     private propertyService: PropertiesService,
     private router: Router,
-    private brokerService: BrokerService
+    private brokerService: BrokerService,
+    private datePipe : DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -65,10 +67,13 @@ inspectionTypes: InspectionType[] =[];
       return false;
     }
 
-    if (!(this.inspectionModal.inspectionDate instanceof Date)) {
-      console.error('Invalid inspection date');
-      return false;
-    }
+    // debugger;
+    // if (!(this.inspectionModal.inspectionDate instanceof Date)) {
+    //   console.error('Invalid inspection date');
+    //   return false;
+    // }
+
+
 
     const timePattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 
@@ -76,10 +81,6 @@ inspectionTypes: InspectionType[] =[];
       console.error('Invalid inspection time');
       return false;
     }
-    const [hours, minutes] = this.inspectionModal.inspectionTime.split(':');
-    const inspectionTimeTicks = (+hours * 60 + +minutes) * 60 * 1000;
-    this.inspectionModal.inspectionTime = inspectionTimeTicks.toString();
-
 
 
     //
@@ -136,6 +137,7 @@ inspectionTypes: InspectionType[] =[];
       const inspectionStatusID = this.inspectionModal.inspectionStatus.inspectionStatusID;
       console.log("InspectionStatusID", inspectionStatusID)
     }
+    console.log("Date", this.inspectionDate)
 
   }
 

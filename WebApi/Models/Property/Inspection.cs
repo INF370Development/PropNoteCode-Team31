@@ -41,7 +41,7 @@
     {
         public string InspectionDescription { get; set; }
         public DateTime InspectionDate { get; set; }
-        public long InspectionTimeTicks { get; set; }
+        public string InspectionTime { get; set; }
         public int InspectionStatusID { get; set; }
         public int InspectionTypeID { get; set; }
     }

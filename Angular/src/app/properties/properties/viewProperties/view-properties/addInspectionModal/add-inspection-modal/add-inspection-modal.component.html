@@ -12,20 +12,21 @@
           maxlength="50"
           [formControl]="inspectionDescription"
         />
+
         <mat-error *ngIf="inspectionDescription.invalid">{{getErrorMessageDescription()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Date</label>
         <input
           matInput
-          [matDatepicker]="datepicker"
+          [matDatepicker]="picker"
           [(ngModel)]="inspectionModal.inspectionDate"
           name="inspectionDate"
           required
-          (click)="datepicker.open()"
+          (click)="picker.open()"
         />
-        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-        <mat-datepicker #datepicker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="inspectionDate.invalid">{{ getErrorMessageDate() }}</mat-error>
       </mat-form-field>
 
@@ -42,16 +43,16 @@
       </mat-form-field>
 
       <mat-form-field class="form-field">
-        <label>Status:</label>
-        <mat-select [(ngModel)]="inspectionModal.inspectionStatus" name="inspectionStatus" (selectionChange)="updateSelectedInspectionStatus($event.value)">
-          <mat-option *ngFor="let inspectionStatus of inspectionStatuses" [value]="inspectionStatus">{{ inspectionStatus.inspectionStatusName }}</mat-option>
+        <label>Type:</label>
+        <mat-select [(ngModel)]="inspectionModal.inspectionType" name="inspectionType" (selectionChange)="updateSelectedInspectionType($event.value)">
+          <mat-option *ngFor="let inspectionType of inspectionTypes" [value]="inspectionType">{{ inspectionType.inspectionTypeName }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="form-field">
-        <label>Type:</label>
-        <mat-select [(ngModel)]="inspectionModal.inspectionType" name="inspectionType" (selectionChange)="updateSelectedInspectionType($event.value)">
-          <mat-option *ngFor="let inspectionType of inspectionTypes" [value]="inspectionType">{{ inspectionType.inspectionTypeName }}</mat-option>
+        <label>Status:</label>
+        <mat-select [(ngModel)]="inspectionModal.inspectionStatus" name="inspectionStatus" (selectionChange)="updateSelectedInspectionStatus($event.value)">
+          <mat-option *ngFor="let inspectionStatus of inspectionStatuses" [value]="inspectionStatus">{{ inspectionStatus.inspectionStatusName }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -59,7 +60,7 @@
       <div class="modal-actions">
 
         <button mat-raised-button type="submit" color="accent" (click)="sendToBackend()">
-          Add Property
+          Add Inspection
         </button>
         <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 
