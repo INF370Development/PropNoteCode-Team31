@@ -7,6 +7,72 @@ import { PropertiesService } from 'src/app/services/properties.service';
   templateUrl: './map-properties.component.html',
   styleUrls: ['./map-properties.component.scss']
 })
+export class MapPropertiesComponent implements OnInit {
+  map!: Leaflet.Map;
+  markers: Leaflet.Marker[] = [];
+  options = {
+    layers: [
+      Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {})
+    ],
+    zoom: 6,
+    center: { lat: -29.0, lng: 24.0 }
+  };
+
+  constructor(private propertyService: PropertiesService) {} // Inject your property service here
+
+  ngOnInit() {
+    this.initializeMap();
+    this.loadPropertyMarkers();
+  }
+
+  initializeMap() {
+    // Initialize your map as you did before
+  }
+
+  loadPropertyMarkers() {
+    // Fetch property data from your API
+    this.propertyService.getProperties().subscribe((properties) => {
+      // Iterate through the properties and create markers
+      properties.forEach((property, index) => {
+        const marker = this.generateMarker(property, index);
+        marker.addTo(this.map);
+        this.markers.push(marker);
+      });
+    });
+  }
+
+  generateMarker(data: any, index: number) {
+    return Leaflet.marker(data.position, { draggable: data.draggable })
+      .on('click', (event) => this.markerClicked(event, index))
+      .on('dragend', (event) => this.markerDragEnd(event, index));
+  }
+
+  onMapReady($event: Leaflet.Map) {
+    this.map = $event;
+  }
+
+  mapClicked($event: any) {
+    console.log($event.latlng.lat, $event.latlng.lng);
+  }
+
+  markerClicked($event: any, index: number) {
+    console.log($event.latlng.lat, $event.latlng.lng);
+  }
+
+  markerDragEnd($event: any, index: number) {
+    console.log($event.target.getLatLng());
+  }
+}
+
+/*import { Component, OnInit } from '@angular/core';
+import * as Leaflet from 'leaflet';
+import { PropertiesService } from 'src/app/services/properties.service';
+
+@Component({
+  selector: 'app-map-properties',
+  templateUrl: './map-properties.component.html',
+  styleUrls: ['./map-properties.component.scss']
+})
 
 export class MapPropertiesComponent implements OnInit {
   map!: Leaflet.Map;
@@ -55,7 +121,7 @@ export class MapPropertiesComponent implements OnInit {
       });
     });
   }
-}
+}*/
 
 //import { Component, OnInit  } from '@angular/core';
 //import * as L from 'leaflet';
