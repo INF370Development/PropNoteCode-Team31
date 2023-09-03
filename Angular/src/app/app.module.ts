@@ -83,6 +83,11 @@ import { ContractorTreeComponent } from './contractors/contractors/contractorTre
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
+//TRYING MAP STUFF
+import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { GoogleMapsModule } from '@angular/google-maps'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -154,7 +159,7 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     ContractorTreeComponent,
     GenerateEmployeeReportComponent,
     ChatbotComponent,
-
+    MapPropertiesComponent
   ],
   imports: [
     BrowserModule,
@@ -173,6 +178,9 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     MatRippleModule,
     LoginFailedComponent,
     MatTableModule,
+    //MAP STUFF
+    LeafletModule,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
