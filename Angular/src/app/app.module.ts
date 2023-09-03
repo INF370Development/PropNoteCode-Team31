@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -90,7 +90,12 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
+
 import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-broker/delete-broker-model/delete-broker-model.component';
+
+import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -166,7 +171,11 @@ import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-brok
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
+
     DeleteBrokerModelComponent,
+
+    UpdateInspectionModalComponent,
+
 
   ],
   imports: [
@@ -191,7 +200,10 @@ import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-brok
     GoogleMapsModule,
     SlickCarouselModule,
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'en-ZA' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

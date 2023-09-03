@@ -7,3 +7,19 @@ companyName : string = "";
 companyNumber : string = "";
 user : User = new User();
 }
+
+export interface TenantApiResponse {
+  tenantID: number;
+  userID: number;
+  companyName: string;
+  companyNumber: string;
+  user: {
+    userID: number;
+    username: string;
+    password: string;
+    email: string;
+    name: string;
+    surname: string;
+    phoneNumber: string;
+  };
+}
