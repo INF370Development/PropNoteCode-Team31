@@ -2,6 +2,7 @@ import { BrokerComponent } from "src/app/broker/broker/broker.component";
 import { Broker } from "../Broker";
 import { Recovery } from "./Recovery";
 import { Inspection } from "./Inspection";
+import { PropertyImage } from "./PropertyImage";
 
 export class Property {
   propertyID: number = 0;
@@ -17,6 +18,7 @@ export class Property {
   broker: Broker = new Broker();
   recoveries: Recovery[] = [];
   inspections: Inspection[] = [];
+  propertyImage : PropertyImage[] = [];
   constructor(){
   }
 }

@@ -25,17 +25,18 @@ namespace WebApi.Controllers
             try
             {
                 var allLeases = await _leaseRepository.GetAllLeasesAsync();
-                List<LeaseResponse> leases = new List<LeaseResponse>();
+                List<Lease> leases = new List<Lease>();
                 foreach (var lease in allLeases)
                 {
-                    leases.Add(new LeaseResponse
+                    leases.Add(new Lease
                     {
-                        StartDate = lease.StartDate,
                         EndDate = lease.EndDate,
-                        PropertyDescription = lease.Property.Description,
-                        TenantID = lease.TenantID,
                         MonthlyAmount = lease.MonthlyAmount,
-                    });
+                        StartDate = lease.StartDate,
+                        LeaseID = lease.LeaseID,
+                        TenantID = lease.TenantID,
+                        PropertyID = lease.PropertyID,
+                    });;
                 }
 
                 return Ok(leases);
@@ -57,6 +58,7 @@ namespace WebApi.Controllers
                 EndDate = leaseRequest.EndDate,
                 TenantID = leaseRequest.TenantID,
                 PropertyID = leaseRequest.PropertyID,
+
                 MonthlyAmount = leaseRequest.MonthlyAmount,
             };
             await _leaseRepository.AddLease(lease);
@@ -142,6 +144,153 @@ namespace WebApi.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
+
+        [HttpGet("GetLeaseById/{leaseId}")]
+        public async Task<IActionResult> GetLeaseById(int leaseId)
+        {
+            try
+            {
+                var lease = await _leaseRepository.GetLeaseByID(leaseId);
+                if (lease == null)
+                {
+                    return NotFound("Lease not found");
+                }
+
+                // You can customize the data you want to return here, or return the entire lease object.
+                var leaseResponse = new
+                {
+                    LeaseID = lease.LeaseID,
+                    StartDate = lease.StartDate,
+                    EndDate = lease.EndDate,
+                    MonthlyAmount = lease.MonthlyAmount,
+                    TenantID = lease.TenantID,
+                    PropertyID = lease.PropertyID,
+                    // Include other properties as needed
+                };
+
+                return Ok(leaseResponse);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error, please contact support");
+            }
+        }
+
+        [HttpPost("{leaseId}/AddDeposit")]
+        public async Task<IActionResult> AddDeposit(int leaseId, [FromBody] DepositRequest depositRequest)
+        {
+            try
+            {
+                var lease = await _leaseRepository.GetLeaseByID(leaseId);
+                if (lease == null)
+                {
+                    return NotFound("Lease not found");
+                }
+
+                var deposit = new Deposit
+                {
+                    LeaseID = leaseId,
+                    Amount = depositRequest.Amount,
+                };
+
+                await _leaseRepository.AddDeposit(deposit);
+
+                return Ok(deposit);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error, please contact support");
+            }
+        }
+
+        [HttpPut]
+        [Route("EditDeposit")]
+        public async Task<IActionResult> EditDeposit(int depositId, DepositRequest depositRequest)
+        {
+            try
+            {
+                var existingDeposit = await _leaseRepository.GetDepositByIdAsync(depositId);
+                if (existingDeposit == null)
+                {
+                    return NotFound("Deposit not found");
+                }
+
+                // Update the existing deposit properties
+                existingDeposit.Amount = depositRequest.Amount;
+
+                if (await _leaseRepository.EditDepositAsync(depositId, existingDeposit))
+                {
+                    return Ok(existingDeposit);
+                }
+                else
+                {
+                    return BadRequest("Failed to update deposit");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+        [HttpDelete("DeleteDeposit/{depositId}")]
+        public async Task<IActionResult> DeleteDeposit(int depositId)
+        {
+            try
+            {
+                var existingDeposit = await _leaseRepository.GetDepositByID(depositId);
+                if (existingDeposit == null)
+                {
+                    return NotFound("Deposit not found");
+                }
+
+                _leaseRepository.DeleteDepositAsync(depositId);
+                await _leaseRepository.SaveChangesAsync();
+
+                return Ok("Deposit deleted successfully");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error, please contact support");
+            }
+        }
+
+
+        [HttpGet("GetAllDeposits")]
+        public async Task<IActionResult> GetAllDeposits()
+        {
+            try
+            {
+                var deposits = await _leaseRepository.GetAllDepositsAsync();
+
+                return Ok(deposits);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error, please contact support");
+            }
+        }
+
+        [HttpGet("{leaseId}/GetAllDepositsByLease")]
+        public async Task<IActionResult> GetAllDepositsByLease(int leaseId)
+        {
+            try
+            {
+                var lease = await _leaseRepository.GetLeaseByID(leaseId);
+                if (lease == null)
+                {
+                    return NotFound("Lease not found");
+                }
+
+                var deposits = await _leaseRepository.GetAllDepositsByLeaseAsync(leaseId);
+
+                return Ok(deposits);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error, please contact support");
+            }
+        }
+
     }
 }
 

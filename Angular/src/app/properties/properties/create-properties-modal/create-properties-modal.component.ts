@@ -32,7 +32,8 @@ export class CreatePropertiesModalComponent implements OnInit {
     brokerID: 0,
     broker: new Broker(),
     recoveries: [],
-    inspections: []
+    inspections: [],
+    propertyImage: []
   };
 brokers: Broker[] = [];
 recoveries: Recovery[] =[];
@@ -236,45 +237,6 @@ validateInputs(): boolean {
 
     return this.suburb.hasError('suburb') ? 'Not a valid suburb' : '';
   }
-  //Purchase Amount
-  /*purchaseAmount = new FormControl('', [Validators.required]);
 
-  getErrorMessagePurchaseAmount() {
-    if (this.purchaseAmount.hasError('required')) {
-      return 'Purchase amount required';
-    }
-
-    return this.purchaseAmount.hasError('purchaseAmount') ? 'Not a valid purchase amount' : '';
-  }
-  //Purchase Year
-  purchaseYear = new FormControl('', [Validators.required]);
-
-  getErrorMessagePurchaseYear() {
-    if (this.purchaseYear.hasError('required')) {
-      return 'Purchase year required';
-    }
-
-    return this.purchaseYear.hasError('purchaseYear') ? 'Not a valid purchase year' : '';
-  }
-  //Size
-  size = new FormControl('', [Validators.required]);
-
-  getErrorMessageSize() {
-    if (this.size.hasError('required')) {
-      return 'Size required';
-    }
-
-    return this.size.hasError('size') ? 'Not a valid size' : '';
-  }
-  //Yard
-  yard = new FormControl('', [Validators.required]);
-
-  getErrorMessageYard() {
-    if (this.yard.hasError('required')) {
-      return 'Yard required';
-    }
-
-    return this.yard.hasError('yard') ? 'Not a valid yard' : '';
-  }*/
 
 }

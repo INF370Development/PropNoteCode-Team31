@@ -1,0 +1,28 @@
+/* Add this SCSS code to your component's style file, e.g., problems-page.component.scss */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center the content horizontally */
+  align-items: flex-start; /* Align content to the top vertically */
+  width: 100%; /* Ensure full width of the page */
+  max-width: 100%; /* Ensure full width of the page */
+  box-sizing: border-box; /* Include padding and borders in the width */
+}
+
+/* Adjust the width of the left container to occupy half the page */
+.container > :first-child {
+  flex: 1;
+  max-width: 50%; /* Set to 50% to occupy half the width */
+  box-sizing: border-box; /* Include padding and borders in the width */
+}
+
+/* Add any additional styles you need for form elements, buttons, etc. */
+.add-problem {
+  /* Add styles for the left container's content here */
+}
+
+/* You can also add more specific styles for form fields, labels, and buttons if needed */
+mat-form-field {
+  width: 90%;
+}

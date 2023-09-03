@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -83,6 +83,16 @@ import { ContractorTreeComponent } from './contractors/contractors/contractorTre
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
+//TRYING MAP STUFF
+import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { GoogleMapsModule } from '@angular/google-maps'
+import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
+import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
+import { DatePipe } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -127,7 +137,6 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     DeleteTenantDialogComponent,
     DeleteInspectionDialogComponent,
     DeleteRecoveriesDialogComponent,
-    AddRecoveriesModalComponent,
     AddInspectionModalComponent,
     AddTenantModalComponent,
     AddImageModalComponent,
@@ -154,6 +163,11 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     ContractorTreeComponent,
     GenerateEmployeeReportComponent,
     ChatbotComponent,
+    MapPropertiesComponent,
+    ViewLeasesComponent,
+    AddRecoveriesModalComponent,
+    ProblemsPageComponent,
+    UpdateInspectionModalComponent,
 
   ],
   imports: [
@@ -173,8 +187,15 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
     MatRippleModule,
     LoginFailedComponent,
     MatTableModule,
+    //MAP STUFF
+    LeafletModule,
+    GoogleMapsModule,
+    SlickCarouselModule,
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'en-ZA' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

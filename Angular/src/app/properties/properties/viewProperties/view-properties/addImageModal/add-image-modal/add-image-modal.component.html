@@ -1,20 +1,21 @@
-<input type="file" class="file-input"
-       (change)="onFileSelected($event)" #fileUpload>
+<div class="file-upload-container">
+  <label for="fileInput" class="file-label">
+    <span>Choose File</span>
+    <input type="file" id="fileInput" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+  </label>
 
-<div class="file-upload">
+  <div class="selected-file">
+    <ng-container *ngIf="fileName">
+      <img *ngIf="fileUrl" [src]="fileUrl" alt="Selected File">
+      <p>{{ fileName }}</p>
+    </ng-container>
+    <ng-container *ngIf="!fileName">
+      <p>No file uploaded yet.</p>
+    </ng-container>
+  </div>
 
-   {{fileName || "No file uploaded yet."}}
-
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="fileUpload.click()">
-        <mat-icon>attach_file</mat-icon>
-    </button>
+  <button mat-raised-button color="primary" class="upload-btn" (click)="uploadFile()">
+    Upload
+  </button>
+  <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
 </div>
-
-
-<!-- <h1 mat-dialog-title>Add Image</h1>
-<div mat-dialog-content>
-  <h3>Please select an image for the property!</h3>
-    <form (submit)="uploadImage($event)">
-      <input type="file" #imageInput accept=".jpeg, .jpg" onchange="console.log(event.target.files)">
-  <button mat-raised-button color="accent" type="submit">Upload Image</button> -->

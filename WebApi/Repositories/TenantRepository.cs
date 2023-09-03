@@ -24,13 +24,13 @@ namespace WebApi.Repositories
 
         public async Task<Tenant[]> GetAllTenantsAsync()
         {
-            IQueryable<Tenant> query = (IQueryable<Tenant>)_appDbContext.Tenant.Include(x => x.Leases).Include(t => t.User);
+            IQueryable<Tenant> query = (IQueryable<Tenant>)_appDbContext.Tenant.Include(t => t.User).Include(t => t.Leases);
             return await query.ToArrayAsync();
         }
 
         public async Task<Tenant> GetTenantByIDAsync(int tenantID)
         {
-            IQueryable<Tenant> query = _appDbContext.Tenant.Where(c => c.TenantID == tenantID).Include(x => x.Leases);
+            IQueryable<Tenant> query = _appDbContext.Tenant.Where(c => c.TenantID == tenantID).Include(x => x.Leases).Include(x => x.User);
             return await query.FirstOrDefaultAsync();
         }
         public async Task AddTenant(Tenant tenant)

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
@@ -21,6 +21,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Property } from 'src/app/shared/Property/Property';
 import { Recovery } from 'src/app/shared/Property/Recovery';
 import { Inspection } from 'src/app/shared/Property/Inspection';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { UpdateInspectionModalComponent } from './update-inspection-modal/update-inspection-modal.component';
 
 NgModule({
   imports: [
@@ -32,6 +34,8 @@ NgModule({
   ],
 });
 
+
+declare var $: any;
 @Component({
   selector: 'app-view-properties',
   templateUrl: './view-properties.component.html',
@@ -42,7 +46,29 @@ export class ViewPropertiesComponent implements AfterViewInit {
   recoveries : Recovery[] = [];
   inspections : Inspection[] = [];
 
-  constructor(public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute) {
+  slideConfig = { slidesToShow: 1, slidesToScroll: 1 };
+
+  @ViewChild('slickModal') slickModal!: ElementRef;
+
+
+  slickInit(e : any) {
+    console.log('slick initialized');
+  }
+
+  breakpoint(e : any) {
+    console.log('breakpoint');
+  }
+
+  afterChange(e : any) {
+    console.log('afterChange');
+  }
+
+  beforeChange(e : any) {
+    console.log('beforeChange');
+  }
+
+
+  constructor(public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute, private sanitizer: DomSanitizer) {
     console.log("property details", Property)
   }
 
@@ -50,6 +76,15 @@ export class ViewPropertiesComponent implements AfterViewInit {
 this.loadPropertry();
 this.loadRecoveries();
 this.loadInspections();
+this.loadPropertyImages();
+}
+
+getImageUrl(imageData: string): string {
+  if (!imageData || imageData.length === 0) {
+    return ''; // Return an empty string or placeholder URL
+  }
+
+  return `data:image/jpeg;base64,${imageData}`;
 }
 
 loadPropertry()
@@ -71,6 +106,15 @@ loadInspections() {
   this._propertiesService.getInspectionsForProperty(this.route.snapshot.params['id']).subscribe((inspections) => {
     this.inspections = inspections;
   });
+}
+
+loadPropertyImages() {
+  this._propertiesService
+    .getPropertyImagesByPropertyID(this.route.snapshot.params['id'])
+    .subscribe((propertyImages) => {
+      this.propertyDetail.propertyImage = propertyImages;
+
+    });
 }
 
   openDialog(
@@ -116,11 +160,23 @@ loadInspections() {
   }
 
   openAddInspectionModal() {
-    const dialogRef = this.dialog.open(AddInspectionModalComponent, {});
+    const dialogRef = this.dialog.open(AddInspectionModalComponent, {
+      data: { propertyID: this.propertyDetail.propertyID },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      // Handle any actions after the modal is closed (if needed)
+    });
   }
 
   openAddRecoveriesModal() {
-    const dialogRef = this.dialog.open(AddRecoveriesModalComponent, {});
+    const dialogRef = this.dialog.open(AddRecoveriesModalComponent, {
+      data: { propertyID: this.propertyDetail.propertyID },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      // Handle any actions after the modal is closed (if needed)
+    });
   }
 
   openAddTenantModal() {
@@ -129,11 +185,57 @@ loadInspections() {
 
   openAddImageModal() {
     const dialogRef = this.dialog.open(AddImageModalComponent, {
-      data: { propertyId: this.propertyDetail.propertyID } // Pass propertyId to the modal
+      data: { propertyID: this.propertyDetail.propertyID } // Pass propertyId to the modal
+    });
+
+    dialogRef.componentInstance.imageUploaded.subscribe(() => {
+      // Image was uploaded, refresh property details
+      this.loadPropertry();
+      // You can also update other relevant data like recoveries and inspections
     });
 
     dialogRef.afterClosed().subscribe(result => {
       // Handle any actions after the modal is closed
+    });
+  }
+
+  confirmDeleteInspection(inspection: Inspection) {
+    const dialogRef = this.dialog.open(DeleteInspectionDialogComponent, {
+      data: { inspection }, // Pass the inspection data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        // User confirmed the deletion, implement the deletion logic here
+        this.deleteInspection(inspection.inspectionID);
+      }
+    });
+  }
+
+  deleteInspection(inspectionID: number) {
+    // Call your API to delete the inspection here, e.g., using your PropertiesService
+    this._propertiesService.deleteInspection(inspectionID).subscribe(
+      () => {
+        console.log('Inspection deleted successfully');
+        // You may want to reload the inspections or update the view
+        this.loadInspections();
+      },
+      (error) => {
+        console.error('Error deleting inspection:', error);
+      }
+    );
+  }
+
+  openUpdateInspectionModal(inspection: Inspection) {
+    const dialogRef = this.dialog.open(UpdateInspectionModalComponent, {
+      data: { inspection }, // Pass the inspection to the modal
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        // Refresh the inspections or take any other necessary actions
+        this.loadInspections();
+      }
     });
   }
 

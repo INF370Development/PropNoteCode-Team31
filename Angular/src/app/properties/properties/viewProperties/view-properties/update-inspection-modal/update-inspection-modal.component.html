@@ -1,0 +1,71 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Update Inspection <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+    <form (submit)="updateInspection()">
+      <mat-form-field class="form-field">
+        <label>Description:</label>
+        <input
+          matInput
+          [(ngModel)]="inspectionModal.inspectionDescription"
+          name="inspectionDescription"
+          required
+          maxlength="50"
+        />
+        <!-- Add validation messages if needed -->
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Date:</label>
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          [(ngModel)]="inspectionModal.inspectionDate"
+          name="inspectionDate"
+          required
+          (click)="datepicker.open()"
+        />
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker></mat-datepicker>
+        <!-- Add validation messages if needed -->
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Time:</label>
+        <input
+          matInput
+          [(ngModel)]="inspectionModal.inspectionTime"
+          name="inspectionTime"
+          required
+          placeholder="00:00"
+        />
+        <!-- Add validation messages if needed -->
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Type:</label>
+        <mat-select [(ngModel)]="inspectionModal.inspectionTypeID" name="inspectionType">
+          <mat-option *ngFor="let inspectionType of inspectionTypes" [value]="inspectionType.inspectionTypeID">
+            {{ inspectionType.inspectionTypeName }}
+          </mat-option>
+        </mat-select>
+        <!-- Add validation messages if needed -->
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Status:</label>
+        <mat-select [(ngModel)]="inspectionModal.inspectionStatusID" name="inspectionStatus">
+          <mat-option *ngFor="let inspectionStatus of inspectionStatuses" [value]="inspectionStatus.inspectionStatusID">
+            {{ inspectionStatus.inspectionStatusName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="modal-actions">
+        <button mat-raised-button type="submit" color="accent">
+          Update Inspection
+        </button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
