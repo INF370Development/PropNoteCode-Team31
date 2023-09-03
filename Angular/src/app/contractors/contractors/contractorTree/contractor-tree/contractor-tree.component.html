@@ -1,7 +1,7 @@
 <h1>Contractor Hierarchy</h1>
 
 <mat-tab-group>
-  <mat-tab label=" Contractor Type ">
+  <mat-tab label=" Contractor Type " class="label">
     <div *ngFor="let specialty of groupedContractors.keys()">
       <h2>{{ specialty }}</h2>
       <mat-card *ngFor="let contractor of groupedContractors.get(specialty)">
@@ -10,11 +10,12 @@
           <p>Email: {{ contractor.user.email }}</p>
           <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
         </mat-card-content>
+        <button mat-raised-button color="primary" class="update">Update</button>
       </mat-card>
     </div>
   </mat-tab>
 
-  <mat-tab label="Location">
+  <mat-tab label="Location" class="label">
     <div *ngFor="let location of groupedLocations.keys()">
       <h2>{{ location }}</h2>
       <div *ngFor="let contractor of groupedLocations.get(location)">
@@ -24,12 +25,13 @@
             <p>Email: {{ contractor.user.email }}</p>
             <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
           </mat-card-content>
+          <button mat-raised-button color="primary" class="update">Update</button>
         </mat-card>
       </div>
     </div>
   </mat-tab>
 
-  <mat-tab label="Available">
+  <mat-tab label="Available" class="label">
     <div *ngFor="let availability of groupedAvailability.keys()">
       <h2>{{ availability }}</h2>
       <div *ngFor="let contractor of groupedAvailability.get(availability)">
@@ -39,6 +41,7 @@
             <p>Email: {{ contractor.user.email }}</p>
             <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
           </mat-card-content>
+          <button mat-raised-button color="primary" class="update">Update</button>
         </mat-card>
       </div>
     </div>
