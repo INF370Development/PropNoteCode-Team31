@@ -10,7 +10,7 @@
           <p>Email: {{ contractor.user.email }}</p>
           <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
         </mat-card-content>
-        <button mat-raised-button color="primary" class="update">Update</button>
+        <button mat-raised-button color="primary" class="update" (click)="openUpdateModal(contractor)">Update</button>
       </mat-card>
     </div>
   </mat-tab>
@@ -25,7 +25,7 @@
             <p>Email: {{ contractor.user.email }}</p>
             <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
           </mat-card-content>
-          <button mat-raised-button color="primary" class="update">Update</button>
+          <button mat-raised-button color="primary" class="update" (click)="openUpdateModal(contractor)">Update</button>
         </mat-card>
       </div>
     </div>
@@ -41,7 +41,7 @@
             <p>Email: {{ contractor.user.email }}</p>
             <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
           </mat-card-content>
-          <button mat-raised-button color="primary" class="update">Update</button>
+          <button mat-raised-button color="primary" class="update" (click)="openUpdateModal(contractor)">Update</button>
         </mat-card>
       </div>
     </div>
