@@ -1,5 +1,17 @@
 <h1>Contractor Hierarchy</h1>
 
+<div *ngFor="let specialty of groupedContractors.keys()">
+  <h2>{{ specialty }}</h2>
+  <mat-card *ngFor="let contractor of groupedContractors.get(specialty)">
+    <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
+    <mat-card-content>
+      <p>Email: {{ contractor.user.email }}</p>
+      <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
+      <!-- Add other contractor information as needed -->
+    </mat-card-content>
+  </mat-card>
+</div>
+
 <!--<mat-tree [dataSource]="treeDataSource" [treeControl]="treeControl">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
     <!-- Display contractor details here --

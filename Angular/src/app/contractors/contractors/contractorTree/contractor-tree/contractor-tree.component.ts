@@ -1,13 +1,28 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
-/*import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { NestedTreeControl } from '@angular/cdk/tree';*/
+import { Component, OnInit } from '@angular/core';
+import { ContractorService } from 'src/app/services/contractor.service';
+import { Contractor } from 'src/app/shared/UserModels/Contractor';
 
 @Component({
   selector: 'app-contractor-tree',
   templateUrl: './contractor-tree.component.html',
   styleUrls: ['./contractor-tree.component.scss']
 })
-export class ContractorTreeComponent {  //AfterViewInit, OnInit{
+export class ContractorTreeComponent implements OnInit{
+  groupedContractors: Map<string, Contractor[]> = new Map<string, Contractor[]>();
+
+
+  constructor(private contractorService: ContractorService) {}
+
+  ngOnInit(): void {
+    this.contractorService
+      .getContractorsGroupedBySpecialty()
+      .subscribe((groupedContractors) => {
+        this.groupedContractors = groupedContractors;
+      });
+  }
+}
+  
+  //AfterViewInit, OnInit{
 
   /*reeControl = new NestedTreeControl<ContractorNode>(node => node.children);
   treeDataSource = new MatTreeNestedDataSource<ContractorNode>();
@@ -32,4 +47,3 @@ interface ContractorNode {
   data: Contractor;
   children: ContractorNode[];*/
 
-}
