@@ -36,7 +36,7 @@ namespace WebApi.Repositories
             IQueryable<Payment> query = _appDbContext.Payment.Where(x => x.MaintenanceID == PaymentID);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Payment> EditPayment(int PaymentId,int MaintenanceId, string amount)
+        public async Task<Payment> EditPayment(int PaymentId,int MaintenanceId, decimal amount)
         {
             Payment x = (Payment)await GetPaymentByID(PaymentId);
             if (x != null)

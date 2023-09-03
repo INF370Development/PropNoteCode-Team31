@@ -85,7 +85,7 @@ namespace WebApi.Controllers
 
                 if (paymentViewModel.MaintenanceID != 0)
                 { existingPayment.MaintenanceID = paymentViewModel.MaintenanceID; }
-                if (paymentViewModel.Amount != "0")
+                if (paymentViewModel.Amount != 0)
                 { existingPayment.Amount = paymentViewModel.Amount; }
 
                 return Ok(await _maintenanceRepository.SaveChangesAsync());

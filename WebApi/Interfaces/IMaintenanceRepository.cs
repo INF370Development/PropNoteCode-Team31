@@ -11,7 +11,7 @@ namespace WebApi.Interfaces
         Task<Payment> AddPayment(Payment item);
         Task<Payment[]> GetAllPaymentAsync();
         Task<Payment> GetPaymentByID(int PaymentID);
-        Task<Payment> EditPayment(int PaymentId, int MaintenanceId, string amoun);
+        Task<Payment> EditPayment(int PaymentId, int MaintenanceId, decimal amount);
         Task<Payment> DeletePaymentAsync(Payment item);
 
         Task<MaintenanceType> AddMaintenanceType(MaintenanceType item);
