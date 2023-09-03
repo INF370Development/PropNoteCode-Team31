@@ -1,12 +1,10 @@
 import { HttpClient, HttpStatusCode, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  Observable, Subject, of } from 'rxjs';
+import { map, Observable, Subject, of } from 'rxjs';
 import { UserTenant } from '../shared/UserModels/UserTenant';
 import { Tenant } from '../shared/UserModels/Tenant';
 import { UserContractor } from '../shared/UserModels/UserContractor';
 import { Contractor } from '../shared/UserModels/Contractor';
-import { map } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root',
@@ -84,56 +82,4 @@ export class ContractorService {
   //     )
   //     .pipe(map((result) => result));
   // }
-
-  //TREE TRY
-  getContractorsGroupedBySpecialty(): Observable<Map<string, Contractor[]>> {
-    return this.httpClient
-      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
-      .pipe(
-        map((contractors) => {
-          const groupedContractors = new Map<string, Contractor[]>();
-          contractors.forEach((contractor) => {
-            if (!groupedContractors.has(contractor.contractorType.contractorTypeName)) {
-              groupedContractors.set(contractor.contractorType.contractorTypeName, []);
-            }
-            groupedContractors.get(contractor.contractorType.contractorTypeName)?.push(contractor);
-          });
-          return groupedContractors;
-        })
-      );
-  }
-
-  getContractorsGroupedByLocation(): Observable<Map<string, Contractor[]>> {
-    return this.httpClient
-      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
-      .pipe(
-        map((contractors) => {
-          const groupedContractors = new Map<string, Contractor[]>();
-          contractors.forEach((contractor) => {
-            if (!groupedContractors.has(contractor.areaOfBusiness)) {
-              groupedContractors.set(contractor.areaOfBusiness, []);
-            }
-            groupedContractors.get(contractor.areaOfBusiness)?.push(contractor);
-          });
-          return groupedContractors;
-        })
-      );
-  }
-
-  getContractorsGroupedByAvailability(): Observable<Map<string, Contractor[]>> {
-    return this.httpClient
-      .get<Contractor[]>(`https://localhost:7251/api/Contractor/GetAllContractors`)
-      .pipe(
-        map((contractors) => {
-          const groupedContractors = new Map<string, Contractor[]>();
-          contractors.forEach((contractor) => {
-            if (!groupedContractors.has(contractor.availability)) {
-              groupedContractors.set(contractor.availability, []);
-            }
-            groupedContractors.get(contractor.availability)?.push(contractor);
-          });
-          return groupedContractors;
-        })
-      );
-  }
 }

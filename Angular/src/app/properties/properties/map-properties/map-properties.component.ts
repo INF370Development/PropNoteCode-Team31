@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import { PropertiesService } from 'src/app/services/properties.service';
-import 'leaflet-tooltip';
-import * as L from 'leaflet';
 
 @Component({
   selector: 'app-map-properties',
@@ -10,7 +8,7 @@ import * as L from 'leaflet';
   styleUrls: ['./map-properties.component.scss']
 })
 export class MapPropertiesComponent implements OnInit {
-  map!: L.Map;
+  map!: Leaflet.Map;
   markers: Leaflet.Marker[] = [];
   options = {
     layers: [
@@ -20,60 +18,11 @@ export class MapPropertiesComponent implements OnInit {
     center: { lat: -29.0, lng: 24.0 }
   };
 
-  
-
   constructor(private propertyService: PropertiesService) {} // Inject your property service here
 
-  async ngOnInit() {
+  ngOnInit() {
     this.initializeMap();
     this.loadPropertyMarkers();
-
-    
-
-    // this.map = L.map('map').setView([51.505, -0.09], 13);
-
-    navigator.geolocation.getCurrentPosition((position) => {
-     
-      // Success callback
-      var lat = position.coords.latitude;
-      var lon = position.coords.longitude;
-      console.log('Latitude: ' + lat + ', Longitude: ' + lon);
-
-      // Define the custom icon
-      const myIcon = L.icon({
-        iconUrl: 'src/app/assets/marker.png.png', // Provide the path to your custom icon
-        iconSize: [32, 32], // Set the size of the icon
-        iconAnchor: [16, 32], // Set the anchor point of the icon
-      });
-      
-      const marker = L.marker([position.coords.latitude, position.coords.longitude], {
-        icon: myIcon // Pass the custom icon here
-      }).addTo(this.map);
-      
-
-      marker.bindPopup("<b>Your Current Location.</b><br />").openPopup();
-
-      this.map.panTo(new L.LatLng(position.coords.latitude, position.coords.longitude));
-
-
-
-      
-      // Use lat and lon as needed
-    }, function(error) {
-      // Error callback
-      switch(error.code) {
-        case error.PERMISSION_DENIED:
-          console.log("User denied the request for Geolocation.");
-          break;
-        case error.POSITION_UNAVAILABLE:
-          console.log("Location information is unavailable.");
-          break;
-        case error.TIMEOUT:
-          console.log("The request to get user location timed out.");
-          break;
-        
-      }
-    });
   }
 
   initializeMap() {
@@ -81,13 +30,10 @@ export class MapPropertiesComponent implements OnInit {
   }
 
   loadPropertyMarkers() {
-    console.log("Prop ")
     // Fetch property data from your API
     this.propertyService.getProperties().subscribe((properties) => {
-      console.log("Prop ")
       // Iterate through the properties and create markers
       properties.forEach((property, index) => {
-        
         const marker = this.generateMarker(property, index);
         marker.addTo(this.map);
         this.markers.push(marker);
@@ -95,21 +41,10 @@ export class MapPropertiesComponent implements OnInit {
     });
   }
 
-  /*generateMarker(data: any, index: number) {
+  generateMarker(data: any, index: number) {
     return Leaflet.marker(data.position, { draggable: data.draggable })
       .on('click', (event) => this.markerClicked(event, index))
       .on('dragend', (event) => this.markerDragEnd(event, index));
-  }*/
-
-  generateMarker(data: any, index: number) {
-    const marker = Leaflet.marker(data.position, { draggable: data.draggable })
-      .on('click', (event) => this.markerClicked(event, index))
-      .on('dragend', (event) => this.markerDragEnd(event, index));
-  
-    // Add a tooltip with the property description
-    marker.bindTooltip(data.description);
-  
-    return marker;
   }
 
   onMapReady($event: Leaflet.Map) {
@@ -205,7 +140,6 @@ import { HereMapsService } from 'src/app/services/here-maps.service';*/
 Access key ID: _R9pnLde3CQ_cZV08c6aLg 
 Access key secret: euEUflx6-0Zt54Wj9ymiDsuk_i8VbP4wC7fTuMuITTDJYa-c0kaU1wZml_oBz_DzTblndEk2aY1rUbyp3CHgLw */
 //import * as H from '@here/maps-api-for-javascript';
-import { map } from 'rxjs';
 
 /*constructor() {}
       
