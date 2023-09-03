@@ -8,6 +8,7 @@
           matInput
           [(ngModel)]="brokerModel.name"
           name="name"
+          placeholder="Enter a first name"
           required
           maxlength="32"
         />
@@ -19,6 +20,7 @@
           matInput
           [(ngModel)]="brokerModel.surname"
           name="surname"
+          placeholder="Enter a surname"
           required
           maxlength="32"
         />
@@ -29,6 +31,7 @@
         <input
           matInput
           [(ngModel)]="brokerModel.phoneNumber"
+          placeholder="Enter a phone number"
           name="phoneNumber"
           required
           pattern="0\d{9}"
@@ -41,6 +44,7 @@
         <label>Office Address:</label>
         <input
           matInput
+          placeholder="Enter an Office Address"
           [(ngModel)]="brokerModel.officeAddress"
           name="officeAddress"
           required
@@ -52,6 +56,7 @@
         <label>License Number:</label>
         <input
           matInput
+          placeholder="Enter a license Number"
           [(ngModel)]="brokerModel.licenseNumber"
           name="licenseNumber"
           required
@@ -63,6 +68,7 @@
         <label>Commission Rate:</label>
         <input
           matInput
+          placeholder="Enter a Commission Rate"
           [(ngModel)]="commissionRatePercentage"
           type="number"
           name="commissionRate"

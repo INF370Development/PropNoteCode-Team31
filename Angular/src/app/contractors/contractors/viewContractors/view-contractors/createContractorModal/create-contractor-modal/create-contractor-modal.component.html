@@ -8,6 +8,7 @@
           matInput
           [(ngModel)]="contractorModel.username"
           name="username"
+          placeholder="Enter a username"
           required
           maxlength="50"
           [formControl]="username"
@@ -20,6 +21,7 @@
           matInput
           [(ngModel)]="contractorModel.password"
           name="password"
+          placeholder="Enter a password"
           required
           maxlength="50"
           [type]="hide ? 'password' : 'text'"
@@ -36,6 +38,7 @@
           matInput
           [(ngModel)]="contractorModel.email"
           name="email"
+          placeholder="Enter a emaill address"
           required
           maxlength="50"
           [formControl]="email"
@@ -48,6 +51,7 @@
           matInput
           [(ngModel)]="contractorModel.name"
           name="name"
+          placeholder="Enter a first name"
           required
           maxlength="50"
           [formControl]="name"
@@ -60,6 +64,7 @@
           matInput
           [(ngModel)]="contractorModel.surname"
           name="surname"
+          placeholder="Enter a surname"
           required
           maxlength="50"
           [formControl]="surname"
@@ -72,6 +77,7 @@
           matInput
           [(ngModel)]="contractorModel.phoneNumber"
           name="phoneNumber"
+          placeholder="Enter a phone number"
           required
           maxlength="10"
           minlength="10"
@@ -85,6 +91,7 @@
           matInput
           [(ngModel)]="contractorModel.areaOfBusiness"
           name="areaOfBusiness"
+          placeholder="Enter an Area of Business"
           required
           maxlength="50"
           [formControl]="areaBusiness"
@@ -97,6 +104,7 @@
           matInput
           [(ngModel)]="contractorModel.availability"
           name="availability"
+          placeholder="Enter availability schedule"
           required
           maxlength="50"
           [formControl]="availability"
@@ -105,7 +113,7 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>Contractor Type:</label>
-        <mat-select [(ngModel)]="contractorModel.contractorType" name="contractorType" (selectionChange)="updateSelectedContractorType($event.value)">
+        <mat-select [(ngModel)]="contractorModel.contractorType"  placeholder="Select contractor type" name="contractorType" (selectionChange)="updateSelectedContractorType($event.value)">
           <mat-option *ngFor="let contractorType of contractorTypes" [value]="contractorType">{{ contractorType.contractorTypeName }}</mat-option>
         </mat-select>
       </mat-form-field>

@@ -9,6 +9,7 @@ import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
 import { CreateBrokerModalComponent } from './CreateBroker/create-broker/create-broker-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteBrokerModelComponent } from './delete-broker-model/delete-broker-model.component';
 
 @Component({
   selector: 'app-view-broker',
@@ -18,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class ViewBrokerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
+    
     'name',
     'surname',
     'phoneNumber',
@@ -28,6 +30,14 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
     'deleteButton',
   ];
   dataSource = new MatTableDataSource<Broker>();
+
+
+  refreshTableData() {
+    this._brokerService.getBrokers().subscribe((broker: any) => {
+      this.dataSource.data = broker;
+    });
+  }
+
 
   constructor(
     private _brokerService: BrokerService,
@@ -49,26 +59,67 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    // Filtering based on multiple columns (name, email, etc.)
+    this.dataSource.filterPredicate = (data: Broker, filter: string) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      return (
+        data.name.toLowerCase().includes(lowerCaseFilter) ||
+        data.surname.toLowerCase().includes(lowerCaseFilter) ||
+        
+        data.phoneNumber.includes(filter) ||
+        data.officeAddress.toLowerCase().includes(lowerCaseFilter) ||
+        data.licenseNumber.toLowerCase().includes(lowerCaseFilter) ||
+        data.commissionRate.toString().includes(filter)
+      );
+    };
+
+    this.dataSource.filter = filterValue;
   }
 
-  async deleteBroker(brokerID: any) {
-    debugger;
-    await this._brokerService.deleteBroker(brokerID).toPromise();
-    this.showSnackBar();
-  }
 
-  showSnackBar() {
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
-      'Deleted successfully',
-      'X',
-      { duration: 500 }
-    );
-    snackBarRef.afterDismissed().subscribe(() => {
-      location.reload();
+  openDeleteConfirmationDialog(brokerID: number) {
+    const dialogRef = this.dialog.open(DeleteBrokerModelComponent, {
+      data: { brokerID }, 
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'delete') {
+        this.deleteBroker(brokerID);
+      }
     });
   }
+
+
+  deleteBroker(brokerID: any) {
+    this._brokerService.deleteBroker(brokerID).subscribe(
+      ()=>{
+        this.snackBar.open('Broker deleted successfully', 'Close', {
+          duration: 2000,
+        });
+        this.refreshTableData();
+      },
+      (error) => {
+        console.error('Error deleting Broker:', error);
+        this.snackBar.open('Error deleting Broker', 'Close', {
+          duration: 2000,
+        });
+      }
+    );
+   
+  }
+
+  // showSnackBar() {
+  //   const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+  //     'Deleted successfully',
+  //     'X',
+  //     { duration: 500 }
+  //   );
+  //   snackBarRef.afterDismissed().subscribe(() => {
+  //     location.reload();
+  //   });
+  // }
 
   openDialog(
     enterAnimationDuration: string,
@@ -84,4 +135,6 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
   openModal() {
     const dialogRef = this.dialog.open(CreateBrokerModalComponent, {});
   }
+
+
 }

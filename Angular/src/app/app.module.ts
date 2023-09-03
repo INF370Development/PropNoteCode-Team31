@@ -90,6 +90,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
+import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-broker/delete-broker-model/delete-broker-model.component';
 
 @NgModule({
   declarations: [
@@ -165,6 +166,7 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
+    DeleteBrokerModelComponent,
 
   ],
   imports: [
