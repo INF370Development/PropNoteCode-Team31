@@ -1,35 +1,38 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
-/*import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { NestedTreeControl } from '@angular/cdk/tree';*/
+import { Component, OnInit } from '@angular/core';
+import { ContractorService } from 'src/app/services/contractor.service';
+import { Contractor } from 'src/app/shared/UserModels/Contractor';
+import { UserContractor } from 'src/app/shared/UserModels/UserContractor';
 
 @Component({
   selector: 'app-contractor-tree',
   templateUrl: './contractor-tree.component.html',
   styleUrls: ['./contractor-tree.component.scss']
 })
-export class ContractorTreeComponent {  //AfterViewInit, OnInit{
+export class ContractorTreeComponent implements OnInit{
+  groupedContractors: Map<string, Contractor[]> = new Map<string, Contractor[]>();
+  groupedLocations: Map<string, Contractor[]> = new Map<string, Contractor[]>();
+  groupedAvailability: Map<string, Contractor[]> = new Map<string, Contractor[]>();
 
-  /*reeControl = new NestedTreeControl<ContractorNode>(node => node.children);
-  treeDataSource = new MatTreeNestedDataSource<ContractorNode>();
+  constructor(private contractorService: ContractorService) {}
 
   ngOnInit(): void {
-    this._contractorService.getContractors().subscribe((contractors: any) => {
-      // Transform your flat contractor data into a hierarchical structure.
-      const contractorNodes: ContractorNode[] = contractors.map(contractor => ({
-        data: contractor,
-        children: [], // You may populate this if your data has a hierarchy
-      }));
-      this.treeDataSource.data = contractorNodes;
+    this.contractorService
+      .getContractorsGroupedBySpecialty()
+      .subscribe((groupedContractors) => {
+        this.groupedContractors = groupedContractors;
+      });
+
+    this.contractorService
+    .getContractorsGroupedByLocation()
+    .subscribe((groupedLocations) => {
+      this.groupedLocations = groupedLocations;
     });
+
+    this.contractorService
+      .getContractorsGroupedByAvailability()
+      .subscribe((groupedAvailability) => {
+        this.groupedAvailability = groupedAvailability;
+      });
   }
-
-  // Other methods...
-
-  hasChild = (_: number, node: ContractorNode) => !!node.children && node.children.length > 0;
 }
 
-interface ContractorNode {
-  data: Contractor;
-  children: ContractorNode[];*/
-
-}
