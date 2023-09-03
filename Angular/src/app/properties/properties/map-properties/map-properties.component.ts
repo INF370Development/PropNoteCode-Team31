@@ -28,6 +28,8 @@ export class MapPropertiesComponent implements OnInit {
     this.initializeMap();
     this.loadPropertyMarkers();
 
+    
+
     // this.map = L.map('map').setView([51.505, -0.09], 13);
 
     navigator.geolocation.getCurrentPosition((position) => {
@@ -39,7 +41,7 @@ export class MapPropertiesComponent implements OnInit {
 
       // Define the custom icon
       const myIcon = L.icon({
-        iconUrl: 'src/app/assets/marker.png', // Provide the path to your custom icon
+        iconUrl: 'src/app/assets/marker.png.png', // Provide the path to your custom icon
         iconSize: [32, 32], // Set the size of the icon
         iconAnchor: [16, 32], // Set the anchor point of the icon
       });
@@ -79,10 +81,13 @@ export class MapPropertiesComponent implements OnInit {
   }
 
   loadPropertyMarkers() {
+    console.log("Prop ")
     // Fetch property data from your API
     this.propertyService.getProperties().subscribe((properties) => {
+      console.log("Prop ")
       // Iterate through the properties and create markers
       properties.forEach((property, index) => {
+        
         const marker = this.generateMarker(property, index);
         marker.addTo(this.map);
         this.markers.push(marker);
