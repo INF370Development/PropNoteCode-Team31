@@ -92,20 +92,31 @@ import { AddMaintenanceComponent } from './maintenance/maintenance/maintenance/a
 import { EditMaintenanceComponent } from './maintenance/maintenance/maintenance/edit-maintenance/edit-maintenance.component';
 import { ViewMaintenanceComponent } from './maintenance/maintenance/maintenance/maintenance.component';
 import { MaintenanceContractorComponent } from './maintenance/maintenance/maintenance/maintenance-contractor/maintenance-contractor.component';
-import{EditMaintenanceNoteComponent} from './maintenance/maintenance/maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
+import { EditMaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
 import { EditMaintenanceStatusComponent } from './maintenance/maintenance/maintenance-status/edit-maintenance-status/edit-maintenance-status.component';
 import { EditMaintenanceTypeComponent } from './maintenance/maintenance/maintenance-type/edit-maintenance-type/edit-maintenance-type.component';
-import { EditPaymentComponent } from './maintenance/maintenance/payment/edit-payment/edit-payment.component'
+import { EditPaymentComponent } from './maintenance/maintenance/payment/edit-payment/edit-payment.component';
 
 //TRYING MAP STUFF
 import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
-//import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-//import { GoogleMapsModule } from '@angular/google-maps'
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
-//import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
+
+//CALENDAR STUFF
+import {
+  ScheduleModule,
+  DayService,
+  WeekService,
+  WorkWeekService,
+  MonthService,
+  AgendaService,
+} from '@syncfusion/ej2-angular-schedule';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -195,7 +206,7 @@ import { DatePipe } from '@angular/common';
     EditMaintenanceNoteComponent,
     EditMaintenanceStatusComponent,
     EditMaintenanceTypeComponent,
-    EditPaymentComponent
+    EditPaymentComponent,
   ],
   imports: [
     BrowserModule,
@@ -215,13 +226,17 @@ import { DatePipe } from '@angular/common';
     LoginFailedComponent,
     MatTableModule,
     //MAP STUFF
-    /*LeafletModule,
+    LeafletModule,
     GoogleMapsModule,
-    SlickCarouselModule,*/
+    SlickCarouselModule,
+    //CALENDAR
+    ScheduleModule,
+    FullCalendarModule,
   ],
   providers: [
     DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
+    [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
   ],
   bootstrap: [AppComponent],
 })

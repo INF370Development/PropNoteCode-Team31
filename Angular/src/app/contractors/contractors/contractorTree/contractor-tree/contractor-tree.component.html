@@ -1,69 +1,49 @@
 <h1>Contractor Hierarchy</h1>
 
-<!--<mat-tree [dataSource]="treeDataSource" [treeControl]="treeControl">
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-    <!-- Display contractor details here --
-    <button mat-icon-button (click)="openDetails(node.data)">Details</button>
-    {{ node.data.name }} {{ node.data.surname }}
-  </mat-tree-node>
+<mat-tab-group>
+  <mat-tab label=" Contractor Type " class="label">
+    <div *ngFor="let specialty of groupedContractors.keys()">
+      <h2>{{ specialty }}</h2>
+      <mat-card *ngFor="let contractor of groupedContractors.get(specialty)">
+        <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
+        <mat-card-content>
+          <p>Email: {{ contractor.user.email }}</p>
+          <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
+        </mat-card-content>
+        <button mat-raised-button color="primary" class="update" (click)="openUpdateModal(contractor)">Update</button>
+      </mat-card>
+    </div>
+  </mat-tab>
 
-  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-    <button mat-icon-button matTreeNodePadding>
-      <mat-icon>{{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
-    </button>
-    {{ node.data.areaOfBusiness }}
-    <span class="mat-tree-children">
-      <ng-container matTreeNodeOutlet></ng-container>
-    </span>
-  </mat-nested-tree-node>
-</mat-tree>-->
+  <mat-tab label="Location" class="label">
+    <div *ngFor="let location of groupedLocations.keys()">
+      <h2>{{ location }}</h2>
+      <div *ngFor="let contractor of groupedLocations.get(location)">
+        <mat-card>
+          <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
+          <mat-card-content>
+            <p>Email: {{ contractor.user.email }}</p>
+            <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
+          </mat-card-content>
+          <button mat-raised-button color="primary" class="update" (click)="openUpdateModal(contractor)">Update</button>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
 
-
-<!--Trying to reach:
-- Contractors
-  - General Contractors
-    - Commercial General Contractors
-    - Residential General Contractors
-    - Industrial General Contractors
-  - Specialized Contractors
-    - Electrical Contractors
-    - Plumbing Contractors
-    - HVAC Contractors
-    - Roofing Contractors
-    - Flooring Contractors
-    - Painting Contractors
-    - Landscaping Contractors
-    - Concrete Contractors
-  - Construction Management Firms
-    - Project Managers
-    - Estimators
-    - Schedulers
-  - Subcontractors
-    - Electrical Subcontractors
-    - Plumbing Subcontractors
-    - Carpentry Subcontractors
-    - Masonry Subcontractors
-    - Painting Subcontractors
-    - HVAC Subcontractors
-  - Design-Build Contractors
-  - Renovation Contractors
-  - Environmental Contractors
-    - Asbestos Removal Contractors
-    - Environmental Remediation Contractors
-  - Civil Engineering Contractors
-  - Road and Bridge Contractors
-  - Specialty Trade Contractors
-    - Elevator Contractors
-    - Fire Protection Contractors
-    - Solar Contractors
-    - Demolition Contractors
-  - Home Improvement Contractors
-    - Kitchen Remodeling Contractors
-    - Bathroom Remodeling Contractors
-  - Mechanical Contractors
-    - Refrigeration Contractors
-    - Plumbing and Heating Contractors
-  - Restoration Contractors
-  - Government Contractors
-  - Commercial Interior Contractors
-  - Residential Remodeling Contractors-->
+  <mat-tab label="Available" class="label">
+    <div *ngFor="let availability of groupedAvailability.keys()">
+      <h2>{{ availability }}</h2>
+      <div *ngFor="let contractor of groupedAvailability.get(availability)">
+        <mat-card>
+          <mat-card-title>{{ contractor.user.name }} {{ contractor.user.surname }}</mat-card-title>
+          <mat-card-content>
+            <p>Email: {{ contractor.user.email }}</p>
+            <p>Phone Number: {{ contractor.user.phoneNumber }}</p>
+          </mat-card-content>
+          <button mat-raised-button color="primary" class="update" (click)="openUpdateModal(contractor)">Update</button>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

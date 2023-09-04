@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import { PropertiesService } from 'src/app/services/properties.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-map-properties',
@@ -8,7 +9,7 @@ import { PropertiesService } from 'src/app/services/properties.service';
   styleUrls: ['./map-properties.component.scss']
 })
 export class MapPropertiesComponent implements OnInit {
-  map!: Leaflet.Map;
+  map!: L.Map;
   markers: Leaflet.Marker[] = [];
   options = {
     layers: [
@@ -20,9 +21,50 @@ export class MapPropertiesComponent implements OnInit {
 
   constructor(private propertyService: PropertiesService) {} // Inject your property service here
 
-  ngOnInit() {
+  async ngOnInit() {
     this.initializeMap();
     this.loadPropertyMarkers();
+
+  // this.map = L.map('map').setView([51.505, -0.09], 13);
+
+  navigator.geolocation.getCurrentPosition((position) => {
+
+  // Success callback
+  var lat = position.coords.latitude;
+  var lon = position.coords.longitude;
+  console.log('Latitude: ' + lat + ', Longitude: ' + lon);
+
+  // Define the custom icon
+  const myIcon = L.icon({
+    iconUrl: 'src/app/assets/marker.png', // Provide the path to your custom icon
+    iconSize: [32, 32], // Set the size of the icon
+    iconAnchor: [16, 32], // Set the anchor point of the icon
+  });
+
+  const marker = L.marker([position.coords.latitude, position.coords.longitude], {
+    icon: myIcon // Pass the custom icon here
+  }).addTo(this.map);
+
+
+  marker.bindPopup("<b>Your Current Location.</b><br />").openPopup();
+
+  this.map.panTo(new L.LatLng(position.coords.latitude, position.coords.longitude));
+
+  // Use lat and lon as needed
+  }, function(error) {
+  // Error callback
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      console.log("User denied the request for Geolocation.");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      console.log("Location information is unavailable.");
+      break;
+    case error.TIMEOUT:
+      console.log("The request to get user location timed out.");
+      break;
+    }
+    });
   }
 
   initializeMap() {
