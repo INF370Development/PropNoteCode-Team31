@@ -30,6 +30,7 @@ import { ContractorDetailsComponent } from './contractors/contractors/viewContra
 import { EmployeeComponent } from './employee/employee/employee.component';
 import { ViewEmployeeComponent } from './employee/employee/viewEmployee/view-employee/view-employee.component';
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
+import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 //Broker
 import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
@@ -89,6 +90,7 @@ const routes: Routes = [
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },
   { path: 'generateEmployees', component: GenerateEmployeeReportComponent },
+  { path: 'employeeDetails/:id', component: EmployeeDetailsComponent},
   //Broker
   { path: 'broker', component: BrokerComponent },
   { path: 'viewBroker', component: ViewBrokerComponent },
