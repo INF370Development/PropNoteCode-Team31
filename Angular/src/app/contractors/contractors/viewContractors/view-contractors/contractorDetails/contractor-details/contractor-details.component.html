@@ -1,1 +1,26 @@
-<p>contractor-details works!</p>
+<h1>{{contractorDetail.user.name}}</h1>
+
+<button mat-button [routerLink]="['/viewContractor']">
+  <mat-icon>home</mat-icon>
+  Return
+</button>
+
+<div class="container">
+<div class="card">
+  <div class="left">
+            <div class="details">
+              <h2>Broker</h2>
+            <h3>Name: {{contractorDetail.user.name}} {{contractorDetail.user.surname}}</h3>
+            <h3>Phone Number: {{contractorDetail.user.phoneNumber}}</h3>
+            <h3>Email: {{contractorDetail.user.email}}</h3>
+            <h3>Area of Business: {{contractorDetail.areaOfBusiness}}</h3>
+            <h3>Availability: {{ contractorDetail.availability}}</h3>
+            <h3>Availability: {{ contractorDetail.contractorType}}</h3>
+<br>
+            <div class="buttons">
+                <button mat-raised-button color="primary">UPDATE</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
