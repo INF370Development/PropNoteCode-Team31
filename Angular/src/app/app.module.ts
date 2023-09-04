@@ -168,7 +168,6 @@ import { DatePipe } from '@angular/common';
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
     UpdateInspectionModalComponent,
-
   ],
   imports: [
     BrowserModule,
