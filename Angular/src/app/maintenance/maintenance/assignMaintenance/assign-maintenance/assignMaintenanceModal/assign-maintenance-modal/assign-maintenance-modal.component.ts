@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Property } from 'src/app/shared/Property/Property';
 import { Maintenance } from 'src/app/shared/Maintenance';
@@ -28,8 +28,6 @@ export class AssignMaintenanceModalComponent implements OnInit {
     contractorID: 0,
     contractor: new Contractor(),
   };
-
-  //assignMaintenance: AssignMaintenance[] =[] ;
 
 properties: Property[] = [];
 contractors: Contractor[] = [];
@@ -74,26 +72,5 @@ contractors: Contractor[] = [];
 
   closeModal() {
     this.dialogRef.close();
-  }
-
-  //Maintenance Note
-  maintenanceNote = new FormControl('', [Validators.required]);
-
-  getErrorMessageMaintenanceNote() {
-    if (this.maintenanceNote.hasError('required')) {
-      return 'Maintenance note required';
-    }
-
-    return this.maintenanceNote.hasError('maintenanceNote') ? 'Not a valid maintenance note' : '';
-  }
-  //Status
-  status = new FormControl('', [Validators.required]);
-
-  getErrorMessageAvailability() {
-    if (this.status.hasError('required')) {
-      return 'Status required';
-    }
-
-    return this.status.hasError('status') ? 'Not a valid status' : '';
   }
 }
