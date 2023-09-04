@@ -1,0 +1,38 @@
+.modal-container {
+    width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+  
+.modal-container h2 {
+    margin-bottom: 10px;
+}
+  
+.modal-container ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+  
+.modal-container li {
+    margin-bottom: 8px;
+}
+  
+.modal-container button {
+    margin-right: 10px;
+}
+
+.form {
+    width: 500px;
+}
+
+.cancel {
+    float: right;
+    position: relative;
+}
+
+.end{
+    padding: 10px;
+}

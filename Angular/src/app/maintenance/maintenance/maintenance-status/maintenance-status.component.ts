@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+  import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
   import { MatPaginator } from '@angular/material/paginator';
   import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
   import { MatSort } from '@angular/material/sort';
@@ -6,24 +6,23 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
   import { Router } from '@angular/router';
   import { Observable } from 'rxjs';
   import { MaintenanceService } from 'src/app/services/maintenance.service';
-  import { MaintenanceNote } from 'src/app/shared/MaintenanceNote';
-  import { AddMaintenanceNoteComponent } from '../add-maintenance-note/add-maintenance-note.component';
+  import { MaintenanceStatus } from 'src/app/shared/MaintenanceStatus';
+  import { AddMaintenanceStatusComponent } from './add-maintenance-status/add-maintenance-status.component';
   import { MatDialog } from '@angular/material/dialog';
-import { EditMaintenanceNoteComponent } from '../edit-maintenance-note/edit-maintenance-note.component';
+import { EditMaintenanceStatusComponent } from './edit-maintenance-status/edit-maintenance-status.component';
   
   @Component({
-    selector: 'app-maintenance-note',
-    templateUrl: './maintenance-note.component.html',
-    styleUrls: ['./maintenance-note.component.scss']
+    selector: 'app-maintenance-status',
+    templateUrl: './maintenance-status.component.html',
+    styleUrls: ['./maintenance-status.component.scss']
   })
-  export class MaintenanceNoteComponent implements AfterViewInit, OnInit {
+  export class MaintenanceStatusComponent implements AfterViewInit, OnInit {
+    
     displayedColumns: string[] = [
-      'maintenanceID',
-      'maintenanceNoteDescription',
-      'detailsButton',
+      'maintenanceStatusName',
       'deleteButton',
     ];
-    dataSource = new MatTableDataSource<MaintenanceNote>();
+    dataSource = new MatTableDataSource<MaintenanceStatus>();
   
     constructor(
       private _maintenanceService: MaintenanceService,
@@ -39,8 +38,8 @@ import { EditMaintenanceNoteComponent } from '../edit-maintenance-note/edit-main
     }
   
     ngOnInit(): void {
-      this._maintenanceService.getMaintenanceNotes().subscribe((MaintenanceNotes: any) => {
-        this.dataSource.data = MaintenanceNotes;
+      this._maintenanceService.getMaintenanceStatuses().subscribe((MaintenanceStatus: any) => {
+        this.dataSource.data = MaintenanceStatus;
       });
     }
   
@@ -49,8 +48,8 @@ import { EditMaintenanceNoteComponent } from '../edit-maintenance-note/edit-main
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
   
-    async deleteSnaglistitem(id: any) {
-      await this._maintenanceService.deleteMaintenanceNote(id).subscribe();
+    async deleteStatus(id: any) {
+      await this._maintenanceService.deleteMaintenanceStatus(id).subscribe();
       this.showSnackBar();
     }
   
@@ -69,20 +68,19 @@ import { EditMaintenanceNoteComponent } from '../edit-maintenance-note/edit-main
       enterAnimationDuration: string,
       exitAnimationDuration: string
     ): void {
-      this.dialog.open(AddMaintenanceNoteComponent, {
+      this.dialog.open(AddMaintenanceStatusComponent, {
         width: '250px',
         enterAnimationDuration,
         exitAnimationDuration,
       });
     }
-  
-    EditNote(x:any)
+    EditStatus(x:any)
     {
-      this._maintenanceService.MaintenanceId=x;
-      const dialogRef = this.dialog.open(EditMaintenanceNoteComponent, {});
+      this._maintenanceService.status=x;
+      const dialogRef = this.dialog.open(EditMaintenanceStatusComponent, {});
     }
     openModal() {
-      const dialogRef = this.dialog.open(AddMaintenanceNoteComponent, {});
+      const dialogRef = this.dialog.open(AddMaintenanceStatusComponent, {});
     }
   }
   

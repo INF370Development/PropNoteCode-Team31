@@ -1,0 +1,33 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Edit Payment</h2>
+      <form (submit)="EditPayment()">
+        <mat-form-field class="form-field">
+          Amount
+          <input
+            matInput
+            name="amount"
+            #amount
+            (keyup)="updateAmount(amount.value)"
+            [formControl]="amountFormControl"
+          />
+          <mat-error *ngIf="amountFormControl.hasError('required')">
+            Amount is required.
+          </mat-error>
+          <mat-error *ngIf="amountFormControl.hasError('pattern')">
+            Amount must be a valid number.
+          </mat-error>
+          <mat-error *ngIf="amountFormControl.hasError('max')">
+            Amount cannot exceed 999,999.
+          </mat-error>
+        </mat-form-field>
+        <div class="modal-actions">
+          <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
+          <button mat-raised-button type="submit" color="primary" [disabled]="amountFormControl.invalid">
+            Edit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

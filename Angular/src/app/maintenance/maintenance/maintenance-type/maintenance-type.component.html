@@ -1,9 +1,9 @@
-<h1>Payment</h1>
+<h1>Maintenance Type</h1>
 
 <div class="create">
   <button mat-fab extended color="accent" (click)="openModal()">
     <mat-icon>add</mat-icon>
-    Record Payment
+    Add Maintenance Type
   </button>
 </div>
 
@@ -21,38 +21,25 @@
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="maintenanceID">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Maintenance</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button class="deletebutton"(click)="EditPayment(element.maintenanceID)"><mat-icon>edit</mat-icon></button>
-      </td>
+    <ng-container matColumnDef="maintenanceTypeName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Maintenance Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.maintenanceTypeName }}</td>
     </ng-container>
-
-    <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
-        <td mat-cell *matCellDef="let element">R {{ element.amount }}</td>
-      </ng-container>
 
     <ng-container matColumnDef="detailsButton">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button [routerLink]="['/hero', element.id]">
-          <mat-icon>face</mat-icon>
-          Details
-        </button>
-      </td>
+        <td mat-cell *matCellDef="let element">
+          <button (click)="EditType(element.maintenanceTypeID)"><mat-icon>edit</mat-icon></button><br>
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="deleteButton">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
-        <button
-          mat-button
-          class="deletebutton"
-          (click)="deleteSnaglistitem(element.paymentID)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
+        <button mat-button class="deletebutton" (click)="EditType(element.maintenanceTypeID)"><mat-icon>edit</mat-icon></button>
+        <button mat-button class="deletebutton" (click)="deleteType(element.maintenanceTypeID)">
+          <mat-icon>delete</mat-icon></button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
