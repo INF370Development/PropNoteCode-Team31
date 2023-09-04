@@ -1,0 +1,26 @@
+<h1>{{contractorDetail.user.name}}</h1>
+
+<button mat-button [routerLink]="['/viewContractors']">
+  <mat-icon>home</mat-icon>
+  Return
+</button>
+
+<div class="container">
+    <div class="card">
+        <div class="left">
+                <div class="details">
+                    <h2>Contractor</h2>
+                    <h5>Name: {{contractorDetail.user.name}} {{contractorDetail.user.surname}}</h5>
+                    <h5>Phone Number: {{contractorDetail.user.phoneNumber}}</h5>
+                    <h5>Email: {{contractorDetail.user.email}}</h5>
+                    <h5>Area of Business: {{contractorDetail.areaOfBusiness}}</h5>
+                    <h5>Availability: {{ contractorDetail.availability}}</h5>
+                    <h5>Contractor Type: {{ contractorDetail.contractorType}}</h5>
+                    <br>
+                    <div class="buttons">
+                        <button mat-raised-button color="primary">UPDATE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

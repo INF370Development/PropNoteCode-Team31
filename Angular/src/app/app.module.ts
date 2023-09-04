@@ -95,6 +95,12 @@ import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-brok
 
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
+import { ContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/contractorDetails/contractor-details/contractor-details.component';
+
+//CALENDAR STUFF
+import { ScheduleModule, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
 
@@ -176,6 +182,8 @@ import { ViewContractorDetailsComponent } from './contractors/contractors/viewCo
     DeleteBrokerModelComponent,
 
     UpdateInspectionModalComponent,
+    ContractorDetailsComponent,
+    EmployeeDetailsComponent,
       ViewContractorDetailsComponent,
 
 
@@ -201,10 +209,14 @@ import { ViewContractorDetailsComponent } from './contractors/contractors/viewCo
     LeafletModule,
     GoogleMapsModule,
     SlickCarouselModule,
+    //CALENDAR
+    ScheduleModule,
+    FullCalendarModule,
   ],
   providers: [
     DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
+    [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
   ],
   bootstrap: [AppComponent],
 })
