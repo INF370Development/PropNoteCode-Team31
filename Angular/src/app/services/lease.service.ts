@@ -55,8 +55,8 @@ export class LeaseService {
     return this.http.get<Deposit[]>(`${this.baseUrl}/GetAllDeposits`);
   }
 
-  getAllDepositsByLease(leaseId: number): Observable<Deposit[]> {
-    return this.http.get<Deposit[]>(`${this.baseUrl}/${leaseId}/GetAllDepositsByLease`);
+  getAllDepositsByLease(leaseId: number): Observable<Deposit> {
+    return this.http.get<Deposit>(`${this.baseUrl}/${leaseId}/GetAllDepositsByLease`);
   }
 
   getTenant(tenantID: number): Observable<Tenant> {

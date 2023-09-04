@@ -11,6 +11,7 @@ export class Lease {
   tenant: Tenant = new Tenant(); // Add Tenant object
   property: Property = new Property(); // Add Property object
   deposit: Deposit = new Deposit();
+  showDepositInput: boolean = false;
 }
 
 
@@ -28,10 +29,10 @@ export class LeaseRequest {
 export class Deposit {
   depositID: number = 0;
   leaseID: number = 0;
-  amount: string = "";
+  amount: number = 0;
 }
 
 // deposit-request.model.ts
 export class DepositRequest {
-  amount: string = "";
+  amount: number = 0;
 }

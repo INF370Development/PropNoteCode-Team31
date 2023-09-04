@@ -94,6 +94,7 @@ import { UpdateInspectionModalComponent } from './properties/properties/viewProp
 import { DatePipe } from '@angular/common';
 import { AddLeaseModalComponent } from './leases/add-lease-modal/add-lease-modal.component';
 import { DeleteLeaseDialogComponent } from './leases/delete-lease-dialog/delete-lease-dialog.component';
+import { AddDepositDialogComponent } from './leases/add-deposit-dialog/add-deposit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -172,6 +173,7 @@ import { DeleteLeaseDialogComponent } from './leases/delete-lease-dialog/delete-
     UpdateInspectionModalComponent,
     AddLeaseModalComponent,
     DeleteLeaseDialogComponent,
+    AddDepositDialogComponent,
 
   ],
   imports: [
