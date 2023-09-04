@@ -6,5 +6,6 @@
 
         public string? UserRoleName { get; set; }
 
+        public string SecurityToken { get; set; }
     }
 }

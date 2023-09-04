@@ -489,7 +489,7 @@ CREATE TABLE [dbo].[PROPERTYIMAGE](
 	[PropertyImageID] [int] IDENTITY(1,1) NOT NULL,
 	[PropertyID] [int] NOT NULL,
 	[ImageName] [varchar](max) NULL,
-	[ImageData] [varbinary] (max),
+	[ImageData] nvarchar(max),
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyImageID] ASC

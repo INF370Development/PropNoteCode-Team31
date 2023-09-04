@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>Create User</h1>
+<div mat-dialog-content>
+  <h3>Please enter all required details to create a new user!</h3>
+  <mat-form-field class="form">
+    <h3>Name:</h3>
+    <input
+      matInput
+      placeholder="Email"
+      [(ngModel)]="usermodel.Name"
+      name="email"
+      required
+    />
+    <h3>Username:</h3>
+    <input
+      matInput
+      placeholder="Email"
+      [(ngModel)]="usermodel.Username"
+      name="email"
+      required
+    />
+    <h3>Email:</h3>
+    <input
+      matInput
+      placeholder="Email"
+      [(ngModel)]="usermodel.Email"
+      name="email"
+      required
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="form">
+    <h3>User Role:</h3>
+    <mat-form-field class="form-field">
+      <mat-select [(ngModel)]="usermodel.userRole"> </mat-select>
+    </mat-form-field>
+  </mat-form-field>
+</div>
+<div class="end">
+  <button mat-raised-button color="accent" (click)="RegisterUser()">
+    Create
+  </button>
+</div>

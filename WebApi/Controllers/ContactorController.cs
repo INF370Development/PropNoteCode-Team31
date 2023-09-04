@@ -8,9 +8,11 @@ using System.Xml.Linq;
 using WebApi.Models.Users;
 using WebApi.Interfaces;
 using WebApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ContractorController : Controller
@@ -144,7 +146,6 @@ namespace WebApi.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
-
 
         /*[HttpPut]
             [Route("EditTenant")]

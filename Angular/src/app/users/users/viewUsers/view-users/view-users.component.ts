@@ -13,17 +13,16 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-view-users',
   templateUrl: './view-users.component.html',
-  styleUrls: ['./view-users.component.scss']
+  styleUrls: ['./view-users.component.scss'],
 })
-
 export class ViewUsersComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'id',
+    'email',
     'name',
     'surname',
-    'email',
-    'personalPhone',
     'detailsButton',
+    'updateButton',
     'deleteButton',
   ];
 
@@ -45,6 +44,7 @@ export class ViewUsersComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this._userService.getUsers().subscribe((users: any) => {
       this.dataSource.data = users;
+      console.log(users);
     });
   }
 
@@ -83,10 +83,10 @@ export class ViewUsersComponent implements AfterViewInit, OnInit {
   openModal() {
     const dialogRef = this.dialog.open(CreateUserModalComponent);
 
-  dialogRef.afterClosed().subscribe((result) => {
-    if (result && result.success) {
-      this.dataSource.data = [...this.dataSource.data, result.user];
-    }
-  });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.success) {
+        this.dataSource.data = [...this.dataSource.data, result.user];
+      }
+    });
   }
 }

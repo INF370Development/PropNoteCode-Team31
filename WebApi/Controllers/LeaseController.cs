@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Models.Lease;
 using WebApi.Interfaces;
 using WebApi.Models.Users;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LeaseController : Controller
@@ -36,7 +37,7 @@ namespace WebApi.Controllers
                         LeaseID = lease.LeaseID,
                         TenantID = lease.TenantID,
                         PropertyID = lease.PropertyID,
-                    });;
+                    }); ;
                 }
 
                 return Ok(leases);
@@ -46,12 +47,11 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
-        
+
         [HttpPost]
         [Route("AddLease")]
         public async Task<IActionResult> AddLease(LeaseRequest leaseRequest)
         {
-
             var lease = new Lease
             {
                 StartDate = leaseRequest.StartDate,
@@ -64,11 +64,11 @@ namespace WebApi.Controllers
             await _leaseRepository.AddLease(lease);
             return Ok(lease);
         }
+
         [HttpPut]
         [Route("EditLease")]
         public async Task<IActionResult> EditLease(int leaseID, Lease lease)
         {
-
             try
             {
                 var allLeases = await _leaseRepository.GetAllLeasesAsync();
@@ -113,7 +113,6 @@ namespace WebApi.Controllers
                 {
                     return Ok(existingLease);
                 }
-
             }
             catch (Exception)
             {
@@ -136,7 +135,6 @@ namespace WebApi.Controllers
                 _leaseRepository.Delete(existingLease);
 
                 if (await _leaseRepository.SaveChangesAsync()) return Ok(existingLease);
-
             }
             catch (Exception)
             {
@@ -232,6 +230,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpDelete("DeleteDeposit/{depositId}")]
         public async Task<IActionResult> DeleteDeposit(int depositId)
         {
@@ -253,7 +252,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
-
 
         [HttpGet("GetAllDeposits")]
         public async Task<IActionResult> GetAllDeposits()
@@ -290,7 +288,5 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
-
     }
 }
-
