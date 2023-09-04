@@ -8,9 +8,11 @@ using System.Xml.Linq;
 using WebApi.Models.Users;
 using WebApi.Interfaces;
 using WebApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TenantController : Controller
@@ -68,83 +70,81 @@ namespace WebApi.Controllers
             }
         }
 
-       
-
-    /*[HttpPut]
-        [Route("EditTenant")]
-        public async Task<IActionResult> EditTenant(int tenantID, TenantViewModel tenantModel)
-        {
-            try
+        /*[HttpPut]
+            [Route("EditTenant")]
+            public async Task<IActionResult> EditTenant(int tenantID, TenantViewModel tenantModel)
             {
-                var allTenants = await _tenantRepository.GetAllTenantsAsync();
-                var existingTenant = allTenants.FirstOrDefault(x => x.TenantID == tenantID);
-                if (existingTenant == null) return NotFound($"The tenant does not exist");
+                try
+                {
+                    var allTenants = await _tenantRepository.GetAllTenantsAsync();
+                    var existingTenant = allTenants.FirstOrDefault(x => x.TenantID == tenantID);
+                    if (existingTenant == null) return NotFound($"The tenant does not exist");
 
-                if (tenantModel.Email == "")
-                {
-                    existingTenant.Email = existingTenant.Email;
-                }
-                else
-                {
-                    existingTenant.Email = tenantModel.Email;
-                }
-                if (tenantModel.FirstName == "")
-                {
-                    existingTenant.FirstName = existingTenant.FirstName;
-                }
-                else
-                {
-                    existingTenant.FirstName = tenantModel.FirstName;
-                }
-                if (tenantModel.Surname == "")
-                {
-                    existingTenant.Surname = tenantModel.Surname;
-                }
-                else
-                {
-                    existingTenant.Surname = tenantModel.Surname;
-                }
-                if (tenantModel.JobTitle == "")
-                {
-                    existingTenant.JobTitle = tenantModel.JobTitle;
-                }
-                else
-                {
-                    existingTenant.JobTitle = tenantModel.JobTitle;
-                }
+                    if (tenantModel.Email == "")
+                    {
+                        existingTenant.Email = existingTenant.Email;
+                    }
+                    else
+                    {
+                        existingTenant.Email = tenantModel.Email;
+                    }
+                    if (tenantModel.FirstName == "")
+                    {
+                        existingTenant.FirstName = existingTenant.FirstName;
+                    }
+                    else
+                    {
+                        existingTenant.FirstName = tenantModel.FirstName;
+                    }
+                    if (tenantModel.Surname == "")
+                    {
+                        existingTenant.Surname = tenantModel.Surname;
+                    }
+                    else
+                    {
+                        existingTenant.Surname = tenantModel.Surname;
+                    }
+                    if (tenantModel.JobTitle == "")
+                    {
+                        existingTenant.JobTitle = tenantModel.JobTitle;
+                    }
+                    else
+                    {
+                        existingTenant.JobTitle = tenantModel.JobTitle;
+                    }
 
-                if (await _tenantRepository.SaveChangesAsync() == true)
-                {
-                    return Ok(existingTenant);
+                    if (await _tenantRepository.SaveChangesAsync() == true)
+                    {
+                        return Ok(existingTenant);
+                    }
                 }
+                catch (Exception)
+                {
+                    return StatusCode(500, "Internal Server Error. Please contact support.");
+                }
+                return BadRequest("Your request is invalid");
             }
-            catch (Exception)
+
+            [HttpDelete]
+            [Route("DeleteTenant")]
+            public async Task<IActionResult> DeleteTenant(int tenantID)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid");
-        }
+                try
+                {
+                    var allTenants = await _tenantRepository.GetAllTenantsAsync();
+                    var existingTenant = allTenants.FirstOrDefault(x => x.TenantID == tenantID);
 
-        [HttpDelete]
-        [Route("DeleteTenant")]
-        public async Task<IActionResult> DeleteTenant(int tenantID)
-        {
-            try
-            {
-                var allTenants = await _tenantRepository.GetAllTenantsAsync();
-                var existingTenant = allTenants.FirstOrDefault(x => x.TenantID == tenantID);
+                    if (existingTenant == null) return NotFound($"The Tenant does not exist");
 
-                if (existingTenant == null) return NotFound($"The Tenant does not exist");
+                    _tenantRepository.Delete(existingTenant);
 
-                _tenantRepository.Delete(existingTenant);
-
-                if (await _tenantRepository.SaveChangesAsync()) return Ok(existingTenant);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
-            }
-            return BadRequest("Your request is invalid.");
-        }*/
+                    if (await _tenantRepository.SaveChangesAsync()) return Ok(existingTenant);
+                }
+                catch (Exception)
+                {
+                    return StatusCode(500, "Internal Server Error. Please contact support.");
+                }
+                return BadRequest("Your request is invalid.");
+            }*/
     }
 }

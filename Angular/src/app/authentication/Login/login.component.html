@@ -1,0 +1,55 @@
+<body>
+  <div class="cards">
+    <mat-card class="welcome-card">
+      <mat-card-content class="WelcomeHeading">
+        Welcome to PropNote
+      </mat-card-content>
+    </mat-card>
+    <br />
+
+    <!--Login card-->
+    <mat-card class="card">
+      <br />
+      <mat-card-title class="title">Login</mat-card-title>
+      <br />
+
+      <mat-card-content class="LoginCard">
+        <form [formGroup]="LoginForm" (ngSubmit)="Login()">
+          <label for="userName">Username:</label>
+          <input
+            mat-input
+            type="text"
+            id="userName"
+            formControlName="userName"
+          />
+          <div
+            *ngIf="
+              LoginForm.get('userName').hasError('required') &&
+              LoginForm.get('userName').touched
+            "
+          >
+            Username is required.
+          </div>
+
+          <label for="password">Password:</label>
+          <input
+            mat-input
+            type="password"
+            id="password"
+            formControlName="password"
+          />
+          <div
+            *ngIf="
+              LoginForm.get('password').hasError('required') &&
+              LoginForm.get('password').touched
+            "
+          >
+            Password is required.
+          </div>
+
+          <button mat-raised-button type="submit">Login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</body>

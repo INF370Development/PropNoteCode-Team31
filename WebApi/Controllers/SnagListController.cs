@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApi.Interfaces;
 using WebApi.Models.Admin;
 using WebApi.Repositories;
@@ -6,6 +7,7 @@ using WebApi.ViewModels;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SnagListController : ControllerBase
@@ -16,6 +18,7 @@ namespace WebApi.Controllers
         {
             _snagListRepository = snagListRepository;
         }
+
         /*
         // SnagList Actions
 
@@ -67,7 +70,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-
 
         [HttpPost("AddSnagList")]
         public async Task<IActionResult> AddSnagList( SnagListViewModel snagListViewModel)
@@ -270,7 +272,6 @@ namespace WebApi.Controllers
         [HttpPost("AddItem")]
         public async Task<IActionResult> AddItem(int snag, int list)
         {
-
             try
             {
                 SnagListItemLine snagListItem= await _snagListRepository.AddItem( snag, list);
@@ -281,7 +282,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
 
         [HttpDelete("DeleteSnagListItemLine/{SnagList},{item}")]
         public async Task<IActionResult> DeleteSnagListItemLineAsync(int SnagList, int item)

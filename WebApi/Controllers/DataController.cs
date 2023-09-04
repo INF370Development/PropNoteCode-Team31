@@ -4,14 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Models.Users;
 using WebApi.Interfaces;
 using WebApi.Models.Data;
+using Microsoft.AspNetCore.Authorization;
+
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-
     public class DataController : Controller
     {
         private readonly IDataRepository _dataRepository;
+
         public DataController(IDataRepository dataRepository)
         {
             _dataRepository = dataRepository;
@@ -19,7 +22,6 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("GetAllDataTypes")]
-     
         public async Task<IActionResult> GetAllDataTypes()
         {
             try
@@ -73,7 +75,6 @@ namespace WebApi.Controllers
         [Route("AddDataType")]
         public async Task<IActionResult> AddDataType(DataTypeViewModel dataTypeModel)
         {
-
             var dataType = new DataType
             {
                 DataTypeName = dataTypeModel.DataTypeName,
@@ -87,21 +88,17 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-        
-
         }
 
         [HttpPost]
         [Route("AddData")]
         public async Task<IActionResult> AddData(DataRequest dataRequest)
         {
-
             var data = new Data
             {
                 DataDescription = dataRequest.DataDescription,
                 DataTypeID = dataRequest.DataTypeID,
-                EmployeeID= dataRequest.EmployeeID,
-
+                EmployeeID = dataRequest.EmployeeID,
             };
             try
             {
@@ -112,13 +109,12 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-
         }
+
         [HttpPut]
         [Route("EditDataType")]
         public async Task<IActionResult> EditDataType(int dataTypeID, DataTypeViewModel dataModel)
         {
-
             try
             {
                 var allTypes = await _dataRepository.GetAllDataTypesAsync();
@@ -133,13 +129,11 @@ namespace WebApi.Controllers
                 {
                     existingType.DataTypeName = dataModel.DataTypeName;
                 }
-                
 
                 if (await _dataRepository.SaveChangesAsync() == true)
                 {
                     return Ok(existingType);
                 }
-
             }
             catch (Exception)
             {
@@ -162,7 +156,6 @@ namespace WebApi.Controllers
                 _dataRepository.Delete(existingType);
 
                 if (await _dataRepository.SaveChangesAsync()) return Ok(existingType);
-
             }
             catch (Exception)
             {
@@ -170,11 +163,11 @@ namespace WebApi.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
+
         [HttpPut]
         [Route("EditData")]
         public async Task<IActionResult> EditData(int dataID, Data data)
         {
-
             try
             {
                 var allData = await _dataRepository.GetAllDataAsync();
@@ -196,13 +189,12 @@ namespace WebApi.Controllers
                 else
                 {
                     existingData.DataTypeID = data.DataTypeID;
-                }              
+                }
 
                 if (await _dataRepository.SaveChangesAsync() == true)
                 {
                     return Ok(existingData);
                 }
-
             }
             catch (Exception)
             {
@@ -225,7 +217,6 @@ namespace WebApi.Controllers
                 _dataRepository.Delete(existingData);
 
                 if (await _dataRepository.SaveChangesAsync()) return Ok(existingData);
-
             }
             catch (Exception)
             {
@@ -233,6 +224,5 @@ namespace WebApi.Controllers
             }
             return BadRequest("Your request is invalid.");
         }
-
     }
 }

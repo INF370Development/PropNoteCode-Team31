@@ -39,6 +39,7 @@ namespace WebApi.Repositories
                 return 0;
             }
         }
+
         public async Task<Role> GetByIdAsync(int id)
         {
             return await _appDbContext.Role.FindAsync(id);
@@ -71,6 +72,19 @@ namespace WebApi.Repositories
         {
             _appDbContext.Role.Remove(role);
             await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Role[]> GetAllRolesAsync()
+        {
+            IQueryable<Role> query = (IQueryable<Role>)_appDbContext.Role;
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<string> GetUserRoleIdByUserId(int userId)
+        {
+            var userRoleLink = await _appDbContext.UserRole.Where(x => x.UserID == userId).FirstOrDefaultAsync();
+            var userRoleItem = await _appDbContext.Role.Where(x => x.RoleID == userRoleLink.RoleID).FirstOrDefaultAsync();
+            return userRoleItem.Name;
         }
     }
 }

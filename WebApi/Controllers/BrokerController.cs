@@ -7,9 +7,11 @@ using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
 using WebApi.Models.Broker;
 using WebApi.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BrokerController : Controller

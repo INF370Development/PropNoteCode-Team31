@@ -7,7 +7,6 @@ import { MaterialModule } from './shared/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatTableModule } from '@angular/material/table';
-import { LoginComponent } from './login/login/login.component';
 import { UsersComponent } from './users/users/users.component';
 import { ViewUsersComponent } from './users/users/viewUsers/view-users/view-users.component';
 import { ViewUserRolesComponent } from './users/users/viewUserRoles/view-user-roles/view-user-roles.component';
@@ -69,7 +68,6 @@ import { CreateEmployeeModalComponent } from './employee/employee/viewEmployee/v
 import { DeleteEmployeeDialogComponent } from './employee/employee/viewEmployee/view-employee/deleteEmployeeDialog/delete-employee-dialog/delete-employee-dialog.component';
 import { UpdateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/updateTenantModal/update-tenant-modal.component';
 import { UpdateEmployeeModalComponent } from './employee/employee/viewEmployee/view-employee/updateEmployeeModal/update-employee-modal/update-employee-modal.component';
-import { LoginFailedComponent } from './login/login/login-failed/login-failed.component';
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
 import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
@@ -128,6 +126,25 @@ import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
 import { SafePipe } from './shared/safe.pipe';
+import { LoginComponent } from './authentication/Login/login.component';
+import { LoginFailedComponent } from './authentication/Login/login-failed/login-failed.component';
+import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
+import { MatIconModule } from '@angular/material/icon';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AuthGuardService } from './authentication/authGuardService/authGuardService';
+import { RoleGuardService } from './authentication/authGuardService/RoleguardService';
+import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('Token');
+}
+
+export function jwtOptionsFactory() {
+  return {
+    tokenGetter,
+    authScheme: 'Bearer',
+  };
+}
 
 @NgModule({
   declarations: [
@@ -203,15 +220,11 @@ import { SafePipe } from './shared/safe.pipe';
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
-
     DeleteBrokerModelComponent,
-
     UpdateInspectionModalComponent,
     ContractorDetailsComponent,
     EmployeeDetailsComponent,
-      ViewContractorDetailsComponent,
-
-
+    ViewContractorDetailsComponent,
     RecordPaymentComponent,
     MaintenanceTypeComponent,
     AddMaintenanceTypeComponent,
@@ -230,6 +243,8 @@ import { SafePipe } from './shared/safe.pipe';
     DeleteLeaseDialogComponent,
     AddDepositDialogComponent,
     SafePipe,
+    UpdateProfileDetailsComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -255,8 +270,17 @@ import { SafePipe } from './shared/safe.pipe';
     //CALENDAR
     ScheduleModule,
     FullCalendarModule,
+    MatIconModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+      },
+    }),
   ],
   providers: [
+    AuthGuardService,
+    RoleGuardService,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
     [DayService, WeekService, WorkWeekService, MonthService, AgendaService],

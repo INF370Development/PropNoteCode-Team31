@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net.NetworkInformation;
@@ -11,17 +12,19 @@ using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaintenanceController : Controller
     {
         private readonly IMaintenanceRepository _maintenanceRepository;
+
         public MaintenanceController(IMaintenanceRepository repository)
         {
             _maintenanceRepository = repository;
         }
 
-// Payment Actions
+        // Payment Actions
 
         [HttpGet("GetAllPayments")]
         public async Task<IActionResult> GetAllPayments()
@@ -36,6 +39,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
+
         [HttpGet("GetPayment/{PaymentId}")]
         public async Task<IActionResult> GetPayment(int PaymentId)
         {
@@ -53,6 +57,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+
         [HttpPost("AddPayment")]
         public async Task<IActionResult> AddPayment(PaymentViewModel paymentViewModel)
         {
@@ -74,8 +79,9 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpPut("EditPayment")]
-        public async Task<IActionResult> EditPayment(int id,PaymentViewModel paymentViewModel)
+        public async Task<IActionResult> EditPayment(int id, PaymentViewModel paymentViewModel)
         {
             try
             {
@@ -95,6 +101,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpDelete("DeletePayment")]
         public async Task<IActionResult> DeletePayment(int paymentID)
         {
@@ -112,7 +119,7 @@ namespace WebApi.Controllers
             }
         }
 
-// MaintenanceTypes Actions
+        // MaintenanceTypes Actions
 
         [HttpGet("GetAllMaintenanceTypes")]
         public async Task<IActionResult> GetAllMaintenanceTypes()
@@ -127,6 +134,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
+
         [HttpGet("GetMaintenanceType/{MaintenanceTypeId}")]
         public async Task<IActionResult> GetMaintenanceType(int MaintenanceTypeId)
         {
@@ -143,6 +151,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+
         [HttpPost("AddMaintenanceType")]
         public async Task<IActionResult> AddMaintenanceType(MaintenanceTypeViewModel maintenanceTypeViewModel)
         {
@@ -163,8 +172,9 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpPut("EditMaintenanceType")]
-        public async Task<IActionResult> EditMaintenanceType(int id,MaintenanceTypeViewModel maintenanceTypeViewModel)
+        public async Task<IActionResult> EditMaintenanceType(int id, MaintenanceTypeViewModel maintenanceTypeViewModel)
         {
             try
             {
@@ -180,6 +190,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpDelete("DeleteMaintenanceType")]
         public async Task<IActionResult> DeleteMaintenanceType(int MaintenanceTypeId)
         {
@@ -196,7 +207,7 @@ namespace WebApi.Controllers
             }
         }
 
-//MaintenanceStatus Actions
+        //MaintenanceStatus Actions
 
         [HttpGet("GetAllMaintenanceStatuses")]
         public async Task<IActionResult> GetAllMaintenanceStatuses()
@@ -211,6 +222,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
+
         [HttpGet("GetMaintenanceStatus/{MaintenanceStatusId}")]
         public async Task<IActionResult> GetMaintenanceStatus(int MaintenanceStatusId)
         {
@@ -227,8 +239,9 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+
         [HttpPost("AddMaintenanceStatus")]
-        public async Task<IActionResult> AddMaintenanceStatus( MaintenanceStatusViewModel maintenanceStatusViewModel)
+        public async Task<IActionResult> AddMaintenanceStatus(MaintenanceStatusViewModel maintenanceStatusViewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid input data");
@@ -247,8 +260,9 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpPut("EditMaintenanceStatus")]
-        public async Task<IActionResult> EditMaintenanceStatus(int id,MaintenanceStatusViewModel maintenanceStatusViewModel)
+        public async Task<IActionResult> EditMaintenanceStatus(int id, MaintenanceStatusViewModel maintenanceStatusViewModel)
         {
             try
             {
@@ -264,6 +278,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpDelete("DeleteMaintenanceStatus")]
         public async Task<IActionResult> DeleteMaintenanceStatus(int MaintenanceStatusId)
         {
@@ -280,7 +295,7 @@ namespace WebApi.Controllers
             }
         }
 
- //MaintenanceNote Actions
+        //MaintenanceNote Actions
 
         [HttpGet("GetAllMaintenanceNotes")]
         public async Task<IActionResult> GetAllMaintenanceNotes()
@@ -295,6 +310,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
+
         [HttpGet("GetMaintenanceNote/{GetMaintenanceNoteId}")]
         public async Task<IActionResult> GetMaintenanceNote(int GetMaintenanceNoteId)
         {
@@ -311,6 +327,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+
         [HttpPost("AddMaintenanceNote")]
         public async Task<IActionResult> AddMaintenanceNote(MaintenanceNoteViewModel maintenanceNoteViewModel)
         {
@@ -319,7 +336,7 @@ namespace WebApi.Controllers
 
             var maintenanceNote = new MaintenanceNote
             {
-                MaintenanceID=maintenanceNoteViewModel.MaintenanceID,
+                MaintenanceID = maintenanceNoteViewModel.MaintenanceID,
                 MaintenanceNoteDescription = maintenanceNoteViewModel.MaintenanceNoteDescription
             };
 
@@ -332,6 +349,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpPut("EditMaintenanceNote")]
         public async Task<IActionResult> EditMaintenanceNote(int id, MaintenanceNoteViewModel maintenanceNoteViewModel)
         {
@@ -351,6 +369,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpDelete("DeleteMaintenanceNote")]
         public async Task<IActionResult> DeleteMaintenanceNote(int MaintenanceStatusId)
         {
@@ -367,9 +386,7 @@ namespace WebApi.Controllers
             }
         }
 
-      
-//Maintenance Action
-
+        //Maintenance Action
 
         [HttpGet("GetAllMaintenances")]
         public async Task<IActionResult> GetAllMaintenances()
@@ -377,7 +394,7 @@ namespace WebApi.Controllers
             try
             {
                 List<MaintenanceView> maintenances = new();
-            
+
                 var results = await _maintenanceRepository.GetAllMaintenanceAsync();
                 foreach (var maintenance in results)
                 {
@@ -393,8 +410,8 @@ namespace WebApi.Controllers
                         Contractor = maintenance.Contractor,
                         MaintenanceStatus = maintenance.MaintenanceStatus,
                         MaintenanceType = maintenance.MaintenanceType,
-                        MaintenanceNote = (MaintenanceNote) await  _maintenanceRepository.GetMaintenanceNoteByID(maintenance.MaintenanceID),
-                        Payment=(Payment) await _maintenanceRepository.GetPaymentByID(maintenance.MaintenanceID)
+                        MaintenanceNote = (MaintenanceNote)await _maintenanceRepository.GetMaintenanceNoteByID(maintenance.MaintenanceID),
+                        Payment = (Payment)await _maintenanceRepository.GetPaymentByID(maintenance.MaintenanceID)
                     }); ;
                 }
                 return Ok(maintenances);
@@ -404,6 +421,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
+
         [HttpGet("GetMaintenance/{MaintenanceId}")]
         public async Task<IActionResult> GetMaintenance(int MaintenanceId)
         {
@@ -420,10 +438,10 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
+
         [HttpPost("AddMaintenance")]
         public async Task<IActionResult> AddMaintenance(MaintenanceViewModel maintenanceViewModel)
         {
-
             var maintenance = new Maintenance()
             {
                 PropertyID = maintenanceViewModel.PropertyID,
@@ -442,14 +460,14 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpPut("EditMaintenance")]
         public async Task<IActionResult> EditMaintenance(int Id, MaintenanceViewModel maintenanceViewModel)
         {
-
-            var existingMaintenance = await _maintenanceRepository.GetMaintenanceByID( Id);
+            var existingMaintenance = await _maintenanceRepository.GetMaintenanceByID(Id);
             if (existingMaintenance == null)
             { return NotFound($"The Maintenance does not exist"); }
-            if(maintenanceViewModel.PropertyID!=0)
+            if (maintenanceViewModel.PropertyID != 0)
                 existingMaintenance.PropertyID = maintenanceViewModel.PropertyID;
             if (maintenanceViewModel.ContractorID != 0)
                 existingMaintenance.ContractorID = maintenanceViewModel.ContractorID;
@@ -457,9 +475,8 @@ namespace WebApi.Controllers
                 existingMaintenance.MaintenanceStatusID = maintenanceViewModel.MaintenanceStatusID;
             if (maintenanceViewModel.MaintenanceTypeID != 0)
                 existingMaintenance.MaintenanceTypeID = maintenanceViewModel.MaintenanceTypeID;
-            
-                existingMaintenance.MaintenanceDate = maintenanceViewModel.MaintenanceDate;
-            
+
+            existingMaintenance.MaintenanceDate = maintenanceViewModel.MaintenanceDate;
 
             try
             {
@@ -470,6 +487,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
         [HttpDelete("DeleteMaintenance/{MaintenanceId}")]
         public async Task<IActionResult> DeleteMaintenance(int MaintenanceId)
         {
@@ -485,6 +503,5 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
     }
 }

@@ -9,6 +9,7 @@ using WebApi.Models.Property;
 using WebApi.Interfaces;
 using WebApi.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
@@ -257,7 +258,6 @@ namespace WebApi.Controllers
                 TimeSpan inspectionTimeSpan;
                 if (TimeSpan.TryParse(inspectionRequest.InspectionTime, out inspectionTimeSpan))
                 {
-
                     var inspection = new Inspection
                     {
                         PropertyID = propertyID,
@@ -284,7 +284,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
 
         [HttpPut("EditInspection/{inspectionID}")]
         public IActionResult EditInspection(int inspectionID, [FromBody] InspectionRequest updatedInspection)
@@ -322,8 +321,6 @@ namespace WebApi.Controllers
                 return NotFound();
             }
         }
-
-
 
         [HttpDelete]
         [Route("DeleteInspection/{inspectionID}")]
@@ -376,7 +373,6 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
-
 
         [HttpPost]
         [Route("AddRecovery/{propertyID}")]
@@ -532,7 +528,6 @@ namespace WebApi.Controllers
             }
         }
 
-
         [HttpPost("AddRecoveryType")]
         public async Task<ActionResult> AddRecoveryType(RecoveryTypeRequest recoveryTypeRequest)
         {
@@ -550,7 +545,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
 
         [HttpPost("AddProblemStatus")]
         public async Task<ActionResult> AddProblemStatus(ProblemStatusRequest problemStatusRequest)
@@ -590,7 +584,6 @@ namespace WebApi.Controllers
                     ProblemSeverity = problemRequest.ProblemSeverity,
                     ProblemStatusID = problemRequest.ProblemStatusID,
                     ProblemSubject = problemRequest.ProblemSubject,
-                    
                 };
 
                 // Assuming _propertyRepository.AddRecovery handles saving to the database
@@ -625,7 +618,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
 
         [HttpGet("GetAllProblemStatuses")]
         public async Task<ActionResult<IEnumerable<ProblemStatus>>> GetAllProblemStatuses()
@@ -664,7 +656,6 @@ namespace WebApi.Controllers
             }
         }
 
-
         [HttpGet]
         [Route("GetPropertyImagesByPropertyID/{propertyID}")]
         public async Task<IActionResult> GetPropertyImagesByPropertyID(int propertyID)
@@ -682,7 +673,6 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
             }
         }
-
 
         [HttpPost]
         [Route("uploadPhoto/{propertyID}")]

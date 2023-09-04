@@ -12,11 +12,21 @@ namespace WebApi.Interfaces
         public int GetRoleIdByDescription(string roleName);
 
         Task<Role> GetByIdAsync(int id);
+
         Task<Role> GetRoleByNameAsync(string roleName);
+
         Task AddAsync(Role role);
+
         Task UpdateAsync(Role role);
+
         Task DeleteAsync(Role role);
+
         Task AddUserRoleAsync(UserRole userRole);
+
         //void Delete<T>(T entity) where T : class;
+
+        public Task<Role[]> GetAllRolesAsync();
+
+        public Task<string> GetUserRoleIdByUserId(int userId);
     }
 }

@@ -1,11 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Property } from '../shared/Property/Property';
 import { map, Observable, Subject } from 'rxjs';
 import { Recovery, RecoveryType } from '../shared/Property/Recovery';
-import { Inspection, InspectionRequest, InspectionStatus, InspectionType } from '../shared/Property/Inspection';
+import {
+  Inspection,
+  InspectionRequest,
+  InspectionStatus,
+  InspectionType,
+} from '../shared/Property/Inspection';
 import { PropertyImage } from '../shared/Property/PropertyImage';
 import { Problem, ProblemStatus } from '../shared/Property/Problem';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +28,7 @@ export class PropertiesService {
 
   getProperties(): Observable<Property[]> {
     return this._httpClient
-      .get<Property[]>(
-        `https://localhost:7251/api/Property/GetAllProperties`
-      )
+      .get<Property[]>(`https://localhost:7251/api/Property/GetAllProperties`)
       .pipe(map((result) => result));
   }
   getInspections(): Observable<Inspection[]> {
@@ -41,9 +44,10 @@ export class PropertiesService {
     return this._httpClient.put(url, inspection);
   }
 
-
   deleteInspection(inspectionID: number): Observable<any> {
-    return this._httpClient.delete(`https://localhost:7251/api/Property/DeleteInspection/${inspectionID}`);
+    return this._httpClient.delete(
+      `https://localhost:7251/api/Property/DeleteInspection/${inspectionID}`
+    );
   }
 
   getInspectionTypes(): Observable<InspectionType[]> {
@@ -62,12 +66,9 @@ export class PropertiesService {
       .pipe(map((result) => result));
   }
 
-
   getRecoveries(): Observable<Recovery[]> {
     return this._httpClient
-      .get<Recovery[]>(
-        `https://localhost:7251/api/Property/GetAllRecoveries`
-      )
+      .get<Recovery[]>(`https://localhost:7251/api/Property/GetAllRecoveries`)
       .pipe(map((result) => result));
   }
 
@@ -80,22 +81,27 @@ export class PropertiesService {
   }
 
   getInspectionsForProperty(propertyID: number): Observable<Inspection[]> {
-    return this._httpClient.get<Inspection[]>(`https://localhost:7251/api/Property/GetAllInspectionsForProperty/${propertyID}`);
+    return this._httpClient.get<Inspection[]>(
+      `https://localhost:7251/api/Property/GetAllInspectionsForProperty/${propertyID}`
+    );
   }
 
   getRecoveriesForProperty(propertyID: number): Observable<Recovery[]> {
-    return this._httpClient.get<Recovery[]>(`https://localhost:7251/api/Property/GetAllRecoveriesForProperty/${propertyID}`);
+    return this._httpClient.get<Recovery[]>(
+      `https://localhost:7251/api/Property/GetAllRecoveriesForProperty/${propertyID}`
+    );
   }
 
   getProperty(propertyID: number) {
-     return this._httpClient
-      .get<Property>(`https://localhost:7251/api/Property/GetPropertyByID` + "/" + propertyID);
+    return this._httpClient.get<Property>(
+      `https://localhost:7251/api/Property/GetPropertyByID` + '/' + propertyID
+    );
   }
 
   deleteProperty(propertyID: number) {
     return this._httpClient
       .delete(
-        `https://localhost:7251/api/Property/DeleteProperty` + "/" + propertyID
+        `https://localhost:7251/api/Property/DeleteProperty` + '/' + propertyID
       )
       .pipe(map((result) => result));
   }
@@ -106,35 +112,54 @@ export class PropertiesService {
       .pipe(map((result) => result));
   }
 
-  uploadPropertyImage(propertyId: number, imageFormData: FormData): Observable<any> {
-    return this._httpClient.post(`https://localhost:7251/api/Property/uploadPhoto/${propertyId}`, imageFormData);
+  uploadPropertyImage(
+    propertyId: number,
+    imageFormData: FormData
+  ): Observable<any> {
+    return this._httpClient.post(
+      `https://localhost:7251/api/Property/uploadPhoto/${propertyId}`,
+      imageFormData
+    );
   }
 
-  getPropertyImagesByPropertyID(propertyID: number): Observable<PropertyImage[]> {
+  getPropertyImagesByPropertyID(
+    propertyID: number
+  ): Observable<PropertyImage[]> {
     const url = `https://localhost:7251/api/Property/GetPropertyImagesByPropertyID/${propertyID}`;
     return this._httpClient.get<PropertyImage[]>(url);
   }
 
   addInspection(propertyID: number, inspection: Inspection) {
     return this._httpClient
-      .post(`https://localhost:7251/api/Property/AddInspection/${propertyID}`, inspection)
+      .post(
+        `https://localhost:7251/api/Property/AddInspection/${propertyID}`,
+        inspection
+      )
       .pipe(map((result) => result));
   }
 
   AddRecovery(propertyID: number, recovery: Recovery) {
     return this._httpClient
-      .post(`https://localhost:7251/api/Property/AddRecovery/${propertyID}`, recovery)
+      .post(
+        `https://localhost:7251/api/Property/AddRecovery/${propertyID}`,
+        recovery
+      )
       .pipe(map((result) => result));
   }
 
   AddProblem(inspectionID: number, problem: Problem) {
     return this._httpClient
-      .post(`https://localhost:7251/api/Property/AddProblem/${inspectionID}`, problem)
+      .post(
+        `https://localhost:7251/api/Property/AddProblem/${inspectionID}`,
+        problem
+      )
       .pipe(map((result) => result));
   }
 
   getProblemsforInspection(inspectionID: number): Observable<Problem[]> {
-    return this._httpClient.get<Problem[]>(`https://localhost:7251/api/Property/GetAllProblemsForInspection/${inspectionID}`);
+    return this._httpClient.get<Problem[]>(
+      `https://localhost:7251/api/Property/GetAllProblemsForInspection/${inspectionID}`
+    );
   }
 
   getProblemStatuses(): Observable<ProblemStatus[]> {
@@ -146,8 +171,8 @@ export class PropertiesService {
   }
 
   getProblemStatus(problemStatusID: number): Observable<ProblemStatus> {
-    return this._httpClient.get<ProblemStatus>(`https://localhost:7251/api/Property/GetProblemStatus/${problemStatusID}`);
+    return this._httpClient.get<ProblemStatus>(
+      `https://localhost:7251/api/Property/GetProblemStatus/${problemStatusID}`
+    );
   }
-
-
 }

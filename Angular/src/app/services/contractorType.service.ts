@@ -2,39 +2,56 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { ContractorType } from '../shared/UserModels/ContractorType';
+import { configuration } from '../config/configurationFile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContractorTypeService {
-  apiUrl = 'http://localhost:7251/api/';
+  private _apiUrl = configuration.BaseApiUrl;
+  private _Token = localStorage.getItem('Token');
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      ContentType: 'application/json',
-    }),
-  };
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${this._Token}`,
+  });
 
   constructor(private _httpClient: HttpClient) {}
 
   getContractorTypes(): Observable<ContractorType[]> {
     return this._httpClient
-      .get<ContractorType[]>(`https://localhost:7251/api/Contractor/GetAllContractorTypes`)
+      .get<ContractorType[]>(
+        `${this._apiUrl}/Contractor/GetAllContractorTypes`,
+        {
+          headers: this.headers,
+        }
+      )
       .pipe(map((result) => result));
   }
 
   getContractorType(ContractorTypeId: number) {
-    return this._httpClient
-     .get<ContractorType>(`https://localhost:7251/api/Contractor/"GetContractorTypeByID/${ContractorTypeId}"`);
- }
+    return this._httpClient.get<ContractorType>(
+      `${this._apiUrl}/Contractor/"GetContractorTypeByID/${ContractorTypeId}"`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 
- deleteContractorType(ContractorTypeId: number): Observable<any> {
-  return this._httpClient.delete(`https://localhost:7251/api/Contractor/"GetContractorTypeByID/${ContractorTypeId}"`);
-}
+  deleteContractorType(ContractorTypeId: number): Observable<any> {
+    return this._httpClient.delete(
+      `${this._apiUrl}/Contractor/"GetContractorTypeByID/${ContractorTypeId}"`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 
   createContractorType(conractorType: ContractorType) {
     return this._httpClient
-      .post(`https://localhost:7251/api/Broker/AddBroker`, conractorType)
+      .post(`${this._apiUrl}/Broker/AddBroker`, conractorType, {
+        headers: this.headers,
+      })
       .pipe(map((result) => result));
   }
 }

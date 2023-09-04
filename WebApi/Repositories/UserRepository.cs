@@ -26,24 +26,19 @@ namespace WebApi.Repositories
         }
 
         //Get a user details from database by UserName.
-        public User? GetUserByUserName(string userName)
+        public Task<User> GetUserByUserName(string userName)
         {
-            try
-            {
-                User user = _appDbContext.User.Where(x => x.Username == userName).FirstOrDefault()!;
-                return user;
-            }
-            catch
-            {
-                return null;
-            }
+            return _appDbContext.User
+             .Where(user => user.Username == userName)
+             .FirstOrDefaultAsync();
         }
 
-        public bool CheckUserPassword(string username, string hashedPassword)
+        public async Task<bool> CheckUserPassword(string username, string hashedPassword)
         {
             try
             {
-                User user = _appDbContext.User.Where(x => x.Password == hashedPassword && x.Username == username).FirstOrDefault()!;
+                IQueryable<User> query = _appDbContext.User.Where(x => x.Password == hashedPassword && x.Username == username);
+                var user = await query.FirstOrDefaultAsync();
                 if (user == null)
                 {
                     return false;
@@ -59,11 +54,12 @@ namespace WebApi.Repositories
             }
         }
 
-        public bool CheckIfUserNameExsists(string username)
+        public async Task<bool> CheckIfUserNameExsists(string username)
         {
             try
             {
-                User user = _appDbContext.User.Where(x => x.Username == username).FirstOrDefault()!;
+                IQueryable<User> query = _appDbContext.User.Where(x => x.Username == username);
+                var user = await query.FirstOrDefaultAsync();
                 if (user != null)
                 {
                     return true;
