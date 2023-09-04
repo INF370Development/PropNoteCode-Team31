@@ -6,24 +6,24 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaintenanceService } from 'src/app/services/maintenance.service';
-import { Snaglistitem } from 'src/app/shared/SnagListItem';
 import { RecordPaymentComponent } from '../record-payment/record-payment.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
+import { Payment } from 'src/app/shared/Payment';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
 })
-export class PaymentComponent  implements AfterViewInit, OnInit {
+export class PaymentComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'maintenanceID',
     'amount',
     'detailsButton',
     'deleteButton',
   ];
-  dataSource = new MatTableDataSource<Snaglistitem>();
+  dataSource = new MatTableDataSource<Payment>();
 
   constructor(
     private _maintenanceService: MaintenanceService,
@@ -75,9 +75,8 @@ export class PaymentComponent  implements AfterViewInit, OnInit {
       exitAnimationDuration,
     });
   }
-  EditPayment(x:any)
-  {
-    this._maintenanceService.MaintenanceId=x;
+  EditPayment(x: any) {
+    this._maintenanceService.MaintenanceId = x;
     const dialogRef = this.dialog.open(EditPaymentComponent, {});
   }
   openModal() {
