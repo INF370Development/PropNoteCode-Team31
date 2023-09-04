@@ -82,13 +82,27 @@ import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenan
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
+import { RecordPaymentComponent } from './maintenance/maintenance/payment/record-payment/record-payment.component';
+import { MaintenanceTypeComponent } from './maintenance/maintenance/maintenance-type/maintenance-type.component';
+import { AddMaintenanceTypeComponent } from './maintenance/maintenance/maintenance-type/add-maintenance-type/add-maintenance-type.component';
+import { MaintenanceStatusComponent } from './maintenance/maintenance/maintenance-status/maintenance-status.component';
+import { AddMaintenanceStatusComponent } from './maintenance/maintenance/maintenance-status/add-maintenance-status/add-maintenance-status.component';
+import { AddMaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/add-maintenance-note/add-maintenance-note.component';
+import { AddMaintenanceComponent } from './maintenance/maintenance/maintenance/add-maintenance/add-maintenance.component';
+import { EditMaintenanceComponent } from './maintenance/maintenance/maintenance/edit-maintenance/edit-maintenance.component';
+import { ViewMaintenanceComponent } from './maintenance/maintenance/maintenance/maintenance.component';
+import { MaintenanceContractorComponent } from './maintenance/maintenance/maintenance/maintenance-contractor/maintenance-contractor.component';
+import{EditMaintenanceNoteComponent} from './maintenance/maintenance/maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
+import { EditMaintenanceStatusComponent } from './maintenance/maintenance/maintenance-status/edit-maintenance-status/edit-maintenance-status.component';
+import { EditMaintenanceTypeComponent } from './maintenance/maintenance/maintenance-type/edit-maintenance-type/edit-maintenance-type.component';
+import { EditPaymentComponent } from './maintenance/maintenance/payment/edit-payment/edit-payment.component'
 
 //TRYING MAP STUFF
 import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { GoogleMapsModule } from '@angular/google-maps'
+//import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+//import { GoogleMapsModule } from '@angular/google-maps'
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
+//import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
@@ -168,7 +182,20 @@ import { DatePipe } from '@angular/common';
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
     UpdateInspectionModalComponent,
-
+    RecordPaymentComponent,
+    MaintenanceTypeComponent,
+    AddMaintenanceTypeComponent,
+    MaintenanceStatusComponent,
+    AddMaintenanceStatusComponent,
+    AddMaintenanceNoteComponent,
+    AddMaintenanceComponent,
+    EditMaintenanceComponent,
+    ViewMaintenanceComponent,
+    MaintenanceContractorComponent,
+    EditMaintenanceNoteComponent,
+    EditMaintenanceStatusComponent,
+    EditMaintenanceTypeComponent,
+    EditPaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -188,9 +215,9 @@ import { DatePipe } from '@angular/common';
     LoginFailedComponent,
     MatTableModule,
     //MAP STUFF
-    LeafletModule,
+    /*LeafletModule,
     GoogleMapsModule,
-    SlickCarouselModule,
+    SlickCarouselModule,*/
   ],
   providers: [
     DatePipe,

@@ -1,0 +1,33 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Edit Maintenance Type</h2>
+    <form (submit)="AddMaintenanceType()">
+      <mat-form-field class="form-field">
+        <mat-label>Type Name</mat-label>
+        <input
+        matInput
+          name="maintenanceTypeName"
+          #maintenaceTypeName
+          (keyup)="updateName(maintenaceTypeName.value)"
+          
+        [formControl]="nameFormControl"
+        />
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Maintenance Type Name is required.
+        </mat-error>
+        <mat-error *ngIf="nameFormControl.hasError('pattern')">
+          Maintenance Type Name must contain only alphabets and spaces.
+        </mat-error>
+        <mat-error *ngIf="nameFormControl.hasError('maxlength')">
+          Maintenance Type Name cannot exceed 32 characters.
+        </mat-error>
+      </mat-form-field>
+      <div class="modal-actions">
+        <button mat-button type="button" (click)="closeModal()">Cancel</button>
+        <button mat-raised-button type="submit" color="primary" [disabled]="nameFormControl.invalid">
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
