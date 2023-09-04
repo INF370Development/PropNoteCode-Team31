@@ -39,7 +39,7 @@ export class GenerateContractReportComponent  implements OnInit {
         next: (response) => {
           this.cardData = response;
           console.log(this.cardData);
-          this.downloadPDF();
+         // this.downloadPDF();
         },
         error: (error) => {
           console.error("Error fetching data:", error);
@@ -84,10 +84,10 @@ export class GenerateContractReportComponent  implements OnInit {
         'phoneNumber',
         'areaOfBusiness',
         'availability',
-        //'contractorType',
+        'contractorType',
         '',
       ];
-      const colWidths = [40, 60, 40, 40, 40, 40];
+      const colWidths = [40, 60, 40, 40, 40, 40,40];
       doc.setFontSize(12);
 
       doc.setFillColor(105, 240, 174);
@@ -148,8 +148,8 @@ export class GenerateContractReportComponent  implements OnInit {
         return contractor.areaOfBusiness;
       case 'availability':
         return contractor.availability;
-      /*case 'contractorType':
-          return contractor.contractorType;*/
+      case 'contractorType':
+          return contractor.contractorType.contractorTypeName;
       default:
         return contractor[headerKey] !== undefined && contractor[headerKey] !== null
             ? contractor[headerKey].toString()

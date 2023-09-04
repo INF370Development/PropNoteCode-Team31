@@ -61,6 +61,7 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { AddRecoveriesModalComponent } from './properties/properties/viewProperties/view-properties/addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
+import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
 const routes: Routes = [
   //Home
@@ -91,6 +92,7 @@ const routes: Routes = [
   { path: 'generateContractors', component: GenerateContractReportComponent },
   { path: 'contractorTree', component: ContractorTreeComponent },
   { path: 'contractorDetails/:id', component: ContractorDetailsComponent},
+  { path: 'view-contractor-details/:id',component: ViewContractorDetailsComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },

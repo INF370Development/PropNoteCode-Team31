@@ -104,6 +104,9 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
+
+import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-broker/delete-broker-model/delete-broker-model.component';
+
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
 import { ContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/contractorDetails/contractor-details/contractor-details.component';
@@ -119,6 +122,8 @@ import {
 } from '@syncfusion/ej2-angular-schedule';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
+import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
+
 
 @NgModule({
   declarations: [
@@ -194,9 +199,15 @@ import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-
     ViewLeasesComponent,
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
+
+    DeleteBrokerModelComponent,
+
     UpdateInspectionModalComponent,
     ContractorDetailsComponent,
     EmployeeDetailsComponent,
+      ViewContractorDetailsComponent,
+
+
     RecordPaymentComponent,
     MaintenanceTypeComponent,
     AddMaintenanceTypeComponent,

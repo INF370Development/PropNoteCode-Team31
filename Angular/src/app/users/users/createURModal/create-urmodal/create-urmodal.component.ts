@@ -22,6 +22,7 @@ NgModule({
 export class CreateURModalComponent {
   roleName: string = '';
   accessLevel: string = '';
+  snackBar: any;
 
 constructor(
   public dialogRef: MatDialogRef<CreateURModalComponent>,
@@ -29,6 +30,9 @@ constructor(
 
   createUserRole(): void {
     this.dialogRef.close({ roleName: this.roleName, accessLevel: this.accessLevel });
+    this.snackBar.open('User role created successfully', 'Close', {
+      duration: 9000,
+    });
   }
 
   closeModal() {
