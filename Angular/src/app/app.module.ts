@@ -93,6 +93,9 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
 
+//CALENDAR STUFF
+import { ScheduleModule, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -190,10 +193,13 @@ import { DatePipe } from '@angular/common';
     LeafletModule,
     GoogleMapsModule,
     SlickCarouselModule,
+    //CALENDAR
+    ScheduleModule,
   ],
   providers: [
     DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
+    [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
   ],
   bootstrap: [AppComponent],
 })

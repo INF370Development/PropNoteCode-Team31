@@ -25,6 +25,7 @@
     "@here/maps-api-for-javascript": "^1.45.1",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "@syncfusion/ej2-angular-schedule": "^22.2.11",
     "chart.js": "^4.3.2",
     "jquery": "^3.7.1",
     "jspdf": "^2.5.1",
