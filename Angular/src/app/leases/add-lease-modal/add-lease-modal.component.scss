@@ -1,0 +1,54 @@
+.modal-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 9999; /* Ensure it's on top of other content */
+}
+
+.modal-container {
+  width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black;
+  position: relative;
+}
+
+.modal-container h2 {
+  margin-bottom: 10px;
+}
+
+.form {
+  width: 100%; /* Adjust the width as needed */
+}
+
+.form-field {
+  margin: 5px ;
+  width: 45%; /* Adjust vertical margin as needed */
+}
+
+.form-field label {
+  color: #000; /* Label text color */
+}
+
+.cancel {
+  float: right;
+  position: relative;
+}
+
+.modal-actions {
+  margin-top: 20px; /* Adjust top margin as needed */
+  text-align: right;
+}
+
+/* In your component's CSS or global stylesheet */
+.custom-red-button {
+  background-color: red;
+  color: white;
+}

@@ -1,25 +1,12 @@
+import { Lease } from "../Leases/Leases";
 import { User } from "./User";
 
 export class Tenant {
-tenantID: Number =0;
+tenantID: number =0;
 userID : Number = 0;
 companyName : string = "";
 companyNumber : string = "";
 user : User = new User();
+leases : Lease[] = []
 }
 
-export interface TenantApiResponse {
-  tenantID: number;
-  userID: number;
-  companyName: string;
-  companyNumber: string;
-  user: {
-    userID: number;
-    username: string;
-    password: string;
-    email: string;
-    name: string;
-    surname: string;
-    phoneNumber: string;
-  };
-}

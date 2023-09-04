@@ -1,0 +1,53 @@
+/* Define styles for the tenant details container */
+.tenant-details-container {
+  width: 45%;
+  background-color: darkgray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black;
+  margin: 20px;
+  border-radius: 8px;
+}
+
+button {
+  margin-right: 8px;
+}
+
+
+/* Style for the card */
+.card {
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 8px; /* Add border-radius for rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+/* Style for the card header */
+.card-header {
+  background-color: darkslateblue; /* Change the background color */
+  color: white; /* Change the text color */
+  padding: 15px; /* Add padding */
+  border-radius: 8px 8px 0 0; /* Round the top corners */
+  font-size: x-large;
+}
+
+/* Style for the card body */
+.card-body {
+  padding: 20px; /* Add padding */
+}
+
+/* Style for the card title */
+.card-title {
+  font-size: 1rem; /* Increase the font size */
+  margin-bottom: 10px; /* Add spacing at the bottom */
+}
+
+/* Style for the card text */
+.card-text {
+  margin-bottom: 5px; /* Add spacing between text elements */
+}
+
+/* Style for the horizontal line */
+hr {
+  border: none; /* Remove the default line */
+  border-top: 1px solid #ccc; /* Add a custom horizontal line */
+  margin: 20px 0; /* Add margin above and below the line */
+}

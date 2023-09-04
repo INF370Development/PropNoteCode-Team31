@@ -1,0 +1,77 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Add New Lease <button mat-button color="warn" class="cancel" (click)="onCancel()">X</button></h2>
+    <form (submit)="onSubmit()" [formGroup]="leaseForm" class="form">
+      <mat-form-field class="form-field">
+        <label>Start Date:</label>
+        <input
+          matInput
+          [matDatepicker]="startDatePicker"
+          formControlName="startDate"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>End Date:</label>
+        <input
+          matInput
+          [matDatepicker]="endDatePicker"
+          formControlName="endDate"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Tenant:</label>
+        <mat-select formControlName="tenantID" required>
+          <mat-option *ngFor="let tenant of tenants" [value]="tenant.tenantID">
+            {{ tenant.user.name }} {{ tenant.user.surname }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="leaseForm?.get('tenantID')?.hasError('required')">Tenant is required.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Property:</label>
+        <mat-select formControlName="propertyID" required>
+          <mat-option *ngFor="let property of properties" [value]="property.propertyID">
+            {{ property.description }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="leaseForm?.get('propertyID')?.hasError('required')">Property is required.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <label>Monthly Amount:</label>
+        <input
+          matInput
+          type="number"
+          placeholder="R"
+          formControlName="monthlyAmount"
+          required
+        />
+        <mat-error *ngIf="leaseForm?.get('monthlyAmount')?.hasError('required')">Monthly Amount is required.</mat-error>
+      </mat-form-field>
+
+      <!-- "Add Deposit" Button (Hide when input is shown) -->
+      <button mat-raised-button color="primary" (click)="addDeposit()" *ngIf="showDepositInput">Add Deposit</button>
+
+      <!-- Deposit Input Field (Show when "Add Deposit" is clicked) -->
+      <div *ngIf="showDepositInput">
+        <mat-form-field class="form-field">
+          <label>Deposit Amount:</label>
+          <input matInput type="number" placeholder="R" formControlName="depositAmount" required />
+        </mat-form-field>
+      </div>
+
+      <div class="buttons">
+        <button mat-raised-button type="submit" color="accent">
+          Add Lease
+        </button>
+        <button mat-raised-button color="warn" (click)="onCancel()" class="cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

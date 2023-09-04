@@ -92,6 +92,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
+import { AddLeaseModalComponent } from './leases/add-lease-modal/add-lease-modal.component';
+import { DeleteLeaseDialogComponent } from './leases/delete-lease-dialog/delete-lease-dialog.component';
 
 @NgModule({
   declarations: [
@@ -168,6 +170,8 @@ import { DatePipe } from '@angular/common';
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
     UpdateInspectionModalComponent,
+    AddLeaseModalComponent,
+    DeleteLeaseDialogComponent,
 
   ],
   imports: [
