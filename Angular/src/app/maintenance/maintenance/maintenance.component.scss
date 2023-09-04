@@ -1,0 +1,43 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    }
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.contractorCard, .reportCard, .treeCard {
+    max-width: 400px;
+}
+
+.contractorCard{
+    padding: 10px;
+}
+
+.reportCard {
+    padding: 10px;
+}
+
+.treeCard {
+    padding: 10px;
+}
+
+
+.cards{
+    display: flex;
+    padding: 10px;
+    flex: 1;
+    margin: 10px;
+}
+
+.icon {
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+}
