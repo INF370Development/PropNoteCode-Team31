@@ -95,6 +95,7 @@ import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-brok
 
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
+import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
 
 @NgModule({
@@ -175,6 +176,7 @@ import { DatePipe } from '@angular/common';
     DeleteBrokerModelComponent,
 
     UpdateInspectionModalComponent,
+      ViewContractorDetailsComponent,
 
 
   ],

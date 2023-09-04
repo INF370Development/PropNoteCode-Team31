@@ -11,6 +11,7 @@ import { Contractor } from '../shared/UserModels/Contractor';
 })
 
 export class ContractorService {
+  value: any;
   constructor(private httpClient: HttpClient) {}
 
   //CONTRACTORS

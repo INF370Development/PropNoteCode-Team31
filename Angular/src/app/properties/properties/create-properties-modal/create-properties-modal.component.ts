@@ -37,6 +37,7 @@ export class CreatePropertiesModalComponent implements OnInit {
   };
 brokers: Broker[] = [];
 recoveries: Recovery[] =[];
+  snackBar: any;
 
   constructor(
     private dialogRef: MatDialogRef<CreatePropertiesModalComponent>,
@@ -193,7 +194,9 @@ validateInputs(): boolean {
       const brokerID = this.propertyModel.broker.brokerID;
       console.log("BrokerID", brokerID)
     }
-
+    this.snackBar.open('Property created successfully', 'Close', {
+      duration: 9000,
+    });
   }
 
 

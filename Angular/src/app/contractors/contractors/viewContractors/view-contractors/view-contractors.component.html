@@ -56,7 +56,7 @@
   <ng-container matColumnDef="detailsButton">
     <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button [routerLink]="['/viewProperties', element.tenantID]"  matTooltip="Click to View Contractors details">
+      <button  mat-button [routerLink]="['/view-contractor-details', element.contractorId]"  matTooltip="Click to View Contractors details">
         <mat-icon>business</mat-icon>
         Details
       </button>

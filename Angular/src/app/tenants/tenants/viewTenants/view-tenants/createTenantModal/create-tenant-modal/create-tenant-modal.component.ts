@@ -51,6 +51,10 @@ export class CreateTenantModalComponent implements OnInit {
       (response) => {
         console.log('Tenant created successfully:', response);
         this.dialogRef.close();
+        this.snackBar.open('Tenant created successfully', 'Close', {
+          duration: 9000,
+        });
+
         location.reload();
       },
       (error) => {
