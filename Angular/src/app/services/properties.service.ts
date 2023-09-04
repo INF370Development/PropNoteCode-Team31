@@ -1,5 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Property } from '../shared/Property/Property';
 import { map, Observable, Subject } from 'rxjs';
 import { Recovery, RecoveryType } from '../shared/Property/Recovery';
@@ -11,128 +9,106 @@ import {
 } from '../shared/Property/Inspection';
 import { PropertyImage } from '../shared/Property/PropertyImage';
 import { Problem, ProblemStatus } from '../shared/Property/Problem';
-import { configuration } from '../config/configurationFile';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PropertiesService {
-  private _apiUrl = configuration.BaseApiUrl;
-  private _Token = localStorage.getItem('Token');
+  apiUrl = 'https://localhost:7251/api/';
 
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${this._Token}`,
-  });
+  httpOptions = {
+    headers: new HttpHeaders({
+      ContentType: 'application/json',
+    }),
+  };
 
   constructor(private _httpClient: HttpClient) {}
 
   getProperties(): Observable<Property[]> {
     return this._httpClient
-      .get<Property[]>(`${this._apiUrl}/Property/GetAllProperties`, {
-        headers: this.headers,
-      })
+      .get<Property[]>(`https://localhost:7251/api/Property/GetAllProperties`)
       .pipe(map((result) => result));
   }
   getInspections(): Observable<Inspection[]> {
     return this._httpClient
-      .get<Inspection[]>(`${this._apiUrl}/Property/GetAllInspections`, {
-        headers: this.headers,
-      })
+      .get<Inspection[]>(
+        `https://localhost:7251/api/Property/GetAllInspections`
+      )
       .pipe(map((result) => result));
   }
 
   updateInspection(inspection: Inspection): Observable<any> {
-    const url = `${this._apiUrl}/Property/EditInspection/${inspection.inspectionID}`;
-    return this._httpClient.put(url, inspection, {
-      headers: this.headers,
-    });
+    const url = `https://localhost:7251/api/Property/EditInspection/${inspection.inspectionID}`;
+    return this._httpClient.put(url, inspection);
   }
 
   deleteInspection(inspectionID: number): Observable<any> {
     return this._httpClient.delete(
-      `${this._apiUrl}/Property/DeleteInspection/${inspectionID}`,
-      {
-        headers: this.headers,
-      }
+      `https://localhost:7251/api/Property/DeleteInspection/${inspectionID}`
     );
   }
 
   getInspectionTypes(): Observable<InspectionType[]> {
     return this._httpClient
-      .get<InspectionType[]>(`${this._apiUrl}/Property/GetAllInspectionTypes`, {
-        headers: this.headers,
-      })
+      .get<InspectionType[]>(
+        `https://localhost:7251/api/Property/GetAllInspectionTypes`
+      )
       .pipe(map((result) => result));
   }
 
   getInspectionStatuses(): Observable<InspectionStatus[]> {
     return this._httpClient
       .get<InspectionStatus[]>(
-        `${this._apiUrl}/Property/GetAllInspectionStatuses`,
-        {
-          headers: this.headers,
-        }
+        `https://localhost:7251/api/Property/GetAllInspectionStatuses`
       )
       .pipe(map((result) => result));
   }
 
   getRecoveries(): Observable<Recovery[]> {
     return this._httpClient
-      .get<Recovery[]>(`${this._apiUrl}/Property/GetAllRecoveries`, {
-        headers: this.headers,
-      })
+      .get<Recovery[]>(`https://localhost:7251/api/Property/GetAllRecoveries`)
       .pipe(map((result) => result));
   }
 
   getRecoveryTypes(): Observable<RecoveryType[]> {
     return this._httpClient
-      .get<RecoveryType[]>(`${this._apiUrl}/Property/GetAllRecoveryTypes`, {
-        headers: this.headers,
-      })
+      .get<RecoveryType[]>(
+        `https://localhost:7251/api/Property/GetAllRecoveryTypes`
+      )
       .pipe(map((result) => result));
   }
 
   getInspectionsForProperty(propertyID: number): Observable<Inspection[]> {
     return this._httpClient.get<Inspection[]>(
-      `${this._apiUrl}/Property/GetAllInspectionsForProperty/${propertyID}`,
-      {
-        headers: this.headers,
-      }
+      `https://localhost:7251/api/Property/GetAllInspectionsForProperty/${propertyID}`
     );
   }
 
   getRecoveriesForProperty(propertyID: number): Observable<Recovery[]> {
     return this._httpClient.get<Recovery[]>(
-      `${this._apiUrl}/Property/GetAllRecoveriesForProperty/${propertyID}`,
-      {
-        headers: this.headers,
-      }
+      `https://localhost:7251/api/Property/GetAllRecoveriesForProperty/${propertyID}`
     );
   }
 
   getProperty(propertyID: number) {
     return this._httpClient.get<Property>(
-      `${this._apiUrl}/Property/GetPropertyByID` + '/' + propertyID,
-      {
-        headers: this.headers,
-      }
+      `https://localhost:7251/api/Property/GetPropertyByID` + '/' + propertyID
     );
   }
 
   deleteProperty(propertyID: number) {
     return this._httpClient
-      .delete(`${this._apiUrl}/Property/DeleteProperty` + '/' + propertyID, {
-        headers: this.headers,
-      })
+      .delete(
+        `https://localhost:7251/api/Property/DeleteProperty` + '/' + propertyID
+      )
       .pipe(map((result) => result));
   }
 
   CreateProperty(property: Property) {
     return this._httpClient
-      .post(`${this._apiUrl}/Property/AddProperty`, property, {
-        headers: this.headers,
-      })
+      .post(`https://localhost:7251/api/Property/AddProperty`, property)
       .pipe(map((result) => result));
   }
 
@@ -141,74 +117,62 @@ export class PropertiesService {
     imageFormData: FormData
   ): Observable<any> {
     return this._httpClient.post(
-      `${this._apiUrl}/Property/uploadPhoto/${propertyId}`,
-      imageFormData,
-      {
-        headers: this.headers,
-      }
+      `https://localhost:7251/api/Property/uploadPhoto/${propertyId}`,
+      imageFormData
     );
   }
 
   getPropertyImagesByPropertyID(
     propertyID: number
   ): Observable<PropertyImage[]> {
-    const url = `${this._apiUrl}/Property/GetPropertyImagesByPropertyID/${propertyID}`;
-    return this._httpClient.get<PropertyImage[]>(url, {
-      headers: this.headers,
-    });
+    const url = `https://localhost:7251/api/Property/GetPropertyImagesByPropertyID/${propertyID}`;
+    return this._httpClient.get<PropertyImage[]>(url);
   }
 
   addInspection(propertyID: number, inspection: Inspection) {
     return this._httpClient
       .post(
-        `${this._apiUrl}/Property/AddInspection/${propertyID}`,
-        inspection,
-        {
-          headers: this.headers,
-        }
+        `https://localhost:7251/api/Property/AddInspection/${propertyID}`,
+        inspection
       )
       .pipe(map((result) => result));
   }
 
   AddRecovery(propertyID: number, recovery: Recovery) {
     return this._httpClient
-      .post(`${this._apiUrl}/Property/AddRecovery/${propertyID}`, recovery, {
-        headers: this.headers,
-      })
+      .post(
+        `https://localhost:7251/api/Property/AddRecovery/${propertyID}`,
+        recovery
+      )
       .pipe(map((result) => result));
   }
 
   AddProblem(inspectionID: number, problem: Problem) {
     return this._httpClient
-      .post(`${this._apiUrl}/Property/AddProblem/${inspectionID}`, problem, {
-        headers: this.headers,
-      })
+      .post(
+        `https://localhost:7251/api/Property/AddProblem/${inspectionID}`,
+        problem
+      )
       .pipe(map((result) => result));
   }
 
   getProblemsforInspection(inspectionID: number): Observable<Problem[]> {
     return this._httpClient.get<Problem[]>(
-      `${this._apiUrl}/Property/GetAllProblemsForInspection/${inspectionID}`,
-      {
-        headers: this.headers,
-      }
+      `https://localhost:7251/api/Property/GetAllProblemsForInspection/${inspectionID}`
     );
   }
 
   getProblemStatuses(): Observable<ProblemStatus[]> {
     return this._httpClient
-      .get<ProblemStatus[]>(`${this._apiUrl}/Property/GetAllProblemStatuses`, {
-        headers: this.headers,
-      })
+      .get<ProblemStatus[]>(
+        `https://localhost:7251/api/Property/GetAllProblemStatuses`
+      )
       .pipe(map((result) => result));
   }
 
   getProblemStatus(problemStatusID: number): Observable<ProblemStatus> {
     return this._httpClient.get<ProblemStatus>(
-      `${this._apiUrl}/Property/GetProblemStatus/${problemStatusID}`,
-      {
-        headers: this.headers,
-      }
+      `https://localhost:7251/api/Property/GetProblemStatus/${problemStatusID}`
     );
   }
 }
