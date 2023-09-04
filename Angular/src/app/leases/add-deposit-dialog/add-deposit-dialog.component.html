@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Add Deposit</h2>
+<div mat-dialog-content>
+  <p>Enter the deposit amount:</p>
+  <mat-form-field>
+    <input matInput type="number" [(ngModel)]="depositAmount" name="depositAmount" required>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button color="primary" [disabled]="!depositAmount" (click)="closeDialog()">Add Deposit</button>
+</div>

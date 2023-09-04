@@ -1,25 +1,93 @@
-<h1>{{tenantDetail.user.name}}</h1>
-
-<button mat-button [routerLink]="['/viewTenants']">
-  <mat-icon>home</mat-icon>
-  Return
-</button>
-
-<div class="container">
-    <div class="card">
-        <div class="left">
-                <div class="details">
-                    <h2>Tenant</h2>
-                    <h5>Name: {{tenantDetail.user.name}} {{tenantDetail.user.surname}}</h5>
-                    <h5>Phone Number: {{tenantDetail.user.phoneNumber}}</h5>
-                    <h5>Email: {{tenantDetail.user.email}}</h5>
-                    <h5>Company Name: {{tenantDetail.companyName}}</h5>
-                    <h5>Company Phone Numner: {{ tenantDetail.companyNumber}}</h5>
-                    <br>
-                    <div class="buttons">
-                        <button mat-raised-button color="primary">UPDATE</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="tenant-details-container">
+  <div class="card">
+    <div class="card-header">
+      Tenant Details
     </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ tenantDetail.user.name }} {{ tenantDetail.user.surname }}</h5>
+      <p class="card-text">Company Name: {{ tenantDetail.companyName }}</p>
+      <p class="card-text">Company Number: {{ tenantDetail.companyNumber }}</p>
+
+      <!-- Display more tenant details here -->
+      <p class="card-text">Email: {{ tenantDetail.user.email }}</p>
+      <p class="card-text">Phone Number: {{ tenantDetail.user.phoneNumber }}</p>
+
+      <hr>
+      <div class="buttons">
+        <button mat-raised-button color="primary" (click)="openUpdateModal()">Update</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="tenant-details-container">
+  <div class="card-header">Leases:</div>
+  <div class="card-body">
+    <div *ngFor="let lease of tenantDetail.leases">
+      <div class="card">
+        <div class="card-body">
+          <p>Start Date: {{ lease.startDate | date }}</p>
+          <p>End Date: {{ lease.endDate | date }}</p>
+          <p>Monthly Amount: {{ lease.monthlyAmount }}</p>
+          <!-- Display property description -->
+          <p>Property Description: {{ getPropertyDescription(lease.propertyID) }}</p>
+          <!-- Display deposit amount -->
+          <!-- <p>Deposit Amount: {{ getDepositAmount(lease.depositID) }}</p> -->
+          <!-- Add more lease details here as needed -->
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="tenant-details-container">
+  <div class="card">
+  <div class="card-header">Documents:</div>
+  <div class="card-body">
+  <label for="fileInput" class="file-label">
+    <span>Choose File</span>
+    <input type="file" id="fileInput" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+  </label>
+
+  <div class="selected-file">
+    <ng-container *ngIf="fileName">
+      <iframe *ngIf="fileUrl" [src]="fileUrl" frameborder="0" width="100%" height="400"></iframe>
+      <p>{{ fileName }}</p>
+    </ng-container>
+    <ng-container *ngIf="!fileName">
+      <p>No file uploaded yet.</p>
+    </ng-container>
+  </div>
+
+  <button mat-raised-button color="primary" class="upload-btn" (click)="uploadFile()">
+    Upload
+  </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Document Name</th>
+        <th>Upload Date</th>
+        <th>Delete</th> <!-- Changed column header to "Action" -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let document of tenantDocuments">
+        <td>{{ document.documentName }}
+        </td>
+        <td>{{ document.uploadDate | date }}</td>
+        <td>
+          <button mat-icon-button color="warn" (click)="deleteDocument(document.documentID)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+</div>
+
+

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Deposit, DepositRequest, Lease, LeaseRequest } from '../shared/Leases/Leases';
-import { Tenant, TenantApiResponse } from '../shared/UserModels/Tenant';
+import { Tenant } from '../shared/UserModels/Tenant';
 import { Property } from '../shared/Property/Property';
 import { PropertiesService } from './properties.service';
 import { TenantService } from './tenant.service';
@@ -55,12 +55,12 @@ export class LeaseService {
     return this.http.get<Deposit[]>(`${this.baseUrl}/GetAllDeposits`);
   }
 
-  getAllDepositsByLease(leaseId: number): Observable<Deposit[]> {
-    return this.http.get<Deposit[]>(`${this.baseUrl}/${leaseId}/GetAllDepositsByLease`);
+  getAllDepositsByLease(leaseId: number): Observable<Deposit> {
+    return this.http.get<Deposit>(`${this.baseUrl}/${leaseId}/GetAllDepositsByLease`);
   }
 
-  getTenant(tenantID: number): Observable<TenantApiResponse> {
-    return this.http.get<TenantApiResponse>(`https://localhost:7251/api/Tenant/GetTenantByID/${tenantID}`);
+  getTenant(tenantID: number): Observable<Tenant> {
+    return this.http.get<Tenant>(`https://localhost:7251/api/Tenant/GetTenantByID/${tenantID}`);
   }
 
   getPropertyById(propertyID: number): Observable<Property> {

@@ -12,7 +12,7 @@ export class TenantService {
   constructor(private httpClient: HttpClient) {}
 
   //TENANTS
-  apiUrl = 'https://localhost:7251/api/';
+  apiUrl = 'https://localhost:7251/api/Tenant';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -35,12 +35,9 @@ export class TenantService {
       .pipe(map((result) => result));
   }
 
-  //UPDATE
-  /*updateUser(userID: number) {
-    return this.http
-      .put<User[]>(`https://localhost:7251/api/User/DeleteUser/${userID}`)
-      .pipe(map((result) => result));
-  }*/
+  updateTenantUser(tenantID: number, requestData: any): Observable<any> {
+    return this.httpClient.put(`${this.apiUrl}/UpdateTenantUser/${tenantID}`, requestData);
+  }
 
   //DELETE
   deleteTenant(tenantID: number) {
@@ -59,8 +56,23 @@ export class TenantService {
       .pipe(map((result) => result));
   }
 
-  getTenantU(tenantID: number) {
-    return this.httpClient
-     .get<Tenant>(`https://localhost:7251/api/Tenant/GetTenantByID` + "/" + tenantID);
+  getTenantByID(tenantID: number): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}/GetTenantByID/${tenantID}`);
+  }
+
+  uploadTenantDocument(tenantID: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post(`${this.apiUrl}/UploadTenantDocument/${tenantID}`, formData);
+  }
+
+  getTenantDocuments(tenantID: number): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.apiUrl}/GetTenantDocuments/${tenantID}`);
+  }
+
+  deleteTenantDocument(documentID: number): Observable<any> {
+    return this.httpClient.delete(`${this.apiUrl}/DeleteTenantDocument/${documentID}`, { responseType: 'text' });
   }
 }
+

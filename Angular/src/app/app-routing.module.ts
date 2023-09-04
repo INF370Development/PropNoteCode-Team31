@@ -20,7 +20,7 @@ import { AddInspectionModalComponent } from './properties/properties/viewPropert
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
 import { GenerateTenantsReportComponent } from './tenants/tenants/generateTenantsReport/generate-tenants-report/generate-tenants-report.component';
-import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
+
 //Contractors
 import { ContractorsComponent } from './contractors/contractors/contractors.component';
 import { ViewContractorsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractors.component';
@@ -62,7 +62,7 @@ import { ViewLeasesComponent } from './leases/view-leases/view-leases.component'
 import { AddRecoveriesModalComponent } from './properties/properties/viewProperties/view-properties/addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
-
+import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 const routes: Routes = [
   //Home
   { path: 'home', component: HomeComponent },
@@ -85,7 +85,7 @@ const routes: Routes = [
   { path: 'tenants', component: TenantsComponent },
   { path: 'viewTenants', component: ViewTenantsComponent },
   { path: 'generateTenants', component: GenerateTenantsReportComponent },
-  { path: 'tenantsDetails/:id', component: TenantDetailsComponent},
+  { path: 'tenantDetails/:id', component : TenantDetailsComponent},
   //Contractors
   { path: 'contractors', component: ContractorsComponent },
   { path: 'viewContractors', component: ViewContractorsComponent },

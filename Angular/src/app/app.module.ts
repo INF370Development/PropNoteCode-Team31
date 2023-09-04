@@ -110,6 +110,9 @@ import { DeleteBrokerModelComponent } from './broker/broker/viewBroker/view-brok
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
 import { ContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/contractorDetails/contractor-details/contractor-details.component';
+import { AddLeaseModalComponent } from './leases/add-lease-modal/add-lease-modal.component';
+import { DeleteLeaseDialogComponent } from './leases/delete-lease-dialog/delete-lease-dialog.component';
+import { AddDepositDialogComponent } from './leases/add-deposit-dialog/add-deposit-dialog.component';
 
 //CALENDAR STUFF
 import {
@@ -124,6 +127,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
+import { SafePipe } from './shared/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -222,6 +226,10 @@ import { ViewContractorDetailsComponent } from './contractors/contractors/viewCo
     EditMaintenanceStatusComponent,
     EditMaintenanceTypeComponent,
     EditPaymentComponent,
+    AddLeaseModalComponent,
+    DeleteLeaseDialogComponent,
+    AddDepositDialogComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,

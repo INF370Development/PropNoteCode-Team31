@@ -1,6 +1,25 @@
+<h1>Leases</h1>
+<br>
+<button mat-raised-button color="primary" (click)="openAddLeaseModal()">Add Lease</button>
+<br>
+<br>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="leases">
     <!-- Columns for Lease data -->
+    <ng-container matColumnDef="tenant">
+      <th mat-header-cell *matHeaderCellDef>Tenant</th>
+      <td mat-cell *matCellDef="let lease">{{ lease.tenant?.user?.name }} {{ lease.tenant?.user?.surname }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef>Company</th>
+      <td mat-cell *matCellDef="let lease">{{ lease.tenant?.companyName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="property">
+      <th mat-header-cell *matHeaderCellDef>Property</th>
+      <td mat-cell *matCellDef="let lease">{{ lease.property?.description }}</td>
+    </ng-container>
     <ng-container matColumnDef="startDate">
       <th mat-header-cell *matHeaderCellDef>Start Date</th>
       <td mat-cell *matCellDef="let lease">{{ lease.startDate | date }}</td>
@@ -16,19 +35,31 @@
       <td mat-cell *matCellDef="let lease">{{ lease.monthlyAmount | currency: 'R'}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="tenant">
-      <th mat-header-cell *matHeaderCellDef>Tenant</th>
-      <td mat-cell *matCellDef="let lease">{{ lease.tenant?.user?.name }} {{ lease.tenant?.user?.surname }}</td>
+    <ng-container matColumnDef="deposit">
+      <th mat-header-cell *matHeaderCellDef>Deposit</th>
+      <td mat-cell *matCellDef="let lease">
+        <ng-container *ngIf="lease.deposit?.length > 0; else addDepositButton">
+          {{ lease.deposit[0].amount | currency: 'R' }}
+        </ng-container>
+        <ng-template #addDepositButton>
+          <button mat-icon-button color="primary" (click)="openAddDepositDialog(lease)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </ng-template>
+      </td>
     </ng-container>
 
-    <ng-container matColumnDef="company">
-      <th mat-header-cell *matHeaderCellDef>Company</th>
-      <td mat-cell *matCellDef="let lease">{{ lease.tenant?.companyName }} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="property">
-      <th mat-header-cell *matHeaderCellDef>Property</th>
-      <td mat-cell *matCellDef="let lease">{{ lease.property?.description }}</td>
+
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let lease">
+        <button mat-icon-button color="warn" (click)="openDeleteDialog(lease)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
 

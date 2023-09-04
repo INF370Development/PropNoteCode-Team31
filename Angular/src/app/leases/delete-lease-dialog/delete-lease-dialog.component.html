@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="title">Delete Lease <button class="cancel" (click)="closeModal()">X</button></h1>
+<div mat-dialog-content>
+  Are you sure you want to delete the lease related to this property?
+</div>
+<div class="end">
+  <div class="buttons">
+    <button mat-raised-button mat-dialog-close color="warn">Delete</button>
+    <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="accent" (click)="closeModal()">Cancel</button>
+</div>
+</div>
