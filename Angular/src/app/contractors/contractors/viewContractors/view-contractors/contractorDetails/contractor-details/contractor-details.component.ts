@@ -39,12 +39,10 @@ export class ContractorDetailsComponent implements AfterViewInit {
     this.loadContractor();
   }
 
-  loadContractor()
-  {
-    this._contractorService.getContractor(this.route.snapshot.params['id']).subscribe((result) =>
-    {
-      this.contractorDetail = result
-      console.log("Contractor Result", result)
+  
+  loadContractor() {
+    this._contractorService.getContractor(this.route.snapshot.params['id'], this.contractorDetail).subscribe((result) => {
+      console.log("Contractor Result", result);
     });
   }
 }

@@ -84,7 +84,7 @@ const routes: Routes = [
   { path: 'viewContractors', component: ViewContractorsComponent },
   { path: 'generateContractors', component: GenerateContractReportComponent },
   { path: 'contractorTree', component: ContractorTreeComponent },
-  { path: 'contractorDetails', component: ContractorDetailsComponent},
+  { path: 'contractorDetails/:id', component: ContractorDetailsComponent},
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },
