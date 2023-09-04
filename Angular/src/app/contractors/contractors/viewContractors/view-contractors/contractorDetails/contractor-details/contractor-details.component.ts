@@ -29,20 +29,22 @@ NgModule({
 })
 
 export class ContractorDetailsComponent implements AfterViewInit {
-  contractorDetail: Contractor = new Contractor();
+  contractorDetail : Contractor = new Contractor();
 
   constructor(public dialog: MatDialog, private _contractorService: ContractorService, private route:ActivatedRoute) {
-    console.log("contractor details", Contractor)
+    console.log("Contractor details", Contractor)
   }
 
   ngAfterViewInit(): void {
     this.loadContractor();
   }
 
-  
-  loadContractor() {
-    this._contractorService.getContractor(this.route.snapshot.params['id'], this.contractorDetail).subscribe((result) => {
-      console.log("Contractor Result", result);
+  loadContractor()
+  {
+    this._contractorService.getContractorU(this.route.snapshot.params['id']).subscribe((result) =>
+    {
+      this.contractorDetail = result
+      console.log("Contractor Result", result)
     });
   }
 }

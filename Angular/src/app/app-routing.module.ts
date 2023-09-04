@@ -20,6 +20,7 @@ import { AddInspectionModalComponent } from './properties/properties/viewPropert
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
 import { GenerateTenantsReportComponent } from './tenants/tenants/generateTenantsReport/generate-tenants-report/generate-tenants-report.component';
+import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 //Contractors
 import { ContractorsComponent } from './contractors/contractors/contractors.component';
 import { ViewContractorsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractors.component';
@@ -80,6 +81,7 @@ const routes: Routes = [
   { path: 'tenants', component: TenantsComponent },
   { path: 'viewTenants', component: ViewTenantsComponent },
   { path: 'generateTenants', component: GenerateTenantsReportComponent },
+  { path: 'tenantsDetails/:id', component: TenantDetailsComponent},
   //Contractors
   { path: 'contractors', component: ContractorsComponent },
   { path: 'viewContractors', component: ViewContractorsComponent },
