@@ -71,6 +71,8 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  
+
   /*showSnackBar() {
     const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
       'Deleted successfully',

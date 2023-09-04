@@ -93,6 +93,11 @@ export class CreateContractorModalComponent implements OnInit {
       const contractorTypeID = this.contractorModel.contractorType.contractorTypeID;
       console.log("contractorTypeID", contractorTypeID);
       this.closeModal;
+
+      this.snackBar.open('Contractor created successfully', 'Close', {
+        duration: 9000,
+      });
+      
     }
 }
 

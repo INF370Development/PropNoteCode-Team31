@@ -1,0 +1,33 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Edit Maintenance Note</h2>
+      <form (submit)="EditMaintenanceNote()">
+        <mat-form-field class="form-field">
+          Note Description
+          <input
+            matInput
+            name="maintenaceNoteDescription"
+            [formControl]="descriptionFormControl"
+            #maintenaceNoteDescription
+            (keyup)="updateDescription(maintenaceNoteDescription.value)"
+          />
+          <mat-error *ngIf="descriptionFormControl.hasError('required')">
+            Description is required.
+          </mat-error>
+          <mat-error *ngIf="descriptionFormControl.hasError('pattern')">
+            Description must contain only alphabets and spaces.
+          </mat-error>
+          <mat-error *ngIf="descriptionFormControl.hasError('maxlength')">
+            Description cannot exceed 50 characters.
+          </mat-error>
+        </mat-form-field>
+        <div class="modal-actions">
+          <button mat-button type="button" (click)="closeModal()">Cancel</button>
+          <button mat-raised-button type="submit" color="primary" [disabled]="descriptionFormControl.invalid">
+            Edit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

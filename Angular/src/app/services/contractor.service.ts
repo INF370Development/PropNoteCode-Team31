@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 })
 
 export class ContractorService {
+  value: any;
   constructor(private httpClient: HttpClient) {}
 
   //CONTRACTORS

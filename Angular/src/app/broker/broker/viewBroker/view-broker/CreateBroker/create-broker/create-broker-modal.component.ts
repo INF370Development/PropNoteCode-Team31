@@ -19,6 +19,7 @@ export class CreateBrokerModalComponent implements OnInit {
   brokerModel: Broker = new Broker();
   commissionRatePercentage: number | null = null;
   commissionRatePlaceholderText: string = "Commission Rate (%)";
+  snackBar: any;
 
   constructor(
     private dialogRef: MatDialogRef<CreateBrokerModalComponent>,
@@ -48,6 +49,9 @@ export class CreateBrokerModalComponent implements OnInit {
       (response) => {
         console.log('Broker created successfully:', response);
         // You can optionally close the modal after creating the broker
+        this.snackBar.open('Broker created successfully', 'Close', {
+          duration: 9000,
+        });
         this.dialogRef.close();
         location.reload();
       },

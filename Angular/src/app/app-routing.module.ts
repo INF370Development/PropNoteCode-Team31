@@ -20,15 +20,18 @@ import { AddInspectionModalComponent } from './properties/properties/viewPropert
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
 import { GenerateTenantsReportComponent } from './tenants/tenants/generateTenantsReport/generate-tenants-report/generate-tenants-report.component';
+import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 //Contractors
 import { ContractorsComponent } from './contractors/contractors/contractors.component';
 import { ViewContractorsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractors.component';
 import { GenerateContractReportComponent } from './contractors/contractors/generateContractorReport/generate-contract-report/generate-contract-report.component';
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
+import { ContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/contractorDetails/contractor-details/contractor-details.component';
 //Employee
 import { EmployeeComponent } from './employee/employee/employee.component';
 import { ViewEmployeeComponent } from './employee/employee/viewEmployee/view-employee/view-employee.component';
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
+import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 //Broker
 import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
@@ -41,6 +44,9 @@ import { GenerateCalendarReportComponent } from './calendar/calendar/generateCal
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { AssignMaintenanceComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assign-maintenance.component';
 import { PaymentComponent } from './maintenance/maintenance/payment/payment/payment.component';
+import{MaintenanceTypeComponent} from './maintenance/maintenance/maintenance-type/maintenance-type.component';
+import{ViewMaintenanceComponent} from './maintenance/maintenance/maintenance/maintenance.component';
+import{MaintenanceStatusComponent} from './maintenance/maintenance/maintenance-status/maintenance-status.component';
 import { MaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/maintenance-note/maintenance-note.component';
 import { GenerateMaintenanceReportComponent } from './maintenance/maintenance/generateMaintenanceReport/generate-maintenance-report/generate-maintenance-report.component';
 //Profile
@@ -55,6 +61,7 @@ import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 import { ViewLeasesComponent } from './leases/view-leases/view-leases.component';
 import { AddRecoveriesModalComponent } from './properties/properties/viewProperties/view-properties/addRecoveriesModal/add-recoveries-modal/add-recoveries-modal.component';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
+import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 
 const routes: Routes = [
@@ -85,10 +92,13 @@ const routes: Routes = [
   { path: 'viewContractors', component: ViewContractorsComponent },
   { path: 'generateContractors', component: GenerateContractReportComponent },
   { path: 'contractorTree', component: ContractorTreeComponent },
+  { path: 'contractorDetails/:id', component: ContractorDetailsComponent},
+  { path: 'view-contractor-details/:id',component: ViewContractorDetailsComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },
   { path: 'generateEmployees', component: GenerateEmployeeReportComponent },
+  { path: 'employeeDetails/:id', component: EmployeeDetailsComponent},
   //Broker
   { path: 'broker', component: BrokerComponent },
   { path: 'viewBroker', component: ViewBrokerComponent },
@@ -99,10 +109,13 @@ const routes: Routes = [
   { path: 'viewCalendar', component: ViewCalendarComponent },
   { path: 'generateCalendar', component: GenerateCalendarReportComponent },
   //Maintenace
-  {path: 'maintenance', component:MaintenanceComponent},
+    {path: 'maintenance', component:MaintenanceComponent},
   {path: 'assignMaintenance', component:AssignMaintenanceComponent},
+  {path: 'viewMaintenance', component:ViewMaintenanceComponent},
   {path: 'payment', component:PaymentComponent},
   {path: 'maintenanceNote', component:MaintenanceNoteComponent},
+  {path: 'maintenanceType',component:MaintenanceTypeComponent},
+  {path: 'maintenanceStatus',component:MaintenanceStatusComponent},
   {path: 'generateMaintenance', component:GenerateMaintenanceReportComponent},
   //Profile
   { path: 'profile', component: ProfileComponent },
