@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { configuration } from '../config/configurationFile';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginCredentials } from '../authentication/models/LoginCredentials';
@@ -8,7 +8,7 @@ import { User } from '../shared/UserModels/User';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticationService {
+export class AuthenticationService implements OnInit {
   private _apiUrl = configuration.BaseApiUrl;
   private _Token = localStorage.getItem('Token');
 
@@ -19,6 +19,10 @@ export class AuthenticationService {
 
   constructor(private _httpClient: HttpClient) {}
 
+  ngOnInit(): void {
+    this._Token = localStorage.getItem('Token');
+  }
+
   Login(user: LoginCredentials): Observable<any> {
     return this._httpClient.post(`${this._apiUrl}/Authentication/Login`, user, {
       headers: this.headers,
@@ -26,6 +30,7 @@ export class AuthenticationService {
   }
 
   UpdateNewUser(user: User): Observable<any> {
+    debugger;
     return this._httpClient.post(
       `${this._apiUrl}/Authentication/UpdateNewUser`,
       user,

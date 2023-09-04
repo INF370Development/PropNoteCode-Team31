@@ -29,7 +29,7 @@ export class UserService {
   //CREATE
   /* createUser(user: User) {
     return this.http
-      .post(`https://localhost:7251/api/User/AddUser`, user)
+      .post(`${this._apiUrl}/User/AddUser`, user)
       .pipe(map((result) => result));
   }*/
 
@@ -64,14 +64,14 @@ export class UserService {
   //UPDATE
   /*updateUser(userID: number) {
     return this.http
-      .put<User[]>(`https://localhost:7251/api/User/DeleteUser/${userID}`)
+      .put<User[]>(`${this._apiUrl}/User/DeleteUser/${userID}`)
       .pipe(map((result) => result));
   }*/
 
   //DELETE
   deleteUser(userID: number) {
     return this.http
-      .delete(`https://localhost:7251/api/User/DeleteUser/${userID}`, {
+      .delete(`${this._apiUrl}/User/DeleteUser/${userID}`, {
         headers: this.headers,
       })
       .pipe(map((result) => result));
@@ -80,7 +80,7 @@ export class UserService {
   //SEARCH
   getUser(userID: number, user: User) {
     return this.http
-      .post(`https://localhost:7251/api/User/GetUserByID/${userID}`, user, {
+      .post(`${this._apiUrl}/User/GetUserByID/${userID}`, user, {
         headers: this.headers,
       })
       .pipe(map((result) => result));

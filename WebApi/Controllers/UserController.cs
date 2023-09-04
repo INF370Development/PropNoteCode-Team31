@@ -170,5 +170,11 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+
+        [HttpGet("GetUserInformation")]
+        public async Task<IActionResult> GetUserInformation(int userId)
+        {
+            return Ok(await _userRepository.GetUserByIDAsync(userId));
+        }
     }
 }
