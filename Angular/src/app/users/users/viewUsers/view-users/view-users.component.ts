@@ -19,10 +19,11 @@ import { MatDialog } from '@angular/material/dialog';
 export class ViewUsersComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'id',
+    'name',
+    'surname',
     'email',
-    'userRole',
+    'personalPhone',
     'detailsButton',
-    'updateButton',
     'deleteButton',
   ];
 

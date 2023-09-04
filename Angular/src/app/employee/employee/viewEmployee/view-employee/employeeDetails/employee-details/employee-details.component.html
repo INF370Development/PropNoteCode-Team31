@@ -1,0 +1,23 @@
+<h1>{{employeeDetail.user.name}}</h1>
+
+<button mat-button [routerLink]="['/viewEmployees']">
+  <mat-icon>home</mat-icon>
+  Return
+</button>
+
+<div class="container">
+<div class="card">
+  <div class="left">
+            <div class="details">
+              <h2>Employee</h2>
+            <h3>Name: {{employeeDetail.user.name}} {{employeeDetail.user.surname}}</h3>
+            <h3>Phone Number: {{employeeDetail.user.phoneNumber}}</h3>
+            <h3>Email: {{employeeDetail.user.email}}</h3>
+<br>
+            <div class="buttons">
+                <button mat-raised-button color="primary">UPDATE</button>
+            </div>
+    </div>
+  </div>
+</div>
+</div>

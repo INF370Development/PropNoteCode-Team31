@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateUModalComponent } from './create-umodal.component';
+import { CreateUserModalComponent } from './create-umodal.component';
 
 describe('CreateUModalComponent', () => {
-  let component: CreateUModalComponent;
-  let fixture: ComponentFixture<CreateUModalComponent>;
+  let component: CreateUserModalComponent;
+  let fixture: ComponentFixture<CreateUserModalComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateUModalComponent]
+      declarations: [CreateUserModalComponent]
     });
-    fixture = TestBed.createComponent(CreateUModalComponent);
+    fixture = TestBed.createComponent(CreateUserModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
