@@ -20,15 +20,18 @@ import { AddInspectionModalComponent } from './properties/properties/viewPropert
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
 import { GenerateTenantsReportComponent } from './tenants/tenants/generateTenantsReport/generate-tenants-report/generate-tenants-report.component';
+import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 //Contractors
 import { ContractorsComponent } from './contractors/contractors/contractors.component';
 import { ViewContractorsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractors.component';
 import { GenerateContractReportComponent } from './contractors/contractors/generateContractorReport/generate-contract-report/generate-contract-report.component';
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
+import { ContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/contractorDetails/contractor-details/contractor-details.component';
 //Employee
 import { EmployeeComponent } from './employee/employee/employee.component';
 import { ViewEmployeeComponent } from './employee/employee/viewEmployee/view-employee/view-employee.component';
 import { GenerateEmployeeReportComponent } from './employee/employee/generateEmployeeReport/generate-employee-report/generate-employee-report.component';
+import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 //Broker
 import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
@@ -81,15 +84,18 @@ const routes: Routes = [
   { path: 'tenants', component: TenantsComponent },
   { path: 'viewTenants', component: ViewTenantsComponent },
   { path: 'generateTenants', component: GenerateTenantsReportComponent },
+  { path: 'tenantsDetails/:id', component: TenantDetailsComponent},
   //Contractors
   { path: 'contractors', component: ContractorsComponent },
   { path: 'viewContractors', component: ViewContractorsComponent },
   { path: 'generateContractors', component: GenerateContractReportComponent },
   { path: 'contractorTree', component: ContractorTreeComponent },
+  { path: 'contractorDetails/:id', component: ContractorDetailsComponent},
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },
   { path: 'generateEmployees', component: GenerateEmployeeReportComponent },
+  { path: 'employeeDetails/:id', component: EmployeeDetailsComponent},
   //Broker
   { path: 'broker', component: BrokerComponent },
   { path: 'viewBroker', component: ViewBrokerComponent },
