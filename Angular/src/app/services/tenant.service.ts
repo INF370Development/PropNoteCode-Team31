@@ -72,7 +72,7 @@ export class TenantService {
   }
 
   deleteTenantDocument(documentID: number): Observable<any> {
-    return this.httpClient.delete(`${this.apiUrl}/DeleteTenantDocument/${documentID}`);
+    return this.httpClient.delete(`${this.apiUrl}/DeleteTenantDocument/${documentID}`, { responseType: 'text' });
   }
 }
 

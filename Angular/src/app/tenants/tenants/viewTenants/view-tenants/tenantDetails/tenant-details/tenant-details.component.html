@@ -42,7 +42,10 @@
 </div>
 </div>
 
-<div class="file-upload-container">
+<div class="tenant-details-container">
+  <div class="card">
+  <div class="card-header">Documents:</div>
+  <div class="card-body">
   <label for="fileInput" class="file-label">
     <span>Choose File</span>
     <input type="file" id="fileInput" class="file-input" (change)="onFileSelected($event)" #fileUpload>
@@ -50,7 +53,7 @@
 
   <div class="selected-file">
     <ng-container *ngIf="fileName">
-      <iframe *ngIf="selectedFile" [src]="selectedFile | safe" frameborder="0" width="100%" height="400"></iframe>
+      <iframe *ngIf="fileUrl" [src]="fileUrl" frameborder="0" width="100%" height="400"></iframe>
       <p>{{ fileName }}</p>
     </ng-container>
     <ng-container *ngIf="!fileName">
@@ -61,30 +64,30 @@
   <button mat-raised-button color="primary" class="upload-btn" (click)="uploadFile()">
     Upload
   </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Document Name</th>
+        <th>Upload Date</th>
+        <th>Delete</th> <!-- Changed column header to "Action" -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let document of tenantDocuments">
+        <td>{{ document.documentName }}
+        </td>
+        <td>{{ document.uploadDate | date }}</td>
+        <td>
+          <button mat-icon-button color="warn" (click)="deleteDocument(document.documentID)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
 </div>
 
 
-  <!-- Display Files card -->
-  <!-- <div class="card">
-    <div class="card-header">
-      Uploaded Files
-    </div>
-    <div class="card-body">
-      <div *ngFor="let document of tenantDocuments">
-        <div class="file-card">
-          <p>{{ document.fileName }}</p>
-          <button mat-icon-button color="primary" (click)="viewDocument(document)">visibility</button>
-          <button mat-icon-button color="warn" (click)="deleteDocument(document)">delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-    <!-- <h6>Documents:</h6>
-    <ul>
-      <li *ngFor="let document of tenantDetail.documents">{{ document.fileName }}</li>
-    </ul>
-  </div>
-</div> -->

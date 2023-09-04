@@ -8,7 +8,9 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Property } from 'src/app/shared/Property/Property';
 import { Deposit, Lease } from 'src/app/shared/Leases/Leases';
 import { PropertiesService } from 'src/app/services/properties.service'; // Import PropertiesService
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+const baseFileUrl = 'https://localhost:7251';
 
 @Component({
   selector: 'app-tenant-details',
@@ -24,6 +26,9 @@ export class TenantDetailsComponent implements OnInit {
   @Output() documentUploaded = new EventEmitter<void>();
   selectedFile: File | null = null;
   fileName: string | null = null;
+  fileUrl: string | null = null;
+  tenantDocuments: any[] = [];
+
 
 
   constructor(
@@ -38,6 +43,7 @@ export class TenantDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.loadTenant();
     this.loadProperties();
+    this.loadTenantDocuments();
   }
 
   loadTenant() {
@@ -99,15 +105,6 @@ export class TenantDetailsComponent implements OnInit {
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
     this.fileName = this.selectedFile ? this.selectedFile.name : null;
-
-    // Read the selected file and convert it to a data URL
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.fileSrc = e.target?.result as string;
-      };
-      reader.readAsDataURL(this.selectedFile);
-    }
   }
 
   uploadFile() {
@@ -116,12 +113,72 @@ export class TenantDetailsComponent implements OnInit {
       formData.append('file', this.selectedFile);
 
       // Replace 'upload-url' with the actual server-side endpoint for file uploads
-      this.http.post('upload-url', formData).subscribe((response: any) => {
-        if (response && response.fileUrl) {
-          // Set the file URL as the source for the iframe
-          this.selectedFile = response.fileUrl;
+      this.http.post(
+        `https://localhost:7251/api/Tenant/UploadTenantDocument/${this.tenantDetail.tenantID}`,
+        formData,
+        { responseType: 'text' } // Specify response type as plain text
+      ).subscribe(
+        (response: string) => {
+          // Handle the plain text response (e.g., display a success message)
+          console.log("Response:", response);
+          // You can display the response message to the user if needed
+          // this.fileUrl = response;
+          // Emit an event or update your UI as needed
+          this.documentUploaded.emit();
+          location.reload();
+        },
+      (error: HttpErrorResponse) => {
+        if (error.status === 400) {
+          // Handle bad request error (e.g., no file uploaded)
+          console.error("Bad Request:", error.error);
+        } else if (error.status === 404) {
+          // Handle not found error (e.g., tenant not found)
+          console.error("Not Found:", error.error);
+        } else {
+          // Handle other errors
+          console.error("Server Error:", error.error);
         }
+
       });
     }
   }
+
+  loadTenantDocuments() {
+    const tenantID = this.route.snapshot.params['id'];
+    this._tenantService.getTenantDocuments(tenantID).subscribe((documents: any[]) => {
+      this.tenantDocuments = documents;
+      console.log("Documents", documents)
+    });
+  }
+
+  deleteDocument(documentID: number) {
+    this._tenantService.deleteTenantDocument(documentID).subscribe(
+      () => {
+        // Successful deletion logic here
+        console.log('Document deleted successfully');
+        location.reload();
+        // Optionally, you can refresh the tenantDocuments list here.
+      },
+      (error) => {
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 200) {
+            // Handle the successful text response
+            if (error.error === 'Document deleted successfully') {
+              // Successful deletion logic here
+              console.log('Document deleted successfully');
+              // Optionally, you can refresh the tenantDocuments list here.
+            } else {
+              // Handle unexpected text response here.
+              console.error('Unexpected server response:', error.error);
+            }
+          } else {
+            console.error('Error deleting document:', error);
+            // Handle other errors (e.g., network issues) here.
+          }
+        }
+      }
+    );
+  }
+
+
 }
