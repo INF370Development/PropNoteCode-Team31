@@ -95,6 +95,7 @@ import { DatePipe } from '@angular/common';
 
 //CALENDAR STUFF
 import { ScheduleModule, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -195,6 +196,7 @@ import { ScheduleModule, DayService, WeekService, WorkWeekService, MonthService,
     SlickCarouselModule,
     //CALENDAR
     ScheduleModule,
+    FullCalendarModule,
   ],
   providers: [
     DatePipe,
