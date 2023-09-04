@@ -25,6 +25,7 @@ import { ContractorsComponent } from './contractors/contractors/contractors.comp
 import { ViewContractorsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractors.component';
 import { GenerateContractReportComponent } from './contractors/contractors/generateContractorReport/generate-contract-report/generate-contract-report.component';
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
+import { ContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/contractorDetails/contractor-details/contractor-details.component';
 //Employee
 import { EmployeeComponent } from './employee/employee/employee.component';
 import { ViewEmployeeComponent } from './employee/employee/viewEmployee/view-employee/view-employee.component';
@@ -83,6 +84,7 @@ const routes: Routes = [
   { path: 'viewContractors', component: ViewContractorsComponent },
   { path: 'generateContractors', component: GenerateContractReportComponent },
   { path: 'contractorTree', component: ContractorTreeComponent },
+  { path: 'contractorDetails', component: ContractorDetailsComponent},
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'viewEmployees', component: ViewEmployeeComponent },

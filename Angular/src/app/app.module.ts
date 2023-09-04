@@ -92,6 +92,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProblemsPageComponent } from './properties/properties/viewProperties/view-properties/problems/problems-page/problems-page.component';
 import { UpdateInspectionModalComponent } from './properties/properties/viewProperties/view-properties/update-inspection-modal/update-inspection-modal.component';
 import { DatePipe } from '@angular/common';
+import { ContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/contractorDetails/contractor-details/contractor-details.component';
 
 //CALENDAR STUFF
 import { ScheduleModule, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
@@ -172,6 +173,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AddRecoveriesModalComponent,
     ProblemsPageComponent,
     UpdateInspectionModalComponent,
+    ContractorDetailsComponent,
   ],
   imports: [
     BrowserModule,
