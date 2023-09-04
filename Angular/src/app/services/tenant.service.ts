@@ -60,11 +60,19 @@ export class TenantService {
     return this.httpClient.get(`${this.apiUrl}/GetTenantByID/${tenantID}`);
   }
 
-  uploadTenantDocument(tenantID: number, file: FormData): Observable<any> {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    const options = { headers: headers };
+  uploadTenantDocument(tenantID: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
 
-    return this.httpClient.post(`${this.apiUrl}/UploadTenantDocument?tenantID=${tenantID}`, file, options);
+    return this.httpClient.post(`${this.apiUrl}/UploadTenantDocument/${tenantID}`, formData);
+  }
+
+  getTenantDocuments(tenantID: number): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.apiUrl}/GetTenantDocuments/${tenantID}`);
+  }
+
+  deleteTenantDocument(documentID: number): Observable<any> {
+    return this.httpClient.delete(`${this.apiUrl}/DeleteTenantDocument/${documentID}`);
   }
 }
+

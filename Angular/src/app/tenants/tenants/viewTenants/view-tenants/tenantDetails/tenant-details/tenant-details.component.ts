@@ -1,30 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TenantService } from 'src/app/services/tenant.service';
 import { Tenant } from 'src/app/shared/UserModels/Tenant';
 import { DeleteTenantDialogComponent } from '../../deleteTenantDialog/delete-tenant-dialog.component';
 import { UpdateTenantModalComponent } from '../../updateTenantModal/update-tenant-modal.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Property } from 'src/app/shared/Property/Property';
 import { Deposit, Lease } from 'src/app/shared/Leases/Leases';
 import { PropertiesService } from 'src/app/services/properties.service'; // Import PropertiesService
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tenant-details',
   templateUrl: './tenant-details.component.html',
-  styleUrls: ['./tenant-details.component.scss']
+  styleUrls: ['./tenant-details.component.scss'],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }]
 })
 
 export class TenantDetailsComponent implements OnInit {
   tenantDetail: Tenant = new Tenant();
   selectedLease: Lease | null = null; // Store the selected lease
   properties: Property[] = []; // Store properties
+  @Output() documentUploaded = new EventEmitter<void>();
+  selectedFile: File | null = null;
+  fileName: string | null = null;
+
 
   constructor(
     private _tenantService: TenantService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private _propertiesService: PropertiesService
+    private _propertiesService: PropertiesService,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: { tenantID: number },
   ) {}
 
   ngOnInit(): void {
@@ -86,5 +94,34 @@ export class TenantDetailsComponent implements OnInit {
 
   deleteTenant() {
     // Implement tenant deletion logic here
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.fileName = this.selectedFile ? this.selectedFile.name : null;
+
+    // Read the selected file and convert it to a data URL
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.fileSrc = e.target?.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  uploadFile() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      // Replace 'upload-url' with the actual server-side endpoint for file uploads
+      this.http.post('upload-url', formData).subscribe((response: any) => {
+        if (response && response.fileUrl) {
+          // Set the file URL as the source for the iframe
+          this.selectedFile = response.fileUrl;
+        }
+      });
+    }
   }
 }

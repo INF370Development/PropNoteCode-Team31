@@ -99,6 +99,7 @@ import { AddDepositDialogComponent } from './leases/add-deposit-dialog/add-depos
 //CALENDAR STUFF
 import { ScheduleModule, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { SafePipe } from './shared/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -178,7 +179,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AddLeaseModalComponent,
     DeleteLeaseDialogComponent,
     AddDepositDialogComponent,
-
+    SafePipe,
   ],
   imports: [
     BrowserModule,
