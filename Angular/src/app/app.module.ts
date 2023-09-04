@@ -96,6 +96,10 @@ import { AddLeaseModalComponent } from './leases/add-lease-modal/add-lease-modal
 import { DeleteLeaseDialogComponent } from './leases/delete-lease-dialog/delete-lease-dialog.component';
 import { AddDepositDialogComponent } from './leases/add-deposit-dialog/add-deposit-dialog.component';
 
+//CALENDAR STUFF
+import { ScheduleModule, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -197,10 +201,14 @@ import { AddDepositDialogComponent } from './leases/add-deposit-dialog/add-depos
     LeafletModule,
     GoogleMapsModule,
     SlickCarouselModule,
+    //CALENDAR
+    ScheduleModule,
+    FullCalendarModule,
   ],
   providers: [
     DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
+    [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
   ],
   bootstrap: [AppComponent],
 })
