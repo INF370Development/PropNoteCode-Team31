@@ -44,6 +44,9 @@ import { GenerateCalendarReportComponent } from './calendar/calendar/generateCal
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { AssignMaintenanceComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assign-maintenance.component';
 import { PaymentComponent } from './maintenance/maintenance/payment/payment/payment.component';
+import{MaintenanceTypeComponent} from './maintenance/maintenance/maintenance-type/maintenance-type.component';
+import{ViewMaintenanceComponent} from './maintenance/maintenance/maintenance/maintenance.component';
+import{MaintenanceStatusComponent} from './maintenance/maintenance/maintenance-status/maintenance-status.component';
 import { MaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/maintenance-note/maintenance-note.component';
 import { GenerateMaintenanceReportComponent } from './maintenance/maintenance/generateMaintenanceReport/generate-maintenance-report/generate-maintenance-report.component';
 //Profile
@@ -105,10 +108,13 @@ const routes: Routes = [
   { path: 'viewCalendar', component: ViewCalendarComponent },
   { path: 'generateCalendar', component: GenerateCalendarReportComponent },
   //Maintenace
-  {path: 'maintenance', component:MaintenanceComponent},
+    {path: 'maintenance', component:MaintenanceComponent},
   {path: 'assignMaintenance', component:AssignMaintenanceComponent},
+  {path: 'viewMaintenance', component:ViewMaintenanceComponent},
   {path: 'payment', component:PaymentComponent},
   {path: 'maintenanceNote', component:MaintenanceNoteComponent},
+  {path: 'maintenanceType',component:MaintenanceTypeComponent},
+  {path: 'maintenanceStatus',component:MaintenanceStatusComponent},
   {path: 'generateMaintenance', component:GenerateMaintenanceReportComponent},
   //Profile
   { path: 'profile', component: ProfileComponent },

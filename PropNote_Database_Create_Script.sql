@@ -431,7 +431,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PROBLEMSTATUS](
-	[ProblemStatusID] [int] IDENTITY(1,1) NOT NULL,
+	[ProblemStatusID] [int] NOT NULL,
 	[ProblemStatusName] [varchar](100) NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -489,7 +489,7 @@ CREATE TABLE [dbo].[PROPERTYIMAGE](
 	[PropertyImageID] [int] IDENTITY(1,1) NOT NULL,
 	[PropertyID] [int] NOT NULL,
 	[ImageName] [varchar](max) NULL,
-	[ImageData] [varchar] (max),
+	[ImageData] [varbinary] (max),
 PRIMARY KEY CLUSTERED 
 (
 	[PropertyImageID] ASC
@@ -768,6 +768,7 @@ CREATE TABLE [dbo].[USER](
 	[Name] [varchar](255) NULL,
 	[Surname] [varchar](255) NULL,
 	[PhoneNumber] [varchar](10) NULL,
+	[HasLoggedIn] [bit] NOT NULL
 PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC
@@ -780,7 +781,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VAT](
-	[VATID] [int] NOT NULL,
+	[VATID] [int] IDENTITY(1,1) NOT NULL,
 	[Percentage] [decimal](5, 2) NULL,
 	[Date] [date] NULL,
 PRIMARY KEY CLUSTERED 
@@ -789,7 +790,25 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/****** Object:  Table [dbo].[PAYMENT]    Script Date: 2023/07/27 11:38:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PAYMENT](
+	[PaymentID] [int] IDENTITY(1,1) NOT NULL,
+	[MaintenanceID] [int] NOT NULL,
+	[Amount] [decimal] (10,2) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PaymentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 
+ALTER TABLE [dbo].[PAYMENT] WITH CHECK ADD FOREIGN KEY([MaintenanceID])
+REFERENCES [dbo].[MAINTENANCE] ([MaintenanceID])
+GO
 ALTER TABLE [dbo].[ADMIN] WITH CHECK ADD FOREIGN KEY([UserID])
 REFERENCES [dbo].[USER] ([UserID])
 GO
@@ -919,4 +938,84 @@ GO
 USE [master]
 GO
 ALTER DATABASE [PropNote] SET  READ_WRITE 
+GO
+
+USE [PropNote]
+GO
+/*Add Seed Data*/
+INSERT INTO [dbo].[ROLE]([Name])VALUES('Admin')
+GO
+
+INSERT INTO [dbo].[BROKER]
+           ([Name]
+           ,[Surname]
+           ,[PhoneNumber]
+           ,[OfficeAddress]
+           ,[LicenseNumber]
+           ,[CommissionRate])
+     VALUES
+           ('Eric'
+           ,'Jarvie'
+           ,'0815245184'
+           ,'510 Durban Road'
+           ,'6524548'
+           ,2.5)
+GO
+
+INSERT INTO [dbo].[PROPERTYSTATUS]
+           ([PropertyStatusName])
+     VALUES
+           ('Avaliable')
+GO
+
+INSERT INTO [dbo].[PROPERTY]
+           ([BrokerID]
+           ,[PropertyStatusID]
+           ,[Description]
+           ,[BuildingNumber]
+           ,[Street]
+           ,[Suburb]
+           ,[PurchaseAmount]
+           ,[PurchaseYear]
+           ,[Size]
+           ,[Yard])
+     VALUES
+           (1
+           ,1
+           ,'Factory'
+           ,10
+           ,'54'
+           ,'Durban'
+           ,2000000
+           ,2018
+           ,698
+           ,3.6)
+GO
+
+INSERT INTO [dbo].[USER]
+           ([Username]
+           ,[Password]
+           ,[ProfilePhoto]
+           ,[Email]
+           ,[Name]
+           ,[Surname]
+           ,[PhoneNumber]
+           ,[HasLoggedIn])
+     VALUES
+           ('pip'
+           ,'DEE6669875FFA6D6A8F8AD53DF4908E542780F2FC4221D6DE6958FCAF49D6E73'
+           ,null
+           ,'pipsjarvie@gmail.com'
+           ,'Pippa'
+           ,'Jarvie'
+           ,'0835421542'
+           ,1)
+GO
+
+INSERT INTO [dbo].[USERROLE]
+           ([RoleID]
+           ,[UserID])
+     VALUES
+           (1
+           ,1)
 GO
