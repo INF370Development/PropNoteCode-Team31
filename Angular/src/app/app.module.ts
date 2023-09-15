@@ -134,6 +134,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AuthGuardService } from './authentication/authGuardService/authGuardService';
 import { RoleGuardService } from './authentication/authGuardService/RoleguardService';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
+import { TimeoutComponent } from './timeout/timeout/timeout.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -245,6 +246,7 @@ export function jwtOptionsFactory() {
     SafePipe,
     UpdateProfileDetailsComponent,
     LandingPageComponent,
+    TimeoutComponent,
   ],
   imports: [
     BrowserModule,
