@@ -14,6 +14,7 @@ export class AddImageModalComponent {
   fileUrl: string | ArrayBuffer | null = null;
   selectedFile: File | null = null; // Add this variable
 
+
   constructor(
     public dialogRef: MatDialogRef<AddImageModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { propertyID: number },
@@ -25,17 +26,25 @@ export class AddImageModalComponent {
     event.preventDefault();
     this.selectedFile = event.target.files[0]; // Save the selected file
 
-    if (this.selectedFile) {
-      this.fileName = this.selectedFile.name;
+    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.fileUrl = e.target.result;
-      };
-      reader.readAsDataURL(this.selectedFile);
+    if (this.selectedFile) {
+      // Check if the selected file type is in the allowed image types
+      if (allowedImageTypes.includes(this.selectedFile.type)) {
+        this.selectedFile = this.selectedFile;
+        this.fileName = this.selectedFile.name;
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.fileUrl = e.target.result;
+        };
+        reader.readAsDataURL(this.selectedFile);
+      } else {
+        // Display an error message or handle the case where the file type is not allowed
+        console.error('Invalid file type. Please select a valid image file (JPEG, PNG, GIF).');
+      }
     }
   }
-
   closeModal() {
     this.dialogRef.close();
   }

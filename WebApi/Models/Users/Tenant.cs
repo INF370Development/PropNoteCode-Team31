@@ -10,6 +10,8 @@ public class Tenant
     public string CompanyNumber { get; set; }
     public virtual ICollection<WebApi.Models.Lease.Lease> Leases { get; set; }
     public User User { get; set; }
+
+    public List<Document> Documents { get; set; }
 }
 
 public class CreateTenantUserRequest
@@ -23,4 +25,13 @@ public class CreateTenantUserRequest
     public string PhoneNumber { get; set; }
     public string CompanyName { get; set; }
     public string CompanyNumber { get; set; }
+}
+
+public class Document
+{
+    public int DocumentID { get; set; }
+    public int TenantID { get; set; }
+    public string DocumentName { get; set; }
+    public string FilePath { get; set; }
+    public DateTime UploadDate { get; set; }
 }
