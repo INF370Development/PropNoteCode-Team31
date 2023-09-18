@@ -41,7 +41,7 @@ export class TenantService {
 
   updateTenantUser(tenantID: number, requestData: any): Observable<any> {
     return this.httpClient.put(
-      `${this._apiUrl}/UpdateTenantUser/${tenantID}`,
+      `${this._apiUrl}/Tenant/UpdateTenantUser/${tenantID}`,
       requestData,
       {
         headers: this.headers,
@@ -68,7 +68,7 @@ export class TenantService {
   }
 
   getTenantByID(tenantID: number): Observable<any> {
-    return this.httpClient.get(`${this._apiUrl}/GetTenantByID/${tenantID}`, {
+    return this.httpClient.get(`${this._apiUrl}/Tenant/GetTenantByID/${tenantID}`, {
       headers: this.headers,
     });
   }
@@ -78,7 +78,7 @@ export class TenantService {
     formData.append('file', file);
 
     return this.httpClient.post(
-      `${this._apiUrl}/UploadTenantDocument/${tenantID}`,
+      `${this._apiUrl}/Tenant/UploadTenantDocument/${tenantID}`,
       formData,
       {
         headers: this.headers,
@@ -88,7 +88,7 @@ export class TenantService {
 
   getTenantDocuments(tenantID: number): Observable<any[]> {
     return this.httpClient.get<any[]>(
-      `${this._apiUrl}/GetTenantDocuments/${tenantID}`,
+      `${this._apiUrl}/Tenant/GetTenantDocuments/${tenantID}`,
       {
         headers: this.headers,
       }
@@ -97,7 +97,7 @@ export class TenantService {
 
   deleteTenantDocument(documentID: number): Observable<any> {
     return this.httpClient.delete(
-      `${this._apiUrl}/DeleteTenantDocument/${documentID}`,
+      `${this._apiUrl}/Tenant/DeleteTenantDocument/${documentID}`,
       { responseType: 'text', headers: this.headers }
     );
   }
