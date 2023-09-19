@@ -1,6 +1,6 @@
-import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, Renderer2, HostListener, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router, NavigationEnd} from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -19,7 +19,22 @@ export class SideNavComponent {
     itemEl.classList.toggle('showMenu');
   }
 
-  constructor(private router: Router) {}
+  //constructor(private router: Router) {}
+  constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2) { }
+
+  //Responsive Navbar - trying
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: Event): void {
+  const windowWidth = window.innerWidth;
+
+  if (windowWidth < 1000) {
+    this.closeSideNavigation();
+    }
+  }
+
+  closeSideNavigation(): void {
+    this.sidenav.close();
+  }
 
   onClickHome() {
     this.router.navigate(['/home']);
