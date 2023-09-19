@@ -124,7 +124,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("UploadTenantDocument/{tenantID}")]
-        public async Task<IActionResult> UploadTenantDocument(int tenantID, IFormFile file)
+        public async Task<IActionResult> UploadTenantDocument(int tenantID, [FromForm] DocumentUploadModel model)
         {
             try
             {
@@ -136,34 +136,40 @@ namespace WebApi.Controllers
                 }
 
                 // Check if a file is provided
-                if (file == null || file.Length == 0)
+                if (model.File == null || model.File.Length == 0)
                 {
                     return BadRequest("No file uploaded.");
                 }
 
-                // Generate a unique file name and save the document to the server
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine("TenantDocuments", fileName); // Provide your desired directory
+                // Generate a unique file name
+                // Use the custom document name if provided, or generate a unique name
+                var documentName = string.IsNullOrWhiteSpace(model.DocumentName)
+                    ? Guid.NewGuid().ToString() + Path.GetExtension(model.File.FileName)
+                    : model.DocumentName; // Use the custom name
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                // Read the file content into a byte array
+                using (var stream = new MemoryStream())
                 {
-                    await file.CopyToAsync(stream);
+                    await model.File.CopyToAsync(stream);
+
+                    // Create a record for the uploaded document
+                    var document = new Document
+                    {
+                        TenantID = tenantID,
+                        DocumentName = documentName,
+                        UploadDate = DateTime.Now,
+                        FileData = stream.ToArray() // Store the file content as a byte array
+                    };
+
+                    // Save the document record to the database
+                    _dbContext.Document.Add(document);
+                    await _dbContext.SaveChangesAsync();
+
+                    // Construct the URL for accessing the document
+                    var documentUrl = Url.Action("RetrieveDocument", "Documents", new { documentID = document.DocumentID }, Request.Scheme);
+
+                    return Ok(documentUrl);
                 }
-
-                // Create a record for the uploaded document
-                var document = new Document
-                {
-                    TenantID = tenantID,
-                    DocumentName = fileName,
-                    FilePath = filePath,
-                    UploadDate = DateTime.Now,
-                };
-
-                // Save the document record to the database
-                _dbContext.Document.Add(document);
-                await _dbContext.SaveChangesAsync();
-
-                return Ok("Document uploaded and linked to the tenant successfully.");
             }
             catch (Exception ex)
             {
@@ -182,7 +188,7 @@ namespace WebApi.Controllers
                     {
                         d.DocumentID,
                         d.DocumentName,
-                        d.FilePath,
+                        d.FileData,
                         d.UploadDate
                     })
                     .ToList();
@@ -207,12 +213,6 @@ namespace WebApi.Controllers
                     return NotFound("Document not found.");
                 }
 
-                // Delete the document file from the server
-                if (System.IO.File.Exists(document.FilePath))
-                {
-                    System.IO.File.Delete(document.FilePath);
-                }
-
                 // Remove the document record from the database
                 _dbContext.Document.Remove(document);
                 await _dbContext.SaveChangesAsync();
@@ -224,7 +224,5 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
-
     }
 }

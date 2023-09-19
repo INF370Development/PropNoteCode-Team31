@@ -32,6 +32,12 @@ public class Document
     public int DocumentID { get; set; }
     public int TenantID { get; set; }
     public string DocumentName { get; set; }
-    public string FilePath { get; set; }
+    public byte[] FileData { get; set; }
     public DateTime UploadDate { get; set; }
+}
+
+public class DocumentUploadModel
+{
+    public IFormFile File { get; set; }
+    public string DocumentName { get; set; }
 }
