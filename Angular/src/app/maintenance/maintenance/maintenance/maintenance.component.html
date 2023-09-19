@@ -29,7 +29,7 @@
       
       <ng-container matColumnDef="contractors">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Contractors</th>
-        <td mat-cell *matCellDef="let element">{{ element.contractor.contractorID }}
+        <td mat-cell *matCellDef="let element">{{ element.contractor.areaOfBusiness }}
         </td>
       </ng-container>
 
@@ -48,24 +48,39 @@
         <td mat-cell *matCellDef="let element">{{ element.maintenanceDate|date }}</td>
       </ng-container>
   
-      <ng-container matColumnDef="maintenanceTime">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
-        <td mat-cell *matCellDef="let element">{{ element.maintenanceTime }}
-        </td>
-      </ng-container>
+ 
 
       <ng-container matColumnDef="note">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Note</th>
-        <td mat-cell *matCellDef="let element">{{ element.maintenanceNote.maintenanceNoteDescription }}</td>
+        <td mat-cell *matCellDef="let element">
+          <div (click)="EditNote(element.maintenanceID)" *ngIf="element.maintenanceNote.maintenanceNoteDescription; else addNoteTemplate">
+          {{ element.maintenanceNote.maintenanceNoteDescription }} </div>
+          <ng-template #addNoteTemplate>
+            {{ element.maintenanceNote.maintenanceNoteDescription }}
+          <button mat-button class="deletebutton" (click)="AddNote(element.maintenanceID)">
+            <mat-icon>add</mat-icon>
+          </button>
+          </ng-template>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="payment">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Amount</th>
-        <td mat-cell *matCellDef="let element">R {{ element.payment.amount }}</td>
+        <td mat-cell *matCellDef="let element">
+          <div></div>
+          <div (click)="EditPayment(element.maintenanceID)" *ngIf="element.payment.amount!=0; else addPaymentTemplate">
+            R {{ element.payment.amount }}
+           </div>
+          <ng-template #addPaymentTemplate>
+          <button mat-button class="deletebutton" (click)="AddPayment(element.maintenanceID)">
+            <mat-icon>add</mat-icon> 
+          </button>
+          </ng-template>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="editButton">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit Maintenance</th>
         <td mat-cell *matCellDef="let element">
           <button
             mat-button
@@ -101,21 +116,4 @@
   </mat-paginator>
 </div>
 
-   <!-- 
-<div *ngFor="let item of dataSourcex;let i = index">
-  <mat-card >
-
-    Property: {{item.property.description}}<br>
-  Maintenance Status: {{item.maintenanceStatus.maintenanceStatusName}}<br>
-  Maintenance Type: {{item.maintenanceType.maintenanceTypeName}}<br>
-  Date: {{ item.maintenanceDate|date }}<br>
-  Time: {{ item.maintenanceTime}}<br>
-  Maintenance Note: {{item.maintenanceNote.maintenanceNoteDescription}}<br>
  
- <button (click)="AddNote(item.maintenaceID)"><mat-icon>add</mat-icon></button>
-  <button (click)="EditNote(item.maintenaceID)"><mat-icon>edit</mat-icon></button><br>
-  <button (click)="EditNote(item.maintenaceID)"><mat-icon>delete</mat-icon></button><br>
-  Amount: R {{item.payment.amount}}<br>
-  </mat-card><br>
-</div>
- -->

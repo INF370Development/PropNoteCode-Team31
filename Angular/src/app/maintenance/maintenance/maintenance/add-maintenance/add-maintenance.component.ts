@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
   import { MatDialogRef } from '@angular/material/dialog';
   import { Router } from '@angular/router';
   import { MaintenanceService } from 'src/app/services/maintenance.service';
+  import { PropertiesService } from 'src/app/services/properties.service';
+  import { ContractorService } from 'src/app/services/contractor.service';
   import { Maintenance } from 'src/app/shared/Maintenace';
-  import { Time } from "@angular/common";
   import { Property } from 'src/app/shared/Property/Property';
   import { MaintenanceStatus } from 'src/app/shared/MaintenanceStatus';
   import { MaintenanceType } from 'src/app/shared/MaintenanceType';
@@ -16,18 +17,23 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./add-maintenance.component.scss']
   })
   export class AddMaintenanceComponent   implements OnInit {
+    
+    Property:any;
+    Contractor:any;
+    Status:any;
+    Type:any;
+
     adminRole: boolean = false;
     editorRole: boolean = false;
     viewerRole: boolean = false;
-    time: Time={hours:12,minutes:30};
     
     MaintenanceModal: Maintenance = {
         propertyID: 0,
         contractorID: 0,
         maintenanceStatusID: 0,
         maintenanceTypeID: 0,
-        maintenanceDate: new Date(),
-        maintenanceTime: new Date,
+        maintenanceDate: "",
+        maintenanceTime: "12:30",
         property: new Property,
         contractor: new Contractor,
         maintenanceStatus: new MaintenanceStatus,
@@ -37,10 +43,25 @@ import { Component, OnInit } from '@angular/core';
     constructor(
       private dialogRef: MatDialogRef<AddMaintenanceComponent>,
       private maintenanceService: MaintenanceService,
+      private property_service: PropertiesService,
+      private contractor_service: ContractorService,
       private router: Router
     ) {}
   
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.maintenanceService.getMaintenanceStatuses().subscribe((Maintenance: any) => {
+        this.Status=Maintenance;
+      });
+      this.maintenanceService.getMaintenanceTypes().subscribe((Maintenance: any) => {
+        this.Type=Maintenance;
+      });
+      this.property_service.getProperties().subscribe((Maintenance: any) => {
+        this.Property=Maintenance;
+      });
+      this.contractor_service.getContractors().subscribe((Maintenance: any) => {
+        this.Contractor=Maintenance;
+      });
+    }
     updatePropertyId(x: any) {
       this.MaintenanceModal.propertyID = x;
     }
@@ -79,6 +100,10 @@ import { Component, OnInit } from '@angular/core';
     updateDate(picker:any)
     {
       this.MaintenanceModal.maintenanceDate=picker;
+    }
+    formatDate(dateString: string) {
+      const parsedDate = new Date(dateString);
+      //return formattedDate;
     }
     AddMaintenanceType() {
       debugger;

@@ -50,6 +50,7 @@ import { Component, OnInit } from '@angular/core';
   
     AddMaintenanceType() {
       debugger;
+      this.MaintenanceNoteModal.maintenanceID=this.maintenanceService.MaintenanceId;
       this.maintenanceService.AddMaintenanceNote(this.MaintenanceNoteModal).subscribe(
         (response) => {
           console.log('Snaglistitem created successfully:', response);

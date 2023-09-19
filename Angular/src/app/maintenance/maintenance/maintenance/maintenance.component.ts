@@ -18,6 +18,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
   import { AddMaintenanceNoteComponent } from '../maintenanceNote/add-maintenance-note/add-maintenance-note.component';
   import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { EditPaymentComponent } from '../payment/edit-payment/edit-payment.component';
+import { RecordPaymentComponent } from '../payment/record-payment/record-payment.component';
   
   @Component({
     selector: 'app-maintenance',
@@ -33,7 +35,6 @@ import { HttpClient } from '@angular/common/http';
       'note',
       'payment',
       'maintenanceDate',
-      'maintenanceTime',
       'editButton',
     ];
     dataSource = new MatTableDataSource<Maintenance>();
@@ -133,60 +134,22 @@ import { HttpClient } from '@angular/common/http';
       this._maintenanceService.MaintenanceId=x;
       const dialogRef = this.dialog.open(EditMaintenanceNoteComponent, {});
     }
+    EditPayment(x:any)
+    {
+      this._maintenanceService.MaintenanceId=x;
+      const dialogRef = this.dialog.open(EditPaymentComponent, {});
+    }
+    AddPayment(x:any)
+    {
+      this._maintenanceService.MaintenanceId=x;
+      const dialogRef = this.dialog.open(RecordPaymentComponent, {});
+    }
     xx()
     {
       for(let i=0;i<6;i++)
       {  this.maintenance_status.push("ss");}
     }
-    updateFourthColumnData(items:any) {
-    for(let item of items) 
-    {
-      this.maintenance_status.push(this.maintenaceStatus(item.maintenanceStatusID));
-      this.maintenance_type.push(this.maintenaceType(item.maintenanceTypeID));
-      this.maintenance_note.push(this.maintenaceNote(item.maintenaceID));
-      this._payment.push(this.getpayment(item.maintenaceID));
-      this.date.push(item.maintenanceDate);
-      this.time.push(item.maintenanceTime);
-
-    }
-    }
     
-    maintenaceStatus(x:any): any
-    {
-      this._maintenanceService.getMaintenanceStatus(x).subscribe((Maintenance: any) => {
-        this.status = Maintenance;
-      });
-      return this.status.maintenaceStatusName;
-    }
-     maintenaceType(x:any): any
-     {
-       this._maintenanceService.getMaintenanceType(x).subscribe((Maintenance: any) => {
-         this.type = Maintenance;
-       });
-       return this.type.maintenaceTypeName;
-     }
-     maintenaceNote(x:any): any
-     {
-       this._maintenanceService.getMaintenanceNote(x).subscribe((Maintenance: any) => {
-         this.note = Maintenance;
-       });
-       return this.note.maintenaceNoteDescription;
-     }
-     getpayment(x:any): any
-     {
-       this._maintenanceService.getPayment(x).subscribe((Maintenance: any) => {
-         this.payment = Maintenance;
-       });
-       return this.payment.amount;
-     }/*
-     fix()
-     "maintenaceID": 1,
-    "propertyID": 6,
-    "contractorID": 1,
-    "maintenanceStatusID": 2,
-    "maintenanceTypeID": 2,
-    "maintenanceDate": "2023-08-20T17:53:38.329",
-    "maintenanceTime": "0001-01-01T00:00:00"*/
   }
   
 
