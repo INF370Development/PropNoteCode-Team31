@@ -1,5 +1,39 @@
 <h1>Calendar</h1>  
 
+<div class="container">
+  <div class="card"><a [routerLink]="'/viewCalendar'">
+      <div class="circle">
+          <h4>View 
+              <br><br>
+              Calendar</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the events created for the system can be viewed. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the view all events scheduled.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/generateCalendar'">
+      <div class="circle">
+          <h4>Calendar 
+            <br> <br>
+            Report</h4>
+      </div>
+      <div class="content">
+          <p>
+            Generate Calendar Report. The rest of the information that we need to establish.
+            <br> <br>
+            Click on the card will take the user to print a schedule report.
+          </p>
+      </div>
+  </a></div>
+</div>
+
+<!--<h1>Calendar</h1>  
+
 <p>All calendar features will be available for only the Admin to create, view, updated and delete.</p>
 
 <mat-grid-list cols="2">
@@ -35,4 +69,4 @@
       <button mat-button><a mat-list-item [routerLink]="'/generateCalendar'">CALENDAR REPORTS</a></button>
     </mat-card-actions>
   </mat-card>
-</div>
+</div>-->
