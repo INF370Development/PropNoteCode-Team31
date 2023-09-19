@@ -1,0 +1,27 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+}
+
+.calendar-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.calendar {
+    width: 80%; 
+    max-width: 800px;  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    padding: 20px;
+    border-radius: 10px;
+}
+  
+@media (max-width: 768px) {
+    .calendar {
+      width: 90%; 
+    }
+}
