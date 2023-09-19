@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Problem, ProblemStatus } from 'src/app/shared/Property/Problem';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-problems-page',
@@ -19,7 +21,8 @@ export class ProblemsPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private propertiesService: PropertiesService
+    private propertiesService: PropertiesService,
+    private form: NgForm
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +66,7 @@ export class ProblemsPageComponent implements OnInit {
       () => {
         this.loadProblems(); // Reload problems after adding a new one
         this.newProblem = new Problem(); // Reset the new problem object
+        this.form.resetForm();
       },
       (error) => {
         console.error('Error adding problem:', error);

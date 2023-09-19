@@ -28,7 +28,7 @@ export class TenantDetailsComponent implements OnInit {
   fileName: string | null = null;
   fileUrl: string | null = null;
   tenantDocuments: any[] = [];
-
+  customDocumentName: string | null = null;
 
 
   constructor(
@@ -44,6 +44,10 @@ export class TenantDetailsComponent implements OnInit {
     this.loadTenant();
     this.loadProperties();
     this.loadTenantDocuments();
+  }
+
+  setCustomDocumentName(name: string) {
+    this.customDocumentName = name;
   }
 
   loadTenant() {
@@ -111,7 +115,7 @@ export class TenantDetailsComponent implements OnInit {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-
+      formData.append('documentName', this.fileName || '');
       // Replace 'upload-url' with the actual server-side endpoint for file uploads
       this.http.post(
         `https://localhost:7251/api/Tenant/UploadTenantDocument/${this.tenantDetail.tenantID}`,

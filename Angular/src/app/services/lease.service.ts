@@ -79,12 +79,10 @@ export class LeaseService {
     leaseId: number,
     depositRequest: DepositRequest
   ): Observable<Deposit> {
+    debugger;
     return this.http.post<Deposit>(
-      `${this._apiUrl}/${leaseId}/Lease/AddDeposit`,
-      depositRequest,
-      {
-        headers: this.headers,
-      }
+      `${this._apiUrl}/Lease/${leaseId}/AddDeposit`,
+      depositRequest
     );
   }
 
@@ -118,7 +116,7 @@ export class LeaseService {
 
   getAllDepositsByLease(leaseId: number): Observable<Deposit> {
     return this.http.get<Deposit>(
-      `${this._apiUrl}/${leaseId}/Lease/GetAllDepositsByLease`,
+      `${this._apiUrl}/Lease/${leaseId}/GetAllDepositsByLease`,
       {
         headers: this.headers,
       }
@@ -127,7 +125,7 @@ export class LeaseService {
 
   getTenant(tenantID: number): Observable<Tenant> {
     return this.http.get<Tenant>(
-      `${this._apiUrl}/Lease/Tenant/GetTenantByID/${tenantID}`,
+      `${this._apiUrl}/Tenant/GetTenantByID/${tenantID}`,
       {
         headers: this.headers,
       }
