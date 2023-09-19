@@ -24,8 +24,6 @@ namespace WebApi.Controllers
             _maintenanceRepository = repository;
         }
 
-        // Payment Actions
-
         [HttpGet("GetAllPayments")]
         public async Task<IActionResult> GetAllPayments()
         {
@@ -207,7 +205,6 @@ namespace WebApi.Controllers
             }
         }
 
-        //MaintenanceStatus Actions
 
         [HttpGet("GetAllMaintenanceStatuses")]
         public async Task<IActionResult> GetAllMaintenanceStatuses()
