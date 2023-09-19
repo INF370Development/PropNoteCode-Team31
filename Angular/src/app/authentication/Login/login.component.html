@@ -1,18 +1,9 @@
 <body>
-  <div class="cards">
-    <mat-card class="welcome-card">
-      <mat-card-content class="WelcomeHeading">
-        Welcome to PropNote
-      </mat-card-content>
-    </mat-card>
-    <br />
-
-    <!--Login card-->
-    <mat-card class="card">
-      <br />
-      <mat-card-title class="title">Login</mat-card-title>
-      <br />
-
+<div class="login-page">
+  <div class="form">
+    <h1>Welcome To PropNote</h1>
+    <h2>Please Sign In</h2>
+    <form class="login-form">
       <mat-card-content class="LoginCard">
         <form [formGroup]="LoginForm" (ngSubmit)="Login()">
           <label for="userName">Username:</label>
@@ -50,8 +41,9 @@
           <button mat-raised-button type="submit">Login</button>
         </form>
       </mat-card-content>
-    </mat-card>
+    </form>
   </div>
+</div>
 </body>
 
 <!--Checking if we can use this--
