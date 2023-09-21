@@ -10,7 +10,6 @@
             </mat-form-field>
             
             <mat-form-field class="form-field">
-              <mat-label>Contractor</mat-label>
               <mat-select placeholder="Select Contractor" formControlName="ContractorId" required>
                 <mat-option *ngFor="let contractor of Contractor" [value]="contractor.contractorID">{{ contractor.areaOfBusiness }}</mat-option>
                 </mat-select> 
@@ -39,6 +38,13 @@
         <mat-datepicker #endDatePicker></mat-datepicker>
       </mat-form-field>
   
+      <mat-form-field class="form-field">
+        <mat-label>Time</mat-label>  
+        <mat-select placeholder="Select Property" formControlName="Time" required>
+            <mat-option *ngFor="let prop of time" [value]="prop">{{ prop }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
           <div class="modal-actions">
             <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
             <button mat-raised-button type="submit" color="primary" >

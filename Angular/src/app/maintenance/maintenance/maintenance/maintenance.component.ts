@@ -35,6 +35,7 @@ import { RecordPaymentComponent } from '../payment/record-payment/record-payment
       'note',
       'payment',
       'maintenanceDate',
+      'maintenanceTime',
       'editButton',
     ];
     dataSource = new MatTableDataSource<Maintenance>();

@@ -26,7 +26,7 @@ import { ContractorService } from 'src/app/services/contractor.service';
     adminRole: boolean = false;
     editorRole: boolean = false;
     viewerRole: boolean = false;
-    time: Time={hours:12,minutes:30};
+    time: string[]=['10:30','9:30','08:30'];
     
     formBuilder: any;
   
@@ -57,6 +57,7 @@ import { ContractorService } from 'src/app/services/contractor.service';
         StatusId: ['', Validators.required],
         TypeId: ['', Validators.required],
         endDate: ['', Validators.required],
+        Time: ['', Validators.required],
       });
     
     }

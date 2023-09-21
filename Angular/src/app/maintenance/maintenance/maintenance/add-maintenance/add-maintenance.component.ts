@@ -22,6 +22,7 @@ import { Component, OnInit } from '@angular/core';
     Contractor:any;
     Status:any;
     Type:any;
+    time: string[]=['10:30','9:30','08:30'];
 
     adminRole: boolean = false;
     editorRole: boolean = false;
@@ -47,7 +48,7 @@ import { Component, OnInit } from '@angular/core';
       private contractor_service: ContractorService,
       private router: Router
     ) {}
-  
+    dat:string='a';
     ngOnInit(): void {
       this.maintenanceService.getMaintenanceStatuses().subscribe((Maintenance: any) => {
         this.Status=Maintenance;
@@ -84,6 +85,7 @@ import { Component, OnInit } from '@angular/core';
     
     updateMaintenanceDate(x: any) {
       this.MaintenanceModal.maintenanceDate = x;
+      this.dat=x;
     }
     
     updateMaintenanceTime(x: any) {
