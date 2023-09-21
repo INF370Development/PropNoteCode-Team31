@@ -15,7 +15,6 @@ export class AddDepositDialogComponent {
   ) {}
 
   closeDialog(): void {
-    debugger;
     this.dialogRef.close(this.depositAmount); // Pass the depositAmount as the result when closing the dialog
   }
 }
