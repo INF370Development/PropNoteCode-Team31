@@ -467,7 +467,7 @@ CREATE TABLE [dbo].[PROBLEMVIDEO](
 	[FileName] [nvarchar](255) NULL,
 	[ContentType] [nvarchar](100) NULL,
 	[UploadDate] [date] NULL,
-	[VideoData] [varchar](max) NULL,
+	[VideoData] [varbinary](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ProblemVideoID] ASC

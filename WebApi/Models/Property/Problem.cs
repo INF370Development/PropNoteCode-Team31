@@ -1,4 +1,6 @@
-﻿namespace WebApi.Models.Property
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApi.Models.Property
 {
     public class Problem
     {
@@ -16,6 +18,7 @@
         // Navigation property for the ProblemStatus
         public ProblemStatus ProblemStatus { get; set; }
         public virtual ICollection<ProblemImage> ProblemImages { get; set; }
+        public virtual ICollection<ProblemVideo> ProblemVideos { get; set; }
     }
 
     public class ProblemStatus
@@ -50,6 +53,30 @@
 
         // Foreign key
         public int ProblemID { get; set; }
+    }
+
+    public class ProblemVideo
+    {
+        public int ProblemVideoID { get; set; }
+
+        [Required]
+        public int ProblemID { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        public string FileName { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string ContentType { get; set; }
+
+        [Required]
+        public string VideoData { get; set; }
+
+        public DateTime UploadDate { get; set; }
+
+        // Navigation property to link to the associated problem
+        public Problem Problem { get; set; }
     }
 
 }
