@@ -3,7 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './authentication/authGuardService/authService';
 
 imports: [MatIconModule, MatButtonModule, MatMenuModule, MatSidenav];
@@ -20,8 +20,9 @@ export class AppComponent implements OnInit {
   HasLoggedIn: boolean = false;
   userAccessType: string | null = '';
   AdminAccess: boolean = false;
+  isLandingPage: boolean = false;
 
-  constructor(private router: Router, private _authService: AuthService) {}
+  constructor(private router: Router, private _authService: AuthService, private route: ActivatedRoute) {}
   ngOnInit() {
     this.userAccessType = localStorage.getItem('userAccessType');
     if (this.userAccessType == 'Admin') {
@@ -33,6 +34,19 @@ export class AppComponent implements OnInit {
     } else {
       this.HasLoggedIn = false;
     }
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const currentRoute = this.route.root.firstChild?.routeConfig;
+        if (currentRoute) {
+          this.isLandingPage = currentRoute.path === 'landingPage';
+        }
+      }
+    });
+  }
+
+  isCurrentRouteLandingPage(): boolean {
+    return this.route.snapshot.routeConfig?.path === 'landingPage';
   }
 
   get isLoggedIn(): boolean {

@@ -194,9 +194,9 @@ validateInputs(): boolean {
       const brokerID = this.propertyModel.broker.brokerID;
       console.log("BrokerID", brokerID)
     }
-    this.snackBar.open('Property created successfully', 'Close', {
-      duration: 9000,
-    });
+    // this.snackBar.open('Property created successfully', 'Close', {
+    //   duration: 9000,
+    // });
   }
 
 
