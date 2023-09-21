@@ -1,5 +1,40 @@
 <h1>Employee</h1>  
 
+<div class="container">
+  <div class="card"><a [routerLink]="'/viewEmployees'">
+      <div class="circle">
+          <h4>View 
+              <br><br>
+              Employees</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the employees created for the system can be viewed. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the view all employees page.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/generateEmployees'">
+      <div class="circle">
+          <h4>Employees 
+            <br> <br>
+            Report</h4>
+      </div>
+      <div class="content">
+          <p>
+            Generate employee Report. The rest of the information that we need to establish.
+            <br> <br>
+            Click on the card will take the user to print a employee report.
+          </p>
+      </div>
+  </a></div>
+</div>
+
+
+<!--<h1>Employee</h1>  
+
 <p>All tenant features will be available for only the Admin to create, view, updated and delete.</p>
 
 <div class="cards"> 
@@ -32,4 +67,4 @@
       <button mat-button><a mat-list-item [routerLink]="'/generateEmployees'">EMPLOYEES REPORT</a></button>
     </mat-card-actions>
     </mat-card>
-</div>
+</div>-->

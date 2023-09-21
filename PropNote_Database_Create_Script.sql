@@ -1118,7 +1118,6 @@ INSERT INTO [dbo].[PROBLEMSTATUS]
            ([ProblemStatusName])
      VALUES
            ('To Deal With')
-
 GO
 
 INSERT INTO [dbo].[PROBLEMSTATUS]
@@ -1140,4 +1139,3 @@ INSERT INTO [dbo].[PROBLEMSTATUS]
      VALUES
            ('No longer a problem')
 GO
-

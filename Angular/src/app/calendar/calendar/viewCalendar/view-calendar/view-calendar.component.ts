@@ -1,16 +1,55 @@
-import { Component } from '@angular/core';
-import { Calendar } from '@fullcalendar/core';
+import { Component, OnInit } from '@angular/core';
+/*import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions } from '@fullcalendar/core';*/
 
 @Component({
   selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
   styleUrls: ['./view-calendar.component.scss'],
 })
-export class ViewCalendarComponent {
+export class ViewCalendarComponent implements OnInit {
 
-  calendarOptions: CalendarOptions = {
+  currentMonth: Date = new Date();
+  daysOfWeek: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weeks: number[][] = [];
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.generateCalendar();
+  }
+
+  prevMonth(): void {
+    this.currentMonth.setMonth(this.currentMonth.getMonth() - 1);
+    this.generateCalendar();
+  }
+
+  nextMonth(): void {
+    this.currentMonth.setMonth(this.currentMonth.getMonth() + 1);
+    this.generateCalendar();
+  }
+
+  generateCalendar(): void {
+    this.weeks = []; 
+
+    const firstDayOfMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
+    const lastDayOfMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + 1, 0);
+
+    let currentDate = new Date(firstDayOfMonth);
+
+    while (currentDate <= lastDayOfMonth) {
+      const week = [];
+      for (let i = 0; i < 7; i++) {
+        week.push(currentDate.getDate());
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      this.weeks.push(week);
+    }
+  }
+}
+
+  /*calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
     themeSystem: 'bootstrap',
@@ -28,7 +67,4 @@ export class ViewCalendarComponent {
         color : 'green'
       },
     ]
-  };
-}
-
-
+  };*/
