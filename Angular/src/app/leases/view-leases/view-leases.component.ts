@@ -37,7 +37,6 @@ export class ViewLeasesComponent implements OnInit {
 
         this.leaseService.getAllDepositsByLease(lease.leaseID).subscribe((deposit) => {
           lease.deposit = deposit;
-          console.log(deposit)
         });
 
       });
@@ -85,7 +84,6 @@ export class ViewLeasesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      debugger;
       if (result !== 'false') {
         // Delete the lease here
         this.deleteLease(lease);

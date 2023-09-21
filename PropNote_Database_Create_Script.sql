@@ -178,7 +178,7 @@ GO
 CREATE TABLE [dbo].[DEPOSIT](
 	[DepositID] [int] IDENTITY(1,1) NOT NULL,
 	[LeaseID] [int] NOT NULL,
-	[Amount] [varchar](100) NOT NULL,
+	[Amount] [decimal](10,2) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[DepositID] ASC
@@ -837,6 +837,7 @@ REFERENCES [dbo].[USER] ([UserID])
 GO
 ALTER TABLE [dbo].[DEPOSIT]  WITH CHECK ADD FOREIGN KEY([LeaseID])
 REFERENCES [dbo].[LEASE] ([LeaseID])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[HELP]  WITH CHECK ADD FOREIGN KEY([FK_HelpCategoryID])
 REFERENCES [dbo].[HELPCATEGORY] ([HelpCategoryID])
@@ -1034,6 +1035,35 @@ INSERT INTO [dbo].[USER]
            ,1)
 GO
 
+INSERT INTO [dbo].[TENANT]
+			([UserID]
+			,[CompanyName]
+			,[CompanyNumber])
+	VALUES
+			(1
+			,'FiveAgents'
+			,'0784563259')
+
+INSERT INTO [dbo].[USER]
+           ([Username]
+           ,[Password]
+           ,[ProfilePhoto]
+           ,[Email]
+           ,[Name]
+           ,[Surname]
+           ,[PhoneNumber]
+           ,[HasLoggedIn])
+     VALUES
+           ('admin'
+           ,'DEE6669875FFA6D6A8F8AD53DF4908E542780F2FC4221D6DE6958FCAF49D6E73'
+           ,null
+           ,'admin@gmail.com'
+           ,'Admin'
+           ,'admin'
+           ,'0835421542'
+           ,1)
+GO
+
 INSERT INTO [dbo].[USERROLE]
            ([RoleID]
            ,[UserID])
@@ -1087,7 +1117,27 @@ GO
 INSERT INTO [dbo].[PROBLEMSTATUS]
            ([ProblemStatusName])
      VALUES
-           ('completed')
+           ('To Deal With')
 
+GO
+
+INSERT INTO [dbo].[PROBLEMSTATUS]
+           ([ProblemStatusName])
+     VALUES
+           ('In Progress')
+
+GO
+
+INSERT INTO [dbo].[PROBLEMSTATUS]
+           ([ProblemStatusName])
+     VALUES
+           ('Dealt With')
+
+GO
+
+INSERT INTO [dbo].[PROBLEMSTATUS]
+           ([ProblemStatusName])
+     VALUES
+           ('No longer a problem')
 GO
 
