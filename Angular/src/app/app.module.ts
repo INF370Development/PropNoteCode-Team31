@@ -125,6 +125,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 import { SafePipe } from './shared/safe.pipe';
 import { LoginComponent } from './authentication/Login/login.component';
 import { LoginFailedComponent } from './authentication/Login/login-failed/login-failed.component';
@@ -284,6 +287,10 @@ export function jwtOptionsFactory() {
         provide: JWT_OPTIONS,
         useFactory: jwtOptionsFactory,
       },
+    }),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
     }),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
