@@ -79,7 +79,6 @@ export class LeaseService {
     leaseId: number,
     depositRequest: DepositRequest
   ): Observable<Deposit> {
-    debugger;
     return this.http.post<Deposit>(
       `${this._apiUrl}/Lease/${leaseId}/AddDeposit`,
       depositRequest
