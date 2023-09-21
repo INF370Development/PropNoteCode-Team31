@@ -11,7 +11,7 @@ namespace WebApi.Interfaces
         Task<Tenant[]> GetAllTenantsAsync();
 
         Task<Tenant> GetTenantByIDAsync(int tenantID);
-
+        void Delete<T>(T entity) where T : class;
         Task AddTenant(Tenant tenant);
 
         Task EditTenant(int tenantID, Tenant tenant);

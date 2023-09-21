@@ -1,8 +1,7 @@
-<div fxLayout="row" fxLayoutGap="24px" class="container">
+<div fxLayout="row" class="container">
   <!-- Left container for adding problems -->
-  <div fxFlex="30%">
-    <div class="add-problem">
-      <h2>Add New Problem</h2>
+  <div fxFlex.gt-sm="30" fxFlex="100%" class="add-problem">
+      <h2 class="add-heading">Add New Problem</h2>
       <form (submit)="addProblem()">
         <div class="form-group">
           <mat-form-field>
@@ -37,9 +36,8 @@
         <button mat-raised-button color="primary" type="submit">Add Problem</button>
       </form>
     </div>
-  </div>
 <!-- Right container for displaying problems in a table -->
-<div fxFlex="70%">
+<div fxFlex.gt-sm="70" fxFlex="100%" class="mat-table-container">
   <h2>Problems</h2>
   <table mat-table [dataSource]="problems" class="mat-elevation-z8">
     <!-- Problem Subject Column -->

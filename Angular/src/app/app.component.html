@@ -1,2 +1,2 @@
-<app-side-nav *ngIf="isLoggedIn || HasLoggedIn === true"></app-side-nav>
+<app-side-nav *ngIf="isLoggedIn === true && !isLandingPage" ></app-side-nav>
 <router-outlet></router-outlet>

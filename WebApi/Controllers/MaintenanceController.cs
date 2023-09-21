@@ -12,7 +12,7 @@ using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaintenanceController : Controller
@@ -391,7 +391,6 @@ namespace WebApi.Controllers
             try
             {
                 List<MaintenanceView> maintenances = new();
-
                 var results = await _maintenanceRepository.GetAllMaintenanceAsync();
                 foreach (var maintenance in results)
                 {
