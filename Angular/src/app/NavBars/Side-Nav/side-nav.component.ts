@@ -40,6 +40,10 @@ export class SideNavComponent {
     this.router.navigate(['/home']);
   }
 
+  onClickCalc() {
+    this.router.navigate(['/calculator']);
+  }
+
   onClickChat() {
     this.router.navigate(['/chatbot']);
   }

@@ -137,6 +137,7 @@ import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { TimeoutComponent } from './timeout/timeout/timeout.component';
 import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+import { CalculatorComponent } from './calculator/calculator/calculator.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -251,6 +252,7 @@ export function jwtOptionsFactory() {
     TimeoutComponent,
     ScreensaverComponent,
     SignaturePadComponent,
+    CalculatorComponent,
   ],
   imports: [
     BrowserModule,

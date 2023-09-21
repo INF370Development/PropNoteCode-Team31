@@ -66,6 +66,8 @@ import { LoginComponent } from './authentication/Login/login.component';
 import { TimeoutComponent } from './timeout/timeout/timeout.component';
 //Signature
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+//Calculator
+import { CalculatorComponent } from './calculator/calculator/calculator.component';
 
 //Add AuthGuard for Route Protection
 import {
@@ -118,6 +120,15 @@ const routes: Routes = [
   {
     path: 'signaturePad',
     component: SignaturePadComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+   //Calculator
+   {
+    path: 'calculator',
+    component: CalculatorComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
