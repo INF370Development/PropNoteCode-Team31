@@ -59,7 +59,6 @@ export class AddLeaseModalComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
     if (this.leaseForm.valid) {
       const leaseRequest = {
         startDate: this.leaseForm.value.startDate,
@@ -123,7 +122,6 @@ export class AddLeaseModalComponent implements OnInit {
 
   addDeposit() {
     console.log("function called");
-    debugger;
     const depositAmount = this.leaseForm?.get('depositAmount')?.value;
 
     if (depositAmount) {

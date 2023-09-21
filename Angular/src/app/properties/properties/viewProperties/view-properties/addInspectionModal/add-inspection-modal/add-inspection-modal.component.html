@@ -51,8 +51,8 @@
 
       <mat-form-field class="form-field">
         <label>Status:</label>
-        <mat-select [(ngModel)]="inspectionModal.inspectionStatus" name="inspectionStatus" (selectionChange)="updateSelectedInspectionStatus($event.value)">
-          <mat-option *ngFor="let inspectionStatus of inspectionStatuses" [value]="inspectionStatus">{{ inspectionStatus.inspectionStatusName }}</mat-option>
+        <mat-select [(ngModel)]="inspectionModal.inspectionStatusID" name="inspectionStatus">
+          <mat-option *ngFor="let inspectionStatus of inspectionStatuses" [value]="inspectionStatus.inspectionStatusID">{{ inspectionStatus.inspectionStatusName }}</mat-option>
         </mat-select>
       </mat-form-field>
 
