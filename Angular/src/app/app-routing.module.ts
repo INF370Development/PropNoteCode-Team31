@@ -62,6 +62,11 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 import { LoginComponent } from './authentication/Login/login.component';
+//TimeOut
+import { TimeoutComponent } from './timeout/timeout/timeout.component';
+//Signature
+import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+
 //Add AuthGuard for Route Protection
 import {
   AuthGuardService as AuthGuard,
@@ -77,6 +82,15 @@ import { RoleGuardService as RoleGuard } from './authentication/authGuardService
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
 const routes: Routes = [
+  //Timeout
+  {
+    path: 'timeout',
+    component: TimeoutComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
   //Landingpage
   { path: 'landingPage', component: LandingPageComponent },
   { path: '', component: LandingPageComponent },
@@ -95,6 +109,15 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  //SignaturePad
+  {
+    path: 'signaturePad',
+    component: SignaturePadComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',

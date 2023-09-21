@@ -9,6 +9,7 @@ import { Broker } from 'src/app/shared/Broker';
 import { Inspection, InspectionStatus, InspectionType } from 'src/app/shared/Property/Inspection';
 import { Property } from 'src/app/shared/Property/Property';
 import { Recovery } from 'src/app/shared/Property/Recovery';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-add-inspection-modal',
@@ -27,7 +28,7 @@ export class AddInspectionModalComponent implements OnInit {
   inspectionStatusID: 0,
   inspectionDescription: "",
   inspectionDate: new Date(),
-  inspectionTime: '', // You can use string for TimeSpan representation
+  inspectionTime: '',
   inspectionStatus: new InspectionStatus(),
   inspectionType: new InspectionType(),
   };
@@ -40,13 +41,18 @@ inspectionTypes: InspectionType[] =[];
     private propertyService: PropertiesService,
     private router: Router,
     private brokerService: BrokerService,
-    private datePipe : DatePipe
+    private datePipe : DatePipe,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.propertyService.getInspectionStatuses().subscribe((inspectionStatuses) => {
       this.inspectionStatuses = inspectionStatuses;
-  });
+      const todoStatus = this.inspectionStatuses.find(status => status.inspectionStatusName === 'To Do');
+      if (todoStatus) {
+        this.inspectionModal.inspectionStatusID = todoStatus.inspectionStatusID;
+      }
+    });
   this.propertyService.getInspectionTypes().subscribe((inspectionTypes) => {
     this.inspectionTypes = inspectionTypes;
 });
@@ -67,14 +73,6 @@ inspectionTypes: InspectionType[] =[];
       return false;
     }
 
-    // debugger;
-    // if (!(this.inspectionModal.inspectionDate instanceof Date)) {
-    //   console.error('Invalid inspection date');
-    //   return false;
-    // }
-
-
-
     const timePattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 
     if (!timePattern.test(this.inspectionModal.inspectionTime)) {
@@ -82,8 +80,6 @@ inspectionTypes: InspectionType[] =[];
       return false;
     }
 
-
-    //
     if (!this.inspectionModal.inspectionStatus || isNaN(this.inspectionModal.inspectionStatus.inspectionStatusID)) {
       console.error('Invalid Status');
       return false;
@@ -111,7 +107,6 @@ inspectionTypes: InspectionType[] =[];
       console.error('Error creating inspection:', error);
     }
   );
-
   // Return true to indicate successful execution
   return true;
 }
@@ -128,7 +123,6 @@ inspectionTypes: InspectionType[] =[];
 
   // Send the selected brokerID to the backend
   sendToBackend() {
-  //  debugger;
     if (this.inspectionModal.inspectionType) {
       const inspectionTypeID = this.inspectionModal.inspectionType.inspectionTypeID;
       console.log("InspectionTypeID", inspectionTypeID)
@@ -138,9 +132,7 @@ inspectionTypes: InspectionType[] =[];
       console.log("InspectionStatusID", inspectionStatusID)
     }
     console.log("Date", this.inspectionDate)
-
   }
-
 
   //Description
   inspectionDescription = new FormControl('', [Validators.required]);
@@ -177,6 +169,4 @@ inspectionTypes: InspectionType[] =[];
 
     return '';
   }
-
-
 }

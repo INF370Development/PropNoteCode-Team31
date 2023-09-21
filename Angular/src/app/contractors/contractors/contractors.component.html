@@ -1,8 +1,53 @@
 <h1>Contractors</h1>  
 
-<p>All tenant features will be available for only the Admin to create, view, updated and delete.</p>
+<div class="container">
+  <div class="card"><a [routerLink]="'/viewContractors'">
+      <div class="circle">
+          <h4>View 
+              <br><br>
+              Contractors</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the contractors created for the system can be viewed. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the view all contractors page.
+          </p>
+      </div>
+  </a></div>
 
-<mat-grid-list cols="2">
+  <div class="card"><a  [routerLink]="'/generateContractors'">
+      <div class="circle">
+          <h4>Contractors 
+            <br> <br>
+            Report</h4>
+      </div>
+      <div class="content">
+          <p>
+            Generate Contractor Report. The rest of the information that we need to establish.
+            <br> <br>
+            Click on the card will take the user to print a contractor report.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/contractorTree'">
+      <div class="circle">
+          <h4>Contractor 
+            <br> <br>
+            Hierarchy</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the contractors created for the system can be viewed in a hierarchy. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the contractor hierarchy.
+          </p>
+      </div>
+  </a></div>
+</div>
+
+<!--<mat-grid-list cols="2">
   <div class="cards"> 
     <mat-card class="contractorCard">
       <mat-card-header>
@@ -51,4 +96,4 @@
         <button mat-button><a mat-list-item [routerLink]="'/contractorTree'">VIEW CONTRACTORS</a></button>
       </mat-card-actions>
       </mat-card>
-  </div>
+  </div>-->

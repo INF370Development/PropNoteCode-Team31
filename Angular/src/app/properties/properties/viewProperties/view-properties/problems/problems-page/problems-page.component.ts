@@ -19,8 +19,7 @@ export class ProblemsPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private propertiesService: PropertiesService,
-    private form: NgForm
+    private propertiesService: PropertiesService
   ) {}
 
   ngOnInit(): void {
@@ -57,9 +56,8 @@ export class ProblemsPageComponent implements OnInit {
     this.newProblem.inspectionID = this.inspectionID;
     this.propertiesService.AddProblem(this.inspectionID, this.newProblem).subscribe(
       () => {
-        this.loadProblems();
-        this.newProblem = new Problem();
-        this.form.resetForm();
+        this.loadProblems(); // Reload problems after adding a new one
+        this.newProblem = new Problem(); // Reset the new problem object
       },
       (error) => {
         console.error('Error adding problem:', error);

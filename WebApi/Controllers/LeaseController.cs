@@ -121,7 +121,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteLease")]
+        [Route("DeleteLease/{leaseId}")]
         public async Task<IActionResult> DeleteLease(int leaseID)
         {
             try

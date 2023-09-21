@@ -1,5 +1,101 @@
 <h1>Maintenance</h1>  
 
+<div class="container">
+  <div class="card"><a [routerLink]="'/assignMaintenance'">
+      <div class="circle">
+          <h4>Assign</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the assigned maintenance created for the system can be viewed. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the assign maintenance page.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/generateMaintenance'">
+      <div class="circle">
+          <h4>Report</h4>
+      </div>
+      <div class="content">
+          <p>
+            Generate Maintenance Report. The rest of the information that we need to establish.
+            <br> <br>
+            Click on the card will take the user to print a maintenance report.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/viewMaintenance'">
+      <div class="circle">
+          <h4>View</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the contractors created for the system can be viewed in a hierarchy. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the contractor hierarchy.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/payment'">
+    <div class="circle">
+        <h4>Payment </h4>
+    </div>
+    <div class="content">
+        <p>
+          All the payments on  the system can be viewed. The rest of the information that we need to establish
+          <br> <br>
+          Click on the card will take the user to the payment page.
+        </p>
+    </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/maintenanceNote'">
+    <div class="circle">
+      <h4>Note</h4>
+    </div>
+    <div class="content">
+        <p>
+          All the maintenance notes on the system can be viewed.
+          <br> <br>
+          Click on the card will take the user to the maintenance note page.
+        </p>
+    </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/maintenanceType'">
+    <div class="circle">
+      <h4>Type</h4>
+    </div>
+    <div class="content">
+        <p>
+          All the maintenance types on the system can be viewed.
+          <br> <br>
+          Click on the card will take the user to the maintenance type page.
+        </p>
+    </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/maintenanceStatus'">
+    <div class="circle">
+      <h4>Status</h4>
+    </div>
+    <div class="content">
+        <p>
+          All the maintenance status on the system can be viewed.
+          <br> <br>
+          Click on the card will take the user to the maintenance status page.
+        </p>
+    </div>
+  </a></div>
+</div>
+
+
+<!--<h1>Maintenance</h1>  
+
 <p>All maintenance features will be available for only the Admin to create, view, updated and delete.</p>
 
 <mat-grid-list cols="2">
@@ -112,4 +208,4 @@
         <button mat-button><a mat-list-item [routerLink]="'/maintenanceStatus'">MAINTENANCE STATUS</a></button>
       </mat-card-actions>
       </mat-card>
-  </div>
+  </div>-->
