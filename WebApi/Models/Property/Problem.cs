@@ -15,6 +15,7 @@
 
         // Navigation property for the ProblemStatus
         public ProblemStatus ProblemStatus { get; set; }
+        public virtual ICollection<ProblemImage> ProblemImages { get; set; }
     }
 
     public class ProblemStatus
@@ -39,6 +40,16 @@
         public string ProblemStatusName { get; set; }
     }
 
+    public class ProblemImage
+    {
+        public int ProblemImageID { get; set; } // Primary key
 
+        // Other properties
+        public string ImageName { get; set; }
+        public string ImageData { get; set; }
+
+        // Foreign key
+        public int ProblemID { get; set; }
+    }
 
 }

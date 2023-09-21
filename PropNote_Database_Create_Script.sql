@@ -434,7 +434,7 @@ CREATE TABLE [dbo].[PROBLEMPHOTO](
 	[ProblemPhotoID] [int] IDENTITY(1,1) NOT NULL,
 	[ProblemID] [int] NOT NULL,
 	[ImageName] [varchar](max) NULL,
-	[ImageData] [varchar] (max),
+	[ImageData] nvarchar(max),
 	[UploadDate] [date] NULL,
 PRIMARY KEY CLUSTERED 
 (

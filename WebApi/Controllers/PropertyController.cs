@@ -713,5 +713,43 @@ namespace WebApi.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpPost("uploadProblemPhoto/{problemID}")]
+        public async Task<IActionResult> UploadProblemPhoto(int problemID, [FromForm] IFormFile photo)
+        {
+            try
+            {
+                var problem = await _context.Problem.FindAsync(problemID);
+
+                if (problem != null && photo != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await photo.CopyToAsync(memoryStream);
+                        var photoData = memoryStream.ToArray();
+                        string base64 = Convert.ToBase64String(photoData);
+
+                        var newPhoto = new ProblemImage
+                        {
+                            ImageName = photo.FileName,
+                            ImageData = base64,
+                            ProblemID = problemID
+                        };
+
+                        _context.ProblemImage.Add(newPhoto);
+                        await _context.SaveChangesAsync();
+
+                        return Ok(new { Message = "Photo uploaded successfully" });
+                    }
+                }
+
+                return BadRequest("Invalid problem ID or photo upload failed");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }
