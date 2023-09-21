@@ -6,8 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteLeaseDialogComponent } from '../delete-lease-dialog/delete-lease-dialog.component';
 import { AddDepositDialogComponent } from '../add-deposit-dialog/add-deposit-dialog.component';
 
-import 'lord-icon-element';
-
 @Component({
   selector: 'app-view-leases',
   templateUrl: './view-leases.component.html',
