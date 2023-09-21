@@ -139,7 +139,7 @@ export class CreateContractorModalComponent implements OnInit {
       return 'Name required';
     }
 
-    return this.email.hasError('name') ? 'Not a valid name' : '';
+    return this.name.hasError('name') ? 'Not a valid name' : '';
   }
   //Surname
   surname = new FormControl('', [Validators.required]);
