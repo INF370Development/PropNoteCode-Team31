@@ -64,6 +64,7 @@ export class ViewLeasesComponent implements OnInit {
       }
     });
   }
+
   openAddLeaseModal() {
     const dialogRef = this.dialog.open(AddLeaseModalComponent, {
       width: '500px', // Adjust the width as needed
@@ -76,9 +77,6 @@ export class ViewLeasesComponent implements OnInit {
       }
     });
   }
-
-
-
 
   openDeleteDialog(lease: Lease) {
     const dialogRef = this.dialog.open(DeleteLeaseDialogComponent, {
