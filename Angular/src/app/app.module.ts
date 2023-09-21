@@ -135,6 +135,8 @@ import { AuthGuardService } from './authentication/authGuardService/authGuardSer
 import { RoleGuardService } from './authentication/authGuardService/RoleguardService';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { TimeoutComponent } from './timeout/timeout/timeout.component';
+import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
+import { SignatureComponent } from './signature/signature/signature.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -247,6 +249,8 @@ export function jwtOptionsFactory() {
     UpdateProfileDetailsComponent,
     LandingPageComponent,
     TimeoutComponent,
+    ScreensaverComponent,
+    SignatureComponent,
   ],
   imports: [
     BrowserModule,
