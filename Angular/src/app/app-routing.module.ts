@@ -82,9 +82,6 @@ import { RoleGuardService as RoleGuard } from './authentication/authGuardService
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
 const routes: Routes = [
-  //Landingpage
-  { path: 'signaturePad', component: SignaturePadComponent },
-
   //Timeout
   {
     path: 'timeout',
@@ -112,6 +109,15 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  //SignaturePad
+  {
+    path: 'signaturePad',
+    component: SignaturePadComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
