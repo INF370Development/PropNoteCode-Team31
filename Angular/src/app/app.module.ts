@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule,  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -136,7 +136,7 @@ import { RoleGuardService } from './authentication/authGuardService/RoleguardSer
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { TimeoutComponent } from './timeout/timeout/timeout.component';
 import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
-import { SignatureComponent } from './signature/signature/signature.component';
+import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -250,7 +250,7 @@ export function jwtOptionsFactory() {
     LandingPageComponent,
     TimeoutComponent,
     ScreensaverComponent,
-    SignatureComponent,
+    SignaturePadComponent,
   ],
   imports: [
     BrowserModule,
@@ -284,6 +284,7 @@ export function jwtOptionsFactory() {
       },
     }),
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     AuthGuardService,
     RoleGuardService,

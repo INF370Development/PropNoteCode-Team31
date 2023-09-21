@@ -1,0 +1,32 @@
+<!--<div>
+  <div class="signature-container">
+      <div>
+          <h2>Signature Pad for lease</h2> 
+          <canvas #signPadCanvas (touchstart)="startSignPadDrawing($event)" (touchmove)="movedFinger($event)"></canvas>
+      </div>
+      <div class="buttons">
+          <button mat-raised-button color="accent" (click)="saveSignPad()">Save</button>
+          <button mat-raised-button color="warn" (click)="clearSignPad()">Clear</button>
+          <button mat-raised-button color="primary" (click)="undoSign()">Undo</button>
+      </div>
+  </div>
+  <div>
+      <div>
+          <img src='{{ signImage }}' />
+      </div>
+  </div>
+</div>-->
+
+<div>
+  <div>
+    <canvas #signPadCanvas (touchstart)="startSignPadDrawing($event)" (touchmove)="movedFinger($event)"></canvas>
+  </div>
+  <button mat-raised-button color="accent" (click)="saveSignPad()">Save</button>
+  <button mat-raised-button color="warn" (click)="clearSignPad()">Clear</button>
+  <button mat-raised-button color="primary" (click)="undoSign()">Undo</button>
+  <div>
+    <div>
+      <img src='{{ signImage }}' />
+    </div>
+  </div>
+</div>

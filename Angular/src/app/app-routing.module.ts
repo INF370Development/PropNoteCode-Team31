@@ -64,6 +64,8 @@ import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenan
 import { LoginComponent } from './authentication/Login/login.component';
 //TimeOut
 import { TimeoutComponent } from './timeout/timeout/timeout.component';
+//Signature
+import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
 
 //Add AuthGuard for Route Protection
 import {
@@ -80,6 +82,9 @@ import { RoleGuardService as RoleGuard } from './authentication/authGuardService
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
 const routes: Routes = [
+  //Landingpage
+  { path: 'signaturePad', component: SignaturePadComponent },
+
   //Timeout
   {
     path: 'timeout',
