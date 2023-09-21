@@ -713,5 +713,81 @@ namespace WebApi.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpPost("uploadProblemPhoto/{problemID}")]
+        public async Task<IActionResult> UploadProblemPhoto(int problemID, [FromForm] IFormFile photo)
+        {
+            try
+            {
+                var problem = await _context.Problem.FindAsync(problemID);
+
+                if (problem != null && photo != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await photo.CopyToAsync(memoryStream);
+                        var photoData = memoryStream.ToArray();
+                        string base64 = Convert.ToBase64String(photoData);
+
+                        var newPhoto = new ProblemImage
+                        {
+                            ImageName = photo.FileName,
+                            ImageData = base64,
+                            ProblemID = problemID
+                        };
+
+                        _context.ProblemImage.Add(newPhoto);
+                        await _context.SaveChangesAsync();
+
+                        return Ok(new { Message = "Photo uploaded successfully" });
+                    }
+                }
+
+                return BadRequest("Invalid problem ID or photo upload failed");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("uploadProblelmVideo/{problemID}")]
+        public async Task<IActionResult> UploadProblemVideo(int problemID, [FromForm] IFormFile video)
+        {
+            try
+            {
+                var problem = await _context.Problem.FindAsync(problemID);
+
+                if (problem != null && video != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await video.CopyToAsync(memoryStream);
+                        var videoData = memoryStream.ToArray();
+                        string base64 = Convert.ToBase64String(videoData);
+
+                        var newVideo = new ProblemVideo
+                        {
+                            FileName = video.FileName,
+                            ContentType = video.ContentType,
+                            VideoData = base64,
+                            ProblemID = problemID
+                        };
+
+                        _context.ProblemVideo.Add(newVideo);
+                        await _context.SaveChangesAsync();
+
+                        return Ok(new { Message = "Video uploaded successfully" });
+                    }
+                }
+
+                return BadRequest("Invalid problem ID or video upload failed");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }

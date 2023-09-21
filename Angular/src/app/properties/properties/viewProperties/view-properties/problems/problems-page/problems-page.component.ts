@@ -4,7 +4,6 @@ import { PropertiesService } from 'src/app/services/properties.service';
 import { Problem, ProblemStatus } from 'src/app/shared/Property/Problem';
 import { NgForm } from '@angular/forms';
 
-
 @Component({
   selector: 'app-problems-page',
   templateUrl: './problems-page.component.html',
@@ -15,7 +14,6 @@ export class ProblemsPageComponent implements OnInit {
   problems: Problem[] = [];
   newProblem: Problem = new Problem();
   problemStatuses : ProblemStatus[] =[];
-
 
   displayedColumns: string[] = ['problemSubject', 'problemDescription', 'problemSeverity', 'problemStatus'];
 
@@ -39,25 +37,20 @@ export class ProblemsPageComponent implements OnInit {
 
   loadProblems() {
     this.propertiesService.getProblemsforInspection(this.route.snapshot.params['id']).subscribe((result) => {
-      // Fetch ProblemStatus data for each problem
       result.forEach(async (problem) => {
         try {
           const status = await this.propertiesService.getProblemStatus(problem.problemStatusID).toPromise();
           if (status) {
-            problem.problemStatus = status; // Assign the entire ProblemStatus object to problem.problemStatus
+            problem.problemStatus = status;
           }
         } catch (error) {
           console.error(`Error fetching ProblemStatus for Problem ID ${problem.problemID}:`, error);
         }
       });
-
-      // Assign the updated problems array
       this.problems = result;
       console.log("Property Result", this.problems);
     });
   }
-
-
 
   addProblem() {
     this.newProblem.inspectionID = this.inspectionID;
@@ -71,4 +64,39 @@ export class ProblemsPageComponent implements OnInit {
       }
     );
   }
+
+  uploadProblemImage(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      this.propertiesService.uploadProblemImage(this.newProblem.problemID, formData).subscribe(
+        (result) => {
+          // Handle success (e.g., display a success message)
+          console.log('Image uploaded successfully:', result);
+        },
+        (error) => {
+          console.error('Error uploading image:', error);
+        }
+      );
+    }
+  }
+
+  uploadProblemVideo(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('video', file);
+      this.propertiesService.uploadProblemVideo(this.newProblem.problemID, formData).subscribe(
+        (result) => {
+          // Handle success (e.g., display a success message)
+          console.log('Video uploaded successfully:', result);
+        },
+        (error) => {
+          console.error('Error uploading video:', error);
+        }
+      );
+    }
+  }
+
 }

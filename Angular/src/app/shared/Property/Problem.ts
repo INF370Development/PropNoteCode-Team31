@@ -37,3 +37,25 @@ export class ProblemStatusRequest {
   constructor(){
   }
 }
+
+export class ProblemImage {
+  problemImageID: number = 0;
+  imageName: string = "";
+  imageData: string = ""; // You might want to use the appropriate data type for binary data
+  problemID: number = 0;
+
+  constructor() {}
+}
+
+export class ProblemVideo {
+  problemVideoID: number = 0;
+  problemID: number = 0;
+  fileName: string = "";
+  contentType: string = "";
+  videoData: string = ""; // You might want to use the appropriate data type for binary data
+  uploadDate: Date = new Date();
+  problem: Problem = new Problem();
+
+  constructor() {}
+}
+

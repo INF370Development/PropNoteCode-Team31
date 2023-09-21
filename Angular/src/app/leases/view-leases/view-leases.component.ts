@@ -6,8 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteLeaseDialogComponent } from '../delete-lease-dialog/delete-lease-dialog.component';
 import { AddDepositDialogComponent } from '../add-deposit-dialog/add-deposit-dialog.component';
 
-import 'lord-icon-element';
-
 @Component({
   selector: 'app-view-leases',
   templateUrl: './view-leases.component.html',
@@ -64,6 +62,7 @@ export class ViewLeasesComponent implements OnInit {
       }
     });
   }
+
   openAddLeaseModal() {
     const dialogRef = this.dialog.open(AddLeaseModalComponent, {
       width: '500px', // Adjust the width as needed
@@ -76,9 +75,6 @@ export class ViewLeasesComponent implements OnInit {
       }
     });
   }
-
-
-
 
   openDeleteDialog(lease: Lease) {
     const dialogRef = this.dialog.open(DeleteLeaseDialogComponent, {

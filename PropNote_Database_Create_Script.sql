@@ -434,7 +434,7 @@ CREATE TABLE [dbo].[PROBLEMPHOTO](
 	[ProblemPhotoID] [int] IDENTITY(1,1) NOT NULL,
 	[ProblemID] [int] NOT NULL,
 	[ImageName] [varchar](max) NULL,
-	[ImageData] [varchar] (max),
+	[ImageData] nvarchar(max),
 	[UploadDate] [date] NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -467,7 +467,7 @@ CREATE TABLE [dbo].[PROBLEMVIDEO](
 	[FileName] [nvarchar](255) NULL,
 	[ContentType] [nvarchar](100) NULL,
 	[UploadDate] [date] NULL,
-	[VideoData] [varchar](max) NULL,
+	[VideoData] [varbinary](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ProblemVideoID] ASC

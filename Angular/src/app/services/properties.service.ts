@@ -176,4 +176,27 @@ export class PropertiesService {
       `https://localhost:7251/api/Property/GetProblemStatus/${problemStatusID}`
     );
   }
+
+  uploadProblemImage(
+    problemId: number,
+    imageFormData: FormData
+  ): Observable<any> {
+    return this._httpClient.post(
+      `https://localhost:7251/api/Property/uploadProblemImage/${problemId}`,
+      imageFormData
+    );
+  }
+
+  uploadProblemVideo(
+    problemId: number,
+    videoFormData: FormData
+  ): Observable<any> {
+    return this._httpClient.post(
+      `https://localhost:7251/api/Property/uploadProblemVideo/${problemId}`,
+      videoFormData
+    );
+  }
 }
+
+
+
