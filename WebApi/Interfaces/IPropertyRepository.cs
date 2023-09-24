@@ -37,5 +37,6 @@ namespace WebApi.Interfaces
         Task AddProblemStatus(ProblemStatus problemStatus);
         Task AddProblem(Problem problem);
         Task<ProblemStatus[]> GetAllProblemStatusesAsync();
+        Task<Problem> GetProblemByIDAsync(int problemID);
     }
 }
