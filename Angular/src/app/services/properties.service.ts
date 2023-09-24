@@ -177,12 +177,9 @@ export class PropertiesService {
     );
   }
 
-  uploadProblemImage(
-    problemId: number,
-    imageFormData: FormData
-  ): Observable<any> {
+  uploadProblemImage(problemId: number, imageFormData: FormData): Observable<any> {
     return this._httpClient.post(
-      `https://localhost:7251/api/Property/uploadProblemImage/${problemId}`,
+      `https://localhost:7251/api/Property/uploadProblemPhoto/${problemId}`,
       imageFormData
     );
   }
@@ -196,6 +193,25 @@ export class PropertiesService {
       videoFormData
     );
   }
+
+  updateProblem(problemID: number, updateProblem: Problem): Observable<any> {
+    const url = `https://localhost:7251/api/Property/EditProblem/${problemID}`;
+    return this._httpClient.put(url, updateProblem);
+  }
+
+  getProblemImages(problemID: number): Observable<any[]> {
+    return this._httpClient.get<any[]>(`https://localhost:7251/api/Property/GetProblemImages/${problemID}`);
+  }
+
+  getProblemVideos(problemID: number): Observable<any[]> {
+    return this._httpClient.get<any[]>(`https://localhost:7251/api/Property/GetProblemVideos/${problemID}`);
+  }
+
+  deleteProblem(problemID: number): Observable<any> {
+    const url = `https://localhost:7251/api/Property/DeleteProblem/${problemID}`;
+    return this._httpClient.delete(url, {responseType: 'text'});
+  }
+
 }
 
 

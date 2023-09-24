@@ -10,6 +10,8 @@ export class Problem {
   problemSeverity: string = "";
   inspections: Inspection = new Inspection();
   problemStatus : ProblemStatus = new ProblemStatus();
+  problemVideos : ProblemVideo[] = [];
+  problemImages : ProblemImage[] = [];
   constructor(){
   }
 }
@@ -52,10 +54,10 @@ export class ProblemVideo {
   problemID: number = 0;
   fileName: string = "";
   contentType: string = "";
-  videoData: string = ""; // You might want to use the appropriate data type for binary data
-  uploadDate: Date = new Date();
+  videoURL: string = "";
   problem: Problem = new Problem();
 
   constructor() {}
 }
+
 

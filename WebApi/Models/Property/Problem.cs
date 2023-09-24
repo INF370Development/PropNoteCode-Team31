@@ -55,6 +55,12 @@ namespace WebApi.Models.Property
         public int ProblemID { get; set; }
     }
 
+    public class ProblemPhotoUploadModel
+    {
+        public int ProblemID { get; set; }
+        public IFormFile Photo { get; set; }
+    }
+
     public class ProblemVideo
     {
         public int ProblemVideoID { get; set; }
@@ -69,14 +75,21 @@ namespace WebApi.Models.Property
         [Required]
         [MaxLength(100)]
         public string ContentType { get; set; }
-
-        [Required]
-        public string VideoData { get; set; }
-
-        public DateTime UploadDate { get; set; }
-
-        // Navigation property to link to the associated problem
+        public string VideoURL { get; set; }
         public Problem Problem { get; set; }
+    }
+
+    public class ProblemVideoUploadModel
+    {
+        public int ProblemID { get; set; }
+        public IFormFile Video { get; set; }
+    }
+
+    public class ProblemVideoModel
+    {
+        public string FileName { get; set; }
+        public string ContentType { get; set; }
+        public string VideoURL { get; set; }
     }
 
 }
