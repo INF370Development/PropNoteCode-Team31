@@ -391,6 +391,7 @@ namespace WebApi.Controllers
             try
             {
                 List<MaintenanceView> maintenances = new();
+
                 var results = await _maintenanceRepository.GetAllMaintenanceAsync();
                 foreach (var maintenance in results)
                 {

@@ -10,5 +10,6 @@ namespace WebApi.Models.Admin
         public string SnagListDescription { get; set; }
         public DateTime SnagListCreated { get; set; }
         public DateTime SnagListModified { get; set; }
+        public Property.Property Property { get; set; }
     }
 }
