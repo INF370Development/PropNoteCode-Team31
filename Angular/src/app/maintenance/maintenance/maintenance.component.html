@@ -1,105 +1,9 @@
-<h1>Maintenance</h1>  
-
-<div class="container">
-  <div class="card"><a [routerLink]="'/assignMaintenance'">
-      <div class="circle">
-          <h4>Assign</h4>
-      </div>
-      <div class="content">
-          <p>
-            All the assigned maintenance created for the system can be viewed. The rest of the information that we need to establish.
-            <br>
-            Click on the card will take the user to the assign maintenance page.
-          </p>
-      </div>
-  </a></div>
-
-  <div class="card"><a  [routerLink]="'/generateMaintenance'">
-      <div class="circle">
-          <h4>Report</h4>
-      </div>
-      <div class="content">
-          <p>
-            Generate Maintenance Report. The rest of the information that we need to establish.
-            <br> <br>
-            Click on the card will take the user to print a maintenance report.
-          </p>
-      </div>
-  </a></div>
-
-  <div class="card"><a  [routerLink]="'/viewMaintenance'">
-      <div class="circle">
-          <h4>View</h4>
-      </div>
-      <div class="content">
-          <p>
-            All the contractors created for the system can be viewed in a hierarchy. The rest of the information that we need to establish.
-            <br>
-            Click on the card will take the user to the contractor hierarchy.
-          </p>
-      </div>
-  </a></div>
-
-  <div class="card"><a  [routerLink]="'/payment'">
-    <div class="circle">
-        <h4>Payment </h4>
-    </div>
-    <div class="content">
-        <p>
-          All the payments on  the system can be viewed. The rest of the information that we need to establish
-          <br> <br>
-          Click on the card will take the user to the payment page.
-        </p>
-    </div>
-  </a></div>
-
-  <div class="card"><a  [routerLink]="'/maintenanceNote'">
-    <div class="circle">
-      <h4>Note</h4>
-    </div>
-    <div class="content">
-        <p>
-          All the maintenance notes on the system can be viewed.
-          <br> <br>
-          Click on the card will take the user to the maintenance note page.
-        </p>
-    </div>
-  </a></div>
-
-  <div class="card"><a  [routerLink]="'/maintenanceType'">
-    <div class="circle">
-      <h4>Type</h4>
-    </div>
-    <div class="content">
-        <p>
-          All the maintenance types on the system can be viewed.
-          <br> <br>
-          Click on the card will take the user to the maintenance type page.
-        </p>
-    </div>
-  </a></div>
-
-  <div class="card"><a  [routerLink]="'/maintenanceStatus'">
-    <div class="circle">
-      <h4>Status</h4>
-    </div>
-    <div class="content">
-        <p>
-          All the maintenance status on the system can be viewed.
-          <br> <br>
-          Click on the card will take the user to the maintenance status page.
-        </p>
-    </div>
-  </a></div>
-</div>
-
-
-<!--<h1>Maintenance</h1>  
+<h1>Maintenance</h1>
 
 <p>All maintenance features will be available for only the Admin to create, view, updated and delete.</p>
 
 <mat-grid-list cols="2">
-  <div class="cards"> 
+  <div class="cards">
     <mat-card class="contractorCard">
       <mat-card-header>
       <mat-card-title>Assign Maintenance</mat-card-title>
@@ -115,7 +19,7 @@
       </mat-card>
   </div>
   <br>
-  <div class="cards"> 
+  <div class="cards">
     <mat-card class="reportCard">
       <mat-card-header>
         <mat-card-title>Generate Maintenance Reports</mat-card-title>
@@ -133,79 +37,51 @@
   </mat-card>
   </div>
   <br>
-  <div class="cards"> 
+  <div class="cards">
     <mat-card class="contractorCard">
       <mat-card-header>
       <mat-card-title>View Maintenance</mat-card-title>
-        <mat-card-subtitle>View all the maintenance on the system</mat-card-subtitle>
+        <mat-card-subtitle>View all the Maintenace on the system</mat-card-subtitle>
       </mat-card-header>
-        <mat-icon class="icon">nature</mat-icon>
+        <mat-icon class="icon">build</mat-icon>
       <mat-card-content>
-        <p>All the maintenance created for the system can be viewed. The rest of the information that we need to establish.</p>
+        <p>All the maintenance created for the system can be viewed. </p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button><a mat-list-item [routerLink]="'/viewMaintenance'">VIEW MAINTENANCE</a></button>
       </mat-card-actions>
       </mat-card>
   </div>
+  <div class="cards">
+    <mat-card class="brokerCard">
+      <mat-card-header>
+      <mat-card-title>View Maintenance Types</mat-card-title>
+        <mat-card-subtitle>View all the Maintenace Types on the system</mat-card-subtitle>
+      </mat-card-header>
+        <mat-icon class="icon">info</mat-icon>
+      <mat-card-content>
+        <p>All the maintenance types created for the system can be viewed. </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button><a mat-list-item [routerLink]="'/maintenanceType'">VIEW MAINTENANCE TYPE</a></button>
+      </mat-card-actions>
+      </mat-card>
+  </div>
+  <div class="cards">
+    <mat-card class="brokerCard">
+      <mat-card-header>
+        <mat-card-title>View Maintenance Statuses</mat-card-title>
+        <mat-card-subtitle>View all the Maintenance Statuses on the system</mat-card-subtitle>
+      </mat-card-header>
+      <mat-icon class="icon">cached</mat-icon>
+      <mat-card-content>
+        <p>All the maintenance statuses created for the system can be viewed. </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button><a mat-list-item [routerLink]="'/maintenanceType'">VIEW MAINTENANCE STATUS</a></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
   <br>
-  <div class="cards"> 
-    <mat-card class="contractorCard">
-      <mat-card-header>
-      <mat-card-title>Payment</mat-card-title>
-        <mat-card-subtitle>View all the payments made on the system</mat-card-subtitle>
-      </mat-card-header>
-        <mat-icon class="icon">money</mat-icon>
-      <mat-card-content>
-        <p>All the payments on  the system can be viewed. The rest of the information that we need to establish.</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button><a mat-list-item [routerLink]="'/payment'">PAYMENTS</a></button>
-      </mat-card-actions>
-      </mat-card>
-  </div>
-  <div class="cards"> 
-    <mat-card class="contractorCard">
-      <mat-card-header>
-      <mat-card-title>Maintenance Note</mat-card-title>
-        <mat-card-subtitle>View all the maintenance notes made on the system</mat-card-subtitle>
-      </mat-card-header>
-        <mat-icon class="icon">note</mat-icon>
-      <mat-card-content>
-        <p>All the maintenance notes on the system can be viewed. The rest of the information that we need to establish.</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button><a mat-list-item [routerLink]="'/maintenanceNote'">MAINTENANCE NOTES</a></button>
-      </mat-card-actions>
-      </mat-card>
-  </div>
-  <div class="cards"> 
-    <mat-card class="contractorCard">
-      <mat-card-header>
-      <mat-card-title>Maintenance Type</mat-card-title>
-        <mat-card-subtitle>View all the maintenance types made on the system</mat-card-subtitle>
-      </mat-card-header>
-        <mat-icon class="icon">note</mat-icon>
-      <mat-card-content>
-        <p>All the maintenance types on the system can be viewed. The rest of the information that we need to establish.</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button><a mat-list-item [routerLink]="'/maintenanceType'">MAINTENANCE TYPE</a></button>
-      </mat-card-actions>
-      </mat-card>
-  </div>
-  <div class="cards"> 
-    <mat-card class="contractorCard">
-      <mat-card-header>
-      <mat-card-title>Maintenance Status</mat-card-title>
-        <mat-card-subtitle>View all the maintenance status made on the system</mat-card-subtitle>
-      </mat-card-header>
-        <mat-icon class="icon">note</mat-icon>
-      <mat-card-content>
-        <p>All the maintenance status on the system can be viewed. The rest of the information that we need to establish.</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button><a mat-list-item [routerLink]="'/maintenanceStatus'">MAINTENANCE STATUS</a></button>
-      </mat-card-actions>
-      </mat-card>
-  </div>-->
+
+ </mat-grid-list>

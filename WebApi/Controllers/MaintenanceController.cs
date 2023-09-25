@@ -24,8 +24,6 @@ namespace WebApi.Controllers
             _maintenanceRepository = repository;
         }
 
-        // Payment Actions
-
         [HttpGet("GetAllPayments")]
         public async Task<IActionResult> GetAllPayments()
         {
@@ -207,7 +205,6 @@ namespace WebApi.Controllers
             }
         }
 
-        //MaintenanceStatus Actions
 
         [HttpGet("GetAllMaintenanceStatuses")]
         public async Task<IActionResult> GetAllMaintenanceStatuses()
@@ -394,10 +391,16 @@ namespace WebApi.Controllers
             try
             {
                 List<MaintenanceView> maintenances = new();
-
                 var results = await _maintenanceRepository.GetAllMaintenanceAsync();
                 foreach (var maintenance in results)
                 {
+                    //Contractor cont= maintenance.Contractor;
+                    //cont.User = (User) await _maintenanceRepository.getUser(cont.UserID);
+
+                    MaintenanceNote note = (MaintenanceNote)await _maintenanceRepository.GetMaintenanceNoteByID(maintenance.MaintenanceID);
+                    Payment pay = (Payment)await _maintenanceRepository.GetPaymentByID(maintenance.MaintenanceID);
+                    if (pay == null) { pay = new Payment { MaintenanceID = maintenance.MaintenanceID, Amount = 0 }; }
+                    if (note == null) { note = new MaintenanceNote { MaintenanceID = maintenance.MaintenanceID, MaintenanceNoteDescription = "" }; }
                     maintenances.Add(new MaintenanceView
                     {
                         MaintenanceID = maintenance.MaintenanceID,
@@ -406,12 +409,13 @@ namespace WebApi.Controllers
                         MaintenanceStatusID = maintenance.MaintenanceStatusID,
                         MaintenanceTypeID = maintenance.MaintenanceTypeID,
                         MaintenanceDate = maintenance.MaintenanceDate,
+                        MaintenanceTime = maintenance.MaintenanceTime,
                         Property = maintenance.Property,
                         Contractor = maintenance.Contractor,
                         MaintenanceStatus = maintenance.MaintenanceStatus,
                         MaintenanceType = maintenance.MaintenanceType,
-                        MaintenanceNote = (MaintenanceNote)await _maintenanceRepository.GetMaintenanceNoteByID(maintenance.MaintenanceID),
-                        Payment = (Payment)await _maintenanceRepository.GetPaymentByID(maintenance.MaintenanceID)
+                        MaintenanceNote = note,
+                        Payment = pay
                     }); ;
                 }
                 return Ok(maintenances);
@@ -448,7 +452,8 @@ namespace WebApi.Controllers
                 ContractorID = maintenanceViewModel.ContractorID,
                 MaintenanceStatusID = maintenanceViewModel.MaintenanceStatusID,
                 MaintenanceTypeID = maintenanceViewModel.MaintenanceTypeID,
-                MaintenanceDate = maintenanceViewModel.MaintenanceDate
+                MaintenanceDate = maintenanceViewModel.MaintenanceDate,
+                MaintenanceTime=maintenanceViewModel.MaintenanceTime,
             };
 
             try
@@ -475,9 +480,10 @@ namespace WebApi.Controllers
                 existingMaintenance.MaintenanceStatusID = maintenanceViewModel.MaintenanceStatusID;
             if (maintenanceViewModel.MaintenanceTypeID != 0)
                 existingMaintenance.MaintenanceTypeID = maintenanceViewModel.MaintenanceTypeID;
-
-            existingMaintenance.MaintenanceDate = maintenanceViewModel.MaintenanceDate;
-
+            if (maintenanceViewModel.MaintenanceDate != "")
+                existingMaintenance.MaintenanceDate = maintenanceViewModel.MaintenanceDate;
+            if (maintenanceViewModel.MaintenanceTime != "")
+                existingMaintenance.MaintenanceTime = maintenanceViewModel.MaintenanceTime;
             try
             {
                 return Ok(await _maintenanceRepository.SaveChangesAsync());

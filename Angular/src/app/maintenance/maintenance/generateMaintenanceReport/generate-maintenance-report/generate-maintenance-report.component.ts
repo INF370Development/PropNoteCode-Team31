@@ -117,7 +117,7 @@ import { HttpClient } from '@angular/common/http';
     getCellContent(Maintenance: any, headerKey: any): any {
       switch (headerKey) {
         case 'Property':
-          return Maintenance.propertyID.toString();
+          return Maintenance.element.property.description.toString();
         case 'Payment':
           return 'R '+Maintenance.payment.amount.toString();
         case 'Contractor':
