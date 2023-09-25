@@ -9,8 +9,8 @@ export class Maintenance{
   contractorID: number=0;
   maintenanceStatusID: any;
   maintenanceTypeID: number=0;
-  maintenanceDate: Date=new Date;
-  maintenanceTime:Date=new Date;
+  maintenanceDate: string = "";
+  maintenanceTime:string = "";
   property: Property=new Property;
   contractor: Contractor =new Contractor;
   maintenanceStatus:MaintenanceStatus=new MaintenanceStatus;
