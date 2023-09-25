@@ -270,19 +270,19 @@ export function jwtOptionsFactory() {
     LoginFailedComponent,
     MatTableModule,
     //MAP STUFF
-    LeafletModule, 
+    LeafletModule,
     GoogleMapsModule,
     SlickCarouselModule,
     //CALENDAR
     ScheduleModule,
     FullCalendarModule,
     MatIconModule,
-    /*JwtModule.forRoot({
+    JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
         useFactory: jwtOptionsFactory,
       },
-    }),*/
+    }),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
