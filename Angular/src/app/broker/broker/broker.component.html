@@ -1,5 +1,40 @@
 <h1>Broker</h1>  
 
+<div class="container">
+  <div class="card"><a [routerLink]="'/viewBrokers'">
+      <div class="circle">
+          <h4>View 
+              <br><br>
+              Brokers</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the brokers created for the system can be viewed. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the view all brokers page.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/generateBroker'">
+      <div class="circle">
+          <h4>Brokers 
+            <br> <br>
+            Report</h4>
+      </div>
+      <div class="content">
+          <p>
+            Generate broker Report. The rest of the information that we need to establish.
+            <br> <br>
+            Click on the card will take the user to print a broker report.
+          </p>
+      </div>
+  </a></div>
+</div>
+
+
+<!--<h1>Broker</h1>  
+
 <p>All broker features will be available for only the Admin to create, view, updated and delete.</p>
 
 <mat-grid-list cols="2">
@@ -35,4 +70,4 @@
       <button mat-button><a mat-list-item [routerLink]="'/generateBroker'">BROKER REPORTS</a></button>
     </mat-card-actions>
   </mat-card>
-</div>
+</div>-->
