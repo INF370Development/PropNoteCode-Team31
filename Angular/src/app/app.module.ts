@@ -26,7 +26,6 @@ import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
 import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerReport/generate-broker-report/generate-broker-report.component';
 import { CalendarComponent } from './calendar/calendar/calendar.component';
-import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { ProfileComponent } from './profile/profile/profile.component';
@@ -137,7 +136,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AuthGuardService } from './authentication/authGuardService/authGuardService';
 import { RoleGuardService } from './authentication/authGuardService/RoleguardService';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
-import { TimeoutComponent } from './timeout/timeout/timeout.component';
 import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
 import { CalculatorComponent } from './calculator/calculator/calculator.component';
@@ -177,7 +175,6 @@ export function jwtOptionsFactory() {
     ViewBrokerComponent,
     GenerateBrokerReportComponent,
     CalendarComponent,
-    ViewCalendarComponent,
     GenerateCalendarReportComponent,
     MaintenanceComponent,
     ProfileComponent,
@@ -252,7 +249,6 @@ export function jwtOptionsFactory() {
     SafePipe,
     UpdateProfileDetailsComponent,
     LandingPageComponent,
-    TimeoutComponent,
     ScreensaverComponent,
     SignaturePadComponent,
     CalculatorComponent,

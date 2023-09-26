@@ -1,23 +1,44 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+//import { Timer } from 'node:timers';
 
 @Component({
   selector: 'app-screensaver',
   templateUrl: './screensaver.component.html',
   styleUrls: ['./screensaver.component.scss']
 })
-export class ScreensaverComponent implements OnInit{
+export class ScreensaverComponent {
+  /*constructor(private router: Router, private userActivityService: UserActivityService) { }} 
+
   currentTime: string = '';
   currentDate: string = '';
 
   ngOnInit() {
-    // Start the timer to update time and date every second
+    this.userActivityService.activityDetected.subscribe(() => {
+      this.router.navigate(['/login']);
+    });
+
+    this.userActivityService.startInactivityTimer(120000);
+
     setInterval(() => {
       const now = new Date();
       this.currentTime = now.toLocaleTimeString();
       this.currentDate = now.toLocaleDateString();
     }, 1000);
-  }
+
+    const screensaver = document.querySelector('.body');
+    screensaver?.addEventListener('click', () => {
+      this.userActivityService.resetActivityTimer();
+      this.router.navigate(['/login']);
+    });
+  }*/
 }
+ /*isScreensaverActive = false;
+  ngOnInit() {
+    setTimeout(() => {
+      this.isScreensaverActive = true;
+    }, 2 * 60 * 1000);
+  }*/
 
 //Javascript 
 /* window.setInterval(ut, 1000);
