@@ -1,14 +1,14 @@
-
-
-<!--<div *ngIf="isScreensaverActive" class="screensaver">
-    <h1>Screensaver</h1>
-    <p>This is a screensaver.</p>
-</div>-->
-  
-
 <!--<div id="body" class="body">
     <div id="div1">
         <h1 id="time">{{ currentTime }}</h1>
         <h1 id="date">{{ currentDate }}</h1>
     </div>
 </div>-->
+
+<div id="body" class="body" (click)="logout()">
+    <div id="div1">
+      <h1 id="time">{{ currentTime }}</h1>
+      <h1 id="date">{{ currentDate }}</h1>
+    </div>
+</div>
+  

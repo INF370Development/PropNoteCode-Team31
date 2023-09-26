@@ -1,44 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import { Timer } from 'node:timers';
 
 @Component({
   selector: 'app-screensaver',
   templateUrl: './screensaver.component.html',
   styleUrls: ['./screensaver.component.scss']
 })
-export class ScreensaverComponent {
-  /*constructor(private router: Router, private userActivityService: UserActivityService) { }} 
+export class ScreensaverComponent implements OnInit {
+  currentTime: string = "";
+  currentDate: string = "";
+  loadingPageActive: boolean = false;
 
-  currentTime: string = '';
-  currentDate: string = '';
+  constructor(private router: Router) { }
 
-  ngOnInit() {
-    this.userActivityService.activityDetected.subscribe(() => {
-      this.router.navigate(['/login']);
-    });
+  ngOnInit(): void {
+    this.updateTimeAndDate();
+    window.setInterval(() => this.updateTimeAndDate(), 1000);
+  }
 
-    this.userActivityService.startInactivityTimer(120000);
+  updateTimeAndDate() {
+    const d = new Date();
+    this.currentTime = d.toLocaleTimeString();
+    this.currentDate = d.toLocaleDateString();
+  }
 
-    setInterval(() => {
-      const now = new Date();
-      this.currentTime = now.toLocaleTimeString();
-      this.currentDate = now.toLocaleDateString();
-    }, 1000);
+  activateLoadingPage() {
+    this.loadingPageActive = true;
+    
 
-    const screensaver = document.querySelector('.body');
-    screensaver?.addEventListener('click', () => {
-      this.userActivityService.resetActivityTimer();
-      this.router.navigate(['/login']);
-    });
-  }*/
-}
- /*isScreensaverActive = false;
-  ngOnInit() {
     setTimeout(() => {
-      this.isScreensaverActive = true;
-    }, 2 * 60 * 1000);
-  }*/
+      this.loadingPageActive = false;
+      this.router.navigate(['/landingPage']);
+    }, 3000); 
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/landingPage']).then(() => {
+      location.reload();
+    });
+  }
+}
 
 //Javascript 
 /* window.setInterval(ut, 1000);
