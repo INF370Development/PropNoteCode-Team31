@@ -11,8 +11,8 @@ namespace WebApi.Models.Maintenance
         public int ContractorID { get; set; }
         public int MaintenanceStatusID { get; set; }
         public int MaintenanceTypeID { get; set; }
-        public DateTime MaintenanceDate { get; set; }
-        public TimeSpan MaintenanceTime { get; set; }
+        public string MaintenanceDate { get; set; }
+        public string MaintenanceTime { get; set; }
         public Property.Property Property { get; set; }
         public Contractor Contractor { get; set; }
         public MaintenanceStatus MaintenanceStatus { get; set; }

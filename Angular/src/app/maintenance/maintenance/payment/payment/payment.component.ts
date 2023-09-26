@@ -14,9 +14,9 @@ import { Payment } from 'src/app/shared/Payment';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss'],
+  styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent implements AfterViewInit, OnInit {
+export class PaymentComponent  implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'maintenanceID',
     'amount',
@@ -75,8 +75,9 @@ export class PaymentComponent implements AfterViewInit, OnInit {
       exitAnimationDuration,
     });
   }
-  EditPayment(x: any) {
-    this._maintenanceService.MaintenanceId = x;
+  EditPayment(x:any)
+  {
+    this._maintenanceService.MaintenanceId=x;
     const dialogRef = this.dialog.open(EditPaymentComponent, {});
   }
   openModal() {

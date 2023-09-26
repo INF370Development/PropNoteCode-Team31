@@ -140,6 +140,11 @@ namespace WebApi.Repositories
             return await query.ToArrayAsync();
         }
 
+        public async Task<Problem> GetProblemByIDAsync(int problemID)
+        {
+            IQueryable<Problem> query = _appDbContext.Problem.Where(c => c.ProblemID == problemID);
+            return await query.FirstOrDefaultAsync();
+        }
 
         public async Task AddRecoveryType(RecoveryType recoveryType)
         {

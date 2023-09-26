@@ -8,8 +8,8 @@ namespace WebApi.Models.Maintenance
         public int ContractorID { get; set; }
         public int MaintenanceStatusID { get; set; }
         public int MaintenanceTypeID { get; set; }
-        public DateTime MaintenanceDate { get; set; }
-        public DateTime MaintenanceTime { get; set; }
+        public string MaintenanceDate { get; set; }
+        public string MaintenanceTime { get; set; }
 
     }
 }

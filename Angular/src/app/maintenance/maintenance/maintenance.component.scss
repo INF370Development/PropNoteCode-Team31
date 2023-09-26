@@ -167,22 +167,17 @@ a {
     padding: 20px;
 }
 
-.contractorCard, .reportCard, .treeCard {
+.brokerCard, .reportCard {
     max-width: 400px;
 }
 
-.contractorCard{
+.brokerCard{
     padding: 10px;
 }
 
 .reportCard {
     padding: 10px;
 }
-
-.treeCard {
-    padding: 10px;
-}
-
 
 .cards{
     display: flex;

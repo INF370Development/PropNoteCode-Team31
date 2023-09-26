@@ -9,6 +9,8 @@ import { Property } from 'src/app/shared/Property/Property';
 import { MaintenanceStatus } from 'src/app/shared/MaintenanceStatus';
 import { MaintenanceType } from 'src/app/shared/MaintenanceType';
 import { Contractor } from 'src/app/shared/UserModels/Contractor';
+import { PropertiesService } from 'src/app/services/properties.service';
+import { ContractorService } from 'src/app/services/contractor.service';
 
   @Component({
     selector: 'app-edit-maintenance',
@@ -16,58 +18,48 @@ import { Contractor } from 'src/app/shared/UserModels/Contractor';
     styleUrls: ['./edit-maintenance.component.scss']
   })
   export class EditMaintenanceComponent    implements OnInit {
+    Property:any;
+    Contractor:any;
+    Status:any;
+    Type:any;
+    MainForm: FormGroup;
     adminRole: boolean = false;
     editorRole: boolean = false;
     viewerRole: boolean = false;
-    time: Time={hours:12,minutes:30};
-    MaintenanceModal: Maintenance = {
-      propertyID: 0,
-      contractorID: 0,
-      maintenanceStatusID: 0,
-      maintenanceTypeID: 0,
-      maintenanceDate: new Date(),
-      maintenanceTime: new Date,
-      property: new Property,
-      contractor: new Contractor,
-      maintenanceStatus: new MaintenanceStatus,
-      maintenanceType: new MaintenanceType
-    };
+    time: string[]=['10:30','9:30','08:30'];
+    
+    formBuilder: any;
   
     constructor(
       private dialogRef: MatDialogRef<EditMaintenanceComponent>,
       private maintenanceService: MaintenanceService,
+      private property_service: PropertiesService,
+      private contractor_service: ContractorService,
       private router: Router
-    ) {}
+    ) {this.MainForm = new FormGroup({});}
   
     ngOnInit(): void {
-      this.maintenanceService.getMaintenance(this.maintenanceService.MaintenanceId,this.MaintenanceModal);
-    }
-    updatePropertyId(x: any) {
-      this.MaintenanceModal.propertyID = x;
-    }
+      this.maintenanceService.getMaintenanceStatuses().subscribe((Maintenance: any) => {
+        this.Status=Maintenance;
+      });
+      this.maintenanceService.getMaintenanceTypes().subscribe((Maintenance: any) => {
+        this.Type=Maintenance;
+      });
+      this.property_service.getProperties().subscribe((Maintenance: any) => {
+        this.Property=Maintenance;
+      });
+      this.contractor_service.getContractors().subscribe((Maintenance: any) => {
+        this.Contractor=Maintenance;
+      });
+      this.MainForm = this.formBuilder.group({
+        PropertyId: ['', Validators.required],
+        ContractorId: ['', ],
+        StatusId: ['', Validators.required],
+        TypeId: ['', Validators.required],
+        endDate: ['', Validators.required],
+        Time: ['', Validators.required],
+      });
     
-    updateEmployeeId(x: any) {
-      //this.MaintenanceModal.employeeID = x;
-    }
-    
-    updateContractorId(x: any) {
-      this.MaintenanceModal.contractorID = x;
-    }
-    
-    updateMaintenanceStatusId(x: any) {
-      this.MaintenanceModal.maintenanceStatusID = x;
-    }
-    
-    updateMaintenanceTypeId(x: any) {
-      this.MaintenanceModal.maintenanceTypeID = x;
-    }
-    
-    updateMaintenanceDate(x: any) {
-      this.MaintenanceModal.maintenanceDate = x;
-    }
-    
-    updateMaintenanceTime(x: any) {
-      this.MaintenanceModal.maintenanceTime = x;
     }
     
     createRole() {
@@ -80,7 +72,19 @@ import { Contractor } from 'src/app/shared/UserModels/Contractor';
   
     AddMaintenanceType() {
       debugger;
-      this.maintenanceService.EditMaintenance(this.maintenanceService.MaintenanceId,this.MaintenanceModal).subscribe(
+      let MaintenanceModal: Maintenance = {
+        propertyID: this.MainForm.value.PropertyId,
+        contractorID: this.MainForm.value.ContractorId,
+        maintenanceStatusID: this.MainForm.value.StatusId,
+        maintenanceTypeID: this.MainForm.value.TypeId,
+        maintenanceDate: this.MainForm.value.endDate,
+        maintenanceTime: "23:00",
+        property: new Property,
+        contractor: new Contractor,
+        maintenanceStatus: new MaintenanceStatus,
+        maintenanceType: new MaintenanceType
+      };
+      this.maintenanceService.EditMaintenance(this.maintenanceService.MaintenanceId,MaintenanceModal).subscribe(
         (response) => {
           console.log('Snaglistitem created successfully:', response);
           // You can optionally close the modal after creating the snaglistitem

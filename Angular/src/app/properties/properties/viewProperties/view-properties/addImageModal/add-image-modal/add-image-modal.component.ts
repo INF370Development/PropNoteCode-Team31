@@ -53,7 +53,8 @@ export class AddImageModalComponent {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append("photo", this.selectedFile, this.selectedFile.name);
-
+debugger;
+      console.log("Image", formData)
       const upload$ = this._propertiesService.uploadPropertyImage(this.data.propertyID, formData);
 
       upload$.subscribe(

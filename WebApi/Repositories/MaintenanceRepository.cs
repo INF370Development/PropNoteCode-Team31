@@ -179,7 +179,7 @@ namespace WebApi.Repositories
                 Include(t => t.MaintenanceType);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, TimeSpan Time)
+        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, string Date, string Time)
         {
             Maintenance x = await GetMaintenanceByID(MaintenanceId);
             if (x != null)

@@ -90,7 +90,7 @@ import { AddMaintenanceComponent } from './maintenance/maintenance/maintenance/a
 import { EditMaintenanceComponent } from './maintenance/maintenance/maintenance/edit-maintenance/edit-maintenance.component';
 import { ViewMaintenanceComponent } from './maintenance/maintenance/maintenance/maintenance.component';
 import { MaintenanceContractorComponent } from './maintenance/maintenance/maintenance/maintenance-contractor/maintenance-contractor.component';
-import { EditMaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
+import{EditMaintenanceNoteComponent} from './maintenance/maintenance/maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
 import { EditMaintenanceStatusComponent } from './maintenance/maintenance/maintenance-status/edit-maintenance-status/edit-maintenance-status.component';
 import { EditMaintenanceTypeComponent } from './maintenance/maintenance/maintenance-type/edit-maintenance-type/edit-maintenance-type.component';
 import { EditPaymentComponent } from './maintenance/maintenance/payment/edit-payment/edit-payment.component';

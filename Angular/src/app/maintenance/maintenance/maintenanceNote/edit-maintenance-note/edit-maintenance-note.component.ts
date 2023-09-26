@@ -46,7 +46,7 @@ import { Component, OnInit } from '@angular/core';
   
     EditMaintenanceNote() {
       debugger;
-      
+      this.MaintenanceNoteModal.maintenanceID=this.maintenanceService.MaintenanceId;
       this.maintenanceService.EditMaintenanceNote(this.maintenanceService.MaintenanceId,this.MaintenanceNoteModal).subscribe(
         (response) => {
           console.log('MaintenanceNote created successfully:', response);
