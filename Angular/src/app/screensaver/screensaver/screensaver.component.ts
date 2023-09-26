@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserActivity } from 'src/app/services/userActivity.service';
 
 @Component({
   selector: 'app-screensaver',
@@ -11,11 +12,16 @@ export class ScreensaverComponent implements OnInit {
   currentDate: string = "";
   loadingPageActive: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userActivity: UserActivity) {}
 
   ngOnInit(): void {
     this.updateTimeAndDate();
     window.setInterval(() => this.updateTimeAndDate(), 1000);
+
+    this.userActivity.inactivityDetected.subscribe(() => {
+      this.activateLoadingPage();
+      console.log('User inactive for 2 minutes');
+    });
   }
 
   updateTimeAndDate() {
@@ -26,7 +32,6 @@ export class ScreensaverComponent implements OnInit {
 
   activateLoadingPage() {
     this.loadingPageActive = true;
-    
 
     setTimeout(() => {
       this.loadingPageActive = false;
@@ -36,11 +41,12 @@ export class ScreensaverComponent implements OnInit {
 
   logout() {
     localStorage.clear();
-    this.router.navigate(['/landingPage']).then(() => {
+    this.router.navigate(['/login']).then(() => {
       location.reload();
     });
   }
 }
+
 
 //Javascript 
 /* window.setInterval(ut, 1000);

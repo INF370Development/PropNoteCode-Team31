@@ -140,6 +140,9 @@ import { ScreensaverComponent } from './screensaver/screensaver/screensaver.comp
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
 import { CalculatorComponent } from './calculator/calculator/calculator.component';
 
+//TIMEOUT
+import { UserActivity } from './services/userActivity.service';
+
 export function tokenGetter() {
   return localStorage.getItem('Token');
 }
@@ -296,6 +299,8 @@ export function jwtOptionsFactory() {
     DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
     [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
+    //TIMEOUT
+    UserActivity,
   ],
   bootstrap: [AppComponent],
 })
