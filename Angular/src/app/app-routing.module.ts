@@ -14,6 +14,8 @@ import { GeneratePropertiesReportComponent } from './properties/properties/gener
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
 import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
 import { AddInspectionModalComponent } from './properties/properties/viewProperties/view-properties/addInspectionModal/add-inspection-modal/add-inspection-modal.component';
+import { SnagListComponent } from './properties/properties/snag-list/snag-list.component';
+
 //Tenants
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
@@ -81,6 +83,7 @@ import {
 import { RoleGuardService as RoleGuard } from './authentication/authGuardService/RoleguardService';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
+import { SnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/snag-list-items.component';
 const routes: Routes = [
   //Timeout
   {
@@ -200,6 +203,22 @@ const routes: Routes = [
   {
     path: 'addRecoveries',
     component: AddRecoveriesModalComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  { 
+    path: 'SnagList', 
+    component: SnagListComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+   },
+  { 
+    path: 'SnagListItem', 
+    component: SnagListItemsComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',

@@ -1,0 +1,20 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Items in Snag List </h2>
+      <form (submit)="closeModal()">
+        <div *ngFor="let Item of List"> 
+            {{Item.snagListItem.snagListItemDescription}}
+        </div>
+        
+        <div class="modal-actions">
+          <button mat-raised-button type="submit" color="primary" >
+            Close
+          </button>
+          <button mat-raised-button (click)="EditList()" color="warning" >
+            Edit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

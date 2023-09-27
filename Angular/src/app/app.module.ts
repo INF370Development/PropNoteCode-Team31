@@ -137,6 +137,15 @@ import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { TimeoutComponent } from './timeout/timeout/timeout.component';
 import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+import { SnagListComponent } from './properties/properties/snag-list/snag-list.component';
+import { SnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/snag-list-items.component';
+import { CreateSnagListComponent } from './properties/properties/snag-list/create-snag-list/create-snag-list.component';
+import { EditSnagListComponent } from './properties/properties/snag-list/edit-snag-list/edit-snag-list.component';
+import { ViewItemsComponent } from './properties/properties/snag-list/view-items/view-items.component';
+import { CreateSnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/create-snag-list-items/create-snag-list-items.component';
+import { EditSnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/edit-snag-list-items/edit-snag-list-items.component';
+import { EditItemsComponent } from './properties/properties/snag-list/edit-snag-list/edit-items/edit-items.component';
+import { AddItemsComponent } from './properties/properties/snag-list/create-snag-list/add-items/add-items.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -251,6 +260,15 @@ export function jwtOptionsFactory() {
     TimeoutComponent,
     ScreensaverComponent,
     SignaturePadComponent,
+    SnagListComponent,
+    SnagListItemsComponent,
+    CreateSnagListComponent,
+    EditSnagListComponent,
+    CreateSnagListItemsComponent,
+    EditSnagListItemsComponent,
+    AddItemsComponent,
+    EditItemsComponent,
+    ViewItemsComponent
   ],
   imports: [
     BrowserModule,

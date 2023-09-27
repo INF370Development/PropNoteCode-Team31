@@ -18,11 +18,10 @@ namespace WebApi.Interfaces
         Task<SnagList> GetSnagListByID(int SnagListID);
         Task<SnagList> EditSnagList(int SnagListId, int PropertyId);
         Task<SnagList> DeleteSnagListAsync(int listId);
-        /*
-                Task<SnagListItem[]> GetAllSnagListItemLineAsync(int x);
-                Task<SnagListItemLine> GetSnagListItemLineById(int SnagList, int item);
-                Task<SnagListItemLine> AddItem(int snag, int list);
-                Task<SnagListItemLine> DeleteSnagListItemLineAsync(SnagListItemLine item);*/
+        Task<SnagListItemLine[]> GetAllSnagListItemLineAsync(int x);
+        Task<SnagListItemLine> GetSnagListItemLineById(int SnagList, int item);
+        Task<SnagListItemLine> AddItem(int snag, int list);
+        Task<SnagListItemLine> DeleteSnagListItemLineAsync(SnagListItemLine item);
         Task<int> CountSnagList();
     }
 }

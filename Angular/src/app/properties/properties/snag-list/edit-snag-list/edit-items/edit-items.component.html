@@ -1,0 +1,22 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Edit Snag List </h2>
+      <form (submit)="closeModal()">
+        <div *ngFor="let Item of List"> 
+            <input type="checkbox" checked (change)="handleCheckboxChange($event,Item.snagListItemId)">
+            {{Item.snagListItem.snagListItemDescription}}
+        </div>
+        <div *ngFor="let Item of Items"> 
+            <input type="checkbox" (change)="handleCheckboxChange($event,Item.snagListItemId)">
+            {{Item.snagListItemDescription}}
+        </div>
+        
+        <div class="modal-actions">
+          <button mat-raised-button type="submit" color="primary" >
+            Confirm
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

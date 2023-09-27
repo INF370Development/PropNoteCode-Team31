@@ -89,51 +89,51 @@ namespace WebApi.Repositories
            await _appDbContext.SaveChangesAsync();
            return list;
        }
-        /*
-               public async Task<SnagListItem[]> GetAllSnagListItemLineAsync(int x)
-               {
-                   IQueryable<SnagListItemLine> query = _appDbContext.SnagListItemLine.Where(c => c.SnagListID == x);
-                   int y = 0, z = 0;
-                   foreach (SnagListItemLine item in query)
-                   {
-                       SnagListItem check = (SnagListItem)await GetSnagListItemByID(query.ElementAt(y).SnagListItemID);
-                       if (check != null) { y++; }
-                   }
-                   SnagListItem[] list = new SnagListItem[y];
-                   y = 0;
-                   foreach (SnagListItemLine item in query)
-                   {
-                       SnagListItem check = (SnagListItem)await GetSnagListItemByID(query.ElementAt(y).SnagListItemID);
-                       if (check != null)
-                       {
-                           list[z] = check;
-                           z++;
-                       }
-                       y++;
-                   }
-                   return list;
-               }
-               public async Task<SnagListItemLine> GetSnagListItemLineById(int SnagList, int item)
-               {
-                   IQueryable<SnagListItemLine> query = _appDbContext.SnagListItemLine.Where(c => c.SnagListID == SnagList & c.SnagListItemID == item);
-                   return await query.FirstOrDefaultAsync();
-               }
-               public async Task<SnagListItemLine> AddItem(int snag, int list)
-               {
-                   SnagListItemLine x = new SnagListItemLine();
-                   {
-                       x.SnagListID = snag; x.SnagListItemID = list;
-                       _appDbContext.SnagListItemLine.Add(x);
-                       await _appDbContext.SaveChangesAsync();
-                   }
-                   return x;
-               }
-               public async Task<SnagListItemLine> DeleteSnagListItemLineAsync(SnagListItemLine item)
-               {
-                   _appDbContext.SnagListItemLine.Remove(item);
-                   await _appDbContext.SaveChangesAsync();
-                   return item;
-               }*/
+
+        public async Task<SnagListItemLine[]> GetAllSnagListItemLineAsync(int x)
+        {
+            IQueryable<SnagListItemLine> query = _appDbContext.SnagListItemLine.Where(c => c.SnagListId == x);
+            /*int y = 0, z = 0;
+            foreach (SnagListItemLine item in query)
+            {
+                SnagListItem check = (SnagListItem)await GetSnagListItemByID(query.ElementAt(y).SnagListItemId);
+                if (check != null) { y++; }
+            }
+            SnagListItem[] list = new SnagListItem[y];
+            y = 0;
+            foreach (SnagListItemLine item in query)
+            {
+                SnagListItem check = (SnagListItem)await GetSnagListItemByID(query.ElementAt(y).SnagListItemId);
+                if (check != null)
+                {
+                    list[z] = check;
+                    z++;
+                }
+                y++;
+            }*/
+            return await query.ToArrayAsync();
+        }
+        public async Task<SnagListItemLine> GetSnagListItemLineById(int SnagList, int item)
+        {
+            IQueryable<SnagListItemLine> query = _appDbContext.SnagListItemLine.Where(c => c.SnagListId == SnagList & c.SnagListItemId == item);
+            return await query.FirstOrDefaultAsync();
+        }
+        public async Task<SnagListItemLine> AddItem(int snag, int list)
+        {
+            SnagListItemLine x = new SnagListItemLine();
+            {
+                x.SnagListId = snag; x.SnagListItemId = list;
+                _appDbContext.SnagListItemLine.Add(x);
+                await _appDbContext.SaveChangesAsync();
+            }
+            return x;
+        }
+        public async Task<SnagListItemLine> DeleteSnagListItemLineAsync(SnagListItemLine item)
+        {
+            _appDbContext.SnagListItemLine.Remove(item);
+            await _appDbContext.SaveChangesAsync();
+            return item;
+        }
         public async Task<int> CountSnagList()
        {
            int x=0;

@@ -75,7 +75,9 @@ namespace WebApi.Repositories
                 .HasForeignKey(ua => ua.AccessID)
                 .IsRequired();
 
-           
+            modelBuilder.Entity<SnagListItemLine>()
+                 .HasKey(e => new { e.SnagListId, e.SnagListItemId });
+
         }
 
     }

@@ -1,0 +1,40 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Edit Snag List </h2>
+      <form (submit)="EditItem()">
+        <mat-form-field class="form-field">
+            <label>Property</label>  
+            <mat-select placeholder="Select Property" name="propertyID" (selectionChange)="updateProperty($event.value)" required>
+                <mat-option *ngFor="let prop of Property" [value]="prop.propertyID">{{ prop.description }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        <mat-form-field class="form-field">
+          <label>Item Description</label>
+          <input
+            matInput
+            name="maintenanceNoteDescription"
+            [formControl]="descriptionFormControl"
+            #maintenaceNoteDescription
+            (keyup)="updateDescription(maintenaceNoteDescription.value)"
+          />
+          <mat-error *ngIf="descriptionFormControl.hasError('required')">
+            Description is required.
+          </mat-error>
+          <mat-error *ngIf="descriptionFormControl.hasError('pattern')">
+            Description must contain only alphabets and spaces.
+          </mat-error>
+          <mat-error *ngIf="descriptionFormControl.hasError('maxlength')">
+            Description cannot exceed 50 characters.
+          </mat-error>
+        </mat-form-field>
+        <div class="modal-actions">
+          <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
+          <button mat-raised-button type="submit" color="primary" [disabled]="descriptionFormControl.invalid || descriptionFormControl.invalid">
+            Continue
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
