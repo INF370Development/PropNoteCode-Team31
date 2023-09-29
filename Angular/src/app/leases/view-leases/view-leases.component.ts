@@ -11,6 +11,7 @@ import { AddDepositDialogComponent } from '../add-deposit-dialog/add-deposit-dia
   templateUrl: './view-leases.component.html',
   styleUrls: ['./view-leases.component.scss']
 })
+
 export class ViewLeasesComponent implements OnInit {
 
   displayedColumns: string[] = ['tenant', 'company', 'property', 'startDate', 'endDate', 'monthlyAmount', 'deposit', 'actions']; // Update column names

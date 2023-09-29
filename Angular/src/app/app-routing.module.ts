@@ -36,7 +36,6 @@ import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view
 import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerReport/generate-broker-report/generate-broker-report.component';
 //Calendar
 import { CalendarComponent } from './calendar/calendar/calendar.component';
-import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
 //Maintenace
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
@@ -62,10 +61,12 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 import { LoginComponent } from './authentication/Login/login.component';
-//TimeOut
-import { TimeoutComponent } from './timeout/timeout/timeout.component';
+//Screensaver
+import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
 //Signature
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+//Calculator
+import { CalculatorComponent } from './calculator/calculator/calculator.component';
 
 //Add AuthGuard for Route Protection
 import {
@@ -82,15 +83,6 @@ import { RoleGuardService as RoleGuard } from './authentication/authGuardService
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
 const routes: Routes = [
-  //Timeout
-  {
-    path: 'timeout',
-    component: TimeoutComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'Admin',
-    },
-  },
   //Landingpage
   { path: 'landingPage', component: LandingPageComponent },
   { path: '', component: LandingPageComponent },
@@ -118,6 +110,24 @@ const routes: Routes = [
   {
     path: 'signaturePad',
     component: SignaturePadComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+   //Calculator
+   {
+    path: 'calculator',
+    component: CalculatorComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  //Screensaver
+  {
+    path: 'screensaver',
+    component: ScreensaverComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
@@ -357,14 +367,6 @@ const routes: Routes = [
   {
     path: 'calendar',
     component: CalendarComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'Admin',
-    },
-  },
-  {
-    path: 'viewCalendar',
-    component: ViewCalendarComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
