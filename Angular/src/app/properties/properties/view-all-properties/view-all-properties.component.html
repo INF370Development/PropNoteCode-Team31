@@ -72,7 +72,7 @@
     <ng-container matColumnDef="propertiesButton">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
-        <a [routerLink]="['/mapProperties']">
+        <a [routerLink]="['/mapProperties', element.propertyID]">
           <lord-icon
             src="https://cdn.lordicon.com/zzcjjxew.json"
             trigger="hover"

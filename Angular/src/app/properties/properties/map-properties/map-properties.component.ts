@@ -1,15 +1,120 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import { PropertiesService } from 'src/app/services/properties.service';
-import * as L from 'leaflet';
+import * as L from 'leaflet';*/
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PropertiesService } from 'src/app/services/properties.service';
+
+declare var Microsoft: any;
 
 @Component({
   selector: 'app-map-properties',
   templateUrl: './map-properties.component.html',
   styleUrls: ['./map-properties.component.scss']
 })
+
 export class MapPropertiesComponent implements OnInit {
-  map!: L.Map;
+  propertyId: number = 0;
+  map: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private propertyService: PropertiesService
+  ) {}
+
+  /*ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.propertyId = +params['propertyId'];
+
+      this.propertyService.getProperty(this.propertyId).subscribe(
+        (propertyDetails) => {
+          const latitude = propertyDetails.latitude;
+          const longitude = propertyDetails.longitude;
+          this.loadPropertyMap(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error fetching property details:', error);
+        }
+      );
+    });
+  }*/
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.propertyId = +params['propertyId'];
+  
+      this.propertyService.getProperty(this.propertyId).subscribe(
+        (propertyDetails: Property) => {
+          const latitude = propertyDetails.latitude;
+          const longitude = propertyDetails.longitude;
+  
+          // Load the map with dynamic coordinates
+          this.loadPropertyMap(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error fetching property details:', error);
+        }
+      );
+    });
+
+  /*loadPropertyMap(latitude: number, longitude: number): void {
+    this.map = new Microsoft.Maps.Map('#propertyMap', {
+      center: new Microsoft.Maps.Location(latitude, longitude),
+      zoom: 15,
+    });
+
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(latitude, longitude), 
+      { title: 'Property Location' }
+    );
+
+    this.map.entities.push(pin);
+  }*/
+}
+  /*@Input() propertyData: any; 
+
+  map: any;
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.initMap();
+  }
+
+  ngOnChanges(): void {
+    if (this.propertyData) {
+      const { latitude, longitude, title } = this.propertyData;
+      this.updateMapForProperty(latitude, longitude, title);
+    }
+  }
+
+  initMap(): void {
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(INITIAL_LATITUDE, INITIAL_LONGITUDE),
+      zoom: INITIAL_ZOOM
+    });
+
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(INITIAL_LATITUDE, INITIAL_LONGITUDE),
+      { title: 'Initial Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }
+}*/
+  /*map!: L.Map;
   markers: Leaflet.Marker[] = [];
   options = {
     layers: [
@@ -104,7 +209,7 @@ export class MapPropertiesComponent implements OnInit {
   markerDragEnd($event: any, index: number) {
     console.log($event.target.getLatLng());
   }
-}
+}*/
 
 /*import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';

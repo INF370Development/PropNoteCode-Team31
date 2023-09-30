@@ -19,6 +19,9 @@ export class Property {
   recoveries: Recovery[] = [];
   inspections: Inspection[] = [];
   propertyImage : PropertyImage[] = [];
+  //Map stuff
+  latitude: number = 0;  
+  longitude: number = 0; 
   constructor(){
   }
 }

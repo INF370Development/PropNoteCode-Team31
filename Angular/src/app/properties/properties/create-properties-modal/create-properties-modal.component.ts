@@ -33,7 +33,10 @@ export class CreatePropertiesModalComponent implements OnInit {
     broker: new Broker(),
     recoveries: [],
     inspections: [],
-    propertyImage: []
+    propertyImage: [],
+    //Map stuff
+    latitude: 0,
+    longitude: 0,
   };
 brokers: Broker[] = [];
 recoveries: Recovery[] =[];
