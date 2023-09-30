@@ -68,6 +68,23 @@
         </button>
       </td>
     </ng-container>
+
+    <ng-container matColumnDef="propertiesButton">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/mapProperties']">
+          <lord-icon
+            src="https://cdn.lordicon.com/zzcjjxew.json"
+            trigger="hover"
+            colors="primary:#fff,secondary:#30e849"
+            state="hover-jump-spin"
+            style="width: 50px; height: 50px;"> 
+          </lord-icon>
+        </a>
+        
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
