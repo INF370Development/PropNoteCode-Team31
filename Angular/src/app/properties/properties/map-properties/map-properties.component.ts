@@ -3,9 +3,15 @@ import * as Leaflet from 'leaflet';
 import { PropertiesService } from 'src/app/services/properties.service';
 import * as L from 'leaflet';*/
 
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+/*import { ActivatedRoute } from '@angular/router';
 import { PropertiesService } from 'src/app/services/properties.service';
+import { Property } from 'src/app/shared/Property/Property';*/
+
+/*import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
+declare var Microsoft: any;*/
+
+import { Component, OnInit } from '@angular/core';
 
 declare var Microsoft: any;
 
@@ -16,13 +22,220 @@ declare var Microsoft: any;
 })
 
 export class MapPropertiesComponent implements OnInit {
-  propertyId: number = 0;
+  constructor() { }
+
+  ngOnInit() {
+    Microsoft.Maps.loadModule('Microsoft.Maps.Map', {
+      callback: () => {
+        this.loadMap();
+      },
+      apiKey: 'AkAHq2OVaFBj3mN5AgQxAOIq-tu9d5tvQ6p7jQvr78BxsseTy_g0ANnAjEzRPkc9' 
+    });
+  }
+
+  loadMap() {
+    const map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(0, 0), 
+      zoom: 10 
+    });
+  }
+}
+
+  /*propertyId!: number; // Property ID received from the route parameter
+  map: any; // Map variable
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    // Get the propertyId from the route parameter
+    this.route.params.subscribe((params) => {
+      this.propertyId = +params['propertyId'];
+
+      // Load and display the map for the selected property based on propertyId
+      this.loadPropertyMap(this.propertyId);
+    });
+  }
+
+  loadPropertyMap(propertyId: number): void {
+
+
+    // Example code for Bing Maps (you need to include the Bing Maps script in your HTML)
+    this.map = new Microsoft.Maps.Map('#propertyMap', {
+      center: new Microsoft.Maps.Location(0, 0), // Replace with actual coordinates
+      zoom: 15, // Adjust the zoom level as needed
+    });
+
+    // Add a pushpin (marker) for the property's location
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(0, 0), // Replace with actual coordinates
+      { title: 'Property Location' }
+    );
+
+    this.map.entities.push(pin);
+  }
+}*/
+
+  /*@Input() propertyData: any; // Property data input
+
+  map: any; // Define a map variable
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.initMap(); // Initialize the map when the component is initialized
+  }
+
+  ngOnChanges(): void {
+    // Update the map when propertyData changes
+    if (this.propertyData) {
+      const { latitude, longitude, title } = this.propertyData;
+      this.updateMapForProperty(latitude, longitude, title);
+    }
+  }
+
+  initMap(): void {
+    // Initialize the map
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(INITIAL_LATITUDE, INITIAL_LONGITUDE),
+      zoom: INITIAL_ZOOM
+    });
+
+    // Add a pushpin (marker) for the initial property
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(INITIAL_LATITUDE, INITIAL_LONGITUDE),
+      { title: 'Initial Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  // Function to update the map for a different property
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    // Remove existing pushpins (markers)
+    this.map.entities.clear();
+
+    // Add a pushpin (marker) for the new property
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  
+    }
+}*/
+  
+  /*map: any; // Define a map variable
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.initMap(); // Initialize the map when the component is initialized
+  }
+
+  initMap(): void {
+    // Initialize the map
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(INITIAL_LATITUDE, INITIAL_LONGITUDE),
+      zoom: INITIAL_ZOOM
+    });
+
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(INITIAL_PROPERTY_LATITUDE, INITIAL_PROPERTY_LONGITUDE),
+      { title: 'Initial Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }
+}*/
+
+  /*@ViewChild('bingMap', { static: false }) private bingMapRef!: ElementRef;
+
+  private map: any;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.initMap();
+  }
+
+  initMap() {
+    const mapOptions = {
+      credentials: 'YOUR_BING_MAPS_API_KEY',
+      center: new Microsoft.Maps.Location(0, 0),
+      mapTypeId: Microsoft.Maps.MapTypeId.road,
+      zoom: 12
+    };
+
+    this.map = new Microsoft.Maps.Map(this.bingMapRef.nativeElement, mapOptions);
+  }
+
+  updateMarker(latitude: number, longitude: number) {
+    const location = new Microsoft.Maps.Location(latitude, longitude);
+    const pin = new Microsoft.Maps.Pushpin(location);
+    this.map.entities.clear(); 
+    this.map.entities.push(pin);
+    this.map.setView({ center: location, zoom: 15 });
+  }*/
+
+/* propertyId: number = 0;
   map: any;
 
   constructor(
     private route: ActivatedRoute,
     private propertyService: PropertiesService
   ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.propertyId = +params['propertyId'];
+  
+      this.propertyService.getProperty(this.propertyId).subscribe(
+        (propertyDetails) => {
+          const latitude = propertyDetails.latitude;
+          const longitude = propertyDetails.longitude;
+          console.log('Latitude:', latitude);
+          console.log('Longitude:', longitude);
+          this.loadPropertyMap(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error fetching property details:', error);
+        }
+      );
+    });
+  }
+
+  loadPropertyMap(latitude: number, longitude: number): void {
+    if (Microsoft && Microsoft.Maps) {
+      this.map = new Microsoft.Maps.Map('#propertyMap', {
+        center: new Microsoft.Maps.Location(latitude, longitude),
+        zoom: 15,
+      });
+  
+      const pin = new Microsoft.Maps.Pushpin(
+        new Microsoft.Maps.Location(latitude, longitude),
+        {
+          title: 'Property Location',
+        }
+      );
+  
+      this.map.entities.push(pin);
+    } else {
+      console.error('Microsoft Maps API not available.');
+    }
+  }
+}*/
 
   /*ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -41,7 +254,7 @@ export class MapPropertiesComponent implements OnInit {
     });
   }*/
 
-  ngOnInit(): void {
+  /*ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.propertyId = +params['propertyId'];
   
@@ -49,8 +262,7 @@ export class MapPropertiesComponent implements OnInit {
         (propertyDetails: Property) => {
           const latitude = propertyDetails.latitude;
           const longitude = propertyDetails.longitude;
-  
-          // Load the map with dynamic coordinates
+
           this.loadPropertyMap(latitude, longitude);
         },
         (error) => {
@@ -58,7 +270,14 @@ export class MapPropertiesComponent implements OnInit {
         }
       );
     });
+  }
 
+    loadPropertyMap(latitude: number, longitude: number): void {
+      this.map = new Microsoft.Maps.Map('#propertyMap', {
+        center: new Microsoft.Maps.Location(latitude, longitude),
+        zoom: 15,
+      });
+    }*/
   /*loadPropertyMap(latitude: number, longitude: number): void {
     this.map = new Microsoft.Maps.Map('#propertyMap', {
       center: new Microsoft.Maps.Location(latitude, longitude),
@@ -72,7 +291,6 @@ export class MapPropertiesComponent implements OnInit {
 
     this.map.entities.push(pin);
   }*/
-}
   /*@Input() propertyData: any; 
 
   map: any;
