@@ -67,10 +67,6 @@ import { Component, OnInit } from '@angular/core';
       this.MaintenanceModal.propertyID = x;
     }
     
-    updateEmployeeId(x: any) {
-      //this.MaintenanceModal.employeeID = x;
-    }
-    
     updateContractorId(x: any) {
       this.MaintenanceModal.contractorID = x;
     }
@@ -99,16 +95,9 @@ import { Component, OnInit } from '@angular/core';
     closeModal() {
       this.dialogRef.close();
     }
-    updateDate(picker:any)
-    {
-      this.MaintenanceModal.maintenanceDate=picker;
-    }
-    formatDate(dateString: string) {
-      const parsedDate = new Date(dateString);
-      //return formattedDate;
-    }
-    AddMaintenanceType() {
+    AddMaintenanceType(x:any) {
       debugger;
+      this.MaintenanceModal.maintenanceDate=x;
       this.maintenanceService.AddMaintenance(this.MaintenanceModal).subscribe(
         (response) => {
           console.log('Snaglistitem created successfully:', response);

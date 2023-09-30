@@ -93,7 +93,4 @@ export class SnagListComponent implements OnInit{
   openModal() {
     const dialogRef = this.dialog.open(CreateSnagListComponent, {});
   }
-  openItemsModal() {
-    const dialogRef = this.dialog.open(SnagListItemsComponent, {});
-  }
 }

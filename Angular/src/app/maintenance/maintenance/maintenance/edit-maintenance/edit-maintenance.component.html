@@ -1,35 +1,39 @@
 <div class="modal-overlay">
-    <div class="modal-container">
-      <h2>Edit Maintenance</h2>
-        <form (submit)="AddMaintenanceType()" [formGroup]="MainForm" >
-          <mat-form-field class="form-field">
-            <mat-label>Property</mat-label>  
-            <mat-select placeholder="Select Property" formControlName="PropertyId" required>
-                <mat-option *ngFor="let prop of Property" [value]="prop.propertyID">{{ prop.description }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            
-            <mat-form-field class="form-field">
-              <mat-select placeholder="Select Contractor" formControlName="ContractorId" required>
-                <mat-option *ngFor="let contractor of Contractor" [value]="contractor.contractorID">{{ contractor.areaOfBusiness }}</mat-option>
-                </mat-select> 
-            </mat-form-field>
-            <mat-form-field class="form-field">
-              <mat-label>Status</mat-label>
-              <mat-select placeholder="Select Status" formControlName="StatusId" required>
-                <mat-option *ngFor="let stat of Status" [value]="stat.maintenanceStatusID">{{ stat.maintenanceStatusName }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="form-field">
-              <mat-label>Type</mat-label>
-              <mat-select placeholder="Select Type" formControlName="TypeId" required>
-                <mat-option *ngFor="let type of Type" [value]="type.maintenanceTypeID">{{ type.maintenanceTypeName }}</mat-option>
-                </mat-select> 
-            </mat-form-field>
-            <mat-form-field>
-              <label>End Date:</label>
+  <div class="modal-container">
+    <h2>Edit Maintenance</h2>
+    <form (submit)="EditMaintenance(date.value)" [formGroup]="MainForm">
+      <mat-form-field class="form-field">
+        <label>Property</label>
+        <mat-select placeholder="Select Property" formControlName="PropertyId" (selectionChange)="updatePropertyId($event.value)" required>
+          <mat-option *ngFor="let prop of Property" [value]="prop.propertyID">{{ prop.description }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Select Contractor</label>
+        <mat-select placeholder="Select Contractor" formControlName="ContractorId" (selectionChange)="updateContractorId($event.value)"required>
+          <mat-option *ngFor="let contractor of Contractor" [value]="contractor.contractorID">{{ contractor.areaOfBusiness }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Status</label>
+        <mat-select placeholder="Select Status" formControlName="StatusId" (selectionChange)="updateMaintenanceStatusId($event.value)" required>
+          <mat-option *ngFor="let stat of Status" [value]="stat.maintenanceStatusID">{{ stat.maintenanceStatusName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Type</label>
+        <mat-select placeholder="Select Type" formControlName="TypeId" (selectionChange)="updateMaintenanceTypeId($event.value)" required>
+          <mat-option *ngFor="let type of Type" [value]="type.maintenanceTypeID">{{ type.maintenanceTypeName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <label>Date</label>
         <input
-          matInput
+          matInput #date
           [matDatepicker]="endDatePicker"
           formControlName="endDate"
           required
@@ -37,22 +41,20 @@
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
       </mat-form-field>
-  
+
       <mat-form-field class="form-field">
-        <mat-label>Time</mat-label>  
-        <mat-select placeholder="Select Property" formControlName="Time" required>
-            <mat-option *ngFor="let prop of time" [value]="prop">{{ prop }}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <label>Time</label>
+        <mat-select placeholder="Select Property" formControlName="Time" (selectionChange)="updateMaintenanceTime($event.value)" required>
+          <mat-option *ngFor="let prop of time" [value]="prop">{{ prop }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-          <div class="modal-actions">
-            <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
-            <button mat-raised-button type="submit" color="primary" >
-              Update
-            </button>
-          </div>
-        </form>
-    </div>
+      <div class="modal-actions">
+        <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
+        <button mat-raised-button type="submit" color="primary">
+          Update
+        </button>
+      </div>
+    </form>
   </div>
-
- 
+</div>

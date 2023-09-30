@@ -16,7 +16,7 @@ using System.Web.Http.Results;
 
 namespace WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SnagListController : ControllerBase

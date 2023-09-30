@@ -26,8 +26,19 @@ import { ContractorService } from 'src/app/services/contractor.service';
     adminRole: boolean = false;
     editorRole: boolean = false;
     viewerRole: boolean = false;
-    time: string[]=['10:30','9:30','08:30'];
-    
+    time: string[]=['12:30','11:30','10:30','9:30','08:30'];
+    MaintenanceModal: Maintenance = {
+      propertyID: 0,
+      contractorID: 0,
+      maintenanceStatusID: 0,
+      maintenanceTypeID: 0,
+      maintenanceDate: '',
+      maintenanceTime: "23:00",
+      property: new Property,
+      contractor: new Contractor,
+      maintenanceStatus: new MaintenanceStatus,
+      maintenanceType: new MaintenanceType
+    };
     formBuilder: any;
   
     constructor(
@@ -53,7 +64,7 @@ import { ContractorService } from 'src/app/services/contractor.service';
       });
       this.MainForm = this.formBuilder.group({
         PropertyId: ['', Validators.required],
-        ContractorId: ['', ],
+        ContractorId: ['',Validators.required],
         StatusId: ['', Validators.required],
         TypeId: ['', Validators.required],
         endDate: ['', Validators.required],
@@ -61,7 +72,25 @@ import { ContractorService } from 'src/app/services/contractor.service';
       });
     
     }
+    updatePropertyId(x: any) {
+      this.MaintenanceModal.propertyID = x;
+    }
     
+    updateContractorId(x: any) {
+      this.MaintenanceModal.contractorID = x;
+    }
+    
+    updateMaintenanceStatusId(x: any) {
+      this.MaintenanceModal.maintenanceStatusID = x;
+    }
+    
+    updateMaintenanceTypeId(x: any) {
+      this.MaintenanceModal.maintenanceTypeID = x;
+    }
+    
+    updateMaintenanceTime(x: any) {
+      this.MaintenanceModal.maintenanceTime = x;
+    }
     createRole() {
       this.dialogRef.close();
     }
@@ -70,21 +99,10 @@ import { ContractorService } from 'src/app/services/contractor.service';
       this.dialogRef.close();
     }
   
-    AddMaintenanceType() {
+    EditMaintenance(x:any) {
       debugger;
-      let MaintenanceModal: Maintenance = {
-        propertyID: this.MainForm.value.PropertyId,
-        contractorID: this.MainForm.value.ContractorId,
-        maintenanceStatusID: this.MainForm.value.StatusId,
-        maintenanceTypeID: this.MainForm.value.TypeId,
-        maintenanceDate: this.MainForm.value.endDate,
-        maintenanceTime: "23:00",
-        property: new Property,
-        contractor: new Contractor,
-        maintenanceStatus: new MaintenanceStatus,
-        maintenanceType: new MaintenanceType
-      };
-      this.maintenanceService.EditMaintenance(this.maintenanceService.MaintenanceId,MaintenanceModal).subscribe(
+      this.MaintenanceModal.maintenanceDate=x;
+      this.maintenanceService.EditMaintenance(this.maintenanceService.MaintenanceId,this.MaintenanceModal).subscribe(
         (response) => {
           console.log('Snaglistitem created successfully:', response);
           // You can optionally close the modal after creating the snaglistitem
