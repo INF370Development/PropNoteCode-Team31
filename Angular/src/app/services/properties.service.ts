@@ -176,4 +176,43 @@ export class PropertiesService {
       `https://localhost:7251/api/Property/GetProblemStatus/${problemStatusID}`
     );
   }
+
+  uploadProblemImage(problemId: number, imageFormData: FormData): Observable<any> {
+    return this._httpClient.post(
+      `https://localhost:7251/api/Property/uploadProblemPhoto/${problemId}`,
+      imageFormData
+    );
+  }
+
+  uploadProblemVideo(
+    problemId: number,
+    videoFormData: FormData
+  ): Observable<any> {
+    return this._httpClient.post(
+      `https://localhost:7251/api/Property/uploadProblemVideo/${problemId}`,
+      videoFormData
+    );
+  }
+
+  updateProblem(problemID: number, updateProblem: Problem): Observable<any> {
+    const url = `https://localhost:7251/api/Property/EditProblem/${problemID}`;
+    return this._httpClient.put(url, updateProblem);
+  }
+
+  getProblemImages(problemID: number): Observable<any[]> {
+    return this._httpClient.get<any[]>(`https://localhost:7251/api/Property/GetProblemImages/${problemID}`);
+  }
+
+  getProblemVideos(problemID: number): Observable<any[]> {
+    return this._httpClient.get<any[]>(`https://localhost:7251/api/Property/GetProblemVideos/${problemID}`);
+  }
+
+  deleteProblem(problemID: number): Observable<any> {
+    const url = `https://localhost:7251/api/Property/DeleteProblem/${problemID}`;
+    return this._httpClient.delete(url, {responseType: 'text'});
+  }
+
 }
+
+
+

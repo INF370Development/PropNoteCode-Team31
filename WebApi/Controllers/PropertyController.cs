@@ -10,6 +10,10 @@ using WebApi.Interfaces;
 using WebApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Azure.Storage.Blobs;
+using Microsoft.Extensions.Configuration;
+using Azure.Storage.Blobs.Models; // For BlobItem
+using System.Linq; // For LINQ extensions
 
 namespace WebApi.Controllers
 {
@@ -19,11 +23,13 @@ namespace WebApi.Controllers
     {
         public readonly IPropertyRepository _propertyRepository;
         private readonly AppDbContext _context;
+        private readonly BlobServiceClient _blobServiceClient;
 
-        public PropertyController(IPropertyRepository repository, AppDbContext context)
+        public PropertyController(IPropertyRepository repository, AppDbContext context, BlobServiceClient blobServiceClient)
         {
             _propertyRepository = repository;
             _context = context;
+            _blobServiceClient = blobServiceClient;
         }
 
         [HttpGet]
@@ -597,6 +603,39 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("EditProblem/{problemID}")]
+        public async Task<IActionResult> EditProblem(int problemID, ProblemRequest problemRequest)
+        {
+            try
+            {
+                var existingProblem = await _propertyRepository.GetProblemByIDAsync(problemID);
+                if (existingProblem == null) return NotFound($"The Problem does not exist");
+
+                // Update inspection properties here based on problemRequest
+                existingProblem.InspectionID = existingProblem.InspectionID;
+                existingProblem.ProblemDate = DateTime.Now;
+                existingProblem.ProblemSubject = problemRequest.ProblemSubject;
+                existingProblem.ProblemDescription = problemRequest.ProblemDescription;
+                existingProblem.ProblemSeverity = problemRequest.ProblemSeverity;
+                existingProblem.ProblemStatusID = problemRequest.ProblemStatusID;
+                // Update other properties as needed
+
+                if (await _propertyRepository.SaveChangesAsync())
+                {
+                    return Ok(existingProblem);
+                }
+                else
+                {
+                    return StatusCode(500, "Failed to save changes.");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+            return BadRequest("Your request is invalid");
+        }
 
         [HttpGet("GetProblemStatus/{problemStatusID}")]
         public async Task<IActionResult> GetProblemStatus(int problemStatusID)
@@ -620,7 +659,6 @@ namespace WebApi.Controllers
             }
         }
 
-
         [HttpGet("GetAllProblemStatuses")]
         public async Task<ActionResult<IEnumerable<ProblemStatus>>> GetAllProblemStatuses()
         {
@@ -642,15 +680,51 @@ namespace WebApi.Controllers
             {
                 // Retrieve all problems associated with the given inspection ID
                 var problems = await _context.Problem
-                    .Where(p => p.InspectionID == inspectionID).Include(x => x.Inspection)
+                    .Where(p => p.InspectionID == inspectionID)
+                    .Include(x => x.Inspection)
                     .ToListAsync();
 
                 if (problems == null || !problems.Any())
                 {
-                    return NotFound("No problems found for the specified inspection.");
+                    // Return a custom response object indicating no problems found
+                    return Ok(new { message = "No problems found for the specified inspection." });
                 }
 
                 return Ok(problems);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
+        [HttpDelete("DeleteProblem/{problemID}")]
+        public async Task<IActionResult> DeleteProblem(int problemID)
+        {
+            try
+            {
+                // Find the problem to delete by ID
+                var problemToDelete = await _context.Problem.FindAsync(problemID);
+
+                if (problemToDelete == null)
+                {
+                    return NotFound("Problem not found.");
+                }
+
+                // Delete the Blob Storage container associated with the problem
+                var containerName = $"problem-{problemID}";
+                var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+                if (await containerClient.ExistsAsync())
+                {
+                    await containerClient.DeleteAsync();
+                }
+
+                // Remove the problem from the database
+                _context.Problem.Remove(problemToDelete);
+                await _context.SaveChangesAsync();
+
+                return Ok("Problem and associated Blob Storage container deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -707,6 +781,156 @@ namespace WebApi.Controllers
                 }
 
                 return BadRequest("Invalid property ID or photo upload failed");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("uploadProblemPhoto/{problemID}")]
+        public async Task<IActionResult> UploadProblemPhoto(int problemID, [FromForm] ProblemPhotoUploadModel model)
+        {
+            try
+            {
+                var problem = await _propertyRepository.GetProblemByIDAsync(problemID);
+
+                if (problem == null)
+                {
+                    return NotFound("Problem Not Found");
+                }
+
+                if (model.Photo == null || model.Photo.Length == 0)
+                {
+                    return BadRequest("No file uploaded.");
+                }
+
+                if (problem != null && model.Photo != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await model.Photo.CopyToAsync(memoryStream);
+                        var photoData = memoryStream.ToArray();
+                        string base64 = Convert.ToBase64String(photoData);
+
+                        var newPhoto = new ProblemImage
+                        {
+                            ImageName = model.Photo.FileName,
+                            ImageData = base64,
+                            ProblemID = problemID,
+                        };
+
+                        _context.ProblemImage.Add(newPhoto);
+                        await _context.SaveChangesAsync();
+
+                        return Ok(new { Message = "Photo uploaded successfully" });
+                    }
+                }
+
+                return BadRequest("Invalid problem ID or photo upload failed");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetProblemImages/{problemID}")]
+        public async Task<IActionResult> GetProblemImages(int problemID)
+        {
+            try
+            {
+                var problemImages = await _context.ProblemImage
+                    .Where(pi => pi.ProblemID == problemID)
+                    .ToListAsync();
+
+                return Ok(problemImages);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpPost("uploadProblemVideo/{problemID}")]
+        public async Task<IActionResult> UploadProblemVideo(int problemID, [FromForm] ProblemVideoUploadModel model)
+        {
+            try
+            {
+                var problem = await _propertyRepository.GetProblemByIDAsync(problemID);
+                if (problem == null)
+                {
+                    return NotFound("Problem Not Found");
+                }
+
+                if (model.Video == null || model.Video.Length == 0)
+                {
+                    return BadRequest("No file uploaded.");
+                }
+
+                // Create a unique container for the problem using its ID
+                string blobStorageBaseUrl = $"https://propnotestorage.blob.core.windows.net/";
+                var containerName = $"problem-{problemID}";
+                var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+                var videoUrl = $"{blobStorageBaseUrl}{containerName}/{model.Video.FileName}";
+
+                // Check if the container exists; if not, create it
+                if (!await containerClient.ExistsAsync())
+                {
+                    await containerClient.CreateAsync(PublicAccessType.BlobContainer);
+                }
+
+                var blobClient = containerClient.GetBlobClient(model.Video.FileName);
+
+                using (var stream = model.Video.OpenReadStream())
+                {
+                    await blobClient.UploadAsync(stream, true);
+                }
+
+                // Save video metadata to the database
+                var video = new ProblemVideo
+                {
+                    FileName = model.Video.FileName,
+                    ContentType = model.Video.ContentType,
+                    ProblemID = problemID,
+                    VideoURL = videoUrl,
+                    // Set other metadata fields as needed
+                };
+
+                _context.ProblemVideo.Add(video);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { Message = "Video uploaded successfully" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetProblemVideos/{problemID}")]
+        public IActionResult GetProblemVideos(int problemID)
+        {
+            try
+            {
+                // Assuming you have an Entity Framework DbContext instance called "_context"
+                var videos = _context.ProblemVideo
+                    .Where(video => video.ProblemID == problemID)
+                    .Select(video => new ProblemVideoModel
+                    {
+                        FileName = video.FileName,
+                        ContentType = video.ContentType,
+                        VideoURL = video.VideoURL // Assuming you store video URLs in the VideoURL property
+                    })
+                    .ToList();
+
+                if (videos == null || videos.Count == 0)
+                {
+                    return NotFound("No videos found for the specified ProblemID.");
+                }
+
+                return Ok(videos);
             }
             catch (Exception ex)
             {

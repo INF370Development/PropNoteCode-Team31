@@ -1,5 +1,39 @@
 <h1>Tenants</h1>  
 
+<div class="container">
+  <div class="card"><a [routerLink]="'/viewTenants'">
+      <div class="circle">
+          <h4>View 
+              <br><br>
+              Tenants</h4>
+      </div>
+      <div class="content">
+          <p>
+            All the tenants created for the system can be viewed. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the view all the tenants on the system.
+          </p>
+      </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/generateTenants'">
+      <div class="circle">
+          <h4>Tenants 
+            <br> <br>
+            Report</h4>
+      </div>
+      <div class="content">
+          <p>
+            Generate Tenants Report. The rest of the information that we need to establish.
+            <br> <br>
+            Click on the card will take the user to print a tenant report.
+          </p>
+      </div>
+  </a></div>
+</div>
+
+<!--<h1>Tenants</h1>  
+
 <p>All tenant features will be available for only the Admin to create, view, updated and delete.</p>
 
 <mat-grid-list cols="2">
@@ -35,4 +69,4 @@
       <button mat-button><a mat-list-item [routerLink]="'/generateTenants'">TENANTS REPORTS</a></button>
     </mat-card-actions>
   </mat-card>
-</div>
+</div>-->

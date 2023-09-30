@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule,  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +26,6 @@ import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
 import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerReport/generate-broker-report/generate-broker-report.component';
 import { CalendarComponent } from './calendar/calendar/calendar.component';
-import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
 import { ProfileComponent } from './profile/profile/profile.component';
@@ -90,7 +89,7 @@ import { AddMaintenanceComponent } from './maintenance/maintenance/maintenance/a
 import { EditMaintenanceComponent } from './maintenance/maintenance/maintenance/edit-maintenance/edit-maintenance.component';
 import { ViewMaintenanceComponent } from './maintenance/maintenance/maintenance/maintenance.component';
 import { MaintenanceContractorComponent } from './maintenance/maintenance/maintenance/maintenance-contractor/maintenance-contractor.component';
-import { EditMaintenanceNoteComponent } from './maintenance/maintenance/maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
+import{EditMaintenanceNoteComponent} from './maintenance/maintenance/maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
 import { EditMaintenanceStatusComponent } from './maintenance/maintenance/maintenance-status/edit-maintenance-status/edit-maintenance-status.component';
 import { EditMaintenanceTypeComponent } from './maintenance/maintenance/maintenance-type/edit-maintenance-type/edit-maintenance-type.component';
 import { EditPaymentComponent } from './maintenance/maintenance/payment/edit-payment/edit-payment.component';
@@ -125,6 +124,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 import { SafePipe } from './shared/safe.pipe';
 import { LoginComponent } from './authentication/Login/login.component';
 import { LoginFailedComponent } from './authentication/Login/login-failed/login-failed.component';
@@ -134,6 +136,12 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AuthGuardService } from './authentication/authGuardService/authGuardService';
 import { RoleGuardService } from './authentication/authGuardService/RoleguardService';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
+import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
+import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+import { CalculatorComponent } from './calculator/calculator/calculator.component';
+
+//TIMEOUT
+import { UserActivity } from './services/userActivity.service';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -170,7 +178,6 @@ export function jwtOptionsFactory() {
     ViewBrokerComponent,
     GenerateBrokerReportComponent,
     CalendarComponent,
-    ViewCalendarComponent,
     GenerateCalendarReportComponent,
     MaintenanceComponent,
     ProfileComponent,
@@ -245,6 +252,9 @@ export function jwtOptionsFactory() {
     SafePipe,
     UpdateProfileDetailsComponent,
     LandingPageComponent,
+    ScreensaverComponent,
+    SignaturePadComponent,
+    CalculatorComponent,
   ],
   imports: [
     BrowserModule,
@@ -277,13 +287,20 @@ export function jwtOptionsFactory() {
         useFactory: jwtOptionsFactory,
       },
     }),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     AuthGuardService,
     RoleGuardService,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
     [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
+    //TIMEOUT
+    UserActivity,
   ],
   bootstrap: [AppComponent],
 })

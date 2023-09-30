@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Azure.Storage.Blobs;
+using Microsoft.Extensions.Configuration;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,10 @@ var builder = WebApplication.CreateBuilder(args);
 var config = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json", optional: false)
         .Build();
+
+var blobServiceClient = new BlobServiceClient(config.GetConnectionString("AzureBlobStorage"));
+
+builder.Services.AddSingleton(blobServiceClient);
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(
                 include =>

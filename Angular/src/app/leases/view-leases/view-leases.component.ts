@@ -11,7 +11,9 @@ import { AddDepositDialogComponent } from '../add-deposit-dialog/add-deposit-dia
   templateUrl: './view-leases.component.html',
   styleUrls: ['./view-leases.component.scss']
 })
+
 export class ViewLeasesComponent implements OnInit {
+
   displayedColumns: string[] = ['tenant', 'company', 'property', 'startDate', 'endDate', 'monthlyAmount', 'deposit', 'actions']; // Update column names
   leases: Lease[] = [];
   depositAmount: number = 0;
@@ -61,6 +63,7 @@ export class ViewLeasesComponent implements OnInit {
       }
     });
   }
+
   openAddLeaseModal() {
     const dialogRef = this.dialog.open(AddLeaseModalComponent, {
       width: '500px', // Adjust the width as needed
@@ -73,9 +76,6 @@ export class ViewLeasesComponent implements OnInit {
       }
     });
   }
-
-
-
 
   openDeleteDialog(lease: Lease) {
     const dialogRef = this.dialog.open(DeleteLeaseDialogComponent, {

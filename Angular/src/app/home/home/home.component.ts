@@ -8,17 +8,23 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-   constructor(private router:Router)
-   {
+  iconStates: { [key: string]: string } = {};
 
-   }
+  constructor(private router: Router) {}
 
-  public Logout()
-  {
+  public Logout() {
     localStorage.clear();
     this.router.navigate(['/login']).then(() => {
       window.location.reload();
     });
+  }
+
+  onIconMouseOver(iconName: string, newState: string) {
+    this.iconStates[iconName] = newState;
+  }
+
+  onIconMouseLeave(iconName: string) {
+    this.iconStates[iconName] = '';
   }
 
 }

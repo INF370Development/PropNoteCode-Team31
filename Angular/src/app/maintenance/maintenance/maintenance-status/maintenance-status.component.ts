@@ -20,7 +20,6 @@ import { EditMaintenanceStatusComponent } from './edit-maintenance-status/edit-m
     
     displayedColumns: string[] = [
       'maintenanceStatusName',
-      'detailsButton',
       'deleteButton',
     ];
     dataSource = new MatTableDataSource<MaintenanceStatus>();

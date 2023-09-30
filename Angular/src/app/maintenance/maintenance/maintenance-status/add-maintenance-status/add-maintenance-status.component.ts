@@ -13,8 +13,6 @@ import { Component, OnInit } from '@angular/core';
   export class AddMaintenanceStatusComponent  implements OnInit {
     nameFormControl = new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[a-zA-Z\s]*$/), // Accepts only alphabets and spaces
-      Validators.maxLength(32), // Maximum length is 32 characters
     ]);
     adminRole: boolean = false;
     editorRole: boolean = false;

@@ -47,6 +47,8 @@ namespace WebApi.Repositories
         public DbSet<Problem> Problem { get; set; }
         public DbSet<ProblemStatus> ProblemStatus { get; set; }
         public DbSet<Document> Document { get; set; }
+        public DbSet<ProblemImage> ProblemImage { get; set; }
+        public DbSet<ProblemVideo> ProblemVideo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

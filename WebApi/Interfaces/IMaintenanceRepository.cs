@@ -35,7 +35,7 @@ namespace WebApi.Interfaces
         Task<Maintenance> AddMaintenance(Maintenance item);
         Task<Maintenance[]> GetAllMaintenanceAsync();
         Task<Maintenance> GetMaintenanceByID(int MaintenanceID);
-        Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, TimeSpan Time);
+        Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, string Date, string Time);
         Task<Maintenance> DeleteMaintenanceAsync(Maintenance item);
 
 
