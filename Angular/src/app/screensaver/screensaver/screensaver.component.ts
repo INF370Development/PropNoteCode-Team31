@@ -7,16 +7,17 @@ import { UserActivity } from 'src/app/services/userActivity.service';
   templateUrl: './screensaver.component.html',
   styleUrls: ['./screensaver.component.scss']
 })
+
 export class ScreensaverComponent implements OnInit {
-  currentTime: string = "";
-  currentDate: string = "";
+  currentTime: string = '';
+  currentDate: string = '';
   loadingPageActive: boolean = false;
 
   constructor(private router: Router, private userActivity: UserActivity) {}
 
   ngOnInit(): void {
     this.updateTimeAndDate();
-    window.setInterval(() => this.updateTimeAndDate(), 1000);
+    setInterval(() => this.updateTimeAndDate(), 1000);
 
     this.userActivity.inactivityDetected.subscribe(() => {
       this.activateLoadingPage();
@@ -35,15 +36,14 @@ export class ScreensaverComponent implements OnInit {
 
     setTimeout(() => {
       this.loadingPageActive = false;
-      this.router.navigate(['/screensaver']);
-    }, 1000); 
+      this.logout();
+    }, 5000); // Adjust the timeout as needed
   }
 
   logout() {
-    localStorage.clear();
-    this.router.navigate(['/login']).then(() => {
-      location.reload();
-    });
+    // Perform your logout logic here
+    console.log('Logout logic executed');
+    this.router.navigate(['/login']);
   }
 }
 
