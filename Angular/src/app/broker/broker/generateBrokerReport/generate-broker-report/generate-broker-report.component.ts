@@ -5,97 +5,32 @@ import { Broker } from 'src/app/shared/Broker';
 import { BrokerService } from 'src/app/services/broker.service';
 import { BrokercreatemodelComponent } from '../../viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { MatTableDataSource } from '@angular/material/table';
-
-//Broker Graph
-import { ActivatedRoute } from '@angular/router';
-import { Chart, ChartConfiguration, ChartTypeRegistry } from 'chart.js';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-generate-broker-report',
   templateUrl: './generate-broker-report.component.html',
   styleUrls: ['./generate-broker-report.component.scss']
 })
+
 export class GenerateBrokerReportComponent implements OnInit {
 
-  //BROKER GRAPH
-  brokerDetail: Broker = new Broker();
-  brokerData: { name: string; commissionEarned: number }[] = [];
-  chart!: Chart;
-
   constructor(  
-    private route: ActivatedRoute,
-    //Already here
-    private brokerService: BrokerService,) {}
+    private brokerService: BrokerService, private router: Router) {}
 
-    loadBroker() {
-      this.brokerService
-        .getBroker(this.route.snapshot.params['id'])
-        .subscribe((result) => {
-          this.brokerDetail = result;
-  
-          const commissionEarned = this.brokerDetail.commissionRate * 100;
-  
-          this.brokerData.push({
-            name: `${this.brokerDetail.name} ${this.brokerDetail.surname}`,
-            commissionEarned,
-          });
-  
-          this.createPieChart();
-        });
+    graph() {
+      this.router.navigate(['/brokerGraph']);
     }
-  
-    createPieChart() {
-      const labels = this.brokerData.map((broker) => broker.name);
-      const data = this.brokerData.map((broker) => broker.commissionEarned);
-    
-      const ctx = document.getElementById('commissionPieChart') as HTMLCanvasElement;
-    
-      const config: ChartConfiguration<'pie', number[], string> = {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [
-            {
-              data,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(54, 162, 235, 0.5)',
-                'rgba(255, 206, 86, 0.5)',
-              ],
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            legend: {
-              display: true,
-              position: 'right',
-            },
-          },
-        },
-      };
-    }
-    
-  
 
   //PDF STUFF
   dataSource = new MatTableDataSource<Broker>();
   ngOnInit(): void {
-    //BROKER GRAPH
-    this.loadBroker();
-
     this.brokerService.getBrokers().subscribe((brokers: any) => {
       this.dataSource.data = brokers;
       this.fetchTableData();
     });
   }
 title ="Broker report";
-
-
-/*constructor(
- 
-  private brokerService: BrokerService,
-  ){}*/
 
    @ViewChild('cards', { static: false }) cardsContainer!: ElementRef;
   cardData: any[] = [];
@@ -134,10 +69,7 @@ calculateAverageCommissionRate(): string {
  }
 }
 
-  
   downloadPDF(){
-
-   
     if (this.cardData && this.cardData.length > 0) {
       const doc = new jsPDF('landscape'); // Set landscape orientation
       let yPos = 20;
@@ -214,8 +146,6 @@ calculateAverageCommissionRate(): string {
         console.error("No data available to generate PDF.");
        }
 
-    
-  
        //  table data
        doc.setFont('normal');
        
@@ -228,8 +158,6 @@ calculateAverageCommissionRate(): string {
            if (cellContent.length > colWidths[i] / 3) {
                         cellContent = doc.splitTextToSize(cellContent, colWidths[i] - 10);
                       }
-   
-   
            console.log(`cellContent: ${cellContent}, xPos: ${xPos}, yPos: ${yPos}`);
            doc.setTextColor(0);
            doc.text(cellContent, xPos, yPos + 8);
@@ -237,19 +165,11 @@ calculateAverageCommissionRate(): string {
          }
           // Move to the next row
         yPos += 10;
-
-
-      
       });
-
-     
-  
       doc.save('Broker_Report.pdf');
     } else {
       console.error("No data to generate PDF.");
     }
-
-
   }
   
   getCellContent(broker: any, headerKey: any): any {
