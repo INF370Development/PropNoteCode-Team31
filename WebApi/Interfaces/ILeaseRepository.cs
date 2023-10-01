@@ -16,7 +16,7 @@ namespace WebApi.Interfaces
         Task<Lease> GetLeaseByID(int leaseID);
         Task DeleteLeaseAsync(Lease lease);
         void Delete<T>(T entity) where T : class;
-
+        Task<List<Lease>> GetLeasesByTenantID(int tenantID);
         Task<IEnumerable<Deposit>> GetAllDepositsAsync();
         Task<Deposit> GetDepositByIdAsync(int depositId);
         Task<bool> AddDepositAsync(Deposit deposit);

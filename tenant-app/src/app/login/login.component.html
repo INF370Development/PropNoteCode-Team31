@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Welcome To PropNote</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="form">
+    <h2>Please Sign In</h2>
+    <form (ngSubmit)="login()" [formGroup]="loginForm">
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input type="text" formControlName="username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-button expand="full" type="submit">Login</ion-button>
+    </form>
+  </div>
+</ion-content>

@@ -23,7 +23,12 @@ namespace WebApi.Repositories
         {
             return await _appDbContext.SaveChangesAsync() > 0;
         }
-
+        public async Task<List<Lease>> GetLeasesByTenantID(int tenantID)
+        {
+            return await _appDbContext.Lease
+                .Where(lease => lease.TenantID == tenantID)
+                .ToListAsync();
+        }
         public async Task<Lease[]> GetAllLeasesAsync()
         {
             IQueryable<Lease> query = _appDbContext.Lease;

@@ -85,7 +85,7 @@ import { TypesStatusesComponent } from './properties/types-statuses/types-status
 import { AccessDeniedComponent } from './authentication/AccessDenied/access-denied/access-denied.component';
 
 
-const adminRoutes: Routes = [
+const routes: Routes = [
   //UpdateUser
   {
     path: 'UpdateNewUser',
@@ -518,69 +518,7 @@ const adminRoutes: Routes = [
       expectedRole: 'Admin',
     },
   },
-];
-
-const tenantRoutes: Routes = [
-  // Tenant Dashboard and other tenant-specific routes
-  // ...
-
-  // Example:
-  // {
-  //   path: 'tenant-dashboard',
-  //   component: TenantDashboardComponent,
-  //   canActivate: [RoleGuard],
-  //   data: {
-  //     expectedRole: 'Tenant',
-  //   },
-  // },
-];
-
-// Define common routes accessible to both Admins and Tenants
-const commonRoutes: Routes = [
-  // Landing Page (accessible to all)
-  {
-    path: 'landingPage',
-    component: LandingPageComponent,
-  },
-  {
-    path: '',
-    redirectTo: 'landingPage',
-    pathMatch: 'full',
-  },
-
-  // Login (accessible to all)
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  // ...other common routes...
-];
-
-const routes: Routes = [
-  // Combine Admin and Tenant routes under separate parent paths
-  {
-    path: 'admin',
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'Admin',
-    },
-    children: adminRoutes,
-  },
-  {
-    path: 'tenant',
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'Tenant',
-    },
-    children: tenantRoutes,
-  },
   { path: 'access-denied', component: AccessDeniedComponent },
-
-  // Include common routes accessible to both Admins and Tenants
-  ...commonRoutes,
-
-  // Add a wildcard route to handle unknown routes or redirect to an "Access Denied" page
-  // Make sure this is the last route
   {
     path: '**',
     redirectTo: 'access-denied', // Create an "Access Denied" route if needed

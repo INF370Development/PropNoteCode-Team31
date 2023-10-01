@@ -12,6 +12,7 @@ namespace WebApi.Controllers
     public class LeaseController : Controller
     {
         public readonly ILeaseRepository _leaseRepository;
+        public readonly IPropertyRepository _propertyRepository;
 
         public LeaseController(ILeaseRepository LeaseRepository)
         {
@@ -287,5 +288,29 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
+        [HttpGet("GetPropertiesForTenant/{tenantID}")]
+        public async Task<IActionResult> GetPropertiesForTenant(int tenantID)
+        {
+            try
+            {
+                var leases = await _leaseRepository.GetLeasesByTenantID(tenantID);
+
+                if (leases == null || !leases.Any())
+                {
+                    return NotFound("No properties found for this tenant.");
+                }
+
+                var propertyIDs = leases.Select(l => l.PropertyID).ToList();
+
+                var properties = await _propertyRepository.GetPropertiesByIDs(propertyIDs);
+
+                return Ok(properties);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
     }
 }

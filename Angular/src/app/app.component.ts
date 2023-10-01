@@ -18,14 +18,14 @@ export class AppComponent implements OnInit {
 
   openSidebar: boolean = true;
   HasLoggedIn: boolean = false;
-  userAccessType: string | null = '';
+  UserRole: string | null = '';
   AdminAccess: boolean = false;
   isLandingPage: boolean = false;
 
   constructor(private router: Router, private _authService: AuthService, private route: ActivatedRoute) {}
   ngOnInit() {
-    this.userAccessType = localStorage.getItem('userAccessType');
-    if (this.userAccessType == 'Admin') {
+    this.UserRole = localStorage.getItem('UserRole');
+    if (this.UserRole == 'Admin') {
       this.AdminAccess = true;
     }
     const token = localStorage.getItem('Token');

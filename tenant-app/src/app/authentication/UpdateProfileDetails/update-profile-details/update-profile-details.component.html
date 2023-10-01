@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>Update Profile Details</h1>
+<div mat-dialog-content>
+  <h3>Please update all your information.</h3>
+  <mat-form-field class="form">
+    <h3>Name:</h3>
+    <input
+      matInput
+      placeholder="Name"
+      [(ngModel)]="userModal.name"
+      name="email"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field class="form">
+    <h3>Surname:</h3>
+    <input
+      matInput
+      placeholder="surname"
+      [(ngModel)]="userModal.surname"
+      name="surname"
+      required
+    />
+  </mat-form-field>
+  <br />
+
+  <mat-form-field class="form">
+    <h3>UserName:</h3>
+    <input
+      matInput
+      placeholder="Username"
+      [(ngModel)]="userModal.username"
+      name="email"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field class="form">
+    <h3>Email:</h3>
+    <input
+      matInput
+      placeholder="Email"
+      [(ngModel)]="userModal.email"
+      name="email"
+      required
+    />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="form">
+    <h3>Password:</h3>
+    <input
+      matInput
+      placeholder="PassWord"
+      [(ngModel)]="userModal.password"
+      name="password"
+      required
+      type="password"
+    />
+  </mat-form-field>
+  <mat-form-field class="form">
+    <h3>Phone Number:</h3>
+    <input
+      matInput
+      placeholder="Phone Number"
+      [(ngModel)]="userModal.phoneNumber"
+      name="phonenumber"
+      required
+      max="10"
+    />
+  </mat-form-field>
+</div>
+<div class="end">
+  <button
+    mat-raised-button
+    color="accent"
+    class="btn"
+    (click)="UpdateUserDetails()"
+  >
+    Update Information
+  </button>
+</div>
