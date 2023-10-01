@@ -30,7 +30,6 @@ export class AuthenticationService implements OnInit {
   }
 
   UpdateNewUser(user: User): Observable<any> {
-    debugger;
     return this._httpClient.post(
       `${this._apiUrl}/Authentication/UpdateNewUser`,
       user,

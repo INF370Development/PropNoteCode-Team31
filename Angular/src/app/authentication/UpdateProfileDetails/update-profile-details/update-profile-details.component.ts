@@ -25,6 +25,7 @@ export class UpdateProfileDetailsComponent implements OnInit {
     hasLoggedIn: true,
     profilePhoto: '',
   };
+  isTenant: boolean = false;
   UserDetails: User = new User();
   constructor(
     private AuthServiceEndPoints: AuthenticationService,

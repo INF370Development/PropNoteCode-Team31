@@ -68,6 +68,28 @@
       max="10"
     />
   </mat-form-field>
+
+  <mat-form-field class="form" *ngIf="isTenant">
+    <h3>Company Name:</h3>
+    <input
+      matInput
+      placeholder="Company Name"
+      [(ngModel)]="userModal.phoneNumber"
+      name="comepanyName"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field class="form" *ngIf="isTenant">
+    <h3>Company Number:</h3>
+    <input
+      matInput
+      placeholder="Company Number"
+      [(ngModel)]="userModal.phoneNumber"
+      name="conmpanyNumber"
+      required
+    />
+  </mat-form-field>
 </div>
 <div class="end">
   <button
