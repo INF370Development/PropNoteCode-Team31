@@ -263,8 +263,4 @@ generateAllPropertiesReport() {
   // Save the PDF
   doc.save('all_properties_report.pdf');
 }
-
-
-
-
 }
