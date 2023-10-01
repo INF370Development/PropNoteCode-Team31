@@ -69,6 +69,7 @@ import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pa
 //Calculator
 import { CalculatorComponent } from './calculator/calculator/calculator.component';
 
+
 //Add AuthGuard for Route Protection
 import {
   AuthGuardService as AuthGuard,
@@ -83,8 +84,19 @@ import {
 import { RoleGuardService as RoleGuard } from './authentication/authGuardService/RoleguardService';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
+
+import { HelpFAQComponent } from './help-faq/help-faq.component';
+
 import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
+
+
+const routes: Routes = [
+  //Landingpage
+  { path: 'landingPage', component: LandingPageComponent },
+  { path: '', component: LandingPageComponent },
+
 import { AccessDeniedComponent } from './authentication/AccessDenied/access-denied/access-denied.component';
+
 
 
 const routes: Routes = [
@@ -536,6 +548,17 @@ const routes: Routes = [
       expectedRole: 'Admin',
     },
   },
+
+  //help
+  {
+    path: 'help-faq',
+    component: HelpFAQComponent,
+    canActivate:[RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  }
+
   {
     path: 'login',
     component: LoginComponent
@@ -545,6 +568,7 @@ const routes: Routes = [
     component: LandingPageComponent
   },
   { path: 'access-denied', component: AccessDeniedComponent },
+
 ];
 
 
