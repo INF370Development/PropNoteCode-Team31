@@ -31,13 +31,4 @@ export class DeleteContracorDialogComponent {
   closeModal() {
     this.dialogRef.close();
   }
-
-  /*deleteContractor(contractorId: number): Observable<void> {
-    const url = `/api/contractors/${contractorId}`;
-    return this.http.delete<void>(url);
-  }*/
-
-  deleteContractor() {
-    this.dialogRef.close('delete');
-  }
 }

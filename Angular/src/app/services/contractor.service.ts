@@ -46,7 +46,7 @@ export class ContractorService {
   //DELETE
   deleteContractor(contractorID: number) {
     return this.httpClient
-      .delete(`${this._apiUrl}/User/DeleteUser/${contractorID}`, {
+      .delete(`${this._apiUrl}/Contractor/DeleteContractor/${contractorID}`, {
         headers: this.headers,
       })
       .pipe(map((result) => result));
