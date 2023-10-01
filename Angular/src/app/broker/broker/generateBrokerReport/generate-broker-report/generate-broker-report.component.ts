@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild,OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild,OnInit, AfterViewInit } from '@angular/core';
 import jsPDF, { jsPDFAPI } from 'jspdf';
 import { ViewBrokerComponent } from '../../viewBroker/view-broker/view-broker.component';
 import { Broker } from 'src/app/shared/Broker';
@@ -6,6 +6,9 @@ import { BrokerService } from 'src/app/services/broker.service';
 import { BrokercreatemodelComponent } from '../../viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { MatTableDataSource } from '@angular/material/table';
 
+//Broker Graph
+import { ActivatedRoute } from '@angular/router';
+import { Chart, ChartConfiguration, ChartTypeRegistry } from 'chart.js';
 
 @Component({
   selector: 'app-generate-broker-report',
@@ -14,9 +17,73 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class GenerateBrokerReportComponent implements OnInit {
 
+  //BROKER GRAPH
+  brokerDetail: Broker = new Broker();
+  brokerData: { name: string; commissionEarned: number }[] = [];
+  chart!: Chart;
 
+  constructor(  
+    private route: ActivatedRoute,
+    //Already here
+    private brokerService: BrokerService,) {}
+
+    loadBroker() {
+      this.brokerService
+        .getBroker(this.route.snapshot.params['id'])
+        .subscribe((result) => {
+          this.brokerDetail = result;
+  
+          const commissionEarned = this.brokerDetail.commissionRate * 100;
+  
+          this.brokerData.push({
+            name: `${this.brokerDetail.name} ${this.brokerDetail.surname}`,
+            commissionEarned,
+          });
+  
+          this.createPieChart();
+        });
+    }
+  
+    createPieChart() {
+      const labels = this.brokerData.map((broker) => broker.name);
+      const data = this.brokerData.map((broker) => broker.commissionEarned);
+    
+      const ctx = document.getElementById('commissionPieChart') as HTMLCanvasElement;
+    
+      const config: ChartConfiguration<'pie', number[], string> = {
+        type: 'pie',
+        data: {
+          labels,
+          datasets: [
+            {
+              data,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+              ],
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: true,
+              position: 'right',
+            },
+          },
+        },
+      };
+    }
+    
+  
+
+  //PDF STUFF
   dataSource = new MatTableDataSource<Broker>();
   ngOnInit(): void {
+    //BROKER GRAPH
+    this.loadBroker();
+
     this.brokerService.getBrokers().subscribe((brokers: any) => {
       this.dataSource.data = brokers;
       this.fetchTableData();
@@ -25,10 +92,10 @@ export class GenerateBrokerReportComponent implements OnInit {
 title ="Broker report";
 
 
-constructor(
+/*constructor(
  
   private brokerService: BrokerService,
-  ){}
+  ){}*/
 
    @ViewChild('cards', { static: false }) cardsContainer!: ElementRef;
   cardData: any[] = [];
@@ -205,8 +272,4 @@ calculateAverageCommissionRate(): string {
             : '';
     }
   }
-       
-  }
-
-
-
+}

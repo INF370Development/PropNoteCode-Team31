@@ -30,6 +30,9 @@ export class SideNavComponent {
     if (windowWidth < 1000) {
       this.closeSideNavigation();
     }
+    else {
+      this.openSidebar = true;
+    }
   }
 
   // Trigger user activity when user interactions occur
