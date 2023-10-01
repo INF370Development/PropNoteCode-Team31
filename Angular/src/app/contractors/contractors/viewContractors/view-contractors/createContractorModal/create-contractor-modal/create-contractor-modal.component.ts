@@ -77,8 +77,6 @@ addNewContractorType() {
 }
 
   CreateContractor() {
-    debugger;
-
     if (this.selectedContractorType === 'createNew') {
       // User selected "Create New," so we need to add the new recovery type first
       if (this.newContractorTypeName.trim() === '') {
@@ -91,7 +89,6 @@ addNewContractorType() {
         contractorTypeName: this.newContractorTypeName,
       };
 
-      debugger;
       this.contractorTypeService.createContractorType(newContractorType).subscribe(
         (response) => {
           console.log('New Recovery Type added successfully:', response);
@@ -128,6 +125,8 @@ addNewContractorType() {
       },
       (error) => {
         console.error('Error creating contractor:', error);
+        this.dialogRef.close();
+        location.reload();
       }
     );
   }
@@ -157,7 +156,6 @@ addNewContractorType() {
       this.snackBar.open('Contractor created successfully', 'Close', {
         duration: 9000,
       });
-
     }
 }
 

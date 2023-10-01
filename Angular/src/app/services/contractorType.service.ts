@@ -48,7 +48,6 @@ export class ContractorTypeService {
   }
 
   createContractorType(newContractorType: ContractorType): Observable<ContractorType> {
-    debugger;
     const url = `https://localhost:7251/api/Contractor/AddContractorType`;
 
     return this._httpClient.post<ContractorType>(url, newContractorType);

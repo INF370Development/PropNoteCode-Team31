@@ -4,8 +4,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TenantService } from 'src/app/services/tenant.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { Tenant } from 'src/app/shared/UserModels/Tenant';
-import { User } from 'src/app/shared/UserModels/User';
 import { UserTenant } from 'src/app/shared/UserModels/UserTenant';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -36,20 +34,14 @@ export class CreateTenantModalComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<CreateTenantModalComponent>,
-    private fb: FormBuilder,
     private tenantService : TenantService,
-    private userService : UserService,
-    private router : Router,
     private snackBar : MatSnackBar,
     ) {  }
 
   ngOnInit(): void {  }
 
   CreateTenant() {
-    //debugger;
-
-    // Check if any required fields are empty
-if (!this.tenantModel.name || !this.tenantModel.username || !this.tenantModel.email || !this.tenantModel.password ||this.tenantModel.companyName|| this.tenantModel.companyNumber ||this.tenantModel.surname || this.tenantModel.phoneNumber ) {
+if (!this.tenantModel.name || !this.tenantModel.username || !this.tenantModel.email || !this.tenantModel.password || !this.tenantModel.companyName|| !this.tenantModel.companyNumber || !this.tenantModel.surname || !this.tenantModel.phoneNumber ) {
   // Display a snackbar message indicating the form is incomplete
   this.snackBar.open('Please fill in all required fields.', '', {
     duration: 3000, // 3 seconds
@@ -57,7 +49,7 @@ if (!this.tenantModel.name || !this.tenantModel.username || !this.tenantModel.em
   });
   return;
 }
-    
+
     this.tenantService.createTenant(this.tenantModel).subscribe(
       (response) => {
         console.log('Tenant created successfully:', response);
@@ -75,35 +67,7 @@ if (!this.tenantModel.name || !this.tenantModel.username || !this.tenantModel.em
       }
     );
   }
-  
 
-  /*CreateTenant() {
-    this.tenantService.createTenant(this.tenantModel).subscribe(
-      (response) => {
-        console.log('Tenant created successfully:', response);
-        this.dialogRef.close();
-        this.showSnackBar('Tenant created successfully', 'success');
-        location.reload();
-      },
-      (error) => {
-        console.error('Error creating tenant:', error);
-        this.dialogRef.close();
-        this.showSnackBar('Error creating tenant: ' + error.message, 'error');
-      }
-    );
-  }
-
-  showSnackBar(message: string, panelClass: string = 'success') {
-    const snackBarRef = this.snackBar.open(message, 'X', {
-      duration: 50000, 
-      panelClass: panelClass,
-    });
-  
-    snackBarRef.afterDismissed().subscribe(() => {
-      
-    });
-  }*/
-  
   closeModal() {
     this.dialogRef.close();
   }

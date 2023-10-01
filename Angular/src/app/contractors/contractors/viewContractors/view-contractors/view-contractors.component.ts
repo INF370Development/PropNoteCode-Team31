@@ -71,25 +71,6 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  
-
-  /*showSnackBar() {
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
-      'Deleted successfully',
-      'X',
-      { duration: 500 }
-    );
-    snackBarRef.afterDismissed().subscribe(() => {
-      location.reload();
-    });
-  }
-
-  refreshTableData() {
-    this._contractorService.getContractors().subscribe((contractors: any) => {
-      this.dataSource.data = contractors;
-    });
-  }*/
-
   refreshTableData() {
     this._contractorService.getContractors().subscribe((contractor: any) => {
       this.dataSource.data = contractor;
@@ -109,18 +90,23 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     });
   }
 
+   openDeleteRecoveriesDialog() {
+    const dialogRef = this.dialog.open(DeleteContracorDialogComponent, {});
+  }
 
-  openDeleteConfirmationDialog(contractorId: number) {
+  confirmDeleteContractor(contracor: Contractor) {
     const dialogRef = this.dialog.open(DeleteContracorDialogComponent, {
-      data: { contractorId }, 
+      data: { contracor }, // Pass the inspection data to the dialog
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'delete') {
-        this.deleteContractor(contractorId);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        // User confirmed the deletion, implement the deletion logic here
+        this.deleteContractor(contracor.contractorID);
       }
     });
   }
+
 
   deleteContractor(contractorId: number) {
     this._contractorService.deleteContractor(contractorId).subscribe(

@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ContractorController : Controller
@@ -126,7 +125,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteContractor")]
+        [Route("DeleteContractor/{contractorID}")]
         public async Task<IActionResult> DeleteContractor(int contractorID)
         {
             try
