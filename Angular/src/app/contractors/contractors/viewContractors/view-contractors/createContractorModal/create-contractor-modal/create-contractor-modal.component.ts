@@ -1,14 +1,10 @@
-import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Component, OnInit  } from '@angular/core';
+import { Validators, FormControl } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ContractorService } from 'src/app/services/contractor.service';
-import { UserService } from 'src/app/services/user.service';
 import { ContractorTypeService } from 'src/app/services/contractorType.service';
 import { ContractorType } from 'src/app/shared/UserModels/ContractorType';
 import { UserContractor } from 'src/app/shared/UserModels/UserContractor';
-import { Contractor } from 'src/app/shared/UserModels/Contractor';
-import { User } from 'src/app/shared/UserModels/User';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -21,8 +17,7 @@ export class CreateContractorModalComponent implements OnInit {
   adminRole: boolean = false;
   editorRole: boolean = false;
   viewerRole: boolean = false;
-
-  hide = true;
+  hide: boolean = true;
 
   contractorModel: UserContractor = {
   username: "",
@@ -39,15 +34,12 @@ export class CreateContractorModalComponent implements OnInit {
   };
 
   contractorTypes: ContractorType[] = [];
-
-  contractorForm!: FormGroup;
+  selectedContractorType: ContractorType | 'createNew' = 'createNew';
+  newContractorTypeName: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<CreateContractorModalComponent>,
-    private fb: FormBuilder,
     private contractorService : ContractorService,
-    private userService : UserService,
-    private router: Router,
     private contractorTypeService: ContractorTypeService,
     private snackBar : MatSnackBar,
   ) {  }
@@ -55,48 +47,105 @@ export class CreateContractorModalComponent implements OnInit {
   ngOnInit(): void {
     this.contractorTypeService.getContractorTypes().subscribe((contractorTypes) => {
       this.contractorTypes = contractorTypes;
-      console.log('Contractor Types:', this.contractorTypes);
   });
 }
 
-  createRole() {
-    this.dialogRef.close();
+addNewContractorType() {
+  if (this.newContractorTypeName.trim() === '') {
+    // Handle empty description if needed
+    return;
   }
+  const newContractorType: ContractorType = {
+    contractorTypeID: 0, // Set to 0 or null since the backend will assign an ID
+    contractorTypeName: this.newContractorTypeName,
+  };
+
+  this.contractorTypeService.createContractorType(newContractorType).subscribe(
+    (response) => {
+      console.log('New Contractor Type added successfully:', response);
+      // Add the new inspection type to the existing list
+      this.contractorTypes.push(response);
+      // Select the newly added inspection type
+      this.selectedContractorType = response;
+      // Clear the input field
+      this.newContractorTypeName = '';
+    },
+    (error) => {
+      console.error('Error adding new Inspection Type:', error);
+    }
+  );
+}
 
   CreateContractor() {
+    debugger;
 
+    if (this.selectedContractorType === 'createNew') {
+      // User selected "Create New," so we need to add the new recovery type first
+      if (this.newContractorTypeName.trim() === '') {
+        console.error('New Contractor Type description is empty');
+        return false;
+      }
 
-    if (!this. contractorModel.name || !this. contractorModel.username || !this. contractorModel.email || !this. contractorModel.password ||this. contractorModel.areaOfBusiness|| this. contractorModel.availability ||this. contractorModel.surname || this. contractorModel.phoneNumber || this. contractorModel.contractorType ) {
-      // Display a snackbar message indicating the form is incomplete
-      this.snackBar.open('Please fill in all required fields.', '', {
-        duration: 3000, // 3 seconds
-        panelClass: ['mat-toolbar', 'mat-primary'] // Optional styling classes
-      });
-      return;
+      const newContractorType: ContractorType = {
+        contractorTypeID: 0, // Set to 0 since the backend will assign a valid ID
+        contractorTypeName: this.newContractorTypeName,
+      };
+
+      debugger;
+      this.contractorTypeService.createContractorType(newContractorType).subscribe(
+        (response) => {
+          console.log('New Recovery Type added successfully:', response);
+          // Add the new recovery type to the existing list
+          this.contractorTypes.push(response);
+          // Select the newly added recovery type
+          this.selectedContractorType = response;
+          // Assign the newly created recovery type's ID to the recoveryModal
+          this.contractorModel.contractorTypeID = response.contractorTypeID;
+          // Clear the input field
+          this.newContractorTypeName = '';
+          // Now, proceed to add the recovery with the newly created type
+          this.addContractorWithSelectedType(response);
+        },
+        (error) => {
+          console.error('Error adding new Contractor Type:', error);
+        }
+      );
+    } else {
+      // User selected an existing recovery type, so add the recovery with the selected type
+      this.addContractorWithSelectedType(this.selectedContractorType); // Pass the selected recovery type
     }
 
+    return true;
+  }
+
+  private addContractorWithSelectedType(contractorType: ContractorType) {
+    this.contractorModel.contractorType = contractorType;
     this.contractorService.createContractor(this.contractorModel).subscribe(
       (response) => {
-        console.log('Tenant created successfully:', response);
+        console.log('Contractor created successfully:', response);
         this.dialogRef.close();
         location.reload();
       },
       (error) => {
-        console.error('Error creating tenant:', error);
-        this.dialogRef.close();
-        location.reload();
+        console.error('Error creating contractor:', error);
       }
     );
   }
 
-  closeModal() {
-    this.dialogRef.close();
+  updateSelectedContractorType(contractorType: ContractorType | 'createNew') {
+    if (contractorType === 'createNew') {
+      // Handle the "Create New" option
+      this.contractorModel.contractorType = new ContractorType(); // Create a new empty RecoveryType object
+      this.contractorModel.contractorTypeID = 0; // Set recoveryTypeID to 0 or null if needed
+    } else {
+      // Handle an existing recovery type
+      this.contractorModel.contractorType = contractorType;
+      this.contractorModel.contractorTypeID = contractorType.contractorTypeID;
+    }
   }
 
-  updateSelectedContractorType(contractorType: ContractorType) {
-    this.contractorModel.contractorType = contractorType;
-    this.contractorModel.contractorTypeID = contractorType.contractorTypeID;
-    console.log('Updated Contractor Type:', this.contractorModel.contractorType);
+  closeModal() {
+    this.dialogRef.close();
   }
 
   sendToBackend() {
@@ -108,11 +157,10 @@ export class CreateContractorModalComponent implements OnInit {
       this.snackBar.open('Contractor created successfully', 'Close', {
         duration: 9000,
       });
-      
+
     }
 }
 
-  //Username
   username = new FormControl('', [Validators.required]);
 
   getErrorMessageUsername() {

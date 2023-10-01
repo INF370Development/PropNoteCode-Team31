@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Inspection, InspectionStatus, InspectionType } from 'src/app/shared/Property/Inspection';
