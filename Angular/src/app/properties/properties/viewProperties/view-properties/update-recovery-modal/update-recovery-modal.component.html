@@ -1,0 +1,46 @@
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Update Recovery<button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+    <form (submit)="updateRecovery()">
+      <mat-form-field class="form-field">
+        <label>Description:</label>
+        <input
+          matInput
+          [(ngModel)]="recoveryModal.recoveryDescription"
+          name="recoveryDescription"
+          required
+          maxlength="50"
+        />
+        <!-- Add validation messages if needed -->
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Amount:</label>
+        <input
+          matInput
+          [(ngModel)]="recoveryModal.recoveryAmount"
+          name="inspectionDate"
+          required
+        />
+      </mat-form-field>
+
+
+      <mat-form-field class="form-field">
+        <label>Type:</label>
+        <mat-select [(ngModel)]="recoveryModal.recoveryTypeID" name="recoveryType">
+          <mat-option *ngFor="let recoveryType of recoveryTypes" [value]="recoveryType.recoveryTypeID">
+            {{ recoveryType.recoveryTypeDescription }}
+          </mat-option>
+        </mat-select>
+        <!-- Add validation messages if needed -->
+      </mat-form-field>
+
+      <div class="modal-actions">
+        <button mat-raised-button type="submit" color="accent">
+          Update Recovery
+        </button>
+        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
