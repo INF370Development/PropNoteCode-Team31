@@ -29,7 +29,7 @@ Maintenance:any;
       this.Maintenance= Maintenance;
     });
   }
-  
+
   EditPayment(x:any)
   {
     this._maintenanceService.MaintenanceId=x;
@@ -40,7 +40,7 @@ Maintenance:any;
     this._maintenanceService.MaintenanceId=x;
     const dialogRef = this.dialog.open(RecordPaymentComponent, {});
   }
-  
+
   AddNote(x:any)
   {
     this._maintenanceService.MaintenanceId=x;

@@ -153,9 +153,15 @@ import { CalculatorComponent } from './calculator/calculator/calculator.componen
 
 //TIMEOUT
 import { UserActivity } from './services/userActivity.service';
+
+
+import { HelpFAQComponent } from './help-faq/help-faq.component';
+
 import { AccessDeniedComponent } from './authentication/AccessDenied/access-denied/access-denied.component';
+
 import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateBrokerGraphComponent } from './broker/broker/generateBrokerGraph/generate-broker-graph/generate-broker-graph.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -265,8 +271,12 @@ export function jwtOptionsFactory() {
     ScreensaverComponent,
     SignaturePadComponent,
     CalculatorComponent,
+
+    HelpFAQComponent,
+
     ViewCalendarComponent,
     GenerateBrokerGraphComponent,
+
     UpdateRecoveryModalComponent,
     TypesStatusesComponent,
     AccessDeniedComponent,

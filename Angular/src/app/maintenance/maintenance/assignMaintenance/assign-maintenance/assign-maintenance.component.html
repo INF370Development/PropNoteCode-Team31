@@ -24,8 +24,8 @@
                 matTooltip="Click to Add a Maintenance Note">
                     <mat-icon>add</mat-icon>
                   </button>
-             </h5> 
-            
+             </h5>
+
             </ng-template>
 
         <h5 (click)="EditPayment(Maintenance.maintenanceID)" *ngIf="Maintenance.payment.amount!=0; else addPaymentTemplate"
@@ -33,7 +33,7 @@
             Amount: R {{ Maintenance.payment.amount }}
         </h5>
         <ng-template #addPaymentTemplate><h5>
-            Amount: R <button mat-button class="deletebutton" 
+            Amount: R <button mat-button class="deletebutton"
             (click)="AddPayment(Maintenance.maintenanceID)"
             matTooltip="Click to Add Maintenance Amount">
                 <mat-icon>add</mat-icon> </button></h5>
@@ -45,8 +45,8 @@
             <button mat-raised-button color="primary" (click)="EditMaintenance()">UPDATE</button>
         </div>
 </div>
-</div> 
-    
+</div>
+
 </div>
 <div class="container">
 <div class="card">
@@ -59,7 +59,7 @@
             <h5>Purchase Amount: R {{ Maintenance.property.purchaseAmount }}</h5>
             <h5>Purchase Year: {{ Maintenance.property.purchaseYear }}</h5><br>
             <div class="buttons">
-                <button mat-raised-button color="primary" 
+                <button mat-raised-button color="primary"
                 [routerLink]="['/viewProperties', Maintenance.propertyID]">View Property</button>
             </div>
     </div>
