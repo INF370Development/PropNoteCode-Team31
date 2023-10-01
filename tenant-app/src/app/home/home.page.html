@@ -1,20 +1,35 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      Leases
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Check if leases are available -->
+  <ion-list *ngIf="leases.length > 0">
+    <!-- Loop through the leases and display each lease -->
+    <ion-item *ngFor="let lease of leases">
+      <!-- Display lease information -->
+      <ion-label>
+        <h2>Lease ID: {{ lease.leaseID }}</h2>
+        <p>Start Date: {{ lease.startDate }}</p>
+        <p>End Date: {{ lease.endDate }}</p>
+        <p>Monthly Amount: {{ lease.monthlyAmount }}</p>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <!-- Display Property information -->
+        <h3>Property Details</h3>
+        <p>Description: {{ lease.property ? lease.property.description : 'N/A' }}</p>
+        <p>Address: {{ lease.property ? lease.property.buildingNumber : 'N/A' }} {{ lease.property ? lease.property.street : 'N/A' }} {{ lease.property ? lease.property.suburb : 'N/A' }}</p>
+      </ion-label>
+
+      <ion-button fill="outline" (click)="requestMaintenance(lease)">Request Maintenance</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Display a message if no leases are available -->
+  <div *ngIf="leases.length === 0">
+    <p>You have no active leases</p>
   </div>
 </ion-content>

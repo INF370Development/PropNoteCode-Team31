@@ -19,7 +19,15 @@ namespace WebApi.Repositories
         {
             return await _appDbContext.SaveChangesAsync() > 0;
         }
+        public async Task<IEnumerable<Maintenance>> GetMaintenanceByPropertyID(int propertyId)
+        {
+            // Query the database to get maintenance records for the specified PropertyId
+            var maintenanceRecords = await _appDbContext.Maintenance
+                .Where(m => m.PropertyID == propertyId)
+                .ToListAsync();
 
+            return maintenanceRecords;
+        }
         public async Task<Payment> AddPayment(Payment item)
         {
             _appDbContext.Add(item);
@@ -179,7 +187,7 @@ namespace WebApi.Repositories
                 Include(t => t.MaintenanceType);
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, string Date, string Time)
+        public async Task<Maintenance> EditMaintenance(int MaintenanceId, int PropertyId, int EmployeeId, int ContractorId, int MaintenanceStatusId, int MaintenanceTypeId, DateTime Date, string Time)
         {
             Maintenance x = await GetMaintenanceByID(MaintenanceId);
             if (x != null)

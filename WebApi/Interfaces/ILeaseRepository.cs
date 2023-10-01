@@ -1,5 +1,6 @@
 ﻿using WebApi.Models.Lease;
 using WebApi.Models;
+using WebApi.Models.Property;
 
 namespace WebApi.Interfaces
 {
@@ -23,5 +24,7 @@ namespace WebApi.Interfaces
         Task<bool> EditDepositAsync(int depositId, Deposit deposit);
         Task<bool> DeleteDepositAsync(int depositId);
         Task<Deposit[]> GetAllDepositsByLeaseAsync(int leaseId);
+        Task<List<Lease>> GetLeasesByTenantIDAsync(int tenantID);
+        Task<Property> GetPropertyByLeaseIDAsync(int leaseID);
     }
 }

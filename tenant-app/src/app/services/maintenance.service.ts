@@ -272,13 +272,9 @@ export class MaintenanceService {
       ) // Update the API URL
       .pipe(map((result) => result));
   }
-  AddMaintenance(maintenance: Maintenance) {
-    // Rename the method
-    return this._httpClient
-      .post(`${this._apiUrl}/Maintenance/AddMaintenance`, maintenance, {
-        headers: this.headers,
-      }) // Update the API URL
-      .pipe(map((result) => result));
+
+  addMaintenance(maintenanceData: any): Observable<any> {
+    return this._httpClient.post(`${this._apiUrl}/Maintenance/AddMaintenance`, maintenanceData);
   }
 
   EditMaintenance(x: any, maintenance: Maintenance) {
@@ -288,5 +284,18 @@ export class MaintenanceService {
         headers: this.headers,
       }) // Update the API URL
       .pipe(map((result) => result));
+  }
+  getMaintenanceByPropertyId(propertyId: number): Observable<any> {
+    return this._httpClient.get(`${this._apiUrl}/Maintenance/GetMaintenanceByProperty/${propertyId}`);
+  }
+
+  // Add Maintenance Note to Maintenance
+  addMaintenanceNoteToMaintenance(maintenanceId: number, maintenanceNoteData: any): Observable<any> {
+    return this._httpClient.post(`${this._apiUrl}/Maintenance/AddMaintenanceNoteToMaintenance/${maintenanceId}`, maintenanceNoteData);
+  }
+
+  // Get Maintenance by Maintenance ID
+  getMaintenanceById(maintenanceId: number): Observable<any> {
+    return this._httpClient.get(`${this._apiUrl}/Maintenance/GetMaintenance/${maintenanceId}`);
   }
 }

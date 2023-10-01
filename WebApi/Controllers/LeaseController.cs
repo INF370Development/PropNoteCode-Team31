@@ -4,6 +4,7 @@ using WebApi.Models.Lease;
 using WebApi.Interfaces;
 using WebApi.Models.Users;
 using Microsoft.AspNetCore.Authorization;
+using WebApi.Models.Property;
 
 namespace WebApi.Controllers
 {
@@ -47,6 +48,51 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
+
+        [HttpGet]
+        [Route("GetLeasesByTenantID/{tenantID}")]
+        public async Task<IActionResult> GetLeasesByTenantID(int tenantID)
+        {
+            try
+            {
+                // Retrieve leases that match the provided TenantID
+                var leases = await _leaseRepository.GetLeasesByTenantIDAsync(tenantID);
+
+                if (leases == null || !leases.Any())
+                {
+                    return NotFound("No leases found for this tenant.");
+                }
+
+                // Optionally, you can project the leases to a DTO or ViewModel if needed
+                var lease = leases.Select(lease => new Lease
+                {
+                    EndDate = lease.EndDate,
+                    MonthlyAmount = lease.MonthlyAmount,
+                    StartDate = lease.StartDate,
+                    LeaseID = lease.LeaseID,
+                    TenantID = lease.TenantID,
+                    PropertyID = lease.PropertyID,
+                }).ToList();
+
+                return Ok(leases);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
+            }
+        }
+        [HttpGet("GetPropertyByLeaseID/{leaseID}")]
+        public async Task<ActionResult<Property>> GetPropertyByLeaseIDAsync(int leaseID)
+        {
+            var property = await _leaseRepository.GetPropertyByLeaseIDAsync(leaseID);
+            if (property == null)
+            {
+                return NotFound("Property not found for the provided lease ID.");
+            }
+
+            return Ok(property);
+        }
+
 
         [HttpPost]
         [Route("AddLease")]
@@ -288,6 +334,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
+
         [HttpGet("GetPropertiesForTenant/{tenantID}")]
         public async Task<IActionResult> GetPropertiesForTenant(int tenantID)
         {
@@ -311,6 +358,5 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
     }
 }

@@ -20,6 +20,11 @@ export class AuthenticationService implements OnInit {
 
   constructor(private _httpClient: HttpClient) {}
 
+  getCurrentUserId(): number | null {
+    const userId = localStorage.getItem('UserId');
+    return userId ? +userId : null;
+  }
+
   isLoggedIn(): boolean {
     return !!this._Token;
   }

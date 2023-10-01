@@ -1,4 +1,3 @@
-import { Time } from "@angular/common";
 import { Contractor } from "./UserModels/Contractor";
 import { MaintenanceStatus } from "./MaintenanceStatus";
 import { Property } from "./Property/Property";

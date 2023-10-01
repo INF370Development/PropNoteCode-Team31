@@ -518,11 +518,15 @@ const routes: Routes = [
       expectedRole: 'Admin',
     },
   },
-  { path: 'access-denied', component: AccessDeniedComponent },
   {
-    path: '**',
-    redirectTo: 'access-denied', // Create an "Access Denied" route if needed
+    path: 'login',
+    component: LoginComponent
   },
+  {
+    path: 'landing-page',
+    component: LandingPageComponent
+  },
+  { path: 'access-denied', component: AccessDeniedComponent },
 ];
 
 
