@@ -24,6 +24,7 @@ export class ViewAllPropertiesComponent implements AfterViewInit, OnInit {
     'yard',
     'detailsButton',
     'deleteButton',
+    'propertiesButton'
   ];
   dataSource = new MatTableDataSource<Property>();
 

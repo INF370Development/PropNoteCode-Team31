@@ -143,6 +143,8 @@ import { CalculatorComponent } from './calculator/calculator/calculator.componen
 
 //TIMEOUT
 import { UserActivity } from './services/userActivity.service';
+import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
+import { GenerateBrokerGraphComponent } from './broker/broker/generateBrokerGraph/generate-broker-graph/generate-broker-graph.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -255,6 +257,8 @@ export function jwtOptionsFactory() {
     ScreensaverComponent,
     SignaturePadComponent,
     CalculatorComponent,
+    ViewCalendarComponent,
+    GenerateBrokerGraphComponent,
     UpdateRecoveryModalComponent,
     TypesStatusesComponent,
   ],
