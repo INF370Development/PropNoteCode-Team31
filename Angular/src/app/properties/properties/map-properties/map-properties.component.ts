@@ -7,6 +7,17 @@ import { Component, OnInit } from '@angular/core';
 
 declare var Microsoft: any;
 
+//ADDED
+interface GeocodeLocation {
+  latitude: number;
+  longitude: number;
+}
+
+interface GeocodeResult {
+  results: GeocodeLocation[];
+}
+//
+
 @Component({
   selector: 'app-map-properties',
   templateUrl: './map-properties.component.html',
@@ -15,6 +26,13 @@ declare var Microsoft: any;
 
 export class MapPropertiesComponent implements OnInit {
   map: any; 
+
+  //Trying to do it with user input for the coordinates
+  streetName: string = '';
+  buildingNumber: string = '';
+  suburb: string = '';
+
+  //This works
   INITIAL_LATITUDE: number = -29.8281; // Replace with your initial latitude
   INITIAL_LONGITUDE: number = 31.0302; // Replace with your initial longitude
   INITIAL_ZOOM: number = 10; // Replace with your initial zoom level
@@ -41,6 +59,44 @@ export class MapPropertiesComponent implements OnInit {
     this.map.entities.push(initialPin);
   }
 
+  /*updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }*/
+
+  //Extra stuff that might not work so to keep map add here
+  geocodeAddress(): void {
+    const address = `${this.buildingNumber}, ${this.streetName}, ${this.suburb}, Durban, South Africa`;
+
+    // Use Bing Maps geocoding service
+    Microsoft.Maps.loadModule('Microsoft.Maps.Search', () => {
+      const searchManager = new Microsoft.Maps.Search.SearchManager(this.map);
+
+      const requestOptions = {
+        where: address,
+        callback: (searchResult: GeocodeResult) => { // Use the custom interface
+          if (searchResult && searchResult.results && searchResult.results.length > 0) {
+            const location = searchResult.results[0];
+            this.updateMapForProperty(location.latitude, location.longitude, 'User Location');
+          } else {
+            alert('Location not found. Please check the address.');
+          }
+        },
+        errorCallback: (e: any) => { // You can keep the error parameter as any
+          console.error(e);
+        }
+      };
+
+      const searchRequest = new Microsoft.Maps.Search.GeocodeRequest(requestOptions);
+      searchManager.geocode(searchRequest);
+    });
+  }
+
   updateMapForProperty(lat: number, lng: number, title: string): void {
     this.map.entities.clear();
     const pin = new Microsoft.Maps.Pushpin(
@@ -53,6 +109,47 @@ export class MapPropertiesComponent implements OnInit {
 }
 
 
+//CIARA STOP BEING STUPID
+//This works
+/*INITIAL_LATITUDE: number = -29.8281; // Replace with your initial latitude
+INITIAL_LONGITUDE: number = 31.0302; // Replace with your initial longitude
+INITIAL_ZOOM: number = 10; // Replace with your initial zoom level
+INITIAL_PROPERTY_LATITUDE: number = -29.8281; // Replace with initial property latitude
+INITIAL_PROPERTY_LONGITUDE: number = 31.0302; // Replace with initial property longitude
+
+constructor() { }
+
+ngOnInit(): void {
+  this.initMap(); 
+}
+
+initMap(): void {
+  this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+    center: new Microsoft.Maps.Location(this.INITIAL_LATITUDE, this.INITIAL_LONGITUDE),
+    zoom: this.INITIAL_ZOOM
+  });
+
+  const initialPin = new Microsoft.Maps.Pushpin(
+    new Microsoft.Maps.Location(this.INITIAL_PROPERTY_LATITUDE, this.INITIAL_PROPERTY_LONGITUDE),
+    { title: 'Property' }
+  );
+
+  this.map.entities.push(initialPin);
+}
+
+updateMapForProperty(lat: number, lng: number, title: string): void {
+  this.map.entities.clear();
+  const pin = new Microsoft.Maps.Pushpin(
+    new Microsoft.Maps.Location(lat, lng),
+    { title: title }
+  );
+
+  this.map.entities.push(pin);
+}
+*/
+
+
+//THIS DOES NOT WORK
 
   /*map!: L.Map;
   markers: Leaflet.Marker[] = [];
