@@ -2,7 +2,7 @@
 
 
 <div class="create">
-  <button mat-fab extended color="accent" (click)="openModal()">
+  <button mat-fab extended color="accent" (click)="openModal()" matTooltip="Clcik here to add maintenacne">
     <mat-icon>add</mat-icon>
     Add Maintenance
   </button>
@@ -23,38 +23,38 @@
 
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="propertyID">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Property</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  matTooltip="Property assigned to maintenance" >Property</th>
         <td mat-cell *matCellDef="let element">{{ element.property.description }}</td>
       </ng-container>
       
       <ng-container matColumnDef="contractors">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Contractors</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Contractors assigned to maintenance">Contractors</th>
         <td mat-cell *matCellDef="let element">{{ element.contractor.areaOfBusiness }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="maintenanceStatusID">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Current maintenance status"> Status</th>
         <td mat-cell *matCellDef="let element">{{ element.maintenanceStatus.maintenanceStatusName }}</td>
       </ng-container>
   
       <ng-container matColumnDef="maintenanceTypeID">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Current maintenance type"> Type</th>
         <td mat-cell *matCellDef="let element" >{{ element.maintenanceType.maintenanceTypeName }}</td>
       </ng-container>
   
       <ng-container matColumnDef="maintenanceDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Date of maintenance">Date</th>
         <td mat-cell *matCellDef="let element">{{ element.maintenanceDate|date }}</td>
       </ng-container>
   
       <ng-container matColumnDef="maintenanceTime">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  matTooltip="Time of maintenance">Time</th>
         <td mat-cell *matCellDef="let element">{{ element.maintenanceTime }}</td>
       </ng-container>
 
       <ng-container matColumnDef="note">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Note</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  matTooltip="Maintenance Notes">Note</th>
         <td mat-cell *matCellDef="let element">
           <div (click)="EditNote(element.maintenanceID)" *ngIf="element.maintenanceNote.maintenanceNoteDescription; else addNoteTemplate">
           {{ element.maintenanceNote.maintenanceNoteDescription }} </div>
@@ -68,7 +68,7 @@
       </ng-container>
 
       <ng-container matColumnDef="payment">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Amount</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  matTooltip="Maintenance amount">Payment Amount</th>
         <td mat-cell *matCellDef="let element">
           <div></div>
           <div (click)="EditPayment(element.maintenanceID)" *ngIf="element.payment.amount!=0; else addPaymentTemplate">
