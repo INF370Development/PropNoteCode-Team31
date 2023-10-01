@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 //Home
 import { HomeComponent } from './home/home/home.component';
 //Users
@@ -85,12 +84,10 @@ import { RoleGuardService as RoleGuard } from './authentication/authGuardService
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
 import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
-const routes: Routes = [
-  //Landingpage
-  { path: 'landingPage', component: LandingPageComponent },
-  { path: '', component: LandingPageComponent },
+import { AccessDeniedComponent } from './authentication/AccessDenied/access-denied/access-denied.component';
 
-  { path: 'login', component: LoginComponent },
+
+const routes: Routes = [
   //UpdateUser
   {
     path: 'UpdateNewUser',
@@ -267,7 +264,6 @@ const routes: Routes = [
       expectedRole: 'Admin',
     },
   },
-  //Contractors
   {
     path: 'contractors',
     component: ContractorsComponent,
@@ -540,7 +536,17 @@ const routes: Routes = [
       expectedRole: 'Admin',
     },
   },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'landing-page',
+    component: LandingPageComponent
+  },
+  { path: 'access-denied', component: AccessDeniedComponent },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

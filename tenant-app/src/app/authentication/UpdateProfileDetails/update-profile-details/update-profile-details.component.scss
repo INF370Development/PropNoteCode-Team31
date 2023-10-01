@@ -1,0 +1,52 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.propertiesCard, .reportCard, .mapCard {
+  max-width: 400px;
+}
+
+.usersCard{
+  padding: 10px;
+}
+
+.mapCard{
+  padding: 10px;
+}
+
+
+.rolesCard {
+  padding: 10px;
+}
+
+.cards{
+  display: flex;
+  padding: 10px;
+  flex: 1;
+  margin: 10px;
+}
+
+.icon {
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+}
+
+.form
+{
+  padding: 10px;
+  width: 40%;
+}
+.end{
+  padding: 10px;
+}

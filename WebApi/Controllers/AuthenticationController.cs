@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -15,7 +16,6 @@ using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     public class AuthenticationController : Controller
     {
@@ -23,12 +23,14 @@ namespace WebApi.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IConfiguration _config;
+        private readonly AppDbContext _context;
 
-        public AuthenticationController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IConfiguration config)
+        public AuthenticationController(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IConfiguration config, AppDbContext context)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _config = config;
+            _context = context;
         }
 
         //Loging Function
@@ -106,6 +108,30 @@ namespace WebApi.Controllers
                     IsSuccess = false,
                 };
                 return Ok(result);
+            }
+        }
+
+        [HttpGet("GetTenantIDForCurrentUser/{userID}")]
+        public async Task<IActionResult> GetTenantIDForCurrentUser(int userID)
+        {
+            try
+            {
+                // Query your database to find the TenantID associated with the provided UserID
+                var tenant = await _context.Tenant.FirstOrDefaultAsync(t => t.UserID == userID);
+
+                if (tenant != null)
+                {
+                    return Ok(tenant.TenantID); // Return the TenantID
+                }
+                else
+                {
+                    // If no TenantID is found, return a NotFound result or appropriate response
+                    return NotFound("No TenantID found for the provided user ID.");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
 

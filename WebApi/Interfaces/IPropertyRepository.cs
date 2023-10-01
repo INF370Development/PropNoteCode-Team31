@@ -9,7 +9,7 @@ namespace WebApi.Interfaces
         void Add<T>(T entity) where T : class;
 
         Task AddProperty(Property property);
-
+        Task<List<Property>> GetPropertiesByIDs(List<int> propertyIDs);
         Task<Property[]> GetAllPropertiesAsync();
         Task EditProperty(int propertyID, Property property);
         Task DeleteProperty(Property property);
