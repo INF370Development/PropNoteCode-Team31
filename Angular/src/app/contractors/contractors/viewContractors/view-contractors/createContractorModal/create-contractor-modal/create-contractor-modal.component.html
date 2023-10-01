@@ -113,9 +113,16 @@
       </mat-form-field>
       <mat-form-field class="form-field">
         <label>  <label class="validation">* </label>Contractor Type:</label>
-        <mat-select [(ngModel)]="contractorModel.contractorType"  placeholder="Select contractor type" name="contractorType" (selectionChange)="updateSelectedContractorType($event.value)">
+        <mat-select [(ngModel)]="selectedContractorType"  placeholder="Select contractor type" name="contractorType" (selectionChange)="updateSelectedContractorType($event.value)">
           <mat-option *ngFor="let contractorType of contractorTypes" [value]="contractorType">{{ contractorType.contractorTypeName }}</mat-option>
+          <mat-option value="createNew">Create New</mat-option>
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" *ngIf="selectedContractorType === 'createNew'">
+        <label>New Contractor Type:</label>
+        <input matInput [(ngModel)]="newContractorTypeName" name="newContractorTypeName" required />
+        <mat-error *ngIf="!newContractorTypeName">New Contractor Type is required</mat-error>
       </mat-form-field>
 
       <div class="modal-actions">
