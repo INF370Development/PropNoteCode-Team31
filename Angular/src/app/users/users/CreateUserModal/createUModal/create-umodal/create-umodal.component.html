@@ -1,6 +1,11 @@
 <div class="modal-overlay">
   <div class="modal-container">
-    <h2>Create User <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+    <h2>
+      Create User
+      <button mat-button color="warn" class="cancel" (click)="closeModal()">
+        X
+      </button>
+    </h2>
     <form (submit)="CreateNewUser()">
       <mat-form-field class="form-field">
         <label> <label class="validation">* </label>Name:</label>
@@ -13,7 +18,7 @@
           maxlength="50"
           [formControl]="name"
         />
-        <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
+        <mat-error *ngIf="name.invalid">{{ getErrorMessageName() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-field">
@@ -27,7 +32,9 @@
           maxlength="50"
           [formControl]="username"
         />
-        <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
+        <mat-error *ngIf="username.invalid">{{
+          getErrorMessageUsername()
+        }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-field">
@@ -41,26 +48,73 @@
           maxlength="50"
           [formControl]="email"
         />
-        <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
+        <mat-error *ngIf="email.invalid">{{
+          getErrorMessageEmail()
+        }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-field">
         <label><label class="validation">* </label>User Role:</label>
-        <mat-select [(ngModel)]="userModal.userRole" name="userRole"  placeholder="Select user type" required>
+        <mat-select
+          [(ngModel)]="userModal.userRole"
+          name="userRole"
+          placeholder="Select user type"
+          required
+        >
           <mat-option *ngFor="let item of RoleList" [value]="item.name">
             {{ item.name }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="userRole.invalid">Please select a user role.</mat-error>
+        <mat-error *ngIf="userRole.invalid"
+          >Please select a user role.</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label><label class="validation">* </label>Company Name:</label>
+        <input
+          matInput
+          [(ngModel)]="userModal.Email"
+          name="Email"
+          placeholder="Enter an email address"
+          required
+          maxlength="50"
+          [formControl]="email"
+        />
+        <mat-error *ngIf="email.invalid">{{
+          getErrorMessageEmail()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label><label class="validation">* </label>Company Number:</label>
+        <input
+          matInput
+          [(ngModel)]="userModal.CompanyNumber"
+          name="Company Number"
+          placeholder="Enter an Company Number"
+          required
+          maxlength="10"
+          [formControl]="CompanyNumber"
+        />
+        <mat-error *ngIf="CompanyNumber.invalid">{{
+          getErrorMessageEmail()
+        }}</mat-error>
       </mat-form-field>
 
       <div class="modal-actions">
         <button mat-raised-button type="submit" color="accent">
           Create User
         </button>
-        <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="closeModal()"
+          class="cancel"
+        >
+          Cancel
+        </button>
       </div>
     </form>
   </div>
 </div>
-
