@@ -35,7 +35,7 @@ export class MapPropertiesComponent implements OnInit {
 
     const initialPin = new Microsoft.Maps.Pushpin(
       new Microsoft.Maps.Location(this.INITIAL_PROPERTY_LATITUDE, this.INITIAL_PROPERTY_LONGITUDE),
-      { title: 'Initial Property' }
+      { title: 'Property' }
     );
 
     this.map.entities.push(initialPin);
