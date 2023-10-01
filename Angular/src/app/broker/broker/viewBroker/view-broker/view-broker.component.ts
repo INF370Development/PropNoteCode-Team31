@@ -1,10 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
 import { CreateBrokerModalComponent } from './CreateBroker/create-broker/create-broker-modal.component';
@@ -19,7 +17,7 @@ import { DeleteBrokerModelComponent } from './delete-broker-model/delete-broker-
 
 export class ViewBrokerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
-    
+
     'name',
     'surname',
     'phoneNumber',
@@ -30,14 +28,6 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
     'deleteButton',
   ];
   dataSource = new MatTableDataSource<Broker>();
-
-
-  refreshTableData() {
-    this._brokerService.getBrokers().subscribe((broker: any) => {
-      this.dataSource.data = broker;
-    });
-  }
-
 
   constructor(
     private _brokerService: BrokerService,
@@ -53,10 +43,15 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+    this.loadBrokers();
+  }
+
+  loadBrokers() {
     this._brokerService.getBrokers().subscribe((brokers: any) => {
       this.dataSource.data = brokers;
     });
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
@@ -67,7 +62,6 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
       return (
         data.name.toLowerCase().includes(lowerCaseFilter) ||
         data.surname.toLowerCase().includes(lowerCaseFilter) ||
-        
         data.phoneNumber.includes(filter) ||
         data.officeAddress.toLowerCase().includes(lowerCaseFilter) ||
         data.licenseNumber.toLowerCase().includes(lowerCaseFilter) ||
@@ -78,48 +72,51 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
     this.dataSource.filter = filterValue;
   }
 
-
-  openDeleteConfirmationDialog(brokerID: number) {
-    const dialogRef = this.dialog.open(DeleteBrokerModelComponent, {
-      data: { brokerID }, 
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'delete') {
-        this.deleteBroker(brokerID);
-      }
-    });
+  openDeleteBrokerDialog() {
+    const dialogRef = this.dialog.open(DeleteBrokerModelComponent, {});
   }
 
-
-  deleteBroker(brokerID: any) {
+  deleteBroker(brokerID: number) {
+    // Call your API to delete the inspection here, e.g., using your PropertiesService
     this._brokerService.deleteBroker(brokerID).subscribe(
-      ()=>{
-        this.snackBar.open('Broker deleted successfully', 'Close', {
-          duration: 2000,
+      () => {
+        console.log('Inspection deleted successfully');
+        this.snackBar.open('Broker Deleted Successfully', 'Close', {
+          duration: 3000,
+
         });
-        this.refreshTableData();
+        this.loadBrokers();
       },
       (error) => {
-        console.error('Error deleting Broker:', error);
-        this.snackBar.open('Error deleting Broker', 'Close', {
-          duration: 2000,
+        console.error('Error deleting broker:', error);
+        this.snackBar.open('Error deleting broker', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
         });
       }
     );
-   
   }
 
-  // showSnackBar() {
-  //   const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
-  //     'Deleted successfully',
-  //     'X',
-  //     { duration: 500 }
-  //   );
-  //   snackBarRef.afterDismissed().subscribe(() => {
-  //     location.reload();
-  //   });
-  // }
+  confirmDeleteBroker(broker: Broker) {
+    console.log(broker);
+    const dialogRef = this.dialog.open(DeleteBrokerModelComponent, {
+      data: { broker }, // Pass the inspection data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        // User confirmed the deletion, implement the deletion logic here
+        this.deleteBroker(broker.brokerID);
+      }
+    });
+  }
+
+  refreshTableData() {
+    debugger;
+    this._brokerService.getBrokers().subscribe((broker: any) => {
+      this.dataSource.data = broker;
+    });
+  }
 
   openDialog(
     enterAnimationDuration: string,
@@ -135,6 +132,4 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
   openModal() {
     const dialogRef = this.dialog.open(CreateBrokerModalComponent, {});
   }
-
-
 }

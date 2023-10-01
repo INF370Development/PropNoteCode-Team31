@@ -4,7 +4,7 @@ export class Recovery {
   recoveryTypeID: number = 0;
   recoveryDescription: string = "";
   recoveryAmount: number = 0;
-  recoveryType: RecoveryType = new RecoveryType();
+  recoveryType?: RecoveryType = new RecoveryType();
 
   constructor(){
   }
