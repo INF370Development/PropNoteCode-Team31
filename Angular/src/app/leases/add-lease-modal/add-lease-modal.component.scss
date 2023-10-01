@@ -11,6 +11,12 @@
   z-index: 9999; /* Ensure it's on top of other content */
 }
 
+
+.validation{
+  color: rgb(247, 53, 53);
+}
+
+
 .modal-container {
   width: 600px;
   padding: 20px;
@@ -33,8 +39,8 @@
   width: 45%; /* Adjust vertical margin as needed */
 }
 
-.form-field label {
-  color: #000; /* Label text color */
+label {
+  color: #fff; /* Label text color */
 }
 
 .cancel {
@@ -52,3 +58,5 @@
   background-color: red;
   color: white;
 }
+
+

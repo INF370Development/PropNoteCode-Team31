@@ -3,7 +3,7 @@
     <h2>Add New Broker <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="AddBroker()" >
       <mat-form-field class="form-field" >
-        <label>Name:</label>
+        <label> <label class="validation">* </label>Name:</label>
         <input
           matInput
           [(ngModel)]="brokerModel.name"
@@ -15,7 +15,7 @@
         <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Surname:</label>
+        <label> <label class="validation">* </label>Surname:</label>
         <input
           matInput
           [(ngModel)]="brokerModel.surname"
@@ -27,7 +27,7 @@
         <mat-error *ngIf="surname.invalid">{{getErrorMessageSurname()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Phone Number:</label>
+        <label> <label class="validation">* </label>Phone Number:</label>
         <input
           matInput
           [(ngModel)]="brokerModel.phoneNumber"
@@ -41,7 +41,7 @@
         <mat-error *ngIf="phoneNumber.invalid">{{getErrorMessagePhoneNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Office Address:</label>
+        <label> <label class="validation">* </label>Office Address:</label>
         <input
           matInput
           placeholder="Enter an Office Address"
@@ -53,7 +53,7 @@
         <mat-error *ngIf="officeAddress.invalid">{{getErrorMessageOfficeAddress()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>License Number:</label>
+        <label> <label class="validation">* </label>License Number:</label>
         <input
           matInput
           placeholder="Enter a license Number"
@@ -65,7 +65,7 @@
         <mat-error *ngIf="licenseNumber.invalid">{{getErrorMessageLicenseNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Commission Rate:</label>
+        <label> <label class="validation">* </label>Commission Rate:</label>
         <input
           matInput
           placeholder="Enter a Commission Rate %"
@@ -78,7 +78,7 @@
         <!-- <mat-error *ngIf="commissionRatePercentage.invalid">{{getErrorMessageCommissionRatePercentage()}}</mat-error> -->
       </mat-form-field>
       <div class="modal-actions">
-        <button mat-raised-button type="submit" color="accent">
+        <button mat-raised-button type="submit" color="accent" > 
           Add Broker
         </button>
         <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>

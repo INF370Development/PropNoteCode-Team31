@@ -3,7 +3,7 @@
     <h2>Add New Contractor <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="CreateContractor()">
       <mat-form-field class="form-field">
-        <label>Username:</label>
+        <label>  <label class="validation">* </label>Username:</label>
         <input
           matInput
           [(ngModel)]="contractorModel.username"
@@ -16,7 +16,7 @@
         <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Password:</label>
+        <label>  <label class="validation">* </label>Password:</label>
         <input
           matInput
           [(ngModel)]="contractorModel.password"
@@ -33,7 +33,7 @@
         </button>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Email:</label>
+        <label>  <label class="validation">* </label>Email:</label>
         <input
           matInput
           [(ngModel)]="contractorModel.email"
@@ -46,7 +46,7 @@
         <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Name:</label>
+        <label>  <label class="validation">* </label>Name:</label>
         <input
           matInput
           [(ngModel)]="contractorModel.name"
@@ -59,7 +59,7 @@
         <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Surname:</label>
+        <label>  <label class="validation">* </label>Surname:</label>
         <input
           matInput
           [(ngModel)]="contractorModel.surname"
@@ -72,7 +72,7 @@
         <mat-error *ngIf="surname.invalid">{{getErrorMessageSurname()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Personal Number:</label>
+        <label>  <label class="validation">* </label>Personal Number:</label>
         <input
           matInput
           [(ngModel)]="contractorModel.phoneNumber"
@@ -86,7 +86,7 @@
         <mat-error *ngIf="phoneNumber.invalid">{{getErrorMessagePhoneNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Area Of Business:</label>
+        <label>  <label class="validation">* </label>Area Of Business:</label>
         <input
           matInput
           [(ngModel)]="contractorModel.areaOfBusiness"
@@ -99,7 +99,7 @@
         <mat-error *ngIf="areaBusiness.invalid">{{getErrorMessageAreaBusiness()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Availability: </label>
+        <label>  <label class="validation">* </label>Availability: </label>
         <input
           matInput
           [(ngModel)]="contractorModel.availability"
@@ -112,7 +112,7 @@
         <mat-error *ngIf="availability.invalid">{{getErrorMessageAvailability()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Contractor Type:</label>
+        <label>  <label class="validation">* </label>Contractor Type:</label>
         <mat-select [(ngModel)]="contractorModel.contractorType"  placeholder="Select contractor type" name="contractorType" (selectionChange)="updateSelectedContractorType($event.value)">
           <mat-option *ngFor="let contractorType of contractorTypes" [value]="contractorType">{{ contractorType.contractorTypeName }}</mat-option>
         </mat-select>

@@ -47,6 +47,17 @@ export class CreateTenantModalComponent implements OnInit {
 
   CreateTenant() {
     //debugger;
+
+    // Check if any required fields are empty
+if (!this.tenantModel.name || !this.tenantModel.username || !this.tenantModel.email || !this.tenantModel.password ||this.tenantModel.companyName|| this.tenantModel.companyNumber ||this.tenantModel.surname || this.tenantModel.phoneNumber ) {
+  // Display a snackbar message indicating the form is incomplete
+  this.snackBar.open('Please fill in all required fields.', '', {
+    duration: 3000, // 3 seconds
+    panelClass: ['mat-toolbar', 'mat-primary'] // Optional styling classes
+  });
+  return;
+}
+    
     this.tenantService.createTenant(this.tenantModel).subscribe(
       (response) => {
         console.log('Tenant created successfully:', response);
@@ -64,6 +75,7 @@ export class CreateTenantModalComponent implements OnInit {
       }
     );
   }
+  
 
   /*CreateTenant() {
     this.tenantService.createTenant(this.tenantModel).subscribe(

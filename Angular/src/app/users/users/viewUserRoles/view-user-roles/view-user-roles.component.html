@@ -16,7 +16,7 @@
 
 <!--Create Button-->
 <div class="create">
-  <button mat-fab extended color="accent" (click)="openModal()">
+  <button mat-fab extended color="accent" (click)="openModal()" matTooltip="Click here to create a new user role">
     <mat-icon>add</mat-icon>
     Create User Role
   </button>
@@ -32,10 +32,10 @@
 <table>
   <thead>
     <tr>
-      <th>Role ID</th>
-      <th>Role Name</th>
-      <th>Update</th>
-      <th>Delete</th>
+      <th  matTooltip="User entries ID">Role ID</th>
+      <th  matTooltip="User role names">Role Name</th>
+      <th  matTooltip="User role updates">Update</th>
+      <th  matTooltip="User role deletes">Delete</th>
     </tr>
   </thead>
   <tbody>

@@ -6,13 +6,11 @@
             <!--<mat-icon class="card-icon">account_box</mat-icon>-->
             <lord-icon
                 src="https://cdn.lordicon.com/dxjqoygy.json"
-                [state]="iconStates['userIconState']"
-                (mouseover)="onIconMouseOver('userIconState', 'hover-looking-around')"
-                (mouseleave)="onIconMouseLeave('userIconState')"
+                trigger="hover"
                 colors="primary:#121331,secondary:#08a88a"
                 state="hover-looking-around"
                 style="width:250px;height:250px">
-            </lord-icon> 
+            </lord-icon>
             <br>
             <mat-card-content class="link">Users</mat-card-content>
         </mat-card>

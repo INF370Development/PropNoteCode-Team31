@@ -3,30 +3,32 @@
     <h2>Add New Lease <button mat-button color="warn" class="cancel" (click)="onCancel()">X</button></h2>
     <form (submit)="onSubmit()" [formGroup]="leaseForm" class="form">
       <mat-form-field class="form-field">
-        <label>Start Date:</label>
+        <label><label class="validation">* </label>Start Date:</label>
         <input
           matInput
           [matDatepicker]="startDatePicker"
           formControlName="startDate"
           required
+          placeholder="Select a starting date"
         />
         <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #startDatePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>End Date:</label>
+        <label><label class="validation">* </label>End Date:</label>
         <input
           matInput
           [matDatepicker]="endDatePicker"
           formControlName="endDate"
           required
+          placeholder="Select an ending date"
         />
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Tenant:</label>
-        <mat-select formControlName="tenantID" required>
+        <label><label class="validation">* </label>Tenant:</label>
+        <mat-select formControlName="tenantID" required placeholder="Select a tenant">
           <mat-option *ngFor="let tenant of tenants" [value]="tenant.tenantID">
             {{ tenant.user.name }} {{ tenant.user.surname }}
           </mat-option>
@@ -35,8 +37,8 @@
       </mat-form-field>
 
       <mat-form-field class="form-field">
-        <label>Property:</label>
-        <mat-select formControlName="propertyID" required>
+        <label><label class="validation">* </label>Property:</label>
+        <mat-select formControlName="propertyID" required placeholder="Select a property">
           <mat-option *ngFor="let property of properties" [value]="property.propertyID">
             {{ property.description }}
           </mat-option>
@@ -44,13 +46,14 @@
         <mat-error *ngIf="leaseForm?.get('propertyID')?.hasError('required')">Property is required.</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Monthly Amount:</label>
+        <label><label class="validation">* </label>Monthly Amount:</label>
         <input
           matInput
           type="number"
           placeholder="R"
           formControlName="monthlyAmount"
           required
+          placeholder="Enter the monthly amount"
         />
         <mat-error *ngIf="leaseForm?.get('monthlyAmount')?.hasError('required')">Monthly Amount is required.</mat-error>
       </mat-form-field>
@@ -61,8 +64,8 @@
       <!-- Deposit Input Field (Show when "Add Deposit" is clicked) -->
       <div *ngIf="showDepositInput">
         <mat-form-field class="form-field">
-          <label>Deposit Amount:</label>
-          <input matInput type="number" placeholder="R" formControlName="depositAmount" required />
+          <label> <label class="validation">* </label>Deposit Amount:</label>
+          <input matInput type="number" placeholder="R" formControlName="depositAmount" required placeholder="Enter a deposit amount"/>
         </mat-form-field>
       </div>
 
