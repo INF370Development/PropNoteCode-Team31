@@ -68,6 +68,7 @@ import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pa
 //Calculator
 import { CalculatorComponent } from './calculator/calculator/calculator.component';
 
+
 //Add AuthGuard for Route Protection
 import {
   AuthGuardService as AuthGuard,
@@ -82,6 +83,7 @@ import {
 import { RoleGuardService as RoleGuard } from './authentication/authGuardService/RoleguardService';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
+import { HelpFAQComponent } from './help-faq/help-faq.component';
 const routes: Routes = [
   //Landingpage
   { path: 'landingPage', component: LandingPageComponent },
@@ -513,6 +515,15 @@ const routes: Routes = [
       expectedRole: 'Admin',
     },
   },
+  //help
+  {
+    path: 'help-faq',
+    component: HelpFAQComponent,
+    canActivate:[RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  }
 ];
 
 @NgModule({

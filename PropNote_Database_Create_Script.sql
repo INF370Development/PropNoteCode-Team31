@@ -155,6 +155,8 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
 /****** Object:  Table [dbo].[Correspondance]    Script Date: 2023/07/27 11:38:26 ******/
 SET ANSI_NULLS ON
 GO
@@ -1156,3 +1158,27 @@ INSERT INTO [dbo].[PROBLEMSTATUS]
      VALUES
            ('No longer a problem')
 GO
+
+-- Create a stored procedure to insert a ContractorType
+CREATE PROCEDURE InsertContractorTypes
+    @ContractorTypeName varchar(100)
+AS
+BEGIN
+    INSERT INTO CONTRACTORTYPE ( ContractorTypeName)
+VALUES ('Electrician'),
+		('Plumber'),
+		( 'Carpenter'),
+		( 'Painter'),
+		('Mason'),
+		('Drywall'),
+		('Landscaping');
+END
+GO
+
+EXEC InsertContractorTypes 'Electrician';
+EXEC InsertContractorTypes 'Plumber'
+EXEC InsertContractorTypes 'Carpenter';
+EXEC InsertContractorTypes 'Painter';
+EXEC InsertContractorTypes 'Mason';
+EXEC InsertContractorTypes 'Drywall';
+EXEC InsertContractorTypes 'Landscaping';

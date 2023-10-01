@@ -142,6 +142,7 @@ import { CalculatorComponent } from './calculator/calculator/calculator.componen
 
 //TIMEOUT
 import { UserActivity } from './services/userActivity.service';
+import { HelpFAQComponent } from './help-faq/help-faq.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -255,6 +256,7 @@ export function jwtOptionsFactory() {
     ScreensaverComponent,
     SignaturePadComponent,
     CalculatorComponent,
+    HelpFAQComponent,
   ],
   imports: [
     BrowserModule,

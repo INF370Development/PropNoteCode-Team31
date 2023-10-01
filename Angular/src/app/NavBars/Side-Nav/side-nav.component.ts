@@ -55,6 +55,10 @@ export class SideNavComponent {
   onClickChat() {
     this.router.navigate(['/chatbot']);
   }
+  
+  onClickHelp(){
+  this.router.navigate(['/help-faq']);
+  }
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
   toggleSidenav() {
