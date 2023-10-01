@@ -17,13 +17,13 @@
           />
       </mat-form-field>
 
-      
+
 
     <!--Create Broker-->
     <div class="create">
       <button mat-fab extended color="accent" (click)="openModal()" matTooltip="Click here to create a new broker entry">
         <mat-icon>add</mat-icon>
-    
+
         Create Broker
       </button>
     </div>
@@ -71,9 +71,6 @@
       </td>
     </ng-container>
 
-
-<!-- add edit button  -->
-
     <ng-container matColumnDef="deleteButton">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
@@ -81,7 +78,7 @@
           mat-button
           class="deletebutton"
           style="color:red;"
-          (click)="openDeleteConfirmationDialog(element.brokerID)"
+          (click)="confirmDeleteBroker(element)"
           matTooltip="Click to Delete Broker entry">
           <mat-icon>delete</mat-icon>
           Delete

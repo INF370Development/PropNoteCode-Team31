@@ -165,6 +165,11 @@ export class PropertiesService {
     return this._httpClient.post<RecoveryType>(url, newRecoveryType);
   }
 
+  addInspectionType(newInspectionType: InspectionType): Observable<InspectionType> {
+    const url = `https://localhost:7251/api/Property/AddInspectionType`;
+
+    return this._httpClient.post<InspectionType>(url, newInspectionType);
+  }
 
   AddProblem(inspectionID: number, problem: Problem) {
     return this._httpClient

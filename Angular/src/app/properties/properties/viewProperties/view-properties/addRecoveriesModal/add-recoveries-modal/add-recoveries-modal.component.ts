@@ -1,12 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { BrokerService } from 'src/app/services/broker.service';
 import { PropertiesService } from 'src/app/services/properties.service';
-import { Broker } from 'src/app/shared/Broker';
-import { Inspection, InspectionStatus, InspectionType } from 'src/app/shared/Property/Inspection';
-import { Property } from 'src/app/shared/Property/Property';
 import { Recovery, RecoveryType } from 'src/app/shared/Property/Recovery';
 
 @Component({
@@ -36,8 +31,6 @@ newRecoveryTypeDescription: string = ''; // To store the new recovery type descr
     @Inject(MAT_DIALOG_DATA) public data: { propertyID: number },
     private dialogRef: MatDialogRef<AddRecoveriesModalComponent>,
     private propertyService: PropertiesService,
-    private router: Router,
-    private brokerService: BrokerService
   ) {}
 
   ngOnInit(): void {
@@ -171,7 +164,7 @@ addNewRecoveryType() {
   //  debugger;
     if (this.recoveryModal.recoveryType) {
       const recoveryTypeID = this.recoveryModal.recoveryType.recoveryTypeID;
-      console.log("InspectionTypeID", recoveryTypeID)
+      console.log("RecoveryTypeID", recoveryTypeID)
     }
   }
 

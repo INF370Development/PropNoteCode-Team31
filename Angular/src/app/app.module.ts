@@ -58,7 +58,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { ViewBrokerDetailsComponent } from './broker/broker/viewBroker/view-broker/viewBrokerDetailsComponent/viewBrokerDetailsComponent';
-import { BrokercreatemodelComponent } from './broker/broker/viewBroker/view-broker/brokercreatemodel/brokercreatemodel.component';
 import { DeleteUserDialogComponent } from './users/users/viewUsers/view-users/deleteUserDialog/delete-user-dialog/delete-user-dialog.component';
 import { DeleteUserRoleDialogComponent } from './users/users/viewUserRoles/view-user-roles/deleteUserRoleDialog/delete-user-role-dialog/delete-user-role-dialog.component';
 import { UpdateUserModalComponent } from './users/users/viewUsers/view-users/updateUserModal/update-user-modal/update-user-modal.component';
@@ -138,6 +137,7 @@ import { TimeoutComponent } from './timeout/timeout/timeout.component';
 import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
 import { UpdateRecoveryModalComponent } from './properties/properties/viewProperties/view-properties/update-recovery-modal/update-recovery-modal.component';
+import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -199,7 +199,6 @@ export function jwtOptionsFactory() {
     AddImageModalComponent,
     DeleteImageDialogComponent,
     SideNavComponent,
-    BrokercreatemodelComponent,
     DeleteUserDialogComponent,
     DeleteUserRoleDialogComponent,
     UpdateUserModalComponent,
@@ -253,6 +252,7 @@ export function jwtOptionsFactory() {
     ScreensaverComponent,
     SignaturePadComponent,
     UpdateRecoveryModalComponent,
+    TypesStatusesComponent,
   ],
   imports: [
     BrowserModule,
