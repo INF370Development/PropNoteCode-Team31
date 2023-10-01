@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-generate-broker-graph',
@@ -8,7 +9,65 @@ import { Broker } from 'src/app/shared/Broker';
   styleUrls: ['./generate-broker-graph.component.scss']
 })
 
-export class GenerateBrokerGraphComponent{}
+export class GenerateBrokerGraphComponent implements OnInit{
+  commission: Map<string, Broker[]> = new Map<string, Broker[]>();
+  name: Map<string, Broker[]> = new Map<string, Broker[]>();
+  surname: Map<string, Broker[]> = new Map<string, Broker[]>();
+
+  commissionChartData: number[] = [];
+  commissionChartLabels: string[] = [];
+
+  constructor(private brokerService: BrokerService, private dialog : MatDialog) {}
+
+  ngOnInit(): void {
+    this.brokerService
+      .getBrokerByCommission()
+      .subscribe((commission) => {
+        this.commission = commission;
+        this.calculateCommissionChartData();
+      });
+  }
+
+  calculateCommissionChartData() {
+    this.commissionChartLabels = Array.from(this.commission.keys()).map(Number).map(rate => `${rate * 100}%`);
+    this.commissionChartData = this.commissionChartLabels.map((commissionRate) => {
+      const brokers = this.commission.get(commissionRate.toString());
+      
+      if (brokers && brokers.length > 0) {
+        // Calculate the average commission rate for these brokers
+        const totalCommissionRate = brokers.reduce(
+          (total, broker) => total + broker.commissionRate,
+          0
+        );
+        return (totalCommissionRate / brokers.length) * 100; // Percentage
+      } else {
+        return 0; // Handle the case when there are no brokers for this commission rate
+      }
+    });
+  }
+}  
+
+  /*ngOnInit(): void {
+    this.brokerService
+      .getBrokerByCommission()
+      .subscribe((commission) => {
+        this.commission = commission;
+      });
+
+    this.brokerService
+    .getBrokerByName()
+    .subscribe((name) => {
+      this.name = name;
+    });
+
+    this.brokerService
+      .getBrokerBySurname()
+      .subscribe((surname) => {
+        this.surname = surname;
+      });
+  }*/
+
+
   /*public pieChartOptions: ChartOptions = {
     responsive: true,
   };
