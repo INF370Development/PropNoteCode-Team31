@@ -1,15 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import { PropertiesService } from 'src/app/services/properties.service';
-import * as L from 'leaflet';
+import * as L from 'leaflet';*/
+
+import { Component, OnInit } from '@angular/core';
+
+declare var Microsoft: any;
 
 @Component({
   selector: 'app-map-properties',
   templateUrl: './map-properties.component.html',
   styleUrls: ['./map-properties.component.scss']
 })
+
 export class MapPropertiesComponent implements OnInit {
-  map!: L.Map;
+  map: any; 
+  INITIAL_LATITUDE: number = -29.8281; // Replace with your initial latitude
+  INITIAL_LONGITUDE: number = 31.0302; // Replace with your initial longitude
+  INITIAL_ZOOM: number = 10; // Replace with your initial zoom level
+  INITIAL_PROPERTY_LATITUDE: number = -29.8281; // Replace with initial property latitude
+  INITIAL_PROPERTY_LONGITUDE: number = 31.0302; // Replace with initial property longitude
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.initMap(); 
+  }
+
+  initMap(): void {
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(this.INITIAL_LATITUDE, this.INITIAL_LONGITUDE),
+      zoom: this.INITIAL_ZOOM
+    });
+
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(this.INITIAL_PROPERTY_LATITUDE, this.INITIAL_PROPERTY_LONGITUDE),
+      { title: 'Initial Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }
+}
+
+
+
+  /*map!: L.Map;
   markers: Leaflet.Marker[] = [];
   options = {
     layers: [
@@ -104,7 +149,7 @@ export class MapPropertiesComponent implements OnInit {
   markerDragEnd($event: any, index: number) {
     console.log($event.target.getLatLng());
   }
-}
+}*/
 
 /*import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
