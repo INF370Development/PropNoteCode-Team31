@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 //Home
 import { HomeComponent } from './home/home/home.component';
 //Users
@@ -83,12 +82,10 @@ import { RoleGuardService as RoleGuard } from './authentication/authGuardService
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
 import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
-const routes: Routes = [
-  //Landingpage
-  { path: 'landingPage', component: LandingPageComponent },
-  { path: '', component: LandingPageComponent },
+import { AccessDeniedComponent } from './authentication/AccessDenied/access-denied/access-denied.component';
 
-  { path: 'login', component: LoginComponent },
+
+const adminRoutes: Routes = [
   //UpdateUser
   {
     path: 'UpdateNewUser',
@@ -257,7 +254,6 @@ const routes: Routes = [
       expectedRole: 'Admin',
     },
   },
-  //Contractors
   {
     path: 'contractors',
     component: ContractorsComponent,
@@ -523,6 +519,74 @@ const routes: Routes = [
     },
   },
 ];
+
+const tenantRoutes: Routes = [
+  // Tenant Dashboard and other tenant-specific routes
+  // ...
+
+  // Example:
+  // {
+  //   path: 'tenant-dashboard',
+  //   component: TenantDashboardComponent,
+  //   canActivate: [RoleGuard],
+  //   data: {
+  //     expectedRole: 'Tenant',
+  //   },
+  // },
+];
+
+// Define common routes accessible to both Admins and Tenants
+const commonRoutes: Routes = [
+  // Landing Page (accessible to all)
+  {
+    path: 'landingPage',
+    component: LandingPageComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'landingPage',
+    pathMatch: 'full',
+  },
+
+  // Login (accessible to all)
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  // ...other common routes...
+];
+
+const routes: Routes = [
+  // Combine Admin and Tenant routes under separate parent paths
+  {
+    path: 'admin',
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+    children: adminRoutes,
+  },
+  {
+    path: 'tenant',
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Tenant',
+    },
+    children: tenantRoutes,
+  },
+  { path: 'access-denied', component: AccessDeniedComponent },
+
+  // Include common routes accessible to both Admins and Tenants
+  ...commonRoutes,
+
+  // Add a wildcard route to handle unknown routes or redirect to an "Access Denied" page
+  // Make sure this is the last route
+  {
+    path: '**',
+    redirectTo: 'access-denied', // Create an "Access Denied" route if needed
+  },
+];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

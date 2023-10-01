@@ -143,6 +143,7 @@ import { CalculatorComponent } from './calculator/calculator/calculator.componen
 
 //TIMEOUT
 import { UserActivity } from './services/userActivity.service';
+import { AccessDeniedComponent } from './authentication/AccessDenied/access-denied/access-denied.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -257,6 +258,7 @@ export function jwtOptionsFactory() {
     CalculatorComponent,
     UpdateRecoveryModalComponent,
     TypesStatusesComponent,
+    AccessDeniedComponent,
   ],
   imports: [
     BrowserModule,

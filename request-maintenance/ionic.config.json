@@ -1,0 +1,7 @@
+{
+  "name": "request-maintenance",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

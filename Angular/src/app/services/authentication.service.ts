@@ -11,6 +11,7 @@ import { User } from '../shared/UserModels/User';
 export class AuthenticationService implements OnInit {
   private _apiUrl = configuration.BaseApiUrl;
   private _Token = localStorage.getItem('Token');
+  private _userRole: string | null = localStorage.getItem('UserRole');
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -18,6 +19,14 @@ export class AuthenticationService implements OnInit {
   });
 
   constructor(private _httpClient: HttpClient) {}
+
+  isLoggedIn(): boolean {
+    return !!this._Token;
+  }
+
+  getUserRole(): string | null {
+    return this._userRole;
+  }
 
   ngOnInit(): void {
     this._Token = localStorage.getItem('Token');
@@ -39,4 +48,17 @@ export class AuthenticationService implements OnInit {
       }
     );
   }
+
+  setRole(userRole: string): void {
+    this._userRole = userRole;
+    localStorage.setItem('UserRole', userRole);
+  }
+
+  // Logout method
+  logout(): void {
+    localStorage.removeItem('Token');
+    localStorage.removeItem('UserRole');
+    // Add any additional logout logic here (e.g., redirect to login page)
+  }
+  
 }
