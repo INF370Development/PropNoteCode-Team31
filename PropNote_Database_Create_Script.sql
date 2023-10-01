@@ -1156,3 +1156,11 @@ INSERT INTO [dbo].[PROBLEMSTATUS]
      VALUES
            ('No longer a problem')
 GO
+USE [PropNote]
+GO
+ALTER TABLE [dbo].[MAINTENANCE]
+ALTER COLUMN [MaintenanceDate] [varchar](10) NULL
+Go
+ALTER TABLE [dbo].[MAINTENANCE]
+ALTER COLUMN [MaintenanceTime] [varchar](7) NULL
+Go
