@@ -33,43 +33,32 @@ export class MapPropertiesComponent implements OnInit {
   suburb: string = '';
 
   //This works
-  INITIAL_LATITUDE: number = -29.8281; // Replace with your initial latitude
+  /*INITIAL_LATITUDE: number = -29.8281; // Replace with your initial latitude
   INITIAL_LONGITUDE: number = 31.0302; // Replace with your initial longitude
   INITIAL_ZOOM: number = 10; // Replace with your initial zoom level
   INITIAL_PROPERTY_LATITUDE: number = -29.8281; // Replace with initial property latitude
-  INITIAL_PROPERTY_LONGITUDE: number = 31.0302; // Replace with initial property longitude
-
+  INITIAL_PROPERTY_LONGITUDE: number = 31.0302; // Replace with initial property longitude*/
+  
   constructor() { }
 
   ngOnInit(): void {
-    this.initMap(); 
+    this.initMap();
   }
 
   initMap(): void {
     this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
-      center: new Microsoft.Maps.Location(this.INITIAL_LATITUDE, this.INITIAL_LONGITUDE),
-      zoom: this.INITIAL_ZOOM
+      center: new Microsoft.Maps.Location(-29.8281, 31.0302), // Initial center coordinates
+      zoom: 10 // Initial zoom level
     });
 
     const initialPin = new Microsoft.Maps.Pushpin(
-      new Microsoft.Maps.Location(this.INITIAL_PROPERTY_LATITUDE, this.INITIAL_PROPERTY_LONGITUDE),
+      new Microsoft.Maps.Location(-29.8281, 31.0302), // Initial property location
       { title: 'Property' }
     );
 
     this.map.entities.push(initialPin);
   }
 
-  /*updateMapForProperty(lat: number, lng: number, title: string): void {
-    this.map.entities.clear();
-    const pin = new Microsoft.Maps.Pushpin(
-      new Microsoft.Maps.Location(lat, lng),
-      { title: title }
-    );
-
-    this.map.entities.push(pin);
-  }*/
-
-  //Extra stuff that might not work so to keep map add here
   geocodeAddress(): void {
     const address = `${this.buildingNumber}, ${this.streetName}, ${this.suburb}, Durban, South Africa`;
 
@@ -79,7 +68,7 @@ export class MapPropertiesComponent implements OnInit {
 
       const requestOptions = {
         where: address,
-        callback: (searchResult: GeocodeResult) => { // Use the custom interface
+        callback: (searchResult: GeocodeResult) => {
           if (searchResult && searchResult.results && searchResult.results.length > 0) {
             const location = searchResult.results[0];
             this.updateMapForProperty(location.latitude, location.longitude, 'User Location');
@@ -87,7 +76,7 @@ export class MapPropertiesComponent implements OnInit {
             alert('Location not found. Please check the address.');
           }
         },
-        errorCallback: (e: any) => { // You can keep the error parameter as any
+        errorCallback: (e: any) => {
           console.error(e);
         }
       };
