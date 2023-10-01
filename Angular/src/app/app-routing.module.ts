@@ -36,6 +36,7 @@ import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view
 import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerReport/generate-broker-report/generate-broker-report.component';
 //Calendar
 import { CalendarComponent } from './calendar/calendar/calendar.component';
+import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
 //Maintenace
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
@@ -367,6 +368,14 @@ const routes: Routes = [
   {
     path: 'calendar',
     component: CalendarComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  {
+    path: 'viewCalendar',
+    component: ViewCalendarComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
