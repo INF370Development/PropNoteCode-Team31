@@ -35,8 +35,8 @@ export class ScreensaverComponent implements OnInit {
 
     setTimeout(() => {
       this.loadingPageActive = false;
-      this.router.navigate(['/landingPage']);
-    }, 3000); 
+      this.router.navigate(['/screensaver']);
+    }, 1000); 
   }
 
   logout() {

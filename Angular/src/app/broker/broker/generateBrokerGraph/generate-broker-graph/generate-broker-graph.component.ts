@@ -1,46 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
-import { Chart, ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-generate-broker-graph',
   templateUrl: './generate-broker-graph.component.html',
   styleUrls: ['./generate-broker-graph.component.scss']
 })
-export class GenerateBrokerGraphComponent  {
-  const categories = ['Category A', 'Category B', 'Category C', 'Category D'];
-const values = [10, 25, 15, 30];
 
-// Create a bar chart
-const ctx = document.getElementById('myChart') as HTMLCanvasElement;
-const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: categories,
-        datasets: [{
-            label: 'Values',
-            data: values,
-            backgroundColor: 'skyblue',
-        }],
+export class GenerateBrokerGraphComponent{}
+  /*public pieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public pieChartLabels: Label[] = [];
+  public pieChartData: ChartDataSets[] = [
+    {
+      data: [],
+      backgroundColor: [],
     },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                },
-            }],
-        },
-        legend: {
-            display: false,
-        },
-        title: {
-            display: true,
-            text: 'Bar Chart with Set Values',
-        },
+  ];
+  public pieChartType: string = 'pie';
+  public pieChartLegend = true;
+  public pieChartColors: Color[] = [
+    {
+      backgroundColor: [],
     },
-});
+  ];
+
+  constructor() {
+    // Initialize chart data here or fetch it from a service
+    this.initializeChartData();
+  }
+
+  private initializeChartData() {
+    // Fetch broker data and populate chart data here
+    // Example:
+    this.pieChartLabels = ['Label 1', 'Label 2', 'Label 3'];
+    this.pieChartData[0].data = [30, 40, 30];
+    this.pieChartColors[0].backgroundColor = ['#FF5733', '#33FF57', '#5733FF'];
+  }
+}*/
 
   
   /*brokerData: { name: string; commissionEarned: number }[] = [];

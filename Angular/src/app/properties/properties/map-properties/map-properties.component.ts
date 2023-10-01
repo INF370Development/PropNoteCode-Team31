@@ -16,7 +16,6 @@ interface GeocodeLocation {
 interface GeocodeResult {
   results: GeocodeLocation[];
 }
-//
 
 @Component({
   selector: 'app-map-properties',
@@ -25,12 +24,10 @@ interface GeocodeResult {
 })
 
 export class MapPropertiesComponent implements OnInit {
-  map: any; 
-
-  //Trying to do it with user input for the coordinates
-  streetName: string = '';
+//Trying to do it with user input for the coordinates
+  /*streetName: string = '';
   buildingNumber: string = '';
-  suburb: string = '';
+  suburb: string = '';*/
 
   //This works
   /*INITIAL_LATITUDE: number = -29.8281; // Replace with your initial latitude
@@ -39,6 +36,13 @@ export class MapPropertiesComponent implements OnInit {
   INITIAL_PROPERTY_LATITUDE: number = -29.8281; // Replace with initial property latitude
   INITIAL_PROPERTY_LONGITUDE: number = 31.0302; // Replace with initial property longitude*/
   
+  map: any; 
+
+  properties: { streetName: string; buildingNumber: string; suburb: string; }[] = [
+    { streetName: 'Street1', buildingNumber: '1', suburb: 'Suburb1' },
+    { streetName: 'Street2', buildingNumber: '2', suburb: 'Suburb2' },
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -51,6 +55,7 @@ export class MapPropertiesComponent implements OnInit {
       zoom: 10 // Initial zoom level
     });
 
+
     const initialPin = new Microsoft.Maps.Pushpin(
       new Microsoft.Maps.Location(-29.8281, 31.0302), // Initial property location
       { title: 'Property' }
@@ -59,10 +64,9 @@ export class MapPropertiesComponent implements OnInit {
     this.map.entities.push(initialPin);
   }
 
-  geocodeAddress(): void {
-    const address = `${this.buildingNumber}, ${this.streetName}, ${this.suburb}, Durban, South Africa`;
+  geocodeAddress(property: { streetName: string; buildingNumber: string; suburb: string; }): void {
+    const address = `${property.buildingNumber}, ${property.streetName}, ${property.suburb}, Durban, South Africa`;
 
-    // Use Bing Maps geocoding service
     Microsoft.Maps.loadModule('Microsoft.Maps.Search', () => {
       const searchManager = new Microsoft.Maps.Search.SearchManager(this.map);
 
@@ -71,7 +75,7 @@ export class MapPropertiesComponent implements OnInit {
         callback: (searchResult: GeocodeResult) => {
           if (searchResult && searchResult.results && searchResult.results.length > 0) {
             const location = searchResult.results[0];
-            this.updateMapForProperty(location.latitude, location.longitude, 'User Location');
+            this.updateMapForProperty(location.latitude, location.longitude, 'Property Location');
           } else {
             alert('Location not found. Please check the address.');
           }
