@@ -37,13 +37,14 @@ export class ScreensaverComponent implements OnInit {
     setTimeout(() => {
       this.loadingPageActive = false;
       this.logout();
-    }, 5000); // Adjust the timeout as needed
+    }, 5000); 
   }
 
   logout() {
-    // Perform your logout logic here
-    console.log('Logout logic executed');
-    this.router.navigate(['/login']);
+    localStorage.clear();
+    this.router.navigate(['/login']).then(() => {
+      location.reload();
+    });
   }
 }
 
