@@ -84,6 +84,7 @@ import {
 import { RoleGuardService as RoleGuard } from './authentication/authGuardService/RoleguardService';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
+import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
 const routes: Routes = [
   //Landingpage
   { path: 'landingPage', component: LandingPageComponent },
@@ -204,6 +205,14 @@ const routes: Routes = [
   {
     path: 'mapProperties',
     component: MapPropertiesComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  {
+    path: 'typesStatuses',
+    component: TypesStatusesComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',

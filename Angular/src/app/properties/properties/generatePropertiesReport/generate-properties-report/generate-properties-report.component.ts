@@ -168,7 +168,7 @@ getAllRecoveries() {
         doc.text(`Recovery ${index + 1}:
         Amount: R ${recovery.recoveryAmount}
         Description: ${recovery.recoveryDescription}
-        Type: ${recovery.recoveryType.recoveryTypeDescription}`, leftMargin, recoveryPosition);
+        Type: ${recovery.recoveryType?.recoveryTypeDescription}`, leftMargin, recoveryPosition);
     });
 
     // Add inspections information
@@ -233,7 +233,7 @@ generateAllPropertiesReport() {
           doc.text(`Recovery ${index + 1}:
           Amount: R ${recovery.recoveryAmount}
           Description: ${recovery.recoveryDescription}
-          Type: ${recovery.recoveryType.recoveryTypeDescription}`, leftMargin, 40 + (7 + index * 5) * lineHeight);
+          Type: ${recovery.recoveryType?.recoveryTypeDescription}`, leftMargin, 40 + (7 + index * 5) * lineHeight);
           doc.text('', leftMargin, 40 + (8 + index * 5) * lineHeight); // Add line break
       });
 
