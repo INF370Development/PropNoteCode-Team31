@@ -1,3 +1,3 @@
 export const configuration = {
-  BaseApiUrl: 'https://propnoteapi.azurewebsites.net/api',
+  BaseApiUrl: 'https://localhost:7251/api',
 };
