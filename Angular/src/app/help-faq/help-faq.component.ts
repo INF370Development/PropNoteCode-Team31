@@ -12,7 +12,7 @@ export class HelpFAQComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  // Define your FAQ data here
+  // Define your FAQ data hereok
   faqData: FaqEntry[] = [
     {
       question: 'How to create a new user for the system?',
