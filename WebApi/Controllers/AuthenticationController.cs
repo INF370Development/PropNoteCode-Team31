@@ -185,8 +185,8 @@ namespace WebApi.Controllers
                 {
                     User newUser = new User();
                     //TODO Replace once done Developing
-                    //string pass = GenerateRandomPassword(8);
-                    string pass = "123";
+                    string pass = GenerateRandomPassword(8);
+                    //string pass = "123";
                     var hashedPassword = GenerateHash(ApplySomeSalt(pass));
                     newUser.Password = hashedPassword;
                     newUser.Username = userDetails.Username;

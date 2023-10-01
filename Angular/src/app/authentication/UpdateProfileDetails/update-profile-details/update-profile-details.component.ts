@@ -36,10 +36,9 @@ export class UpdateProfileDetailsComponent implements OnInit {
     this.LoadUserInfo();
   }
   UpdateUserDetails() {
-    debugger;
     this.AuthServiceEndPoints.UpdateNewUser(this.userModal).subscribe((res) => {
       if (res.userID == this.UserId) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home']).then(window.location.reload);
       }
     });
   }
