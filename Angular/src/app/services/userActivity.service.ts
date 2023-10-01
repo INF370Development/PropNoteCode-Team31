@@ -1,12 +1,10 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { fromEvent, timer } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserActivity {
-  private inactivityTimeout = 120000;
+  private inactivityTimeout = 120000; // 2 minutes in milliseconds
   private inactivityTimer: any;
   public inactivityDetected: EventEmitter<void> = new EventEmitter<void>();
 
@@ -15,13 +13,8 @@ export class UserActivity {
   }
 
   private initInactivityTimer() {
-    fromEvent(document, 'mousemove')
-      .pipe(debounceTime(1000))
-      .subscribe(() => this.resetInactivityTimer());
-
-    fromEvent(document, 'keydown')
-      .pipe(debounceTime(1000))
-      .subscribe(() => this.resetInactivityTimer());
+    window.addEventListener('mousemove', () => this.resetInactivityTimer());
+    window.addEventListener('keydown', () => this.resetInactivityTimer());
 
     this.resetInactivityTimer();
   }

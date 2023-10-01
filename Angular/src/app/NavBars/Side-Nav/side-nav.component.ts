@@ -30,6 +30,9 @@ export class SideNavComponent {
     if (windowWidth < 1000) {
       this.closeSideNavigation();
     }
+    else {
+      this.openSidebar = true;
+    }
   }
 
   // Trigger user activity when user interactions occur
@@ -58,6 +61,10 @@ export class SideNavComponent {
   
   onClickHelp(){
   this.router.navigate(['/help-faq']);
+  }
+
+  onClickHelp() {
+    this.router.navigate(['/help']);
   }
 
   @ViewChild('sidenav') sidenav!: MatSidenav;

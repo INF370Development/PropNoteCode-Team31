@@ -33,9 +33,11 @@ import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-
 //Broker
 import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
+import { GenerateBrokerGraphComponent } from './broker/broker/generateBrokerGraph/generate-broker-graph/generate-broker-graph.component';
 import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerReport/generate-broker-report/generate-broker-report.component';
 //Calendar
 import { CalendarComponent } from './calendar/calendar/calendar.component';
+import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateCalendarReportComponent } from './calendar/calendar/generateCalendarReport/generate-calendar-report/generate-calendar-report.component';
 //Maintenace
 import { MaintenanceComponent } from './maintenance/maintenance/maintenance.component';
@@ -134,6 +136,14 @@ const routes: Routes = [
   {
     path: 'screensaver',
     component: ScreensaverComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  {
+    path: 'brokerGraph',
+    component: GenerateBrokerGraphComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
@@ -381,6 +391,14 @@ const routes: Routes = [
   {
     path: 'calendar',
     component: CalendarComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  {
+    path: 'viewCalendar',
+    component: ViewCalendarComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
