@@ -4,8 +4,8 @@ button {
 
 .container {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  justify-content: space-between;
+  align-items: center;
 }
 
 .mat-mdc-form-field {
@@ -18,8 +18,16 @@ button {
   position: relative;
   font-size: 30px;
 }
+
+.error-snackbar {
+  background-color: #f44336; /* Red background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  /* Add any other styles you want to customize the snackbar appearance */
+}
+
   /*Added From here*/
-  
+
   /*.search-create-container {
     display: flex;
     justify-content: space-between;
@@ -27,17 +35,16 @@ button {
     width: 100%;
     margin-bottom: 50px;
   }
-    
+
   .search {
-    
+
     margin-right: 10px;
     height:55px;
-    
+
   }
-      
+
   .table-container {
     width: 100%;
     max-width: 700px;
     margin: 0 auto;
   }*/
-  

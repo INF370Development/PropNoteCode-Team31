@@ -35,6 +35,7 @@ import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-
 //Broker
 import { BrokerComponent } from './broker/broker/broker.component';
 import { ViewBrokerComponent } from './broker/broker/viewBroker/view-broker/view-broker.component';
+import { GenerateBrokerGraphComponent } from './broker/broker/generateBrokerGraph/generate-broker-graph/generate-broker-graph.component';
 import { GenerateBrokerReportComponent } from './broker/broker/generateBrokerReport/generate-broker-report/generate-broker-report.component';
 //Calendar
 import { CalendarComponent } from './calendar/calendar/calendar.component';
@@ -64,10 +65,12 @@ import { ProblemsPageComponent } from './properties/properties/viewProperties/vi
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 import { LoginComponent } from './authentication/Login/login.component';
-//TimeOut
-import { TimeoutComponent } from './timeout/timeout/timeout.component';
+//Screensaver
+import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
 //Signature
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+//Calculator
+import { CalculatorComponent } from './calculator/calculator/calculator.component';
 
 //Add AuthGuard for Route Protection
 import {
@@ -84,16 +87,8 @@ import { RoleGuardService as RoleGuard } from './authentication/authGuardService
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDetails/update-profile-details/update-profile-details.component';
 import { SnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/snag-list-items.component';
+import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
 const routes: Routes = [
-  //Timeout
-  {
-    path: 'timeout',
-    component: TimeoutComponent,
-    canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'Admin',
-    },
-  },
   //Landingpage
   { path: 'landingPage', component: LandingPageComponent },
   { path: '', component: LandingPageComponent },
@@ -121,6 +116,32 @@ const routes: Routes = [
   {
     path: 'signaturePad',
     component: SignaturePadComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+   //Calculator
+   {
+    path: 'calculator',
+    component: CalculatorComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  //Screensaver
+  {
+    path: 'screensaver',
+    component: ScreensaverComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  {
+    path: 'brokerGraph',
+    component: GenerateBrokerGraphComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
@@ -193,6 +214,14 @@ const routes: Routes = [
     },
   },
   {
+    path: 'typesStatuses',
+    component: TypesStatusesComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  {
     path: 'addInspection',
     component: AddInspectionModalComponent,
     canActivate: [RoleGuard],
@@ -208,16 +237,16 @@ const routes: Routes = [
       expectedRole: 'Admin',
     },
   },
-  { 
-    path: 'SnagList', 
+  {
+    path: 'SnagList',
     component: SnagListComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
     },
    },
-  { 
-    path: 'SnagListItem', 
+  {
+    path: 'SnagListItem',
     component: SnagListItemsComponent,
     canActivate: [RoleGuard],
     data: {

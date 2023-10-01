@@ -234,6 +234,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("UpdateNewUser")]
         public async Task<IActionResult> UpdateUserDetails([FromBody] User userDetailsRequest)
         {

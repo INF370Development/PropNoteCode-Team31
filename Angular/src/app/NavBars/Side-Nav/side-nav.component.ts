@@ -19,18 +19,29 @@ export class SideNavComponent {
     itemEl.classList.toggle('showMenu');
   }
 
-  //constructor(private router: Router) {}
-  constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2) { }
+  constructor(private router: Router) {}
+  //constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2, private userActivityService: UserActivityService) { }
 
   //Responsive Navbar - trying
   @HostListener('window:resize', ['$event'])
   onWindowResize(event: Event): void {
-  const windowWidth = window.innerWidth;
+    const windowWidth = window.innerWidth;
 
-  if (windowWidth < 1000) {
-    this.closeSideNavigation();
+    if (windowWidth < 1000) {
+      this.closeSideNavigation();
+    }
+    else {
+      this.openSidebar = true;
     }
   }
+
+  // Trigger user activity when user interactions occur
+  /*@HostListener('window:mousemove', ['$event'])
+  @HostListener('window:keydown', ['$event'])
+  onUserInteraction(event: Event): void {
+    this.userActivityService.resetActivityTimer();
+  }*/
+
 
   closeSideNavigation(): void {
     this.sidenav.close();
@@ -40,8 +51,16 @@ export class SideNavComponent {
     this.router.navigate(['/home']);
   }
 
+  onClickCalc() {
+    this.router.navigate(['/calculator']);
+  }
+
   onClickChat() {
     this.router.navigate(['/chatbot']);
+  }
+
+  onClickHelp() {
+    this.router.navigate(['/help']);
   }
 
   @ViewChild('sidenav') sidenav!: MatSidenav;

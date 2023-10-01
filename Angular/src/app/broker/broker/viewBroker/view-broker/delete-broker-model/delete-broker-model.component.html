@@ -3,6 +3,8 @@
   Are you sure you want to delete the Broker?
 </div>
 <div class="end">
-    <button mat-raised-button mat-dialog-close color="accent" (click)="deleteBroker(data.brokerID)">Delete</button>
-    <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+  <div class="buttons">
+    <button mat-raised-button mat-dialog-close color="warn" [mat-dialog-close]="'confirm'">Delete</button>
+    <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="accent" (click)="closeModal()">Cancel</button>
+</div>
 </div>

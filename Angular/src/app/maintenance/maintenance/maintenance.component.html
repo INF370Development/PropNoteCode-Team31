@@ -1,61 +1,68 @@
 <h1>Maintenance</h1>
 
- <div class="container">
-  <div class="card"><a [routerLink]="'/viewMaintenance'">
+<div class="container">
+  <div class="card"><a [routerLink]="'/assignMaintenance'">
       <div class="circle">
-          <h4>View  
-              <br><br>
-              Maintenance</h4>
+          <h4>Assign Maintenance</h4>
       </div>
       <div class="content">
           <p>
-            All the maintenance created for the system can be viewed.
-                        <br>
-            Click on the card will take the user to the view all the maintenances on the system.
+            View all the assigned maintenace on the system. The rest of the information that we need to establish.
+            <br>
+            Click on the card will take the user to the view all employees page.
           </p>
       </div>
   </a></div>
 
-  <div class="card"><a  [routerLink]="'/maintenanceStatus'">
+  <div class="card"><a  [routerLink]="'/generateMaintenance'">
       <div class="circle">
-          <h4>View<br><br> Maintenance 
-            <br> <br>
-            Status</h4>
+          <h4>Generate Report</h4>
       </div>
       <div class="content">
           <p>
-            All the maintenance statuses created for the system can be viewed. 
-                        <br> <br>
-            Click on the card will take the user to view Maintenance statuses.
+            Generate maintenance report. The rest of the information that we need to establish.
+            <br> <br>
+            Click on the card will take the user to print a employee report.
           </p>
       </div>
+  </a></div>
+
+  <div class="card"><a  [routerLink]="'/viewMaintenance'">
+    <div class="circle">
+        <h4>View Maintenance</h4>
+    </div>
+    <div class="content">
+        <p>
+          All the maintenance created for the system can be viewed. The rest of the information that we need to establish.
+          <br> <br>
+          Click on the card will take the user to print a employee report.
+        </p>
+    </div>
   </a></div>
 
   <div class="card"><a  [routerLink]="'/maintenanceType'">
     <div class="circle">
-        <h4>View<br><br> Maintenance <br><br>Types </h4>
+        <h4>View Types</h4>
     </div>
     <div class="content">
         <p>
-          All the maintenance types created for the system can be viewed. 
+          All the maintenance types created for the system can be viewed. The rest of the information that we need to establish.
           <br> <br>
-          Click on the card will take the user to view Maintenance types.        
+          Click on the card will take the user to print a employee report.
         </p>
     </div>
-</a></div>
-<!--
-<div class="card"><a  [routerLink]="'/generateMaintenance'">
-  <div class="circle">
-      <h4>Maintenance <br><br>Report </h4>
-  </div>
-  <div class="content">
-    <p>
-      Generate Maintenance Report. The rest of the information that we need to establish.
-      <br> <br>
-      Click on the card will take the user to print a maintenance report.
-    </p>
-</div>
-</a></div>-->
+  </a></div>
 
-
+  <div class="card"><a  [routerLink]="'/maintenanceType'">
+    <div class="circle">
+        <h4>View Types</h4>
+    </div>
+    <div class="content">
+        <p>
+          All the maintenance statuses created for the system can be viewed The rest of the information that we need to establish.
+          <br> <br>
+          Click on the card will take the user to print a employee report.
+        </p>
+    </div>
+  </a></div>
 </div>

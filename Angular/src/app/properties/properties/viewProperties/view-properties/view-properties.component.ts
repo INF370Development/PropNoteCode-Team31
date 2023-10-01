@@ -23,6 +23,7 @@ import { Recovery } from 'src/app/shared/Property/Recovery';
 import { Inspection } from 'src/app/shared/Property/Inspection';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { UpdateInspectionModalComponent } from './update-inspection-modal/update-inspection-modal.component';
+import { UpdateRecoveryModalComponent } from './update-recovery-modal/update-recovery-modal.component';
 
 NgModule({
   imports: [
@@ -212,6 +213,19 @@ loadPropertyImages() {
     });
   }
 
+  confirmDeleteRecovery(recovery: Recovery) {
+    const dialogRef = this.dialog.open(DeleteRecoveriesDialogComponent, {
+      data: { recovery }, // Pass the inspection data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        // User confirmed the deletion, implement the deletion logic here
+        this.deleteRecovery(recovery.recoveryID);
+      }
+    });
+  }
+
   deleteInspection(inspectionID: number) {
     // Call your API to delete the inspection here, e.g., using your PropertiesService
     this._propertiesService.deleteInspection(inspectionID).subscribe(
@@ -222,6 +236,20 @@ loadPropertyImages() {
       },
       (error) => {
         console.error('Error deleting inspection:', error);
+      }
+    );
+  }
+
+  deleteRecovery(recoveryID: number) {
+    // Call your API to delete the inspection here, e.g., using your PropertiesService
+    this._propertiesService.deleteRecovery(recoveryID).subscribe(
+      () => {
+        console.log('Recovery deleted successfully');
+        // You may want to reload the inspections or update the view
+        this.loadRecoveries();
+      },
+      (error) => {
+        console.error('Error deleting recovery:', error);
       }
     );
   }
@@ -238,6 +266,20 @@ loadPropertyImages() {
       }
     });
   }
+
+  openUpdateRecoveryModal(recovery: Recovery) {
+    const dialogRef = this.dialog.open(UpdateRecoveryModalComponent, {
+      data: { recovery }, // Pass the inspection to the modal
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        // Refresh the inspections or take any other necessary actions
+        this.loadRecoveries();
+      }
+    });
+  }
+
 
   openDeleteImageDialog() {
     const dialogRef = this.dialog.open(DeleteImageDialogComponent, {});

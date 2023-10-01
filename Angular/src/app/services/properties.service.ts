@@ -73,6 +73,17 @@ export class PropertiesService {
       .pipe(map((result) => result));
   }
 
+  updateRecovery(recovery: Recovery): Observable<any> {
+    const url = `https://localhost:7251/api/Property/EditRecovery/${recovery.recoveryID}`;
+    return this._httpClient.put(url, recovery);
+  }
+
+  deleteRecovery(recoveryID: number): Observable<any> {
+    return this._httpClient.delete(
+      `https://localhost:7251/api/Property/DeleteRecovery/${recoveryID}`
+    );
+  }
+
   getRecoveryTypes(): Observable<RecoveryType[]> {
     return this._httpClient
       .get<RecoveryType[]>(
@@ -146,6 +157,18 @@ export class PropertiesService {
         recovery
       )
       .pipe(map((result) => result));
+  }
+
+  addRecoveryType(newRecoveryType: RecoveryType): Observable<RecoveryType> {
+    const url = `https://localhost:7251/api/Property/AddRecoveryType`;
+
+    return this._httpClient.post<RecoveryType>(url, newRecoveryType);
+  }
+
+  addInspectionType(newInspectionType: InspectionType): Observable<InspectionType> {
+    const url = `https://localhost:7251/api/Property/AddInspectionType`;
+
+    return this._httpClient.post<InspectionType>(url, newInspectionType);
   }
 
   AddProblem(inspectionID: number, problem: Problem) {

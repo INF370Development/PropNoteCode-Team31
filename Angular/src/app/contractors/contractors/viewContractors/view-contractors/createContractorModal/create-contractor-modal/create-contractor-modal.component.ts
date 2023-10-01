@@ -64,6 +64,17 @@ export class CreateContractorModalComponent implements OnInit {
   }
 
   CreateContractor() {
+
+
+    if (!this. contractorModel.name || !this. contractorModel.username || !this. contractorModel.email || !this. contractorModel.password ||this. contractorModel.areaOfBusiness|| this. contractorModel.availability ||this. contractorModel.surname || this. contractorModel.phoneNumber || this. contractorModel.contractorType ) {
+      // Display a snackbar message indicating the form is incomplete
+      this.snackBar.open('Please fill in all required fields.', '', {
+        duration: 3000, // 3 seconds
+        panelClass: ['mat-toolbar', 'mat-primary'] // Optional styling classes
+      });
+      return;
+    }
+
     this.contractorService.createContractor(this.contractorModel).subscribe(
       (response) => {
         console.log('Tenant created successfully:', response);
@@ -139,7 +150,7 @@ export class CreateContractorModalComponent implements OnInit {
       return 'Name required';
     }
 
-    return this.email.hasError('name') ? 'Not a valid name' : '';
+    return this.name.hasError('name') ? 'Not a valid name' : '';
   }
   //Surname
   surname = new FormControl('', [Validators.required]);

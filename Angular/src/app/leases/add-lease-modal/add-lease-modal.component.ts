@@ -20,6 +20,7 @@ export class AddLeaseModalComponent implements OnInit {
   properties: Property[] = [];
   showDepositInput: boolean = false;
   depositRequest: DepositRequest = new DepositRequest();
+  snackBar: any;
 
   constructor(
     private dialogRef: MatDialogRef<AddLeaseModalComponent>,
@@ -59,6 +60,27 @@ export class AddLeaseModalComponent implements OnInit {
   }
 
   onSubmit() {
+ // Check if any required fields are empty
+ const formControls = this.leaseForm.controls;
+ const requiredFields = ['startDate', 'endDate', 'tenantID', 'propertyID', 'monthlyAmount'];
+ let isFormIncomplete = false;
+
+ requiredFields.forEach(field => {
+   if (!formControls[field].value) {
+     formControls[field].setErrors({ 'required': true });
+     isFormIncomplete = true;
+   }
+ });
+
+ if (isFormIncomplete) {
+   // Display a snackbar message indicating the form is incomplete
+   this.snackBar.open('Please fill in all required fields.', '', {
+     duration: 3000, // 3 seconds
+     panelClass: ['mat-toolbar', 'mat-primary'] // Optional styling classes
+   });
+   return;
+ }
+
     if (this.leaseForm.valid) {
       const leaseRequest = {
         startDate: this.leaseForm.value.startDate,

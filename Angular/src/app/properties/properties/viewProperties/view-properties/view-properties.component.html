@@ -58,13 +58,19 @@
     <div *ngFor="let recovery of recoveries">
       <h4>{{ recovery.recoveryDescription }}</h4>
       <h5>Recovery Amount: R {{ recovery.recoveryAmount }}</h5>
-<h5>Recovery Type: {{ recovery.recoveryType.recoveryTypeDescription }} </h5>
+<h5>Recovery Type: {{ recovery.recoveryType?.recoveryTypeDescription }} </h5>
+<div>
+  <!-- Inside your recovery list -->
+<button class="button-38" (click)="openUpdateRecoveryModal(recovery)">Update Recovery</button>
+<!-- Inside your recovery list -->
+<button class="button-38" style="background-color: red; color: white;" (click)="confirmDeleteRecovery(recovery)">Delete Recovery</button>
+</div>
+<br>
       <mat-divider></mat-divider>
     </div>
   </div>
 </div>
 
-<!-- Display Inspections -->
 <div class="card">
   <div class="details">
     <div style="display: flex; justify-content: space-between; align-items: flex-start;">

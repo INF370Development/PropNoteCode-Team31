@@ -3,7 +3,7 @@
     <h2>Add New Tenant <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
     <form (submit)="CreateTenant()">
       <mat-form-field class="form-field">
-        <label>Username:</label>
+        <label> <label class="validation">* </label>Username:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.username"
@@ -11,11 +11,12 @@
           required
           maxlength="50"
           [formControl]="username"
+          placeholder="Enter a username"
         />
         <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Password:</label>
+        <label> <label class="validation">* </label>Password:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.password"
@@ -24,6 +25,7 @@
           maxlength="50"
           [type]="hide ? 'password' : 'text'"
           [formControl]="password"
+          placeholder="Enter a password"
         />
         <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -31,7 +33,7 @@
         </button>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Email:</label>
+        <label> <label class="validation">* </label>Email:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.email"
@@ -39,12 +41,13 @@
           required
           maxlength="50"
           [formControl]="email"
+          placeholder="Enter an email address"
         />
         <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-field">
-        <label>Name:</label>
+        <label> <label class="validation">* </label>Name:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.name"
@@ -52,11 +55,12 @@
           required
           maxlength="50"
           [formControl]="name"
+          placeholder="Enter a name"
         />
         <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Surname:</label>
+        <label> <label class="validation">* </label>Surname:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.surname"
@@ -64,11 +68,12 @@
           required
           maxlength="50"
           [formControl]="surname"
+          placeholder="Enter a surname"
         />
         <mat-error *ngIf="surname.invalid">{{getErrorMessageSurname()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Personal Number:</label>
+        <label> <label class="validation">* </label>Personal Number:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.phoneNumber"
@@ -77,11 +82,12 @@
           maxlength="10"
           minlength="10"
           [formControl]="phoneNumber"
+          placeholder="Enter a phone number"
         />
         <mat-error *ngIf="phoneNumber.invalid">{{getErrorMessagePhoneNumber()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Company Name:</label>
+        <label> <label class="validation">* </label>Company Name:</label>
         <input
           matInput
           [(ngModel)]="tenantModel.companyName"
@@ -89,11 +95,12 @@
           required
           maxlength="50"
           [formControl]="companyName"
+          placeholder="Enter a company name"
         />
         <mat-error *ngIf="companyName.invalid">{{getErrorMessageCompanyName()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <label>Company Number: </label>
+        <label> <label class="validation">* </label>Company Number: </label>
         <input
           matInput
           [(ngModel)]="tenantModel.companyNumber"
@@ -102,6 +109,7 @@
           maxlength="10"
           minlength="10"
           [formControl]="companyNumber"
+          placeholder="Enter a company number"
         />
         <mat-error *ngIf="companyName.invalid">{{getErrorMessageCompanyNumber()}}</mat-error>
       </mat-form-field>
