@@ -240,6 +240,53 @@ validateInputs(): boolean {
 
     return this.suburb.hasError('suburb') ? 'Not a valid suburb' : '';
   }
+ //purchase amount
+ purchaseAmount = new FormControl('', [Validators.required]);
+
+ getErrorMessagePurchaseAmount(){
+   if (this.purchaseAmount.hasError('required')) {
+     return 'Purchase Ammount required';
+   }
+
+   return this.suburb.hasError('purchaseAmount') ? 'Not a valid purchase amount' : '';
+ }
 
 
+
+//purchase amount
+purchaseYear = new FormControl('', [Validators.required]);
+
+getErrorMessagePurchaseYear(){
+  if (this.purchaseYear.hasError('required')) {
+    return 'Purchase year required';
+  }
+
+  return this.purchaseYear.hasError('purchaseYear') ? 'Not a valid purchase year' : '';
+}
+
+
+
+//purchase amount
+size = new FormControl('', [Validators.required]);
+
+getErrorMessageSize(){
+  if (this.size.hasError('required')) {
+    return 'size required';
+  }
+
+  return this.size.hasError('size') ? 'Not a valid size' : '';
+}
+
+
+
+//purchase amount
+yard = new FormControl('', [Validators.required]);
+
+getErrorMessageYard(){
+  if (this.yard.hasError('required')) {
+    return 'yard required';
+  }
+
+  return this.size.hasError('yard') ? 'Not a valid yard' : '';
+}
 }
