@@ -1,52 +1,78 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Chart, ChartConfiguration, ChartTypeRegistry } from 'chart.js';
+import { Component, OnInit } from '@angular/core';
 import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
+import { Chart, ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-generate-broker-graph',
   templateUrl: './generate-broker-graph.component.html',
   styleUrls: ['./generate-broker-graph.component.scss']
 })
-export class GenerateBrokerGraphComponent {
-//BROKER GRAPH
-brokerDetail: Broker = new Broker();
-brokerData: { name: string; commissionEarned: number }[] = [];
-chart!: Chart;
+export class GenerateBrokerGraphComponent  {
+  const categories = ['Category A', 'Category B', 'Category C', 'Category D'];
+const values = [10, 25, 15, 30];
 
-constructor(  
-  private route: ActivatedRoute,
-  //Already here
-  private brokerService: BrokerService,) {}
+// Create a bar chart
+const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: categories,
+        datasets: [{
+            label: 'Values',
+            data: values,
+            backgroundColor: 'skyblue',
+        }],
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                },
+            }],
+        },
+        legend: {
+            display: false,
+        },
+        title: {
+            display: true,
+            text: 'Bar Chart with Set Values',
+        },
+    },
+});
 
-  loadBroker() {
-    this.brokerService
-      .getBroker(this.route.snapshot.params['id'])
-      .subscribe((result) => {
-        this.brokerDetail = result;
   
-        const commissionEarned = this.brokerDetail.commissionRate * 100;
-  
-        this.brokerData.push({
-          name: `${this.brokerDetail.name} ${this.brokerDetail.surname}`,
-          commissionEarned,
-        });
-  
-        this.createPieChart(); 
-      });
+  /*brokerData: { name: string; commissionEarned: number }[] = [];
+  chart!: Chart<'pie', number[], string>;
+
+  constructor(private brokerService: BrokerService) {}
+
+  ngOnInit() {
+    this.loadBrokers();
+  }
+
+  loadBrokers() {
+    this.brokerService.getBrokers().subscribe((brokers: Broker[]) => {
+      this.brokerData = brokers.map((broker) => ({
+        name: `${broker.name} ${broker.surname}`,
+        commissionEarned: broker.commissionRate * 100,
+      }));
+
+      this.createPieChart();
+    });
   }
 
   createPieChart() {
     const labels = this.brokerData.map((broker) => broker.name);
     const data = this.brokerData.map((broker) => broker.commissionEarned);
-  
+
     const ctx = document.getElementById('commissionPieChart') as HTMLCanvasElement;
 
     if (this.chart) {
       this.chart.destroy();
     }
-  
+
     const config: ChartConfiguration<'pie', number[], string> = {
       type: 'pie',
       data: {
@@ -58,6 +84,7 @@ constructor(
               'rgba(255, 99, 132, 0.5)',
               'rgba(54, 162, 235, 0.5)',
               'rgba(255, 206, 86, 0.5)',
+              // Add more colors if you have more brokers
             ],
           },
         ],
@@ -72,6 +99,6 @@ constructor(
       },
     };
 
-    //this.chart = new Chart(ctx, config);
+    this.chart = new Chart(ctx, config);
   }
-}
+}*/

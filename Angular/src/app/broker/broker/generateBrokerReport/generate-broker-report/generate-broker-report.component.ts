@@ -31,12 +31,6 @@ export class GenerateBrokerReportComponent implements OnInit {
   }
 title ="Broker report";
 
-
-constructor(
- 
-  private brokerService: BrokerService,
-  ){}
-
    @ViewChild('cards', { static: false }) cardsContainer!: ElementRef;
   cardData: any[] = [];
   async fetchTableData() {
