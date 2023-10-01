@@ -1,0 +1,40 @@
+<!-- request-maintenance-modal.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Request Maintenance
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label position="stacked">Maintenance Note</ion-label>
+      <ion-textarea
+        [(ngModel)]="maintenanceNote"
+        name="maintenanceNote"
+        rows="5"
+        placeholder="Enter maintenance note..."
+      ></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col>
+      <ion-button expand="full" color="primary" (click)="submitMaintenanceRequest()">
+        Submit
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" color="danger" (click)="closeModal()">
+        Cancel
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

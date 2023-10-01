@@ -14,7 +14,18 @@ namespace WebApi.Repositories
         {
             _appDbContext = appDbContext;
         }
+        public async Task<List<Lease>> GetLeasesByTenantIDAsync(int tenantID)
+        {
+            // Use Entity Framework or your preferred data access method to query the database
+            // and retrieve leases that match the provided tenantID
+            var leases = await _appDbContext.Lease
+                .Where(lease => lease.TenantID == tenantID)
+                .ToListAsync(); // If you're using Entity Framework Core
 
+            // You can customize the query as needed to match your data model
+
+            return leases;
+        }
         public void Add<T>(T entity) where T : class
         {
             _appDbContext.Add(entity);
@@ -23,13 +34,35 @@ namespace WebApi.Repositories
         {
             return await _appDbContext.SaveChangesAsync() > 0;
         }
-
+        public async Task<List<Lease>> GetLeasesByTenantID(int tenantID)
+        {
+            return await _appDbContext.Lease
+                .Where(lease => lease.TenantID == tenantID)
+                .ToListAsync();
+        }
         public async Task<Lease[]> GetAllLeasesAsync()
         {
             IQueryable<Lease> query = _appDbContext.Lease;
             return await query.ToArrayAsync();
         }
+        public async Task<Property> GetPropertyByLeaseIDAsync(int leaseID)
+        {
+            // Use Entity Framework or your preferred data access method to query the database
+            // and retrieve the property associated with the provided leaseID
 
+            // First, retrieve the lease by ID
+            var lease = await _appDbContext.Lease.FirstOrDefaultAsync(l => l.LeaseID == leaseID);
+
+            if (lease != null)
+            {
+                // If the lease is found, retrieve the associated property
+                var property = await _appDbContext.Property.FirstOrDefaultAsync(p => p.PropertyID == lease.PropertyID);
+                return property;
+            }
+
+            // If the lease is not found, return null or handle the case as needed
+            return null;
+        }
 
         public async Task AddLease(Lease lease)
         {

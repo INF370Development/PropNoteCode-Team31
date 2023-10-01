@@ -22,7 +22,12 @@ namespace WebApi.Repositories
             return await _appDbContext.SaveChangesAsync() > 0;
         }
 
-
+        public async Task<List<Property>> GetPropertiesByIDs(List<int> propertyIDs)
+        {
+            return await _appDbContext.Property
+                .Where(property => propertyIDs.Contains(property.PropertyID))
+                .ToListAsync();
+        }
         public async Task<Property[]> GetAllPropertiesAsync()
         {
             // IQueryable<Property> query = _appDbContext.Properties.Include(x => x.Broker);

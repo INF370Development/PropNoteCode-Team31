@@ -12,7 +12,6 @@ using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaintenanceController : Controller
@@ -346,6 +345,39 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
+        [HttpPost("AddMaintenanceNoteToMaintenance/{maintenanceID}")]
+        public async Task<IActionResult> AddMaintenanceNoteToMaintenance(int maintenanceID, MaintenanceNoteViewModel maintenanceNoteViewModel)
+        {
+            try
+            {
+                // Check if the Maintenance with the provided maintenanceID exists
+                var existingMaintenance = await _maintenanceRepository.GetMaintenanceByID(maintenanceID);
+
+                if (existingMaintenance == null)
+                {
+                    return NotFound("Maintenance does not exist");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid input data");
+                }
+
+                var maintenanceNote = new MaintenanceNote
+                {
+                    MaintenanceID = maintenanceID,
+                    MaintenanceNoteDescription = maintenanceNoteViewModel.MaintenanceNoteDescription
+                };
+
+                var addedMaintenanceNote = await _maintenanceRepository.AddMaintenanceNote(maintenanceNote);
+
+                return Ok(addedMaintenanceNote);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
 
         [HttpPut("EditMaintenanceNote")]
         public async Task<IActionResult> EditMaintenanceNote(int id, MaintenanceNoteViewModel maintenanceNoteViewModel)
@@ -443,6 +475,26 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpGet("GetMaintenanceByProperty/{PropertyId}")]
+        public async Task<IActionResult> GetMaintenanceByPropertyID(int PropertyId)
+        {
+            try
+            {
+                var result = await _maintenanceRepository.GetMaintenanceByPropertyID(PropertyId);
+
+                if (result == null || !result.Any())
+                {
+                    return NotFound("No maintenance records found for this property.");
+                }
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
         [HttpPost("AddMaintenance")]
         public async Task<IActionResult> AddMaintenance(MaintenanceViewModel maintenanceViewModel)
         {
@@ -480,7 +532,7 @@ namespace WebApi.Controllers
                 existingMaintenance.MaintenanceStatusID = maintenanceViewModel.MaintenanceStatusID;
             if (maintenanceViewModel.MaintenanceTypeID != 0)
                 existingMaintenance.MaintenanceTypeID = maintenanceViewModel.MaintenanceTypeID;
-            if (maintenanceViewModel.MaintenanceDate != "")
+            if (maintenanceViewModel.MaintenanceDate != null)
                 existingMaintenance.MaintenanceDate = maintenanceViewModel.MaintenanceDate;
             if (maintenanceViewModel.MaintenanceTime != "")
                 existingMaintenance.MaintenanceTime = maintenanceViewModel.MaintenanceTime;
