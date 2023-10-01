@@ -17,7 +17,6 @@
         public virtual ICollection<Inspection> Inspections { get; set; }
         public virtual ICollection<Recovery> Recoveries { get; set; }
         public virtual ICollection<PropertyImage> PropertyImages { get; set; }
-
     }
 
     public class PropertyImage

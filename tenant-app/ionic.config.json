@@ -1,0 +1,7 @@
+{
+  "name": "tenant-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
