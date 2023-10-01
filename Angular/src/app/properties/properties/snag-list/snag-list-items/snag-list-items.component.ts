@@ -10,6 +10,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
   import { CreateSnagListItemsComponent } from './create-snag-list-items/create-snag-list-items.component';
   import { MatDialog } from '@angular/material/dialog';
 import { EditSnagListItemsComponent } from './edit-snag-list-items/edit-snag-list-items.component';
+import { DeleteSnagListItemComponent } from './delete-snag-list-item/delete-snag-list-item.component';
 
 
 @Component({
@@ -49,8 +50,8 @@ export class SnagListItemsComponent implements OnInit{
   }
 
   async deleteSnaglistitem(id: any) {
-    await this._SnagListService.deleteSnaglistitem(id).subscribe();
-    this.showSnackBar();
+    this._SnagListService.ItemID=id;
+    const dialogRef = this.dialog.open(DeleteSnagListItemComponent, {});
   }
 
   showSnackBar() {

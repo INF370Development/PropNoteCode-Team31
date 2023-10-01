@@ -407,7 +407,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'assignMaintenance',
+    path: 'MaintenanceDetail',
     component: AssignMaintenanceComponent,
     canActivate: [RoleGuard],
     data: {

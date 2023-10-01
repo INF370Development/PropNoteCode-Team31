@@ -47,6 +47,9 @@ export class CreateSnagListItemsComponent implements OnInit{
 
   CreateItem() {
     debugger;
+    if(this.ItemModal.snagListItemDescription!='')
+    {
+    
     this._SnagListService.createSnaglistitem(this.ItemModal).subscribe(
       (response) => {
         console.log('Snaglistitem created successfully:', response);
@@ -56,7 +59,7 @@ export class CreateSnagListItemsComponent implements OnInit{
       },
       (error) => {
         console.error('Error creating snaglistitem:', error);
-      }
-    );
+      });
+    }
   }
 }

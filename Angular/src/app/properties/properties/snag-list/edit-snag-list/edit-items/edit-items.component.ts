@@ -21,7 +21,7 @@ export class EditItemsComponent {
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {}
-
+a:any;
   ngOnInit(): void 
   {
     this._SnagListService.getSnaglistitemsIn(this._SnagListService.LiistID).subscribe((Items: any) => {
@@ -31,11 +31,13 @@ export class EditItemsComponent {
     this._SnagListService.getSnaglistitemsNot(this._SnagListService.LiistID).subscribe((Items: any) => {
       this.Items=Items;
     });
+    this.a=this._SnagListService.LiistID;
   }
   handleCheckboxChange(event: any,i:any) {
     if (event.target.checked) {
       this.AddItemToList(i);
-    } else {
+    } 
+    else {
       this.DeleteItemToList(i);
     }
   }
@@ -64,7 +66,7 @@ export class EditItemsComponent {
   }
 
   DeleteAllItems() {
-    debugger;
+   // debugger;
    this._SnagListService.deleteAllitemsinList(this._SnagListService.ListId).subscribe();
    this._SnagListService.deleteSnagList(this._SnagListService.ListId).subscribe();
   }

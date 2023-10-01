@@ -1,8 +1,8 @@
 <div class="modal-overlay">
     <div class="modal-container">
-      <h1>Create Snag List Item</h1>
+      <h1>Create Snag List </h1>
       <form (submit)="closeModal()">
-        <h3><b>Select items you want to add to the Snag</b></h3>{{x}}
+        <h3><b>Select items you want to add to the Snag</b></h3>
         <div *ngFor="let Item of Items"> 
             <input type="checkbox" (change)="handleCheckboxChange($event,Item.snagListItemId)">
             {{Item.snagListItemDescription}}

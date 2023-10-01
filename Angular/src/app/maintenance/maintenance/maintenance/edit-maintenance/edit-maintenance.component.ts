@@ -22,11 +22,12 @@ import { ContractorService } from 'src/app/services/contractor.service';
     Contractor:any;
     Status:any;
     Type:any;
+    Maintenance:any;
     MainForm: FormGroup;
     adminRole: boolean = false;
     editorRole: boolean = false;
     viewerRole: boolean = false;
-    time: string[]=['12:30','11:30','10:30','9:30','08:30'];
+    time: string[]=['12:30','11:30','10:30','09:30','08:30'];
     MaintenanceModal: Maintenance = {
       propertyID: 0,
       contractorID: 0,
@@ -50,6 +51,9 @@ import { ContractorService } from 'src/app/services/contractor.service';
     ) {this.MainForm = new FormGroup({});}
   
     ngOnInit(): void {
+      this.maintenanceService.getMaintenance(this.maintenanceService.MaintenanceId).subscribe((Maintenance: any) => {
+        this.Maintenance=Maintenance;
+      });
       this.maintenanceService.getMaintenanceStatuses().subscribe((Maintenance: any) => {
         this.Status=Maintenance;
       });
@@ -62,6 +66,7 @@ import { ContractorService } from 'src/app/services/contractor.service';
       this.contractor_service.getContractors().subscribe((Maintenance: any) => {
         this.Contractor=Maintenance;
       });
+
       this.MainForm = this.formBuilder.group({
         PropertyId: ['', Validators.required],
         ContractorId: ['',Validators.required],

@@ -19,6 +19,9 @@ export class EditSnagListComponent implements OnInit{
     Validators.pattern(/^[a-zA-Z\s]*$/), // Accepts only alphabets and spaces
     Validators.maxLength(50), // Maximum length is 32 characters
   ]);
+  PropertyFormControl= new FormControl('', [
+    Validators.required,
+  ]);
   adminRole: boolean = false;
   editorRole: boolean = false;
   viewerRole: boolean = false;
@@ -27,7 +30,7 @@ export class EditSnagListComponent implements OnInit{
     propertyId:0,
     snagListDescription: ''
   };
-
+snaglist:any;
   constructor(
     private dialogRef: MatDialogRef<EditSnagListComponent>,
     private _SnagListService: SnagListService,
@@ -39,7 +42,9 @@ export class EditSnagListComponent implements OnInit{
 
   ngOnInit(): void 
   {
-    
+    this._SnagListService.getSnagList(this._SnagListService.LiistID).subscribe((Maintenance: any) => {
+      this.snaglist=Maintenance;
+    });
     this.property_service.getProperties().subscribe((Maintenance: any) => {
       this.Property=Maintenance;
     });

@@ -72,9 +72,6 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
 import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
-import { AssignMaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assignMaintenanceModal/assign-maintenance-modal/assign-maintenance-modal.component';
-import { DeleteMaintenanceDialogComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/deleteMaintenanceDialog/delete-maintenance-dialog/delete-maintenance-dialog.component';
-import { UpdateMiaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/updateMaintenanceModal/update-miaintenance-modal/update-miaintenance-modal.component';
 import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
@@ -146,6 +143,10 @@ import { CreateSnagListItemsComponent } from './properties/properties/snag-list/
 import { EditSnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/edit-snag-list-items/edit-snag-list-items.component';
 import { EditItemsComponent } from './properties/properties/snag-list/edit-snag-list/edit-items/edit-items.component';
 import { AddItemsComponent } from './properties/properties/snag-list/create-snag-list/add-items/add-items.component';
+import { DeleteMaintenanceComponent } from './maintenance/maintenance/maintenance/delete-maintenance/delete-maintenance.component';
+import { DeleteSnagListComponent } from './properties/properties/snag-list/delete-snag-list/delete-snag-list.component';
+import { DeleteSnagListItemComponent } from './properties/properties/snag-list/snag-list-items/delete-snag-list-item/delete-snag-list-item.component';
+import { EditViewComponent } from './properties/properties/snag-list/view-items/edit-view/edit-view.component';
 
 export function tokenGetter() {
   return localStorage.getItem('Token');
@@ -220,9 +221,6 @@ export function jwtOptionsFactory() {
     CreateContractorModalComponent,
     DeleteContracorDialogComponent,
     UpdateContractorModalComponent,
-    AssignMaintenanceModalComponent,
-    DeleteMaintenanceDialogComponent,
-    UpdateMiaintenanceModalComponent,
     CreateTenantModalComponent,
     TenantDetailsComponent,
     ContractorTreeComponent,
@@ -268,7 +266,11 @@ export function jwtOptionsFactory() {
     EditSnagListItemsComponent,
     AddItemsComponent,
     EditItemsComponent,
-    ViewItemsComponent
+    ViewItemsComponent,
+    DeleteMaintenanceComponent,
+    DeleteSnagListComponent,
+    DeleteSnagListItemComponent,
+    EditViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,31 +1,31 @@
 <div class="modal-overlay">
   <div class="modal-container">
     <h2>Edit Maintenance</h2>
-    <form (submit)="EditMaintenance(date.value)" [formGroup]="MainForm">
+    <form (submit)="EditMaintenance(date.value)" >
       <mat-form-field class="form-field">
         <label>Property</label>
-        <mat-select placeholder="Select Property" formControlName="PropertyId" (selectionChange)="updatePropertyId($event.value)" required>
+        <mat-select placeholder={{Maintenance.property.description}} formControlName="PropertyId" (selectionChange)="updatePropertyId($event.value)" required>
           <mat-option *ngFor="let prop of Property" [value]="prop.propertyID">{{ prop.description }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="form-field">
         <label>Select Contractor</label>
-        <mat-select placeholder="Select Contractor" formControlName="ContractorId" (selectionChange)="updateContractorId($event.value)"required>
-          <mat-option *ngFor="let contractor of Contractor" [value]="contractor.contractorID">{{ contractor.areaOfBusiness }}</mat-option>
+        <mat-select placeholder="{{Maintenance.contractor.user.name }} {{Maintenance.contractor.user.surname}}"  formControlName="ContractorId" (selectionChange)="updateContractorId($event.value)"required>
+          <mat-option *ngFor="let contractor of Contractor" [value]="contractor.contractorID">{{Maintenance.contractor.user.name }} {{Maintenance.contractor.user.surname}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="form-field">
         <label>Status</label>
-        <mat-select placeholder="Select Status" formControlName="StatusId" (selectionChange)="updateMaintenanceStatusId($event.value)" required>
+        <mat-select placeholder={{Maintenance.maintenanceStatus.maintenanceStatusName}} formControlName="StatusId" (selectionChange)="updateMaintenanceStatusId($event.value)" required>
           <mat-option *ngFor="let stat of Status" [value]="stat.maintenanceStatusID">{{ stat.maintenanceStatusName }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="form-field">
         <label>Type</label>
-        <mat-select placeholder="Select Type" formControlName="TypeId" (selectionChange)="updateMaintenanceTypeId($event.value)" required>
+        <mat-select placeholder={{Maintenance.maintenanceType.maintenanceTypeName}} formControlName="TypeId" (selectionChange)="updateMaintenanceTypeId($event.value)" required>
           <mat-option *ngFor="let type of Type" [value]="type.maintenanceTypeID">{{ type.maintenanceTypeName }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -36,6 +36,7 @@
           matInput #date
           [matDatepicker]="endDatePicker"
           formControlName="endDate"
+          placeholder={{Maintenance.maintenanceDate}}
           required
         />
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
@@ -44,17 +45,74 @@
 
       <mat-form-field class="form-field">
         <label>Time</label>
-        <mat-select placeholder="Select Property" formControlName="Time" (selectionChange)="updateMaintenanceTime($event.value)" required>
+        <mat-select placeholder={{Maintenance.maintenanceTime}}  (selectionChange)="updateMaintenanceTime($event.value)" required>
           <mat-option *ngFor="let prop of time" [value]="prop">{{ prop }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <div class="modal-actions">
-        <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
-        <button mat-raised-button type="submit" color="primary">
-          Update
-        </button>
+      <div class="end">
+        <button mat-raised-button  color="accent" type="submit">Update</button>
+        <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="warn" class="cancel" (click)="closeModal()">Cancel</button>
       </div>
     </form>
   </div>
 </div>
+<!--<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Edit Maintenance</h2>
+    <form (submit)="EditMaintenance(date.value)" [formGroup]="MainForm">
+      <mat-form-field class="form-field">
+        <label>Property</label>
+        <mat-select placeholder="{{Maintenance.property.description}}" (selectionChange)="updatePropertyId($event.value)" >
+          <mat-option *ngFor="let prop of Property" [value]="prop.propertyID">{{ prop.description }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Select Contractor</label>
+        <mat-select placeholder="{{Maintenance.contractor.user.name}} "
+         (selectionChange)="updateContractorId($event.value)">
+          <mat-option *ngFor="let contractor of Contractor" [value]="contractor.contractorID">{{ contractor.contractor.user.name}}{{ contractor.contractor.user.surname}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Status</label>
+        <mat-select placeholder="{{Maintenance.maintenanceStatus.maintenanceStatusName}}"  (selectionChange)="updateMaintenanceStatusId($event.value)" >
+          <mat-option *ngFor="let stat of Status" [value]="stat.maintenanceStatusID">{{ stat.maintenanceStatusName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Type</label>
+        <mat-select placeholder="{{Maintenance.maintenanceType.maintenanceTypeName}}"  (selectionChange)="updateMaintenanceTypeId($event.value)" >
+          <mat-option *ngFor="let type of Type" [value]="type.maintenanceTypeID">{{ type.maintenanceTypeName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+ 
+      <mat-form-field>
+        <label>Date</label>
+        <input
+          matInput #date
+          [matDatepicker]="endDatePicker"
+          placeholder="{{Maintenance.maintenanceDate}}"
+        />
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <label>Time</label>
+        <mat-select placeholder="{{Maintenance.maintenanceTime}}"  (selectionChange)="updateMaintenanceTime($event.value)" required>
+          <mat-option *ngFor="let prop of time" [value]="prop">{{ prop }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="end">
+        <button mat-raised-button  color="accent" type="submit">Update</button>
+        <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+-->

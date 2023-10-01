@@ -16,7 +16,7 @@ export class AddItemsComponent {
   x:any;
   constructor(
     private dialogRef: MatDialogRef<AddItemsComponent>,
-    private _SnagListService: SnagListService,
+    public _SnagListService: SnagListService,
     private router: Router,
     private snackBar: MatSnackBar,
     public dialog: MatDialog
@@ -24,15 +24,11 @@ export class AddItemsComponent {
 
   ngOnInit(): void 
   {
-      
-    this._SnagListService.getLast().subscribe((id: any) => {
-      this._SnagListService.ListId=id;
-      this.x=id;
-    });
-    this.update();
+    
     this._SnagListService.getSnaglistitems().subscribe((Items: any) => {
       this.Items=Items;
     });
+    this.update();
   }
   handleCheckboxChange(event: any,i:any) {
     if (event.target.checked) {
@@ -43,10 +39,10 @@ export class AddItemsComponent {
   }
   update()
   {
-    this.x=this._SnagListService.ListId;
+    //this.x=this._SnagListService.List.snagListId;
   }
   AddItemToList(i: number) {
-    this._SnagListService.addItemtoList(this._SnagListService.ListId,i).subscribe(
+    this._SnagListService.addItemtoList(this._SnagListService.List.snagListId,i).subscribe(
       (response) => {
         console.log('Snaglistitem added successfully:', response);
       },

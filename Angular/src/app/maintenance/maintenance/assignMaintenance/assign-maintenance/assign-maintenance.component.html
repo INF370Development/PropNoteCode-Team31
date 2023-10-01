@@ -1,1 +1,85 @@
-<p>assign-maintenance works!</p>
+<h1>Maintenance Details</h1>
+
+<button mat-button [routerLink]="['/viewMaintenance']">
+  <mat-icon>home</mat-icon>
+  Return
+</button>
+<br>
+<div *ngIf="Maintenance!=null">
+<div class="container" >
+    <div class="card">
+        <div >
+        <h2>Maintenance</h2>
+        <h5>Date: {{ Maintenance.maintenanceDate }}</h5>
+        <h5>Time: {{ Maintenance.maintenanceTime }}</h5>
+        <h5>Status: {{ Maintenance.maintenanceStatus.maintenanceStatusName}}</h5>
+        <h5>Type:  {{ Maintenance.maintenanceType.maintenanceTypeName }}</h5>
+
+        <h5 (click)="EditNote(Maintenance.maintenanceID)" *ngIf="Maintenance.maintenanceNote.maintenanceNoteDescription; else addNoteTemplate"
+        matTooltip="Click to Update a Maintenance Note">
+            Note: {{ Maintenance.maintenanceNote.maintenanceNoteDescription }}</h5>
+            <ng-template #addNoteTemplate>
+             <h5>
+                Note: <button mat-button class="deletebutton" (click)="AddNote(Maintenance.maintenanceID)"
+                matTooltip="Click to Add a Maintenance Note">
+                    <mat-icon>add</mat-icon>
+                  </button>
+             </h5> 
+            
+            </ng-template>
+
+        <h5 (click)="EditPayment(Maintenance.maintenanceID)" *ngIf="Maintenance.payment.amount!=0; else addPaymentTemplate"
+        matTooltip="Click to Update a Maintenance Payment">
+            Amount: R {{ Maintenance.payment.amount }}
+        </h5>
+        <ng-template #addPaymentTemplate><h5>
+            Amount: R <button mat-button class="deletebutton" 
+            (click)="AddPayment(Maintenance.maintenanceID)"
+            matTooltip="Click to Add Maintenance Amount">
+                <mat-icon>add</mat-icon> </button></h5>
+        </ng-template>
+          <br>
+
+
+        <div class="buttons">
+            <button mat-raised-button color="primary" (click)="EditMaintenance()">UPDATE</button>
+        </div>
+</div>
+</div> 
+    
+</div>
+<div class="container">
+<div class="card">
+            <div class="details">
+              <h2>Property</h2>
+            <h5>Description: {{ Maintenance.property.description}}</h5>
+            <h5>Address: {{ Maintenance.property.buildingNumber }} {{ Maintenance.property.street }}, {{ Maintenance.property.suburb }}</h5>
+            <h5>Property Size: {{ Maintenance.property.size }}m<sup>2</sup></h5>
+            <h5>Yard Area: {{ Maintenance.property.yard }}m<sup>2</sup></h5>
+            <h5>Purchase Amount: R {{ Maintenance.property.purchaseAmount }}</h5>
+            <h5>Purchase Year: {{ Maintenance.property.purchaseYear }}</h5><br>
+            <div class="buttons">
+                <button mat-raised-button color="primary" 
+                [routerLink]="['/viewProperties', Maintenance.propertyID]">View Property</button>
+            </div>
+    </div>
+</div>
+<div class="card">
+    <div class="details">
+      <h2>Contractor</h2>
+    <h5>Name: {{ Maintenance.contractor.user.name}} {{ Maintenance.contractor.user.surname}}</h5>
+    <h5>Email: {{ Maintenance.contractor.user.email}}</h5>
+    <h5>Phone Number: {{ Maintenance.contractor.user.phoneNumber}}</h5>
+    <h5>Area of Business: {{ Maintenance.contractor.areaOfBusiness}}</h5>
+    <h5>Availability: {{ Maintenance.contractor.availability}}</h5>
+    <div class="buttons">
+      <button mat-raised-button color="primary" [routerLink]="['/view-contractor-details', Maintenance.contractorID]">View Contractor</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+
+

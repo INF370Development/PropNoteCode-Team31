@@ -12,6 +12,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { EditSnagListComponent } from './edit-snag-list/edit-snag-list.component';
 import { ViewItemsComponent } from './view-items/view-items.component';
 import { SnagListItemsComponent } from './snag-list-items/snag-list-items.component';
+import { DeleteSnagListComponent } from './delete-snag-list/delete-snag-list.component';
 
 
 @Component({
@@ -54,9 +55,10 @@ export class SnagListComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async deleteSnaglist(id: any) {
-    await this._SnagListService.deleteSnagList(id).subscribe();
-    this.showSnackBar();
+  deleteSnaglist(id: any) {
+    this._SnagListService.ListId=id;
+    const dialogRef = this.dialog.open(DeleteSnagListComponent, {});
+    //this.showSnackBar();
   }
 
   showSnackBar() {

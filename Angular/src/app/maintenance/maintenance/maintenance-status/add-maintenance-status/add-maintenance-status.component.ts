@@ -42,7 +42,8 @@ import { Component, OnInit } from '@angular/core';
     }
   
     AddMaintenanceType() {
-      debugger;
+      //debugger;
+      if(this.MaintenanceStatusModal.maintenanceStatusName!=''){
       this.maintenanceService.AddMaintenanceStatus(this.MaintenanceStatusModal).subscribe(
         (response) => {
           console.log('Snaglistitem created successfully:', response);
@@ -53,7 +54,7 @@ import { Component, OnInit } from '@angular/core';
         (error) => {
           console.error('Error creating snaglistitem:', error);
         }
-      );
+      );}
     }
   }
   

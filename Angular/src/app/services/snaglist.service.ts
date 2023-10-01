@@ -11,18 +11,26 @@ export class SnagListService { // Rename the service class
   apiUrl = 'http://localhost:7251/api/';
   public ItemsInAList:any;
   public ListId:any;
+  public List:any;
+  private _Token = localStorage.getItem('Token');
   httpOptions = {
     headers: new HttpHeaders({
       ContentType: 'application/json',
     }),
   };
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${this._Token}`,
+  });
   ItemID:any;
   LiistID:any;
   constructor(private _httpClient: HttpClient) {}
 
   getSnaglistitems(): Observable<Snaglistitem[]> { // Rename the method
     return this._httpClient
-      .get<Snaglistitem[]>(`https://localhost:7251/api/SnagList/GetAllSnaglistitems`) // Update the API URL
+      .get<Snaglistitem[]>(`https://localhost:7251/api/SnagList/GetAllSnaglistitems`,{
+        headers: this.headers,
+      })  // Update the API URL
       .pipe(map((result) => result));
   }
 
@@ -30,87 +38,116 @@ export class SnagListService { // Rename the service class
     return this._httpClient
       .get(
         `https://localhost:7251/api/SnagList/GetSnagListItem/${snaglistitemID}` // Update the API URL
-      )
+      ,{
+        headers: this.headers,
+      }) 
       .pipe(map((result) => result));
   }
 
 editSnaglistitem(x:any,item: Snaglistitem) { // Rename the method
   return this._httpClient
-    .put(`https://localhost:7251/api/SnagList/EditSnagListItem/${x}`, item) // Update the API URL
+    .put(`https://localhost:7251/api/SnagList/EditSnagListItem/${x}`, item,{
+      headers: this.headers,
+    }) // Update the API URL
     .pipe(map((result) => result));
 }
   deleteSnaglistitem(snaglistitemID: number) { // Rename the method
     return this._httpClient
-      .delete(`https://localhost:7251/api/SnagList/DeleteSnagListItem/${snaglistitemID}`) // Update the API URL
+      .delete(`https://localhost:7251/api/SnagList/DeleteSnagListItem/${snaglistitemID}`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
 
   createSnaglistitem(snaglistitem: Snaglistitem) { // Rename the method
     return this._httpClient
-      .post(`https://localhost:7251/api/SnagList/AddSnaglistitem`, snaglistitem) // Update the API URL
+      .post(`https://localhost:7251/api/SnagList/AddSnaglistitem`, snaglistitem,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
 
 
   getSnagLists(): Observable<SnagList[]> { // Rename the method
     return this._httpClient
-      .get<SnagList[]>(`https://localhost:7251/api/SnagList/GetAllSnagLists`) // Update the API URL
+      .get<SnagList[]>(`https://localhost:7251/api/SnagList/GetAllSnagLists`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
 
-  getSnagList(snaglistID: number, snaglist: SnagList) { // Rename the method
+  getSnagList(snaglistID: number): Observable<SnagList> { // Rename the method
     return this._httpClient
-      .post(
-        `https://localhost:7251/api/SnagList/GetSnagListByID/${snaglistID}`, // Update the API URL
-        snaglist
+      .get<SnagList>(
+        `https://localhost:7251/api/SnagList/GetSnagListByID/${snaglistID}`,{
+          headers: this.headers,
+        }
       )
       .pipe(map((result) => result));
   }
 
   deleteSnagList(snaglistID: number) { // Rename the method
     return this._httpClient
-      .delete(`https://localhost:7251/api/SnagList/DeleteSnagList/${snaglistID}`) // Update the API URL
+      .delete(`https://localhost:7251/api/SnagList/DeleteSnagList/${snaglistID}`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
 
-  createSnagList(snaglist: SnagList) { // Rename the method
+  createSnagList(snaglist: SnagList) : Observable<SnagList>{ // Rename the method
     return this._httpClient
-      .post(`https://localhost:7251/api/SnagList/AddSnagList`, snaglist) // Update the API URL
+      .post<SnagList>(`https://localhost:7251/api/SnagList/AddSnagList`, snaglist,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
   editSnagList(snaglistID:any,snaglist: SnagList) { // Rename the method
     return this._httpClient
-      .put(`https://localhost:7251/api/SnagList/EditSnagList/${snaglistID}`, snaglist) // Update the API URL
+      .put(`https://localhost:7251/api/SnagList/EditSnagList/${snaglistID}`, snaglist,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
   getLast():Observable<number> { // Rename the method
     return this._httpClient
-      .get<number>(`https://localhost:7251/api/SnagList/lastSnagList`) // Update the API URL
+      .get<number>(`https://localhost:7251/api/SnagList/lastSnagList`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
   addItemtoList(snagList:any,Item:any){
     return this._httpClient
-      .post(`https://localhost:7251/api/SnagList/AddItem/${snagList},${Item}`,null)
+      .post(`https://localhost:7251/api/SnagList/AddItem/${snagList},${Item}`,null,{
+        headers: this.headers,
+      })
       .pipe(map((result) => result));
   }
   deleteItemsFromList(snagList:any,Item:any) { // Rename the method
     return this._httpClient
-      .delete(`https://localhost:7251/api/SnagList/DeleteSnagListItemLine/${snagList},${Item}`) // Update the API URL
+      .delete(`https://localhost:7251/api/SnagList/DeleteSnagListItemLine/${snagList},${Item}`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
   deleteAllitemsinList(SnagListID:any){
     return this._httpClient
-      .delete(`https://localhost:7251/api/SnagList/DeleteAllSnagListItemLine/${SnagListID}`) // Update the API URL
+      .delete(`https://localhost:7251/api/SnagList/DeleteAllSnagListItemLine/${SnagListID}`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
   getSnaglistitemsIn(SnagListID:any):Observable<any[]> { // Rename the method
     return this._httpClient
-      .get<any[]>(`https://localhost:7251/api/SnagList/GetAllSnagListItemLine/${SnagListID}`) // Update the API URL
+      .get<any[]>(`https://localhost:7251/api/SnagList/GetAllSnagListItemLine/${SnagListID}`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
   getSnaglistitemsNot(SnagListID:any):Observable<any[]> { // Rename the method
     return this._httpClient
-      .get<any[]>(`https://localhost:7251/api/SnagList/GetSnagListItemnotinList/${SnagListID}`) // Update the API URL
+      .get<any[]>(`https://localhost:7251/api/SnagList/GetSnagListItemnotinList/${SnagListID}`,{
+        headers: this.headers,
+      }) // Update the API URL
       .pipe(map((result) => result));
   }
 }

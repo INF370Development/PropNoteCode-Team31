@@ -22,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
     Contractor:any;
     Status:any;
     Type:any;
-    time: string[]=['10:30','9:30','08:30'];
+    time: string[]=['12:30','11:30','10:30','09:30','08:30'];
 
     adminRole: boolean = false;
     editorRole: boolean = false;
@@ -40,7 +40,25 @@ import { Component, OnInit } from '@angular/core';
         maintenanceStatus: new MaintenanceStatus,
         maintenanceType: new MaintenanceType
       };
-  
+      prpertyFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      contractorFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      statusFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      typeFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      dateFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      timeFormControl = new FormControl('', [
+        Validators.required
+      ]);
+
     constructor(
       private dialogRef: MatDialogRef<AddMaintenanceComponent>,
       private maintenanceService: MaintenanceService,
@@ -96,7 +114,13 @@ import { Component, OnInit } from '@angular/core';
       this.dialogRef.close();
     }
     AddMaintenanceType(x:any) {
-      debugger;
+      //debugger;
+      if(this.MaintenanceModal.propertyID!=0&&
+        this.MaintenanceModal.contractorID!= 0&&
+        this.MaintenanceModal.maintenanceStatusID!= 0&&
+        this.MaintenanceModal.maintenanceTypeID!= 0&&
+        this.MaintenanceModal.maintenanceDate!= ""&&
+        this.MaintenanceModal.maintenanceTime!= "12:30"){
       this.MaintenanceModal.maintenanceDate=x;
       this.maintenanceService.AddMaintenance(this.MaintenanceModal).subscribe(
         (response) => {
@@ -108,7 +132,7 @@ import { Component, OnInit } from '@angular/core';
         (error) => {
           console.error('Error creating snaglistitem:', error);
         }
-      );
+      );}
     }
   }
   

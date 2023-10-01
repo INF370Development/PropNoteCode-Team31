@@ -1,7 +1,7 @@
 <div class="modal-overlay">
     <div class="modal-container">
       <h2>Add Maintenance Type</h2>
-      <form (submit)="AddMaintenanceType()">
+      <form >
         <mat-form-field class="form-field">
           <mat-label>Status Name</mat-label>  
           <input
@@ -22,11 +22,9 @@
               Maintenance Status Name cannot exceed 32 characters.
             </mat-error>
           </mat-form-field>
-        <div class="modal-actions">
-          <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
-          <button mat-raised-button type="submit" color="primary" [disabled]="nameFormControl.invalid">
-            Add
-          </button>
+          <div class="end">
+            <button mat-raised-button  color="accent" (click)="AddMaintenanceType()">Add</button>
+            <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="warn" class="cancel" (click)="closeModal()">Cancel</button>
         </div>
       </form>
     </div>

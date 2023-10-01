@@ -142,7 +142,7 @@ namespace WebApi.Repositories
            {
                x=item.SnagListId;
            }
-           return x;
+           return x+1;
        }
 
        

@@ -16,9 +16,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CreateSnagListComponent implements OnInit {
   descriptionFormControl = new FormControl('', [
-    /*Validators.required,
+    Validators.required,
     Validators.pattern(/^[a-zA-Z\s]*$/), // Accepts only alphabets and spaces
-    Validators.maxLength(50), // Maximum length is 32 characters*/
+    Validators.maxLength(50), // Maximum length is 32 characters
+  ]);
+  PropertyFormControl= new FormControl('', [
+    Validators.required,
   ]);
   adminRole: boolean = false;
   editorRole: boolean = false;
@@ -62,20 +65,13 @@ export class CreateSnagListComponent implements OnInit {
   }
 
   async CreateItem() {
-    debugger;
-      this._SnagListService
-    await this._SnagListService.createSnagList(this.ItemModal).subscribe(
-      (response) => {
-        console.log('Snaglistitem created successfully:', response);
-      },
-      (error) => {
-        console.error('Error creating snaglistitem:', error);
-      },
-    );
-    this._SnagListService.getLast().subscribe((id: any) => {
-      this._SnagListService.ListId=id;
-    });
-    this.closeModal();
-    const dialogRef = this.dialog.open(AddItemsComponent, {});
+    //debugger;
+    if(this.ItemModal.propertyId!=0&&this.ItemModal.snagListDescription!='')
+    {
+      await this._SnagListService.createSnagList(this.ItemModal).subscribe((list: any) => {
+        this._SnagListService.List=list;});
+      this.closeModal();
+      const dialogRef = this.dialog.open(AddItemsComponent, {});
+    }
   }
 }

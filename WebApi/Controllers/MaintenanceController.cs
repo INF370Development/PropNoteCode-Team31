@@ -6,21 +6,22 @@ using System.Net.NetworkInformation;
 using WebApi.Interfaces;
 using WebApi.Models;
 using WebApi.Models.Admin;
-using WebApi.Models.Data;
+using WebApi.Models.Users;
 using WebApi.Models.Maintenance;
 using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaintenanceController : Controller
     {
         private readonly IMaintenanceRepository _maintenanceRepository;
-
-        public MaintenanceController(IMaintenanceRepository repository)
+        private readonly IContractorRepository _contractorRepository;
+        public MaintenanceController(IContractorRepository con_repository, IMaintenanceRepository repository)
         {
+            _contractorRepository = con_repository; 
             _maintenanceRepository = repository;
         }
 
@@ -412,7 +413,7 @@ namespace WebApi.Controllers
                         MaintenanceDate = maintenance.MaintenanceDate,
                         MaintenanceTime = maintenance.MaintenanceTime,
                         Property = maintenance.Property,
-                        Contractor = maintenance.Contractor,
+                        Contractor = (Contractor) await _contractorRepository.GetContractorByIDAsync(maintenance.ContractorID),
                         MaintenanceStatus = maintenance.MaintenanceStatus,
                         MaintenanceType = maintenance.MaintenanceType,
                         MaintenanceNote = note,
@@ -432,11 +433,32 @@ namespace WebApi.Controllers
         {
             try
             {
-                var result = await _maintenanceRepository.GetMaintenanceByID(MaintenanceId);
+                var maintenance = await _maintenanceRepository.GetMaintenanceByID(MaintenanceId);
 
-                if (result == null) return NotFound("Maintenance does not exist");
+                if (maintenance == null) return NotFound("Maintenance does not exist");
 
-                return Ok(result);
+                MaintenanceNote note = (MaintenanceNote)await _maintenanceRepository.GetMaintenanceNoteByID(MaintenanceId);
+                Payment pay = (Payment)await _maintenanceRepository.GetPaymentByID(MaintenanceId);
+                if (pay == null) { pay = new Payment { MaintenanceID = MaintenanceId, Amount = 0 }; }
+                if (note == null) { note = new MaintenanceNote { MaintenanceID = MaintenanceId, MaintenanceNoteDescription = "" }; }
+
+                MaintenanceView Out=new MaintenanceView
+                {
+                    MaintenanceID = maintenance.MaintenanceID,
+                    PropertyID = maintenance.PropertyID,
+                    ContractorID = maintenance.ContractorID,
+                    MaintenanceStatusID = maintenance.MaintenanceStatusID,
+                    MaintenanceTypeID = maintenance.MaintenanceTypeID,
+                    MaintenanceDate = maintenance.MaintenanceDate,
+                    MaintenanceTime = maintenance.MaintenanceTime,
+                    Property = maintenance.Property,
+                    Contractor = (Contractor)await _contractorRepository.GetContractorByIDAsync(maintenance.ContractorID),
+                    MaintenanceStatus = maintenance.MaintenanceStatus,
+                    MaintenanceType = maintenance.MaintenanceType,
+                    MaintenanceNote = note,
+                    Payment = pay
+                };
+                return Ok(Out);
             }
             catch (Exception)
             {

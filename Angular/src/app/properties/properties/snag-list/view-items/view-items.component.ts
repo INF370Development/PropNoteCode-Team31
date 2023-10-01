@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { SnagListService } from 'src/app/services/snaglist.service';
 import { EditItemsComponent } from '../edit-snag-list/edit-items/edit-items.component';
+import { EditViewComponent } from './edit-view/edit-view.component';
 
 @Component({
   selector: 'app-view-items',
@@ -29,7 +30,7 @@ export class ViewItemsComponent {
   }
   EditList()
   {
-    const dialogRef = this.dialog.open(EditItemsComponent, {});
+    const dialogRef = this.dialog.open(EditViewComponent, {});
   }
   closeModal() {
     this.dialogRef.close();
