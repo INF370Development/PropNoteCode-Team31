@@ -20,9 +20,9 @@ export class EditMaintenanceTypeComponent  implements OnInit {
   editorRole: boolean = false;
   viewerRole: boolean = false;
 
-  MaintenanceTypeModal: MaintenanceType = {
-    maintenanceTypeName: '',
-  };
+  // MaintenanceTypeModal: MaintenanceType = {
+  //   maintenanceTypeName: '',
+  // };
 
   constructor(
     private dialogRef: MatDialogRef<EditMaintenanceTypeComponent>,
@@ -31,10 +31,10 @@ export class EditMaintenanceTypeComponent  implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-  updateName(x:any)
-  {
-    this.MaintenanceTypeModal.maintenanceTypeName=x;
-  }
+  // updateName(x:any)
+  // {
+  //   this.MaintenanceTypeModal.maintenanceTypeName=x;
+  // }
   createRole() {
     this.dialogRef.close();
   }
@@ -43,20 +43,20 @@ export class EditMaintenanceTypeComponent  implements OnInit {
     this.dialogRef.close();
   }
 
-  EditMaintenanceType() {
-    debugger;
-    this.maintenanceService.EditMaintenancetype(this.maintenanceService.type,this.MaintenanceTypeModal).subscribe(
-      (response) => {
-        console.log('Snaglistitem created successfully:', response);
-        // You can optionally close the modal after creating the snaglistitem
-        this.dialogRef.close();
-        location.reload();
-      },
-      (error) => {
-        console.error('Error creating snaglistitem:', error);
-      }
-    );
-  }
+  // EditMaintenanceType() {
+  //   debugger;
+  //   this.maintenanceService.EditMaintenancetype(this.maintenanceService.type,this.MaintenanceTypeModal).subscribe(
+  //     (response) => {
+  //       console.log('Snaglistitem created successfully:', response);
+  //       // You can optionally close the modal after creating the snaglistitem
+  //       this.dialogRef.close();
+  //       location.reload();
+  //     },
+  //     (error) => {
+  //       console.error('Error creating snaglistitem:', error);
+  //     }
+  //   );
+  // }
 }
 
 

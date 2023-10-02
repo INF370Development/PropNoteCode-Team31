@@ -1,10 +1,10 @@
-<div class="modal-overlay">
+<!-- <div class="modal-overlay">
   <div class="modal-container">
     <h2>Add Maintenance Type</h2>
     <form (submit)="AddMaintenanceType(date.value)">
       <mat-form-field class="form-field">
         <label>Property</label>
-        <mat-select placeholder="Select Property" name="propertyID" (selectionChange)="updatePropertyId($event.value)" 
+        <mat-select placeholder="Select Property" name="propertyID" (selectionChange)="updatePropertyId($event.value)"
         [formControl]="prpertyFormControl" required>
           <mat-option *ngFor="let prop of Property" [value]="prop.propertyID">{{ prop.description }}</mat-option>
         </mat-select>
@@ -15,7 +15,7 @@
 
       <mat-form-field class="form-field">
         <label>Select Contractor</label>
-        <mat-select placeholder="Select Contractor" formControlName="ContractorId" (selectionChange)="updateContractorId($event.value)" 
+        <mat-select placeholder="Select Contractor" formControlName="ContractorId" (selectionChange)="updateContractorId($event.value)"
         [formControl]="contractorFormControl" required>
           <mat-option *ngFor="let contractor of Contractor" [value]="contractor.contractorID">{{contractor.user.name }} {{contractor.user.surname}}</mat-option>
         </mat-select>
@@ -26,7 +26,7 @@
 
       <mat-form-field class="form-field">
         <label>Status</label>
-        <mat-select placeholder="Select Status" name="maintenanceStatusID" (selectionChange)="updateMaintenanceStatusId($event.value)" 
+        <mat-select placeholder="Select Status" name="maintenanceStatusID" (selectionChange)="updateMaintenanceStatusId($event.value)"
         [formControl]="statusFormControl" required>
           <mat-option *ngFor="let stat of Status" [value]="stat.maintenanceStatusID">{{ stat.maintenanceStatusName }}</mat-option>
         </mat-select>
@@ -37,7 +37,7 @@
 
       <mat-form-field class="form-field">
         <label>Type</label>
-        <mat-select placeholder="Select Type" name="maintenanceTypeID" (selectionChange)="updateMaintenanceTypeId($event.value)" 
+        <mat-select placeholder="Select Type" name="maintenanceTypeID" (selectionChange)="updateMaintenanceTypeId($event.value)"
         [formControl]="typeFormControl" required>
           <mat-option *ngFor="let type of Type" [value]="type.maintenanceTypeID">{{ type.maintenanceTypeName }}</mat-option>
         </mat-select>
@@ -58,7 +58,7 @@
 
       <mat-form-field class="form-field">
         <label>Time</label>
-        <mat-select placeholder="Select Time" (selectionChange)="updateMaintenanceTime($event.value)" 
+        <mat-select placeholder="Select Time" (selectionChange)="updateMaintenanceTime($event.value)"
         [formControl]="timeFormControl" required>
           <mat-option *ngFor="let prop of time" [value]="prop">{{ prop }}</mat-option>
         </mat-select>
@@ -73,4 +73,4 @@
       </div>
     </form>
   </div>
-</div>
+</div> -->
