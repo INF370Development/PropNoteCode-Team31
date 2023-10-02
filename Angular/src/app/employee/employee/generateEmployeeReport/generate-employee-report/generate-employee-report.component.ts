@@ -5,7 +5,6 @@ import { Employee } from 'src/app/shared/UserModels/Employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { CreateEmployeeModalComponent } from '../../viewEmployee/view-employee/createEmployeeModal/create-employee-modal/create-employee-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
-import 'jspdf-autotable';
 
 @Component({
   selector: 'app-generate-employee-report',
@@ -70,7 +69,7 @@ export class GenerateEmployeeReportComponent implements OnInit  {
       doc.setFontSize(16); //changed
       //doc.setFontStyle('bold'); //added
       doc.text(reportHeading, 10, yPos);
-      yPos += 20; 
+      yPos += 20;
 
       // Add branding text to the footer
       doc.setFontSize(10); // Set font size for branding text
@@ -115,19 +114,19 @@ export class GenerateEmployeeReportComponent implements OnInit  {
       doc.setTextColor(100); //changed
       //doc.text('Extra Dimensions 188 Pty Ltd', 10, doc.internal.pageSize.height - 10);
       doc.text(brandingText, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, {
-        align: 'center' 
+        align: 'center'
       }); //added
 
       this.cardData.forEach((Employee, index) => {
         xPos = 10;
-  
+
         // Check if the row is even and set background color accordingly
         if (isOddRow) {
-          doc.setFillColor(240, 240, 240); 
+          doc.setFillColor(240, 240, 240);
         } else {
-          doc.setFillColor(255, 255, 255); 
+          doc.setFillColor(255, 255, 255);
         }
-  
+
         doc.rect(
           10,
           yPos - 2, // Adjust the Y position slightly for background color
@@ -135,25 +134,25 @@ export class GenerateEmployeeReportComponent implements OnInit  {
           10,
           'F'
         );
-  
+
         for (let i = 0; i < tableHeaders.length; i++) {
           const headerKey = tableHeaders[i];
           let cellContent = this.getCellContent(Employee, headerKey);
           if (cellContent.length > colWidths[i] / 3) {
             cellContent = doc.splitTextToSize(cellContent, colWidths[i] - 10);
           }
-  
+
           doc.setTextColor(0);
           doc.text(cellContent, xPos, yPos + 8);
           xPos += colWidths[i];
         }
         yPos += 10;
-        isOddRow = !isOddRow; 
+        isOddRow = !isOddRow;
       });
-  
+
 
       doc.save('Employee_Report.pdf');
-    } 
+    }
     else {
       console.error("No data to generate PDF.");
     }
