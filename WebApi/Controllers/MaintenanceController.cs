@@ -308,17 +308,58 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error, please contact support");
             }
         }
-
-        [HttpGet("GetMaintenanceNote/{GetMaintenanceNoteId}")]
-        public async Task<IActionResult> GetMaintenanceNote(int GetMaintenanceNoteId)
+        [HttpGet("GetMaintenanceNoteByID/{maintenanceNoteID}")]
+        public async Task<IActionResult> GetMaintenanceNoteByID(int maintenanceNoteID)
         {
             try
             {
-                var result = await _maintenanceRepository.GetMaintenanceNoteByID(GetMaintenanceNoteId);
+                var maintenanceNote = await _maintenanceRepository.GetMaintenanceNoteByID(maintenanceNoteID);
 
-                if (result == null) return NotFound("MaintenanceStatus does not exist");
+                if (maintenanceNote == null)
+                {
+                    return NotFound("Maintenance note not found");
+                }
 
-                return Ok(result);
+                // You can customize the data you want to return here or return the entire maintenance note object.
+                var maintenanceNoteResponse = new
+                {
+                    MaintenanceNoteID = maintenanceNote.MaintenanceNoteID,
+                    Description = maintenanceNote.MaintenanceNoteDescription,
+                    // Include other properties as needed
+                };
+
+                return Ok(maintenanceNoteResponse);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+        [HttpGet("GetMaintenanceNotesByMaintenanceID/{maintenanceID}")]
+        public async Task<IActionResult> GetMaintenanceNotesByMaintenanceID(int maintenanceID)
+        {
+            try
+            {
+                var maintenanceNotes = await _maintenanceRepository.GetMaintenanceNotesByMaintenanceIDAsync(maintenanceID);
+
+                if (maintenanceNotes == null)
+                {
+                    return NotFound("No maintenance notes found for the specified maintenance ID");
+                }
+
+                // You can customize the data you want to return here or return the entire list of maintenance notes.
+                var maintenanceNotesResponse = new List<object>();
+                foreach (var note in maintenanceNotes)
+                {
+                    maintenanceNotesResponse.Add(new
+                    {
+                        MaintenanceNoteID = note.MaintenanceNoteID,
+                        Description = note.MaintenanceNoteDescription,
+                        // Include other properties as needed
+                    });
+                }
+
+                return Ok(maintenanceNotesResponse);
             }
             catch (Exception)
             {
@@ -381,7 +422,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPut("EditMaintenanceNote")]
+        [HttpPut("EditMaintenanceNote/{maintenanceNoteID}")]
         public async Task<IActionResult> EditMaintenanceNote(int id, MaintenanceNoteViewModel maintenanceNoteViewModel)
         {
             try
@@ -401,7 +442,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpDelete("DeleteMaintenanceNote")]
+        [HttpDelete("DeleteMaintenanceNote/{maintenanceNoteID}")]
         public async Task<IActionResult> DeleteMaintenanceNote(int MaintenanceStatusId)
         {
             try
@@ -433,6 +474,49 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
+        [HttpPut]
+        [Route("UpdateMaintenance/{maintenanceID}")]
+        public async Task<IActionResult> UpdateMaintenance(int maintenanceID, [FromBody] MaintenanceUpdateModel maintenanceUpdateModel)
+        {
+            try
+            {
+                // Retrieve the existing maintenance record from the database
+                var existingMaintenance = await _maintenanceRepository.GetMaintenanceAsync(maintenanceID);
+
+                if (existingMaintenance == null)
+                {
+                    // Return a not found response if the maintenance record was not found
+                    return NotFound();
+                }
+
+                // Update only the specified fields
+                existingMaintenance.ContractorID = maintenanceUpdateModel.ContractorID;
+                existingMaintenance.MaintenanceDate = maintenanceUpdateModel.MaintenanceDate;
+                existingMaintenance.MaintenanceTime = maintenanceUpdateModel.MaintenanceTime;
+                existingMaintenance.MaintenanceTypeID = maintenanceUpdateModel.MaintenanceTypeID;
+
+                // Update the maintenance record in the database
+                var updatedMaintenance = await _maintenanceRepository.UpdateMaintenanceAsync(existingMaintenance);
+
+                if (updatedMaintenance != null)
+                {
+                    // Return a successful response
+                    return Ok(updatedMaintenance);
+                }
+                else
+                {
+                    // Return a not found response if the maintenance record was not found
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exceptions and return an error response
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
+            }
+        }
+
+
 
         [HttpGet]
         [Route("GetMaintenanceByID/{maintenanceID}")]

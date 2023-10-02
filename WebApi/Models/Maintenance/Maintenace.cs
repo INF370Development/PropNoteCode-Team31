@@ -20,3 +20,11 @@ namespace WebApi.Models.Maintenance
 
     }
 }
+
+public class MaintenanceUpdateModel
+{
+    public int ContractorID { get; set; }
+    public DateTime MaintenanceDate { get; set; }
+    public string MaintenanceTime { get; set; }
+    public int MaintenanceTypeID { get; set; }
+}

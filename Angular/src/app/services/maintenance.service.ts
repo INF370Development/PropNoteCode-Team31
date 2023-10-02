@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Maintenance } from '../shared/Maintenace';
 import { Payment } from '../shared/Payment';
 import { MaintenanceType } from '../shared/MaintenanceType';
 import { MaintenanceStatus } from '../shared/MaintenanceStatus';
@@ -8,6 +7,7 @@ import { MaintenanceNote } from '../shared/MaintenanceNote';
 
 import { map, Observable, Subject } from 'rxjs';
 import { configuration } from '../config/configurationFile';
+import { Maintenance } from '../shared/Maintenance';
 
 @Injectable({
   providedIn: 'root',
@@ -248,6 +248,16 @@ export class MaintenanceService {
         headers: this.headers,
       }) // Update the API URL
       .pipe(map((result) => result));
+  }
+  getMaintenanceNotesByMaintenanceID(maintenanceID: number): Observable<any[]> {
+    return this._httpClient.get<any[]>(`${this._apiUrl}/Maintenance/GetMaintenanceNotesByMaintenanceID/${maintenanceID}`);
+  }
+
+  updateMaintenance(maintenance: Maintenance): Observable<Maintenance> {
+    const url = `${this._apiUrl}/Maintenance/UpdateMaintenance/${maintenance.maintenanceID}`;
+
+    // Send a PUT request to update the maintenance record
+    return this._httpClient.put<Maintenance>(url, maintenance);
   }
   getMaintenance(maintenanceTypeID: number) {
     // Rename the method

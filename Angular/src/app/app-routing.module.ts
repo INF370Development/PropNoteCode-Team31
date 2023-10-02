@@ -575,7 +575,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'landing-page',
+    path: 'landingPage',
     component: LandingPageComponent
   },
   { path: 'access-denied', component: AccessDeniedComponent },

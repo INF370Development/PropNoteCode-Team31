@@ -161,6 +161,7 @@ import { AccessDeniedComponent } from './authentication/AccessDenied/access-deni
 
 import { ViewCalendarComponent } from './calendar/calendar/viewCalendar/view-calendar/view-calendar.component';
 import { GenerateBrokerGraphComponent } from './broker/broker/generateBrokerGraph/generate-broker-graph/generate-broker-graph.component';
+import { AssignDialogComponent } from './maintenance/maintenance/assignMaintenance/assign-dialog/assign-dialog.component';
 
 
 export function tokenGetter() {
@@ -292,7 +293,8 @@ export function jwtOptionsFactory() {
     DeleteMaintenanceComponent,
     DeleteSnagListComponent,
     DeleteSnagListItemComponent,
-    EditViewComponent
+    EditViewComponent,
+    AssignDialogComponent
   ],
   imports: [
     BrowserModule,

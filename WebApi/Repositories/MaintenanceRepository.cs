@@ -62,6 +62,13 @@ namespace WebApi.Repositories
             return item;
         }
 
+        public async Task<List<MaintenanceNote>> GetMaintenanceNotesByMaintenanceIDAsync(int maintenanceID)
+        {
+            // Use the appropriate DbSet and navigation property based on your data model
+            return await _appDbContext.MaintenanceNote
+                .Where(note => note.MaintenanceID == maintenanceID)
+                .ToListAsync();
+        }
         public async Task<MaintenanceType> AddMaintenanceType(MaintenanceType item)
         {
             _appDbContext.Add(item);
@@ -180,6 +187,31 @@ namespace WebApi.Repositories
                 Include(t => t.MaintenanceType); 
             return await query.ToArrayAsync();
         }
+        public async Task<Maintenance> UpdateMaintenanceAsync(Maintenance maintenance)
+        {
+            var existingMaintenance = await _appDbContext.Maintenance.FindAsync(maintenance.MaintenanceID);
+
+            if (existingMaintenance != null)
+            {
+                // Update the existing maintenance record with the new values
+                _appDbContext.Entry(existingMaintenance).CurrentValues.SetValues(maintenance);
+                await _appDbContext.SaveChangesAsync();
+                return existingMaintenance;
+            }
+            else
+            {
+                // Maintenance record not found
+                return null;
+            }
+        }
+        public async Task<Maintenance> GetMaintenanceAsync(int maintenanceID)
+        {
+            // Include related entities if needed
+            return await _appDbContext.Maintenance
+                .AsNoTracking() // Use AsNoTracking to improve performance for read-only operations
+                .FirstOrDefaultAsync(m => m.MaintenanceID == maintenanceID);
+        }
+
         public async Task<Maintenance> GetMaintenanceByID(int MaintenanceID)
         {
             IQueryable<Maintenance> query = _appDbContext.Maintenance

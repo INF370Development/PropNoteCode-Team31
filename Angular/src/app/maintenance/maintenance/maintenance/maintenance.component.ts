@@ -7,7 +7,6 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
   import { Observable, catchError, map } from 'rxjs';
   import { MaintenanceService } from 'src/app/services/maintenance.service';
   import { PropertiesService } from 'src/app/services/properties.service';
-  import { Maintenance } from 'src/app/shared/Maintenace';
   import { Property } from 'src/app/shared/Property/Property';
   import { MaintenanceType } from 'src/app/shared/MaintenanceType';
   import { MaintenanceStatus } from 'src/app/shared/MaintenanceStatus';
@@ -21,7 +20,8 @@ import { HttpClient } from '@angular/common/http';
 import { EditPaymentComponent } from '../payment/edit-payment/edit-payment.component';
 import { RecordPaymentComponent } from '../payment/record-payment/record-payment.component';
 import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintenance.component';
-  
+import { Maintenance } from 'src/app/shared/Maintenance';
+
   @Component({
     selector: 'app-maintenance',
     templateUrl: './maintenance.component.html',
@@ -42,12 +42,12 @@ import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintena
     ];
     dataSource = new MatTableDataSource<Maintenance>();
     dataSourcex:any;
-    maintenance_status: string[] = []; 
-    maintenance_type: string[] = []; 
-    maintenance_note: string[] = []; 
-    _payment:string[] = []; 
-    date:string[] = []; 
-    time:string[] = []; 
+    maintenance_status: string[] = [];
+    maintenance_type: string[] = [];
+    maintenance_note: string[] = [];
+    _payment:string[] = [];
+    date:string[] = [];
+    time:string[] = [];
     status: any;
     type:any;
     note:any;
@@ -62,24 +62,24 @@ import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintena
     ) {}
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-  
+
     ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }
-  
+
     ngOnInit(): void {
       this._maintenanceService.getMaintenances().subscribe((Maintenance: any) => {
         this.dataSource.data = Maintenance;
         this.dataSourcex=Maintenance;
       });
     }
-  
+
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-  
+
 
     async deleteMaintenance(id: any) {
       this._maintenanceService.MaintenanceId=id;
@@ -99,7 +99,7 @@ import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintena
         location.reload();
       });
     }
-  
+
     openDialog(
       enterAnimationDuration: string,
       exitAnimationDuration: string
@@ -110,7 +110,7 @@ import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintena
         exitAnimationDuration,
       });
     }
-  
+
     openModal() {
       const dialogRef = this.dialog.open(AddMaintenanceComponent, {});
     }
@@ -125,7 +125,7 @@ import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintena
         exitAnimationDuration,
       });
     }
-  
+
     openEditModal(x:any) {
       this._maintenanceService.MaintenanceId=x;
       const dialogRef = this.dialog.open(EditMaintenanceComponent, {});
@@ -155,7 +155,7 @@ import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintena
       for(let i=0;i<6;i++)
       {  this.maintenance_status.push("ss");}
     }
-    
+
   }
-  
+
 

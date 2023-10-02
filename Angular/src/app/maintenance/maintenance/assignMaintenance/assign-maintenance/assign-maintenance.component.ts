@@ -1,57 +1,65 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { LeaseService } from 'src/app/services/lease.service';
 import { MaintenanceService } from 'src/app/services/maintenance.service';
-import { PropertiesService } from 'src/app/services/properties.service';
-import { EditPaymentComponent } from '../../payment/edit-payment/edit-payment.component';
-import { RecordPaymentComponent } from '../../payment/record-payment/record-payment.component';
-import { AddMaintenanceNoteComponent } from '../../maintenanceNote/add-maintenance-note/add-maintenance-note.component';
-import { EditMaintenanceNoteComponent } from '../../maintenanceNote/edit-maintenance-note/edit-maintenance-note.component';
-import { EditMaintenanceComponent } from '../../maintenance/edit-maintenance/edit-maintenance.component';
+import { Maintenance } from 'src/app/shared/Maintenance';
+import { AssignDialogComponent } from '../assign-dialog/assign-dialog.component';
 
 @Component({
   selector: 'app-assign-maintenance',
   templateUrl: './assign-maintenance.component.html',
   styleUrls: ['./assign-maintenance.component.scss']
 })
-export class AssignMaintenanceComponent {
-Maintenance:any;
-  constructor(
-    private _propertyService:PropertiesService,
-    private _maintenanceService: MaintenanceService,
-    private snackBar: MatSnackBar,
-    public dialog: MatDialog,
-    private _httpClient: HttpClient
-  ) {}
+export class AssignMaintenanceComponent implements OnInit {
+  maintenanceRequests: Maintenance[] = [];
+
+  constructor(private maintenanceService: MaintenanceService, private dialog: MatDialog, private leaseService : LeaseService) {
+    // Initialize maintenanceRequests as an empty array in the constructor
+    this.maintenanceRequests = [];
+  }
+
   ngOnInit(): void {
-    this._maintenanceService.getMaintenance(this._maintenanceService.MaintenanceId).subscribe((Maintenance: any) => {
-      this.Maintenance= Maintenance;
+    this.loadMaintenanceRequests();
+  }
+
+  loadMaintenanceRequests() {
+    this.maintenanceService.getMaintenances().subscribe((data) => {
+      this.maintenanceRequests = data;
+      // Fetch complete Tenant and Property objects for each lease
+      this.maintenanceRequests.forEach((maintenanceRequest) => {
+        console.log("MaintenanceID", maintenanceRequest)
+        this.maintenanceService.getMaintenanceNotesByMaintenanceID(maintenanceRequest.maintenanceID).subscribe((maintenanceNotes) => {
+          // Check if maintenanceNotes is an array and extract the first note (you may need more logic here)
+          if (Array.isArray(maintenanceNotes) && maintenanceNotes.length > 0) {
+            maintenanceRequest.maintenanceNote = maintenanceNotes[0];
+          }
+        });
+        this.leaseService.getPropertyById(maintenanceRequest.propertyID).subscribe((property) => {
+          maintenanceRequest.property = property;
+        });
+
+
+      });
     });
   }
 
-  EditPayment(x:any)
-  {
-    this._maintenanceService.MaintenanceId=x;
-    const dialogRef = this.dialog.open(EditPaymentComponent, {});
-  }
-  AddPayment(x:any)
-  {
-    this._maintenanceService.MaintenanceId=x;
-    const dialogRef = this.dialog.open(RecordPaymentComponent, {});
+  openAssignMaintenanceDialog(request: Maintenance): void {
+    const dialogRef = this.dialog.open(AssignDialogComponent, {
+      width: '400px', // Set the width of the dialog
+      data: { request }, // Pass data to the dialog (in this case, the request object)
+    });
+
+    // Subscribe to the dialog's afterClosed() event to handle the result when the dialog is closed
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Handle the result from the dialog if needed
+        console.log('Dialog result:', result);
+      }
+    });
   }
 
-  AddNote(x:any)
-  {
-    this._maintenanceService.MaintenanceId=x;
-    const dialogRef = this.dialog.open(AddMaintenanceNoteComponent, {});
+  assignMaintenance(request: Maintenance) {
+    // Implement logic to open a modal for assigning maintenance here
+    // You can use Angular Material's MatDialog for the modal
   }
-  EditNote(x:any)
-  {
-    this._maintenanceService.MaintenanceId=x;
-    const dialogRef = this.dialog.open(EditMaintenanceNoteComponent, {});
-  }
-  EditMaintenance(){
-    const dialogRef = this.dialog.open(EditMaintenanceComponent, {});
-}
 }
