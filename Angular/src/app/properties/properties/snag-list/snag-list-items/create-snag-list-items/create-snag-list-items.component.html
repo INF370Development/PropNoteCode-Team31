@@ -1,0 +1,33 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2>Create Snag List Item</h2>
+      <form >
+        
+        <mat-form-field class="form-field">
+          <label>Item Description</label>
+          <input
+            matInput
+            name="maintenanceNoteDescription"
+            [formControl]="descriptionFormControl"
+            #maintenaceNoteDescription
+            required
+            (keyup)="updateDescription(maintenaceNoteDescription.value)"
+          />
+          <mat-error *ngIf="descriptionFormControl.hasError('required')">
+            Description is required.
+          </mat-error>
+          <mat-error *ngIf="descriptionFormControl.hasError('pattern')">
+            Description must contain only alphabets and spaces.
+          </mat-error>
+          <mat-error *ngIf="descriptionFormControl.hasError('maxlength')">
+            Description cannot exceed 50 characters.
+          </mat-error>
+        </mat-form-field>
+        <div class="end">
+          <button mat-raised-button  color="accent" (click)="CreateItem()">Add</button>
+          <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+      </div>
+      </form>
+    </div>
+  </div>
+  

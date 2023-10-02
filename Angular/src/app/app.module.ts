@@ -70,9 +70,6 @@ import { ViewAllPropertiesComponent } from './properties/properties/view-all-pro
 import { CreateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/createContractorModal/create-contractor-modal/create-contractor-modal.component';
 import { DeleteContracorDialogComponent } from './contractors/contractors/viewContractors/view-contractors/deleteContractorDialog/delete-contracor-dialog/delete-contracor-dialog.component';
 import { UpdateContractorModalComponent } from './contractors/contractors/viewContractors/view-contractors/updateContractorModal/update-contractor-modal/update-contractor-modal.component';
-import { AssignMaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/assignMaintenanceModal/assign-maintenance-modal/assign-maintenance-modal.component';
-import { DeleteMaintenanceDialogComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/deleteMaintenanceDialog/delete-maintenance-dialog/delete-maintenance-dialog.component';
-import { UpdateMiaintenanceModalComponent } from './maintenance/maintenance/assignMaintenance/assign-maintenance/updateMaintenanceModal/update-miaintenance-modal/update-miaintenance-modal.component';
 import { CreateTenantModalComponent } from './tenants/tenants/viewTenants/view-tenants/createTenantModal/create-tenant-modal/create-tenant-modal.component';
 import { TenantDetailsComponent } from './tenants/tenants/viewTenants/view-tenants/tenantDetails/tenant-details/tenant-details.component';
 import { ContractorTreeComponent } from './contractors/contractors/contractorTree/contractor-tree/contractor-tree.component';
@@ -137,6 +134,19 @@ import { RoleGuardService } from './authentication/authGuardService/RoleguardSer
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { ScreensaverComponent } from './screensaver/screensaver/screensaver.component';
 import { SignaturePadComponent } from './signaturePad/signature-pad/signature-pad.component';
+import { SnagListComponent } from './properties/properties/snag-list/snag-list.component';
+import { SnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/snag-list-items.component';
+import { CreateSnagListComponent } from './properties/properties/snag-list/create-snag-list/create-snag-list.component';
+import { EditSnagListComponent } from './properties/properties/snag-list/edit-snag-list/edit-snag-list.component';
+import { ViewItemsComponent } from './properties/properties/snag-list/view-items/view-items.component';
+import { CreateSnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/create-snag-list-items/create-snag-list-items.component';
+import { EditSnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/edit-snag-list-items/edit-snag-list-items.component';
+import { EditItemsComponent } from './properties/properties/snag-list/edit-snag-list/edit-items/edit-items.component';
+import { AddItemsComponent } from './properties/properties/snag-list/create-snag-list/add-items/add-items.component';
+import { DeleteMaintenanceComponent } from './maintenance/maintenance/maintenance/delete-maintenance/delete-maintenance.component';
+import { DeleteSnagListComponent } from './properties/properties/snag-list/delete-snag-list/delete-snag-list.component';
+import { DeleteSnagListItemComponent } from './properties/properties/snag-list/snag-list-items/delete-snag-list-item/delete-snag-list-item.component';
+import { EditViewComponent } from './properties/properties/snag-list/view-items/edit-view/edit-view.component';
 import { UpdateRecoveryModalComponent } from './properties/properties/viewProperties/view-properties/update-recovery-modal/update-recovery-modal.component';
 import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
 import { CalculatorComponent } from './calculator/calculator/calculator.component';
@@ -224,9 +234,6 @@ export function jwtOptionsFactory() {
     CreateContractorModalComponent,
     DeleteContracorDialogComponent,
     UpdateContractorModalComponent,
-    AssignMaintenanceModalComponent,
-    DeleteMaintenanceDialogComponent,
-    UpdateMiaintenanceModalComponent,
     CreateTenantModalComponent,
     TenantDetailsComponent,
     ContractorTreeComponent,
@@ -273,6 +280,19 @@ export function jwtOptionsFactory() {
     UpdateRecoveryModalComponent,
     TypesStatusesComponent,
     AccessDeniedComponent,
+    SnagListComponent,
+    SnagListItemsComponent,
+    CreateSnagListComponent,
+    EditSnagListComponent,
+    CreateSnagListItemsComponent,
+    EditSnagListItemsComponent,
+    AddItemsComponent,
+    EditItemsComponent,
+    ViewItemsComponent,
+    DeleteMaintenanceComponent,
+    DeleteSnagListComponent,
+    DeleteSnagListItemComponent,
+    EditViewComponent
   ],
   imports: [
     BrowserModule,

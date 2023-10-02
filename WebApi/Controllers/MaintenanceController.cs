@@ -6,20 +6,22 @@ using System.Net.NetworkInformation;
 using WebApi.Interfaces;
 using WebApi.Models;
 using WebApi.Models.Admin;
-using WebApi.Models.Data;
+using WebApi.Models.Users;
 using WebApi.Models.Maintenance;
 using WebApi.Repositories;
 
 namespace WebApi.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MaintenanceController : Controller
     {
         private readonly IMaintenanceRepository _maintenanceRepository;
-
-        public MaintenanceController(IMaintenanceRepository repository)
+        private readonly IContractorRepository _contractorRepository;
+        public MaintenanceController(IContractorRepository con_repository, IMaintenanceRepository repository)
         {
+            _contractorRepository = con_repository; 
             _maintenanceRepository = repository;
         }
 
@@ -417,61 +419,33 @@ namespace WebApi.Controllers
 
         //Maintenance Action
 
-        [HttpGet("GetAllMaintenances")]
+        [HttpGet]
+        [Route("GetAllMaintenances")]
         public async Task<IActionResult> GetAllMaintenances()
         {
             try
             {
-                List<MaintenanceView> maintenances = new();
                 var results = await _maintenanceRepository.GetAllMaintenanceAsync();
-                foreach (var maintenance in results)
-                {
-                    //Contractor cont= maintenance.Contractor;
-                    //cont.User = (User) await _maintenanceRepository.getUser(cont.UserID);
-
-                    MaintenanceNote note = (MaintenanceNote)await _maintenanceRepository.GetMaintenanceNoteByID(maintenance.MaintenanceID);
-                    Payment pay = (Payment)await _maintenanceRepository.GetPaymentByID(maintenance.MaintenanceID);
-                    if (pay == null) { pay = new Payment { MaintenanceID = maintenance.MaintenanceID, Amount = 0 }; }
-                    if (note == null) { note = new MaintenanceNote { MaintenanceID = maintenance.MaintenanceID, MaintenanceNoteDescription = "" }; }
-                    maintenances.Add(new MaintenanceView
-                    {
-                        MaintenanceID = maintenance.MaintenanceID,
-                        PropertyID = maintenance.PropertyID,
-                        ContractorID = maintenance.ContractorID,
-                        MaintenanceStatusID = maintenance.MaintenanceStatusID,
-                        MaintenanceTypeID = maintenance.MaintenanceTypeID,
-                        MaintenanceDate = maintenance.MaintenanceDate,
-                        MaintenanceTime = maintenance.MaintenanceTime,
-                        Property = maintenance.Property,
-                        Contractor = maintenance.Contractor,
-                        MaintenanceStatus = maintenance.MaintenanceStatus,
-                        MaintenanceType = maintenance.MaintenanceType,
-                        MaintenanceNote = note,
-                        Payment = pay
-                    }); ;
-                }
-                return Ok(maintenances);
+                return Ok(results);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal Server Error, please contact support");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error, please contact support");
             }
         }
 
-        [HttpGet("GetMaintenance/{MaintenanceId}")]
-        public async Task<IActionResult> GetMaintenance(int MaintenanceId)
+        [HttpGet]
+        [Route("GetMaintenanceByID/{maintenanceID}")]
+        public async Task<IActionResult> GetMaintenanceByID(int maintenanceID)
         {
             try
             {
-                var result = await _maintenanceRepository.GetMaintenanceByID(MaintenanceId);
-
-                if (result == null) return NotFound("Maintenance does not exist");
-
+                var result = await _maintenanceRepository.GetMaintenanceByID(maintenanceID);
                 return Ok(result);
             }
             catch (Exception)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support");
+                return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
 

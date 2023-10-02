@@ -19,6 +19,23 @@
 .modal-container li {
     margin-bottom: 8px;
 }
+button {
+  margin-right: 8px;
+}
+
+.title {
+  background-color: red;
+  color: white;
+}
+
+.cancel {
+  float: right;
+  position: relative;
+}
+
+.end{
+  padding: 10px;
+}
   
 .modal-container button {
     margin-right: 10px;

@@ -1,24 +1,25 @@
 <h1>Maintenance Status</h1>
+<br>
+    <div class="mat-elevation-z8">
+
+      <mat-form-field appearance="fill">
+        <mat-label > <mat-icon>search</mat-icon>  Search Maintenance Status</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Start typing..."
+            #input
+          />
+      </mat-form-field>
+
+    
 
 <div class="create">
-  <button mat-fab extended color="accent" (click)="openModal()">
+  <button mat-fab extended color="accent" (click)="openModal()" matTooltip="Click here to create a new maintenance entry">
     <mat-icon>add</mat-icon>
     Add Maintenance Status
   </button>
-</div>
-
-<br />
-
-<div class="mat-elevation-z8">
-  <mat-form-field appearance="fill">
-    <mat-label>Filter</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="start typing..."
-      #input
-    />
-  </mat-form-field>
+</div> 
 
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="maintenanceStatusName">

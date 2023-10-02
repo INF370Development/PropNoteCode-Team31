@@ -4,6 +4,15 @@ using WebApi.Interfaces;
 using WebApi.Models.Admin;
 using WebApi.Repositories;
 using WebApi.ViewModels;
+using WebApi.Models;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Http;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml.Linq;
+using WebApi.Models.Broker;
+using WebApi.Models.Interfaces;
+using System.Drawing;
+using System.Web.Http.Results;
 
 namespace WebApi.Controllers
 {
@@ -19,7 +28,7 @@ namespace WebApi.Controllers
             _snagListRepository = snagListRepository;
         }
 
-        /*
+
         // SnagList Actions
 
         [HttpGet("GetAllSnagLists")]
@@ -53,23 +62,7 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support");
             }
         }
-        [HttpGet("lastSnagList")]
-        public async Task<IActionResult> lastSnagList()
-        {
-            try
-            {
-                int result = await _snagListRepository.CountSnagList();
-
-                if (result == null)
-                    return NotFound("SnagListItem does not exist");
-
-                return Ok(result);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error. Please contact support");
-            }
-        }
+        
 
         [HttpPost("AddSnagList")]
         public async Task<IActionResult> AddSnagList( SnagListViewModel snagListViewModel)
@@ -142,7 +135,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
         }
-
         // SnagListItem Actions
 
         [HttpGet("GetAllSnagListItems")]
@@ -236,13 +228,38 @@ namespace WebApi.Controllers
         }
 
         // SnagListItem Actions
+        [HttpGet("lastSnagList")]
+        public async Task<IActionResult> lastSnagList()
+        {
+            try
+            {
+                int result = await _snagListRepository.CountSnagList();
 
-        [HttpGet("GetAllSnagListItemLine")]
+                if (result == null)
+                    return NotFound("SnagListItem does not exist");
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support");
+            }
+        }
+        
+        [HttpGet("GetAllSnagListItemLine/{SnagListId}")]
         public async Task<IActionResult> GetAllSnagListItemLineAsync(int SnagListId)
         {
             try
             {
                 var results = await _snagListRepository.GetAllSnagListItemLineAsync(SnagListId);
+                if (results != null)
+                {
+                    foreach (var result in results)
+                    {
+                        result.SnagList=await _snagListRepository.GetSnagListByID(result.SnagListId);
+                        result.SnagListItem = await _snagListRepository.GetSnagListItemByID(result.SnagListItemId);
+                    }
+                }
                 return Ok(results);
             }
             catch (Exception)
@@ -256,8 +273,20 @@ namespace WebApi.Controllers
         {
             try
             {
-                var result = await _snagListRepository.GetSnagListItemLineById(SnagList,item);
-
+                var result = await _snagListRepository.GetSnagListItemLineById(SnagList, item);
+                if (result != null)
+                {
+                    try
+                    {
+                        result.SnagListItem = await _snagListRepository.GetSnagListItemByID(result.SnagListItemId);
+                    }
+                    catch (Exception) { return NotFound("SnagListItem does not exist"); }
+                    try
+                    {
+                        result.SnagList = await _snagListRepository.GetSnagListByID(result.SnagListId);
+                    }
+                    catch (Exception) { return NotFound("SnagListItem does not exist"); }
+                }
                 if (result == null)
                     return NotFound("SnagListItem does not exist");
 
@@ -269,12 +298,47 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPost("AddItem")]
-        public async Task<IActionResult> AddItem(int snag, int list)
+        [HttpGet("GetSnagListItemnotinList/{SnagListId}")]
+        public async Task<IActionResult> GetSnagListItemnotinList(int SnagListId)
         {
             try
             {
-                SnagListItemLine snagListItem= await _snagListRepository.AddItem( snag, list);
+                var results = await _snagListRepository.GetAllSnagListItemLineAsync(SnagListId);
+                SnagListItem[] all = await _snagListRepository.GetAllSnagListItemsAsync();
+                int size=all.Length-results.Length;
+                SnagListItem[] list = new SnagListItem[size];
+                bool found = false; int i = 0;
+                foreach (var item in all) 
+                {                    
+                    foreach (var result in results)
+                    {
+                        if (item.SnagListItemId == result.SnagListItemId)
+                        {
+                            found = true;
+                            break; 
+                        }
+                    }
+                    if(!found)
+                    {
+                        list[i] = item; i++;
+                    }
+                    found = false;
+                }
+                
+                return Ok(list);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
+
+        [HttpPost("AddItem/{SnagList},{item}")]
+        public async Task<IActionResult> AddItem(int SnagList, int item)
+        {
+            try
+            {
+                SnagListItemLine snagListItem= await _snagListRepository.AddItem(SnagList, item);
                 return Ok(snagListItem);
             }
             catch (Exception)
@@ -299,6 +363,27 @@ namespace WebApi.Controllers
             {
                 return StatusCode(500, "Internal Server Error. Please contact support.");
             }
-        }*/
+        }
+        [HttpDelete("DeleteAllSnagListItemLine/{SnagListId}")]
+        public async Task<IActionResult> DeleteAllSnagListItemLine(int SnagListId)
+        {
+
+            try
+            {
+                var results = await _snagListRepository.GetAllSnagListItemLineAsync(SnagListId);
+                if (results != null)
+                {
+                    foreach (var result in results)
+                    {
+                        await _snagListRepository.DeleteSnagListItemLineAsync(result);
+                    }
+                }
+                return Ok(results);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
+        }
     }
 }

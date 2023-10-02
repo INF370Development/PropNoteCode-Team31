@@ -21,12 +21,10 @@
                 Maintenance Status Name cannot exceed 32 characters.
               </mat-error>
           </mat-form-field>
-        <div class="modal-actions">
-          <button mat-button type="button" color="danger" (click)="closeModal()">Cancel</button>
-          <button mat-raised-button type="submit" color="primary" [disabled]="nameFormControl.invalid">
-            Edit
-          </button>
-        </div>
+        <div class="end">
+          <button mat-raised-button  color="accent" type="submit">Update</button>
+          <button mat-raised-button mat-dialog-close cdkFocusInitialcolor color="warn" class="cancel" (click)="closeModal()">Cancel</button>
+      </div>
       </form>
     </div>
   </div>

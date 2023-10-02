@@ -5,7 +5,6 @@ import { Broker } from 'src/app/shared/Broker';
 import { BrokerService } from 'src/app/services/broker.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router} from '@angular/router';
-import 'jspdf-autotable';
 
 @Component({
   selector: 'app-generate-broker-report',
@@ -14,7 +13,7 @@ import 'jspdf-autotable';
 })
 
 export class GenerateBrokerReportComponent implements OnInit {
-  constructor(  
+  constructor(
     private brokerService: BrokerService, private router: Router) {}
 
   graph() {
@@ -41,14 +40,14 @@ export class GenerateBrokerReportComponent implements OnInit {
       this.brokerService.getBrokers().subscribe({
         next: (response) => {
           this.cardData = response;
-          console.log(this.cardData); 
+          console.log(this.cardData);
           //this.downloadPDF();
         },
         error: (error) => {
           console.error("Error fetching data:", error);
         }
       });
-    } 
+    }
     catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -65,16 +64,16 @@ export class GenerateBrokerReportComponent implements OnInit {
         }
       }
       const averageCommissionRate = totalCommissionRate / totalBrokers;
-      return averageCommissionRate.toFixed(2); 
-    }  
+      return averageCommissionRate.toFixed(2);
+    }
     else {
-      return 'No data available'; 
+      return 'No data available';
     }
   }
 
   downloadPDF(){
     if (this.cardData && this.cardData.length > 0) {
-      const doc = new jsPDF('landscape'); 
+      const doc = new jsPDF('landscape');
       //doc.setMargins(10, 10, 10, 10); //added
       let yPos = 20;
 
@@ -85,7 +84,7 @@ export class GenerateBrokerReportComponent implements OnInit {
       doc.setFontSize(16); //changed
       //doc.setFontStyle('bold'); //added
       doc.text(reportHeading, 10, yPos);
-      yPos += 20; 
+      yPos += 20;
 
       //FOOTER
       const brandingText = 'Extra Dimensions 188 Pty Ltd' //added
@@ -93,7 +92,7 @@ export class GenerateBrokerReportComponent implements OnInit {
       doc.setTextColor(100); //changed
       //doc.text('Extra Dimensions 188 Pty Ltd', 10, doc.internal.pageSize.height - 10);
       doc.text(brandingText, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, {
-        align: 'center' 
+        align: 'center'
       }); //added
 
       //TABLE HEADERS
@@ -129,7 +128,7 @@ export class GenerateBrokerReportComponent implements OnInit {
         doc.text(`Total Brokers: ${totalBrokers}`, 20, doc.internal.pageSize.getHeight() - 20, {
           align: 'left'
         }); //added
-          
+
           /*doc.text(`Total Brokers: ${totalBrokers}`, totalBrokersX, totalBrokersY, {
             align: 'left'
           });*/
@@ -152,7 +151,7 @@ export class GenerateBrokerReportComponent implements OnInit {
         doc.text(`Average Commission Rate: ${averageCommissionRate}`, 20, doc.internal.pageSize.getHeight() - 15, {
           align: 'left'
         }); //added
-      } 
+      }
       else {
         console.error("No data available to generate PDF.");
       }
@@ -198,8 +197,8 @@ export class GenerateBrokerReportComponent implements OnInit {
           if (cellContent.length > colWidths[i] / 3) {
             cellContent = doc.splitTextToSize(cellContent, colWidths[i] - 10);
           } //added
-   
-   
+
+
           console.log(`cellContent: ${cellContent}, xPos: ${xPos}, yPos: ${yPos}`);
           doc.setTextColor(0);
           //doc.text(cellContent, xPos, yPos + 8);
@@ -210,7 +209,7 @@ export class GenerateBrokerReportComponent implements OnInit {
       });*/
 
       doc.save('Broker_Report.pdf');
-      } 
+      }
       else {
         console.error("No data to generate PDF.");
       }
@@ -235,5 +234,5 @@ export class GenerateBrokerReportComponent implements OnInit {
             ? broker[headerKey].toString()
             : '';
     }
-  }    
+  }
 }

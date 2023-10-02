@@ -31,6 +31,9 @@ namespace WebApi.Repositories
         public DbSet<Role> Role { get; set; }
         public DbSet<Inspection> Inspection { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<SnagListItem> SnagListItem { get; set; }
+         public DbSet<SnagList> SnagList { get; set; }
+         public DbSet<SnagListItemLine> SnagListItemLine { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<MaintenanceType> MaintenanceType { get; set; }
         public DbSet<MaintenanceStatus> MaintenanceStatus { get; set; }
@@ -72,7 +75,9 @@ namespace WebApi.Repositories
                 .HasForeignKey(ua => ua.AccessID)
                 .IsRequired();
 
-           
+            modelBuilder.Entity<SnagListItemLine>()
+                 .HasKey(e => new { e.SnagListId, e.SnagListItemId });
+
         }
 
     }

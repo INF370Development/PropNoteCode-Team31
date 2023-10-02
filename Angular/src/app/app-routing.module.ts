@@ -13,6 +13,8 @@ import { GeneratePropertiesReportComponent } from './properties/properties/gener
 import { ViewAllPropertiesComponent } from './properties/properties/view-all-properties/view-all-properties.component';
 import { MapPropertiesComponent } from './properties/properties/map-properties/map-properties.component';
 import { AddInspectionModalComponent } from './properties/properties/viewProperties/view-properties/addInspectionModal/add-inspection-modal/add-inspection-modal.component';
+import { SnagListComponent } from './properties/properties/snag-list/snag-list.component';
+
 //Tenants
 import { TenantsComponent } from './tenants/tenants/tenants.component';
 import { ViewTenantsComponent } from './tenants/tenants/viewTenants/view-tenants/view-tenants.component';
@@ -87,19 +89,13 @@ import { UpdateProfileDetailsComponent } from './authentication/UpdateProfileDet
 
 import { HelpFAQComponent } from './help-faq/help-faq.component';
 
+import { SnagListItemsComponent } from './properties/properties/snag-list/snag-list-items/snag-list-items.component';
 import { TypesStatusesComponent } from './properties/types-statuses/types-statuses/types-statuses.component';
-
-
-const routes: Routes = [
-  //Landingpage
-  { path: 'landingPage', component: LandingPageComponent },
-  { path: '', component: LandingPageComponent },
-
 import { AccessDeniedComponent } from './authentication/AccessDenied/access-denied/access-denied.component';
 
 
-
 const routes: Routes = [
+  { path: '', component: LandingPageComponent },
   //UpdateUser
   {
     path: 'UpdateNewUser',
@@ -238,6 +234,22 @@ const routes: Routes = [
   {
     path: 'addRecoveries',
     component: AddRecoveriesModalComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+  },
+  {
+    path: 'SnagList',
+    component: SnagListComponent,
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'Admin',
+    },
+   },
+  {
+    path: 'SnagListItem',
+    component: SnagListItemsComponent,
     canActivate: [RoleGuard],
     data: {
       expectedRole: 'Admin',
@@ -425,7 +437,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'assignMaintenance',
+    path: 'MaintenanceDetail',
     component: AssignMaintenanceComponent,
     canActivate: [RoleGuard],
     data: {
@@ -557,8 +569,7 @@ const routes: Routes = [
     data: {
       expectedRole: 'Admin',
     },
-  }
-
+  },
   {
     path: 'login',
     component: LoginComponent

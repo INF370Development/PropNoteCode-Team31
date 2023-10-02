@@ -44,7 +44,8 @@
     }
   
     AddMaintenanceType() {
-      debugger;
+      //debugger;
+      if(this.MaintenanceTypeModal.maintenanceTypeName!=''){
       this.maintenanceService.AddMaintenanceType(this.MaintenanceTypeModal).subscribe(
         (response) => {
           console.log('Snaglistitem created successfully:', response);
@@ -55,7 +56,7 @@
         (error) => {
           console.error('Error creating snaglistitem:', error);
         }
-      );
+      );}
     }
   }
   

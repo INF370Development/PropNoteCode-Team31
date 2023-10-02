@@ -49,7 +49,8 @@ import { Component, OnInit } from '@angular/core';
     }
   
     AddMaintenanceType() {
-      debugger;
+      //debugger;
+      if(this.MaintenanceNoteModal.maintenanceNoteDescription!=''){
       this.MaintenanceNoteModal.maintenanceID=this.maintenanceService.MaintenanceId;
       this.maintenanceService.AddMaintenanceNote(this.MaintenanceNoteModal).subscribe(
         (response) => {
@@ -61,7 +62,7 @@ import { Component, OnInit } from '@angular/core';
         (error) => {
           console.error('Error creating snaglistitem:', error);
         }
-      );
+      );}
     }
   }
   

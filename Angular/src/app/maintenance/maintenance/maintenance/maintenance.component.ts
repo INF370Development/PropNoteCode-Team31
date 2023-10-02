@@ -20,6 +20,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EditPaymentComponent } from '../payment/edit-payment/edit-payment.component';
 import { RecordPaymentComponent } from '../payment/record-payment/record-payment.component';
+import { DeleteMaintenanceComponent } from './delete-maintenance/delete-maintenance.component';
   
   @Component({
     selector: 'app-maintenance',
@@ -36,6 +37,7 @@ import { RecordPaymentComponent } from '../payment/record-payment/record-payment
       'payment',
       'maintenanceDate',
       'maintenanceTime',
+      'detailsButton',
       'editButton',
     ];
     dataSource = new MatTableDataSource<Maintenance>();
@@ -80,10 +82,13 @@ import { RecordPaymentComponent } from '../payment/record-payment/record-payment
   
 
     async deleteMaintenance(id: any) {
-      await this._maintenanceService.deleteMaintenance(id).subscribe();
-      this.showSnackBar();
+      this._maintenanceService.MaintenanceId=id;
+      const dialogRef = this.dialog.open(DeleteMaintenanceComponent, {});
+      //this.showSnackBar();
     }
-  
+    updateId(x:any){
+      this._maintenanceService.MaintenanceId=x;
+    }
     showSnackBar() {
       const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
         'Deleted successfully',

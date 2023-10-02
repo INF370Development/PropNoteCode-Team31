@@ -77,10 +77,9 @@ namespace WebApi.Migrations
                     b.Property<int>("SnagListId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SnagListItemsId")
+                    b.Property<int>("SnagListItemId")
                         .HasColumnType("int");
 
-                    b.HasKey("SnagListItemLineId");
 
                     b.ToTable("SnagListItemLine");
                 });

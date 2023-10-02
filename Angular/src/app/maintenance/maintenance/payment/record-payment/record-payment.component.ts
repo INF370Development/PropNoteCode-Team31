@@ -50,7 +50,8 @@
     }
   
     RecordPayment() {
-      debugger;
+      //debugger;
+      if(this.PaymentModal.amount!=0){
       this.PaymentModal.maintenanceID=this.maintenanceService.MaintenanceId;
       this.maintenanceService.recordPayment(this.PaymentModal).subscribe(
         (response) => {
@@ -62,7 +63,7 @@
         (error) => {
           console.error('Error creating snaglistitem:', error);
         }
-      );
+      );}
     }
   }
   

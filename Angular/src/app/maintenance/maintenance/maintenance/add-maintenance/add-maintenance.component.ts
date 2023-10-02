@@ -22,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
     Contractor:any;
     Status:any;
     Type:any;
-    time: string[]=['10:30','9:30','08:30'];
+    time: string[]=['12:30','11:30','10:30','09:30','08:30'];
 
     adminRole: boolean = false;
     editorRole: boolean = false;
@@ -40,7 +40,25 @@ import { Component, OnInit } from '@angular/core';
         maintenanceStatus: new MaintenanceStatus,
         maintenanceType: new MaintenanceType
       };
-  
+      prpertyFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      contractorFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      statusFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      typeFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      dateFormControl = new FormControl('', [
+        Validators.required
+      ]);
+      timeFormControl = new FormControl('', [
+        Validators.required
+      ]);
+
     constructor(
       private dialogRef: MatDialogRef<AddMaintenanceComponent>,
       private maintenanceService: MaintenanceService,
@@ -65,10 +83,6 @@ import { Component, OnInit } from '@angular/core';
     }
     updatePropertyId(x: any) {
       this.MaintenanceModal.propertyID = x;
-    }
-    
-    updateEmployeeId(x: any) {
-      //this.MaintenanceModal.employeeID = x;
     }
     
     updateContractorId(x: any) {
@@ -99,16 +113,15 @@ import { Component, OnInit } from '@angular/core';
     closeModal() {
       this.dialogRef.close();
     }
-    updateDate(picker:any)
-    {
-      this.MaintenanceModal.maintenanceDate=picker;
-    }
-    formatDate(dateString: string) {
-      const parsedDate = new Date(dateString);
-      //return formattedDate;
-    }
-    AddMaintenanceType() {
-      debugger;
+    AddMaintenanceType(x:any) {
+      //debugger;
+      if(this.MaintenanceModal.propertyID!=0&&
+        this.MaintenanceModal.contractorID!= 0&&
+        this.MaintenanceModal.maintenanceStatusID!= 0&&
+        this.MaintenanceModal.maintenanceTypeID!= 0&&
+        this.MaintenanceModal.maintenanceDate!= ""&&
+        this.MaintenanceModal.maintenanceTime!= "12:30"){
+      this.MaintenanceModal.maintenanceDate=x;
       this.maintenanceService.AddMaintenance(this.MaintenanceModal).subscribe(
         (response) => {
           console.log('Snaglistitem created successfully:', response);
@@ -119,7 +132,7 @@ import { Component, OnInit } from '@angular/core';
         (error) => {
           console.error('Error creating snaglistitem:', error);
         }
-      );
+      );}
     }
   }
   

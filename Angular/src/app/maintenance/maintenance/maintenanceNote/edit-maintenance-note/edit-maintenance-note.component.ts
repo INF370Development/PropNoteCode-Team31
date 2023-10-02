@@ -16,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
       Validators.pattern(/^[a-zA-Z\s]*$/), // Accepts only alphabets and spaces
       Validators.maxLength(50), // Maximum length is 32 characters
     ]);
+    note:any;
     adminRole: boolean = false;
     editorRole: boolean = false;
     viewerRole: boolean = false;

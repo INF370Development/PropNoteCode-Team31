@@ -57,7 +57,23 @@
     color: black;
     position: relative;
   }
-  
+  button {
+    margin-right: 8px;
+}
+
+.title {
+    background-color: red;
+    color: white;
+}
+
+.cancel {
+  float: right;
+  position: relative;
+}
+
+.end{
+  padding: 10px;
+}
   .modal-container h2 {
     margin-bottom: 10px;
   }

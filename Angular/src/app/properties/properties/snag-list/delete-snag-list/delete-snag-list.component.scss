@@ -1,0 +1,46 @@
+button {
+    margin-right: 8px;
+}
+
+.title {
+    background-color: red;
+    color: white;
+}
+
+.cancel {
+    float: right;
+    position: relative;
+}
+
+.end{
+    padding: 10px;
+}
+.modal-container {
+    width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+.modal-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999; /* Ensure it's on top of other content */
+  }
+  
+  .modal-container {
+    width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
+    position: relative;
+  }
+  

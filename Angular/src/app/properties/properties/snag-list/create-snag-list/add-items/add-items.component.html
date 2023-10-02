@@ -1,0 +1,21 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h1>Create Snag List </h1>
+      <form (submit)="closeModal()">
+        <h3><b>Select items you want to add to the Snag</b></h3>
+        <div *ngFor="let Item of Items"> 
+            <input type="checkbox" (change)="handleCheckboxChange($event,Item.snagListItemId)">
+            {{Item.snagListItemDescription}}
+        </div>
+        <br>
+        
+        <div class="modal-actions">
+          <button mat-button type="button" color="danger" (click)="DeleteAllItems()">Cancel</button>
+          <button mat-raised-button type="submit" color="primary" >
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

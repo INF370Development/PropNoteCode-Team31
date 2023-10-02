@@ -249,12 +249,11 @@ export class MaintenanceService {
       }) // Update the API URL
       .pipe(map((result) => result));
   }
-  getMaintenance(maintenanceTypeID: number, Maintenance: Maintenance) {
+  getMaintenance(maintenanceTypeID: number) {
     // Rename the method
     return this._httpClient
-      .post(
-        `${this._apiUrl}/Maintenance/GetMaintenance/${maintenanceTypeID}`, // Update the API URL
-        Maintenance,
+      .get(
+        `${this._apiUrl}/Maintenance/GetMaintenance/${maintenanceTypeID}`,
         {
           headers: this.headers,
         }
