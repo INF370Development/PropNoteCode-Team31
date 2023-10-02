@@ -47,11 +47,9 @@ export class ContractorTypeService {
     );
   }
 
-  createContractorType(conractorType: ContractorType) {
-    return this._httpClient
-      .post(`${this._apiUrl}/Broker/AddBroker`, conractorType, {
-        headers: this.headers,
-      })
-      .pipe(map((result) => result));
+  createContractorType(newContractorType: ContractorType): Observable<ContractorType> {
+    const url = `https://localhost:7251/api/Contractor/AddContractorType`;
+
+    return this._httpClient.post<ContractorType>(url, newContractorType);
   }
 }
