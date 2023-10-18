@@ -6,6 +6,7 @@ import { DeleteContracorDialogComponent } from '../../deleteContractorDialog/del
 import { UpdateContractorModalComponent } from '../../updateContractorModal/update-contractor-modal/update-contractor-modal.component';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router} from '@angular/router';
 
 const baseFileUrl = 'https://localhost:7251';
 
@@ -30,12 +31,17 @@ export class ContractorDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private http: HttpClient,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: { contractorID: number },
   ) {}
 
   ngOnInit(): void {
     this.loadContractor();
     this.loadContractorDocuments();
+  }
+
+  onClickViewContractor() {
+    this.router.navigate(['/viewContractors']);
   }
 
   setCustomDocumentName(name: string) {
