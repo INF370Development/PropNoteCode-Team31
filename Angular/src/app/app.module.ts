@@ -120,8 +120,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { EmployeeDetailsComponent } from './employee/employee/viewEmployee/view-employee/employeeDetails/employee-details/employee-details.component';
 import { ViewContractorDetailsComponent } from './contractors/contractors/viewContractors/view-contractors/view-contractor-details/view-contractor-details.component';
 
-//import { CalendarModule, DateAdapter } from 'angular-calendar';
-//import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { SafePipe } from './shared/safe.pipe';
 import { LoginComponent } from './authentication/Login/login.component';
@@ -318,8 +318,8 @@ export function jwtOptionsFactory() {
     GoogleMapsModule,
     SlickCarouselModule,
     //CALENDAR
-    //ScheduleModule,
-    //FullCalendarModule,
+    ScheduleModule,
+    FullCalendarModule,
     MatIconModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
@@ -327,16 +327,16 @@ export function jwtOptionsFactory() {
         useFactory: jwtOptionsFactory,
       },
     }),
-    /*CalendarModule.forRoot({
+    CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }),*/
+    }),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     AuthGuardService,
     RoleGuardService,
-    //DatePipe,
+    DatePipe,
     { provide: LOCALE_ID, useValue: 'en-ZA' },
     [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
     //TIMEOUT
