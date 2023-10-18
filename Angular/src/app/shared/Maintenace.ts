@@ -5,16 +5,20 @@ import { Property } from "./Property/Property";
 import { MaintenanceType } from "./MaintenanceType";
 import { MaintenanceNote } from "./MaintenanceNote";
 
-export class Maintenance {
+export class Maintenance{
   maintenanceID: number = 0;
   maintenanceNote: MaintenanceNote = new MaintenanceNote();
-  maintenanceDate: Date = new Date();
-  maintenanceTime : string = "";
+  propertyID: number=0;
+  contractorID: number=0;
   maintenanceStatusID: any;
-  maintenanceTypeID : number = 0;
-  propertyID: number = 0;
-  property: Property = new Property();
-  contractorID: number = 0;
-  contractor: Contractor = new Contractor();
-  constructor() {}
+  maintenanceTypeID: number=0;
+  maintenanceDate: Date = new Date();
+  maintenanceTime:string = "";
+  property: Property=new Property;
+  contractor: Contractor =new Contractor;
+  maintenanceStatus:MaintenanceStatus=new MaintenanceStatus;
+  maintenanceType:MaintenanceType=new MaintenanceType;
+
+  constructor(){
+  }
 }

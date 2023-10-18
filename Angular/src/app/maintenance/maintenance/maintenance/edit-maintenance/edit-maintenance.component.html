@@ -1,4 +1,4 @@
-<!-- <div class="modal-overlay">
+<!--<div class="modal-overlay">
   <div class="modal-container">
     <h2>Edit Maintenance</h2>
     <form (submit)="EditMaintenance(date.value)" >
@@ -18,7 +18,7 @@
 
       <mat-form-field class="form-field">
         <label>Status</label>
-        <mat-select placeholder={{Maintenance.maintenanceStatus.maintenanceStatusName}} formControlName="StatusId" (selectionChange)="updateMaintenanceStatusId($event.value)" required>
+        <mat-select  formControlName="StatusId" (selectionChange)="updateMaintenanceStatusId($event.value)" required>
           <mat-option *ngFor="let stat of Status" [value]="stat.maintenanceStatusID">{{ stat.maintenanceStatusName }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -57,7 +57,7 @@
     </form>
   </div>
 </div>
-<!--<div class="modal-overlay">
+<div class="modal-overlay">
   <div class="modal-container">
     <h2>Edit Maintenance</h2>
     <form (submit)="EditMaintenance(date.value)" [formGroup]="MainForm">
@@ -89,7 +89,7 @@
           <mat-option *ngFor="let type of Type" [value]="type.maintenanceTypeID">{{ type.maintenanceTypeName }}</mat-option>
         </mat-select>
       </mat-form-field>
-
+ 
       <mat-form-field>
         <label>Date</label>
         <input
@@ -115,4 +115,4 @@
     </form>
   </div>
 </div>
---> -->
+-->
