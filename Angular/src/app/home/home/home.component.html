@@ -1,6 +1,6 @@
 <div class="cards">
 <mat-grid-list cols="4" rowHeight="2:1">
-    <mat-grid-tile>
+    <!--<mat-grid-tile>
         <a mat-list-item [routerLink]="'/users'">
         <mat-card class="card">
             <mat-icon class="card-icon">account_box</mat-icon>
@@ -10,12 +10,12 @@
                 colors="primary:#121331,secondary:#08a88a"
                 state="hover-looking-around"
                 style="width:250px;height:250px">
-            </lord-icon>-->
+            </lord-icon>--
             <br>
             <mat-card-content class="link">Users</mat-card-content>
         </mat-card>
         </a>
-    </mat-grid-tile>
+    </mat-grid-tile>-->
 
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/properties'">
@@ -71,7 +71,6 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-    <br>
 
     <!--<mat-grid-tile>
         <a mat-list-item [routerLink]="'/employee'">
@@ -109,6 +108,7 @@
         </mat-card>
         </a>
     </mat-grid-tile>
+    <br>
 
     <mat-grid-tile>
         <a mat-list-item [routerLink]="'/viewLeases'">
@@ -166,8 +166,6 @@
         </mat-card>
         </a>
     </mat-grid-tile>
-
-    <br>
 
     <mat-grid-tile>
         <a mat-list-item (click)="Logout()">
