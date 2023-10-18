@@ -1,1 +1,9 @@
-<p>view-calendar works!</p>
+<div>
+    <h1>Calendar</h1>
+    <ul>
+      <li *ngFor="let event of events">
+        <strong>{{ event.summary }}</strong>
+        <p>{{ event.start.dateTime | date: 'short' }}</p>
+      </li>
+    </ul>
+</div>
