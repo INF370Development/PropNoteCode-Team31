@@ -1,4 +1,64 @@
 <div class="modal-overlay">
+  <div class="modal-container update-tenant-modal">
+    <h2 class="modal-title">Update Contractor <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
+
+    <form [formGroup]="updateForm" (ngSubmit)="updateContractor()">
+      <!-- Email -->
+      <mat-form-field class="form-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" matInput formControlName="email" required [value]="updateForm.get('email')?.value || ''" />
+        <mat-error *ngIf="updateForm.get('email')?.invalid && (updateForm.get('email')?.dirty || updateForm.get('email')?.touched)">
+          Invalid email address
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Name -->
+      <mat-form-field class="form-field">
+        <label for="name">Name:</label>
+        <input type="text" id="name" matInput formControlName="name" required [value]="updateForm.get('name')?.value || ''" />
+      </mat-form-field>
+
+      <!-- Surname -->
+      <mat-form-field class="form-field">
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" matInput formControlName="surname" required [value]="updateForm.get('surname')?.value || ''" />
+      </mat-form-field>
+
+      <!-- Phone Number -->
+      <mat-form-field class="form-field">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" matInput formControlName="phoneNumber" required [value]="updateForm.get('phoneNumber')?.value || ''" />
+      </mat-form-field>
+
+      <!-- Area of Business -->
+      <mat-form-field class="form-field">
+        <label for="areaOfBusiness">Area Of Business:</label>
+        <input type="text" id="areaOfBusiness" matInput formControlName="areaOfBusiness" required [value]="updateForm.get('areaOfBusiness')?.value || ''" />
+      </mat-form-field>
+
+      <!-- Availability -->
+      <mat-form-field class="form-field">
+        <label for="availability">Availability:</label>
+        <input type="text" id="availability" matInput formControlName="availability" required [value]="updateForm.get('availability')?.value || ''" />
+      </mat-form-field>
+
+      <!-- Contractor Type -->
+      <mat-form-field class="form-field">
+        <label for="contractorType">Contractor Type:</label>
+        <input type="text" id="contractorType" matInput formControlName="contractorType" required [value]="updateForm.get('contractorType')?.value || ''" />
+      </mat-form-field>
+
+
+      <br>
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="updateForm.invalid" class="btn btn-primary">Update Contractor</button>
+      <button type="button" (click)="closeModal()" class="btn btn-secondary cancel">Cancel</button>
+    </form>
+  </div>
+</div>
+
+
+<!--<div class="modal-overlay">
     <div class="modal-container">
       <h2>Add New Contractor <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
       <form (submit)="CreateContractor()">
@@ -115,5 +175,5 @@
             Add Contractor
           </button>
           <button mat-raised-button color="warn" (click)="closeModal()" class="cancel">Cancel</button>
-        </div>
+        </div>-->
     
