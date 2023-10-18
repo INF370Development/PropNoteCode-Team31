@@ -1,4 +1,4 @@
-<h1>{{brokerDetail.name}}</h1>
+<!--<h1>{{brokerDetail.name}}</h1>
 
 <button mat-button [routerLink]="['/viewBroker']">
   <mat-icon>home</mat-icon>
@@ -22,5 +22,80 @@
 
     </div>
   </div>
+</div>
+</div>-->
+
+<span class="chat">
+  <button mat-icon-button class="bigger-icon" (click)="onClickBroker()">
+    <mat-icon> arrow_back </mat-icon>
+  </button>
+</span>
+
+<div class="tenant-details-container">
+  <div class="card">
+    <div class="card-header">
+      Broker Details
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ brokerDetail.name }} {{ brokerDetail.surname }}</h5>
+      <p class="card-text">Office Address: {{ brokerDetail.officeAddress }}</p>
+      <p class="card-text">License Number: {{ brokerDetail.licenseNumber }}</p>
+      <p class="card-text">Commission Rate: {{ brokerDetail.commissionRate* 100}}%</p>
+
+      <!-- Display more tenant details here -->
+      <p class="card-text">Email: {{ brokerDetail.phoneNumber }}</p>
+      <hr>
+      <div class="buttons">
+        <button mat-raised-button color="primary" (click)="openUpdateModal()">Update</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="tenant-details-container">
+  <div class="card">
+  <div class="card-header">Documents:</div>
+  <div class="card-body">
+  <label for="fileInput" class="file-label">
+    <span>Choose File</span>
+    <input type="file" id="fileInput" class="file-input" (change)="onFileSelected($event)" #fileUpload accept=".pdf">
+  </label>
+  <div class="selected-file">
+    <ng-container *ngIf="fileName">
+      <iframe *ngIf="fileUrl" [src]="fileUrl" frameborder="0" width="100%" height="400"></iframe>
+      <p>{{ fileName }}</p>
+    </ng-container>
+    <ng-container *ngIf="!fileName">
+      <p>No file uploaded yet.</p>
+    </ng-container>
+  </div>
+  <input type="text" [(ngModel)]="customDocumentName" placeholder="Document Name:"><br>
+  <button mat-raised-button color="primary" class="upload-btn" (click)="uploadFile()" [disabled]="!selectedFile">
+    Upload
+  </button>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Document Name</th>
+        <th>Upload Date</th>
+        <th>Delete</th> <!-- Changed column header to "Action" -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let document of brokerDocuments">
+        <td>{{ document.documentName || 'Untitled' }}</td>
+        <td>{{ document.uploadDate | date }}</td>
+        <td>
+          <button mat-icon-button color="warn" (click)="deleteDocument(document.documentID)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 </div>
 </div>

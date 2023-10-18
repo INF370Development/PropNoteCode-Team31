@@ -20,12 +20,12 @@ export class GenerateBrokerGraphComponent implements OnInit{
   constructor(private brokerService: BrokerService, private dialog : MatDialog) {}
 
   ngOnInit(): void {
-    this.brokerService
+    /*this.brokerService
       .getBrokerByCommission()
       .subscribe((commission) => {
         this.commission = commission;
         this.calculateCommissionChartData();
-      });
+      });*/
   }
 
   calculateCommissionChartData() {
