@@ -1,8 +1,48 @@
-<div class="modal-container">
-  <h2>Assign Maintenance</h2>
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Assign Maintenance <button mat-button color="warn" class="cancel" (click)="cancel()">X</button></h2>
+    <form (submit)="assignMaintenance()" >
+      <mat-form-field class="form-field">
+        <mat-label>Contractor</mat-label>
+        <mat-select formControlName="contractor" required>
+          <mat-option *ngFor="let contractor of contractors" [value]="contractor.contractorID">
+            {{ contractor.user.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field class="form-field">
+        <mat-label>Maintenance Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="maintenanceDate" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Maintenance Time</mat-label>
+        <input matInput formControlName="maintenanceTime">
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Maintenance Type</mat-label>
+          <mat-select formControlName="maintenanceType" required>
+          <mat-option *ngFor="let maintenanceType of maintenanceTypes" [value]="maintenanceType.maintenanceTypeID">
+            {{ maintenanceType.maintenanceTypeName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="dialog-buttons">
+        <button type="submit" mat-raised-button color="accent">Assign</button>
+        <button type="button" mat-raised-button color="warn" (click)="cancel()" class="cancel">Cancel</button>
+      </div>
+
+
+<!--<div class="modal-container">
+  <h2>Assign Maintenance<button mat-button color="warn" class="cancel" (click)="cancel()">X</button></h2>
 
   <form [formGroup]="maintenanceForm" (ngSubmit)="assignMaintenance()">
-    <!-- Contractor input -->
+    <!-- Contractor input --
 <mat-form-field class="form-field">
   <mat-label>Contractor</mat-label>
   <mat-select formControlName="contractor" required>
@@ -13,7 +53,7 @@
 </mat-form-field>
 
 
-    <!-- Maintenance Date input -->
+    <!-- Maintenance Date input --
     <mat-form-field class="form-field">
       <mat-label>Maintenance Date</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="maintenanceDate" required>
@@ -21,13 +61,13 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <!-- Maintenance Time input -->
+    <!-- Maintenance Time input --
     <mat-form-field class="form-field">
       <mat-label>Maintenance Time</mat-label>
       <input matInput formControlName="maintenanceTime">
     </mat-form-field>
 
-   <!-- Maintenance Type input -->
+   <!-- Maintenance Type input --
 <mat-form-field class="form-field">
   <mat-label>Maintenance Type</mat-label>
   <mat-select formControlName="maintenanceType" required>
@@ -38,10 +78,10 @@
 </mat-form-field>
 
 
-    <!-- Buttons -->
+    <!-- Buttons --
     <div class="dialog-buttons">
-      <button type="button" mat-raised-button (click)="cancel()" class="cancel">Cancel</button>
-      <button type="submit" mat-raised-button color="primary" class="end">Assign</button>
+      <button type="submit" mat-raised-button color="accent">Assign</button>
+      <button type="button" mat-raised-button color="warn" (click)="cancel()" class="cancel">Cancel</button>
     </div>
   </form>
-</div>
+</div>-->
