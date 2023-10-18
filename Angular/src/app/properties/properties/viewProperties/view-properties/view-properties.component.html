@@ -1,9 +1,11 @@
 <h1>{{propertyDetail.description}}</h1>
 
-<button mat-button [routerLink]="['/viewAllProperties']">
-  <mat-icon>home</mat-icon>
-  Return
-</button>
+<span class="chat">
+  <button mat-icon-button class="bigger-icon" (click)="onClickProperties()">
+    <mat-icon> arrow_back </mat-icon>
+  </button>
+</span>
+
 <br>
 <div class="container">
 <ngx-slick-carousel class="carousel-container" [config]="slideConfig">

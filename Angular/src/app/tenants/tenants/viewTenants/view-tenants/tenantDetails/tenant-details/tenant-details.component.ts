@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TenantService } from 'src/app/services/tenant.service';
 import { Tenant } from 'src/app/shared/UserModels/Tenant';
 import { DeleteTenantDialogComponent } from '../../deleteTenantDialog/delete-tenant-dialog.component';
@@ -37,8 +37,13 @@ export class TenantDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private _propertiesService: PropertiesService,
     private http: HttpClient,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: { tenantID: number },
   ) {}
+
+  onClickTenants() {
+    this.router.navigate(['/viewTenants']);
+  }
 
   ngOnInit(): void {
     this.loadTenant();
