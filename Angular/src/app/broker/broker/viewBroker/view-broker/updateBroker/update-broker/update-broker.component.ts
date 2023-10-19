@@ -24,6 +24,9 @@ export class UpdateBrokerComponent implements OnInit{
         name: new FormControl(data.name || '', [Validators.required]),
         surname: new FormControl(data.surname || '', [Validators.required]),
         phoneNumber: new FormControl(data.phoneNumber || '', [Validators.required]),
+        officeAddress: new FormControl(data.officeAddress || '', [Validators.required]),
+        licenseNumber: new FormControl(data.licenseNumber || '', [Validators.required]),
+        commissionRate: new FormControl(data.commissionRate || '', [Validators.required]),
       });
     } else {
       // If 'data' is not defined or lacks the expected structure, provide default values or handle accordingly.
@@ -42,7 +45,10 @@ export class UpdateBrokerComponent implements OnInit{
         this.updateForm.patchValue({
           name: this.brokerData.name || '',
           surname: this.brokerData.surname || '',
-          phoneNumber: this.brokerData.phoneNumber || ''
+          phoneNumber: this.brokerData.phoneNumber || '',
+          officeAddress: this.brokerData.officeAddress || '',
+          lisenceNumber: this.brokerData.licenseNumber || '',
+          commisionRate: this.brokerData.commissionRate || ''
         });
       }
     });
@@ -62,6 +68,9 @@ export class UpdateBrokerComponent implements OnInit{
       user.name = this.updateForm.value.name;
       user.surname = this.updateForm.value.surname;
       user.phoneNumber = this.updateForm.value.phoneNumber;
+      user.officeAddress = this.updateForm.value.officeAddress;
+      user.licenseNumber = this.updateForm.value.licenseNumber;
+      user.commissionRate = this.updateForm.value.commissionRate;
 
       // Call your tenant service's updateTenantUser method to save the changes
       this.brokerService.updateBroker(this.brokerData.brokerID, this.brokerData).subscribe(

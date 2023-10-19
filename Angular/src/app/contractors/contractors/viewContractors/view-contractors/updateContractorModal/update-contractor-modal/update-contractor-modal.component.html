@@ -44,15 +44,15 @@
 
       <!-- Contractor Type -->
       <mat-form-field class="form-field">
-        <label for="contractorType">Contractor Type:</label>
+        <label for="contractorType">Contractor Type:</label> 
         <input type="text" id="contractorType" matInput formControlName="contractorType" required [value]="updateForm.get('contractorType')?.value || ''" />
       </mat-form-field>
 
 
       <br>
       <!-- Submit Button -->
-      <button type="submit" [disabled]="updateForm.invalid" class="btn btn-primary">Update Contractor</button>
-      <button type="button" (click)="closeModal()" class="btn btn-secondary cancel">Cancel</button>
+      <button type="submit" [disabled]="updateForm.invalid" class="btn btn-primary" mat-raised-button color="primary">Update Contractor</button>
+      <button type="button" (click)="closeModal()" class="btn btn-secondary cancel" mat-raised-button color="warn">Cancel</button>
     </form>
   </div>
 </div>

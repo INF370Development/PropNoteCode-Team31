@@ -2,16 +2,7 @@
     <div class="modal-container update-tenant-modal">
       <h2 class="modal-title">Update Broker <button mat-button color="warn" class="cancel" (click)="closeModal()">X</button></h2>
   
-      <form [formGroup]="updateForm" (ngSubmit)="updateBroker()">
-        <!-- Email -->
-        <mat-form-field class="form-field">
-          <label for="email">Email:</label>
-          <input type="email" id="email" matInput formControlName="email" required [value]="updateForm.get('email')?.value || ''" />
-          <mat-error *ngIf="updateForm.get('email')?.invalid && (updateForm.get('email')?.dirty || updateForm.get('email')?.touched)">
-            Invalid email address
-          </mat-error>
-        </mat-form-field>
-  
+      <form [formGroup]="updateForm" (ngSubmit)="updateBroker()">  
         <!-- Name -->
         <mat-form-field class="form-field">
           <label for="name">Name:</label>
@@ -30,29 +21,28 @@
           <input type="tel" id="phoneNumber" matInput formControlName="phoneNumber" required [value]="updateForm.get('phoneNumber')?.value || ''" />
         </mat-form-field>
   
-        <!-- Area of Business -->
-        <mat-form-field class="form-field">
-          <label for="areaOfBusiness">Area Of Business:</label>
-          <input type="text" id="areaOfBusiness" matInput formControlName="areaOfBusiness" required [value]="updateForm.get('areaOfBusiness')?.value || ''" />
+         <!-- Office Address -->
+         <mat-form-field class="form-field">
+          <label for="officeAddress">Office Address:</label>
+          <input type="text" id="officeAddress" matInput formControlName="officeAddress" required [value]="updateForm.get('officeAddress')?.value || ''" />
         </mat-form-field>
   
-        <!-- Availability -->
-        <mat-form-field class="form-field">
-          <label for="availability">Availability:</label>
-          <input type="text" id="availability" matInput formControlName="availability" required [value]="updateForm.get('availability')?.value || ''" />
+         <!-- License Number -->
+         <mat-form-field class="form-field">
+          <label for="licenseNumber">License Number:</label>
+          <input type="text" id="licenseNumber" matInput formControlName="licenseNumber" required [value]="updateForm.get('licenseNumber')?.value || ''" />
         </mat-form-field>
   
-        <!-- Contractor Type -->
+        <!-- Commission Rate -->
         <mat-form-field class="form-field">
-          <label for="contractorType">Contractor Type:</label>
-          <input type="text" id="contractorType" matInput formControlName="contractorType" required [value]="updateForm.get('contractorType')?.value || ''" />
+          <label for="commissionRate">Commission Rate:</label>
+          <input type="text" id="commissionRate" matInput formControlName="commissionRate" required [value]="updateForm.get('commissionRate')?.value || ''" />
         </mat-form-field>
-  
-  
+
         <br>
         <!-- Submit Button -->
-        <button type="submit" [disabled]="updateForm.invalid" class="btn btn-primary">Update Contractor</button>
-        <button type="button" (click)="closeModal()" class="btn btn-secondary cancel">Cancel</button>
+        <button type="submit" [disabled]="updateForm.invalid" class="btn btn-primary"  mat-raised-button color="primary">Update Broker</button>
+        <button type="button" (click)="closeModal()" class="btn btn-secondary cancel"  mat-raised-button color="warn">Cancel</button>
       </form>
     </div>
   </div>
