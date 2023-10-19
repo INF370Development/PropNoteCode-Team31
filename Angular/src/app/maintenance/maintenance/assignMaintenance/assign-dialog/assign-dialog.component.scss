@@ -1,5 +1,5 @@
 .modal-container {
-  width: 800px;
+  width: 600px; /* Change the width to 600px */
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -33,24 +33,27 @@
   position: relative;
 }
 
-.end{
+.end {
   padding: 10px;
 }
 
-.form-field{
-  margin:5px;
+.form-field {
+  margin: 5px;
   width: 45%;
   margin-right: 15px;
-  border-radius: 50%;
+  border-radius: 0; /* Remove border-radius to match the desired style */
 }
 
 label {
   color: #fff;
 }
 
-.validation{
-  color: rgb(247, 53, 53);
+/* In your component's CSS or global stylesheet */
+.custom-red-button {
+  background-color: red;
+  color: white;
 }
+
 
 
 /*.modal-container {
