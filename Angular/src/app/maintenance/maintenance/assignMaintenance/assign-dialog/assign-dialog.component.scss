@@ -1,5 +1,5 @@
 .modal-container {
-  width: 600px; /* Change the width to 600px */
+  width: auto; /* Increase the width as needed */
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -40,8 +40,7 @@
 .form-field {
   margin: 5px;
   width: 45%;
-  margin-right: 15px;
-  border-radius: 0; /* Remove border-radius to match the desired style */
+
 }
 
 label {
