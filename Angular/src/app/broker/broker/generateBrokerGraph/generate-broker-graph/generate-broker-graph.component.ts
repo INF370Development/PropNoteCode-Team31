@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
 import { MatDialog } from '@angular/material/dialog';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-generate-broker-graph',
@@ -9,43 +10,86 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./generate-broker-graph.component.scss']
 })
 
-export class GenerateBrokerGraphComponent implements OnInit{
-  commission: Map<string, Broker[]> = new Map<string, Broker[]>();
-  name: Map<string, Broker[]> = new Map<string, Broker[]>();
-  surname: Map<string, Broker[]> = new Map<string, Broker[]>();
+export class GenerateBrokerGraphComponent implements OnInit {
+  public chart: any;
+  public brokerCommissionRates: any = {};
+  private canvas!: HTMLCanvasElement;
+  private ctx!: CanvasRenderingContext2D;
 
-  commissionChartData: number[] = [];
-  commissionChartLabels: string[] = [];
 
-  constructor(private brokerService: BrokerService, private dialog : MatDialog) {}
+  constructor(private brokerService: BrokerService) {}
+
+  async getBrokerCommissionRates() {
+    try {
+      this.brokerCommissionRates = await this.brokerService.getBrokerByCommission().toPromise();
+      this.createChart();
+    } catch (error) {
+      console.error('Error fetching commission rates:', error);
+    }
+  }
+
+  createChart() {
+    // Destroy the existing chart if it exists
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    // Get the canvas and context
+    this.canvas = document.getElementById('MyChart') as HTMLCanvasElement;
+    this.ctx = this.canvas.getContext('2d')!;
+
+    if (this.ctx) {
+      const labels: string[] = [];
+      const data: number[] = [];
+
+      Object.keys(this.brokerCommissionRates).forEach((commissionRate) => {
+        labels.push(commissionRate);
+        data.push(this.brokerCommissionRates[commissionRate].length);
+      });
+
+      this.chart = new Chart(this.ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: data,
+              backgroundColor: ['blue', 'limegreen', 'red', /* add more colors as needed */],
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 2.5
+        }
+      });
+    } else {
+      console.error('Canvas context is null. Ensure that the canvas element with ID "MyChart" exists in the HTML.');
+    }
+  }
 
   ngOnInit(): void {
-    this.brokerService
-      .getBrokerByCommission()
-      .subscribe((commission) => {
-        this.commission = commission;
-        this.calculateCommissionChartData();
-      });
+    this.getBrokerCommissionRates();
   }
+}
 
-  calculateCommissionChartData() {
-    this.commissionChartLabels = Array.from(this.commission.keys()).map(Number).map(rate => `${rate * 100}%`);
-    this.commissionChartData = this.commissionChartLabels.map((commissionRate) => {
-      const brokers = this.commission.get(commissionRate.toString());
-      
-      if (brokers && brokers.length > 0) {
-        // Calculate the average commission rate for these brokers
-        const totalCommissionRate = brokers.reduce(
-          (total, broker) => total + broker.commissionRate,
-          0
-        );
-        return (totalCommissionRate / brokers.length) * 100; // Percentage
-      } else {
-        return 0; // Handle the case when there are no brokers for this commission rate
-      }
-    });
-  }
-}  
+//   calculateCommissionChartData() {
+//     this.commissionChartLabels = Array.from(this.commission.keys()).map(Number).map(rate => `${rate * 100}%`);
+//     this.commissionChartData = this.commissionChartLabels.map((commissionRate) => {
+//       const brokers = this.commission.get(commissionRate.toString());
+
+//       if (brokers && brokers.length > 0) {
+//         // Calculate the average commission rate for these brokers
+//         const totalCommissionRate = brokers.reduce(
+//           (total, broker) => total + broker.commissionRate,
+//           0
+//         );
+//         return (totalCommissionRate / brokers.length) * 100; // Percentage
+//       } else {
+//         return 0; // Handle the case when there are no brokers for this commission rate
+//       }
+//     });
+//   }
+// }
 
   /*ngOnInit(): void {
     this.brokerService
@@ -100,7 +144,7 @@ export class GenerateBrokerGraphComponent implements OnInit{
   }
 }*/
 
-  
+
   /*brokerData: { name: string; commissionEarned: number }[] = [];
   chart!: Chart<'pie', number[], string>;
 
