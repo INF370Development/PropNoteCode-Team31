@@ -19,6 +19,7 @@ import { Component, OnInit } from '@angular/core';
     viewerRole: boolean = false;
   
     MaintenanceStatusModal: MaintenanceStatus = {
+      maintenanceStatusID:0,
       maintenanceStatusName: '',
     };
   
