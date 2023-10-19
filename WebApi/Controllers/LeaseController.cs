@@ -98,18 +98,48 @@ namespace WebApi.Controllers
         [Route("AddLease")]
         public async Task<IActionResult> AddLease(LeaseRequest leaseRequest)
         {
-            var lease = new Lease
+            try
             {
-                StartDate = leaseRequest.StartDate,
-                EndDate = leaseRequest.EndDate,
-                TenantID = leaseRequest.TenantID,
-                PropertyID = leaseRequest.PropertyID,
+                // Retrieve the existing leases for the property
+                var existingLeases = await _leaseRepository.GetLeasesByPropertyIDAsync(leaseRequest.PropertyID);
 
-                MonthlyAmount = leaseRequest.MonthlyAmount,
-            };
-            await _leaseRepository.AddLease(lease);
-            return Ok(lease);
+                // Check for overlaps
+                if (IsOverlappingLease(existingLeases, leaseRequest))
+                {
+                    return StatusCode(409, "There is an overlapping lease on the same property.");
+                }
+
+                var lease = new Lease
+                {
+                    StartDate = leaseRequest.StartDate,
+                    EndDate = leaseRequest.EndDate,
+                    TenantID = leaseRequest.TenantID,
+                    PropertyID = leaseRequest.PropertyID,
+                    MonthlyAmount = leaseRequest.MonthlyAmount,
+                };
+
+                await _leaseRepository.AddLease(lease);
+
+                return Ok(lease);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error. Please contact support.");
+            }
         }
+
+        private bool IsOverlappingLease(List<Lease> existingLeases, LeaseRequest newLease)
+        {
+            foreach (var existingLease in existingLeases)
+            {
+                if (existingLease.StartDate < newLease.EndDate && existingLease.EndDate > newLease.StartDate)
+                {
+                    return true; // There is an overlap
+                }
+            }
+            return false; // No overlap
+        }
+
 
         [HttpPut]
         [Route("EditLease")]

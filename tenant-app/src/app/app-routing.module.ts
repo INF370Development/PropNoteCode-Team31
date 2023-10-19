@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './login/login.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,12 @@ const routes: Routes = [
     path: 'login',
     component: LoginPage, // Specify your login component
   },
+  {
+    path: 'landing',
+    component: LandingComponent, // Specify your login component
+  },
+  { path: '', redirectTo: 'landing', pathMatch: 'full', }, // Redirect to your landing page
+  // Add other routes for your app
 ];
 
 @NgModule({

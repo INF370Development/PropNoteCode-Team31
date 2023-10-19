@@ -1,0 +1,13 @@
+ion-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set the height to 100% of the viewport height */
+  background-color: rgba(173, 216, 230, 0.289); /* Set your desired background color */
+}
+
+.landing-content {
+  text-align: center;
+  padding: 20px;
+}

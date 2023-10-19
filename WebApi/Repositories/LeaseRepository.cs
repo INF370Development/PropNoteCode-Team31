@@ -70,6 +70,14 @@ namespace WebApi.Repositories
             await _appDbContext.SaveChangesAsync();
         }
 
+        public async Task<List<Lease>> GetLeasesByPropertyIDAsync(int propertyID)
+        {
+            // Assuming you have a DbSet for leases named "Leases" in YourDbContext
+            return await _appDbContext.Lease
+                .Where(lease => lease.PropertyID == propertyID)
+                .ToListAsync();
+        }
+
         public async Task EditLease(int leaseID, Lease lease) { }
 
         public async Task DeleteLeaseAsync(Lease lease) { }

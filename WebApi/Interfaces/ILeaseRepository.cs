@@ -12,6 +12,7 @@ namespace WebApi.Interfaces
         Task AddLease(Lease lease);
         Task<Tenant[]> GetAllTenantsAsync();
         Task AddDeposit(Deposit deposit);
+        Task<List<Lease>> GetLeasesByPropertyIDAsync(int propertyID);
         Task<Deposit> GetDepositByID(int depositID);
         Task EditLease(int leaseID, Lease lease);
         Task<Lease> GetLeaseByID(int leaseID);

@@ -10,10 +10,12 @@
           formControlName="startDate"
           required
           placeholder="Select a starting date"
+          [matDatepickerFilter]="futureDatesFilter" 
         />
         <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #startDatePicker></mat-datepicker>
       </mat-form-field>
+
       <mat-form-field class="form-field">
         <label><label class="validation">* </label>End Date:</label>
         <input
@@ -22,10 +24,12 @@
           formControlName="endDate"
           required
           placeholder="Select an ending date"
+          [matDatepickerFilter]="futureDatesFilter"
         />
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
       </mat-form-field>
+
       <mat-form-field class="form-field">
         <label><label class="validation">* </label>Tenant:</label>
         <mat-select formControlName="tenantID" required placeholder="Select a tenant">
