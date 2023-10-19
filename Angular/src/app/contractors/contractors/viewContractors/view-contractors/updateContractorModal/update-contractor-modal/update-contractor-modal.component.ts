@@ -1,15 +1,10 @@
-import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContractorService } from 'src/app/services/contractor.service';
-import { UserService } from 'src/app/services/user.service';
-import { ContractorTypeService } from 'src/app/services/contractorType.service';
-import { ContractorType } from 'src/app/shared/UserModels/ContractorType';
-import { UserContractor } from 'src/app/shared/UserModels/UserContractor';
 import { Contractor } from 'src/app/shared/UserModels/Contractor';
-import { User } from 'src/app/shared/UserModels/User';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ContractorType } from 'src/app/shared/UserModels/ContractorType';
+import { ContractorTypeService } from 'src/app/services/contractorType.service';
 
 @Component({
   selector: 'app-update-contractor-modal',
@@ -17,7 +12,85 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./update-contractor-modal.component.scss']
 })
 export class UpdateContractorModalComponent implements OnInit {
-  adminRole: boolean = false;
+  contractorData: Contractor = new Contractor();// Initialize tenantData as an Input property
+  updateForm: FormGroup = new FormGroup({}); // Initialize updateForm here
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: Contractor,
+    private dialogRef: MatDialogRef<UpdateContractorModalComponent>,
+    private contractorService: ContractorService
+  ) {
+    console.log(this.data);
+    if (data) {
+      this.updateForm = new FormGroup({
+        email: new FormControl(data.user?.email || '', [Validators.required, Validators.email]),
+        name: new FormControl(data.user?.name || '', [Validators.required]),
+        surname: new FormControl(data.user?.surname || '', [Validators.required]),
+        phoneNumber: new FormControl(data.user?.phoneNumber || '', [Validators.required]),
+        areaOfBusiness: new FormControl(data.areaOfBusiness || '', [Validators.required]),
+        availability: new FormControl(data.availability || '', [Validators.required])
+      });
+    } else {
+      // If 'data' is not defined or lacks the expected structure, provide default values or handle accordingly.
+      // You might want to show an error message or take other appropriate actions.
+    }
+  }
+
+
+  ngOnInit(): void {
+    this.dialogRef.beforeClosed().subscribe((updatedData: Contractor) => {
+      console.log("Contractor", updatedData);
+
+      if (updatedData) {
+        this.contractorData = updatedData; // Update the tenantData
+        // Initialize the form with tenantData values
+        this.updateForm.patchValue({
+          email: this.contractorData.user.email || '',
+          name: this.contractorData.user.name || '',
+          surname: this.contractorData.user.surname || '',
+          phoneNumber: this.contractorData.user.phoneNumber || '',
+          companyName: this.contractorData.areaOfBusiness || '',
+          companyNumber: this.contractorData.availability || ''
+        });
+      }
+    });
+  }
+
+  closeModal() {
+    this.dialogRef.close();
+  }
+
+  // Function to update the tenant
+  updateContractor() {
+    if (this.updateForm.valid) {
+      // Get the user from the tenant data
+      const user = this.contractorData.user;
+
+      // Update the user's properties
+      user.email = this.updateForm.value.email;
+      user.name = this.updateForm.value.name;
+      user.surname = this.updateForm.value.surname;
+      user.phoneNumber = this.updateForm.value.phoneNumber;
+
+      // Update the tenant's properties
+      this.contractorData.areaOfBusiness = this.updateForm.value.areaOfBusiness;
+      this.contractorData.availability = this.updateForm.value.availability;
+
+      // Call your tenant service's updateTenantUser method to save the changes
+      this.contractorService.updateContractorUser(this.contractorData.contractorID, this.contractorData).subscribe(
+        (response) => {
+          console.log('Contractor updated successfully:', response);
+          this.dialogRef.close(this.contractorData); // Emit the updated tenant data
+        },
+        (error) => {
+          console.error('Error updating contractor:', error);
+          this.dialogRef.close(); // Close the modal
+        }
+      );
+    }
+  }
+}
+  /*adminRole: boolean = false;
   editorRole: boolean = false;
   viewerRole: boolean = false;
 
@@ -175,4 +248,4 @@ export class UpdateContractorModalComponent implements OnInit {
 
     return this.availability.hasError('availability') ? 'Not a valid availability' : '';
   }
-}
+}*/

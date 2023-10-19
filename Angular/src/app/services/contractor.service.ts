@@ -11,6 +11,7 @@ import { configuration } from '../config/configurationFile';
 @Injectable({
   providedIn: 'root',
 })
+
 export class ContractorService {
   value: any;
   constructor(private httpClient: HttpClient) {}
@@ -43,6 +44,17 @@ export class ContractorService {
       .pipe(map((result) => result));
   }
 
+  //UPDATE
+  updateContractorUser(contractorID: number, requestData: any): Observable<any> {
+    return this.httpClient.put(
+      `${this._apiUrl}/Tenant/UpdateTenantUser/${contractorID}`,
+      requestData,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
   //DELETE
   deleteContractor(contractorID: number) {
     return this.httpClient
@@ -70,29 +82,41 @@ export class ContractorService {
     );
   }
 
-  //UPDATE
-  /*updateUser(userID: number) {
-    return this.http
-      .put<User[]>(`${this._apiUrl}/User/DeleteUser/${userID}`)
-      .pipe(map((result) => result));
-  }*/
+  getContractorByID(contractorID: number): Observable<any> {
+    return this.httpClient.get(`${this._apiUrl}/Contractor/GetContractorByID/${contractorID}`, {
+      headers: this.headers,
+    });
+  }
 
-  //DELETE
-  // deleteTenant(tenantID: number) {
-  //   return this.httpClient
-  //     .delete(`${this._apiUrl}/User/DeleteUser/${tenantID}`)
-  //     .pipe(map((result) => result));
-  // }
+  //DOCUMENTS FOR SERVICE AGREEMENT
+  uploadTenantDocument(tenantID: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
 
-  // //SEARCH
-  // getTenant(tenantID: number, tenant: Tenant) {
-  //   return this.httpClient
-  //     .post(
-  //       `${this._apiUrl}/User/GetUserByID/${tenantID}`,
-  //       tenant
-  //     )
-  //     .pipe(map((result) => result));
-  // }
+    return this.httpClient.post(
+      `${this._apiUrl}/Tenant/UploadTenantDocument/${tenantID}`,
+      formData,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  getTenantDocuments(tenantID: number): Observable<any[]> {
+    return this.httpClient.get<any[]>(
+      `${this._apiUrl}/Tenant/GetTenantDocuments/${tenantID}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  deleteTenantDocument(documentID: number): Observable<any> {
+    return this.httpClient.delete(
+      `${this._apiUrl}/Tenant/DeleteTenantDocument/${documentID}`,
+      { responseType: 'text', headers: this.headers }
+    );
+  }
 
   //TREE TRY
   getContractorsGroupedBySpecialty(): Observable<Map<string, Contractor[]>> {

@@ -18,6 +18,16 @@ export class BrokerService {
 
   constructor(private _httpClient: HttpClient) {}
 
+  //CREATE
+  createBroker(broker: Broker) {
+    return this._httpClient
+      .post(`${this._apiUrl}/Broker/AddBroker`, broker, {
+        headers: this.headers,
+      })
+      .pipe(map((result) => result));
+  }
+
+  //READ
   getBrokers(): Observable<Broker[]> {
     return this._httpClient
       .get<Broker[]>(`${this._apiUrl}/Broker/GetAllBrokers`, {
@@ -26,15 +36,18 @@ export class BrokerService {
       .pipe(map((result) => result));
   }
 
-  getBroker(brokerID: number) {
-    return this._httpClient.get<Broker>(
-      `${this._apiUrl}/Broker/GetBrokerByID` + '/' + brokerID,
+  //UPDATE
+  updateBroker(brokerID: number, requestData: any): Observable<any> {
+    return this._httpClient.put(
+      `${this._apiUrl}/Broker/UpdateBroker/${brokerID}`,
+      requestData,
       {
         headers: this.headers,
       }
     );
   }
 
+  //DELETE
   deleteBroker(brokerID: number): Observable<any> {
     return this._httpClient.delete(
       `${this._apiUrl}/Broker/DeleteBroker/${brokerID}`,
@@ -44,16 +57,61 @@ export class BrokerService {
     );
   }
 
-  createBroker(broker: Broker) {
+  //SEARCH
+  getBrokerU(brokerID: number) {
+    return this._httpClient.get<Broker>(
+      `${this._apiUrl}/Broker/GetBrokerByID` + '/' + brokerID,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  /*getBroker(brokerID: number, broker: Broker) {
     return this._httpClient
-      .post(`${this._apiUrl}/Broker/AddBroker`, broker, {
+      .post(`${this._apiUrl}/User/GetUserByID/${brokerID}`, broker, {
         headers: this.headers,
       })
       .pipe(map((result) => result));
+  }*/
+
+  getBroker(brokerID: number): Observable<any> {
+    return this._httpClient.get(`${this._apiUrl}/Broker/GetBrokerByID/${brokerID}`, {
+      headers: this.headers,
+    });
   }
 
-   //Chart 
-   getBrokerByCommission(): Observable<Map<string, Broker[]>> {
+  //DOCUMENTS FOR BROKER AGREEMENT
+  uploadBrokerDocument(brokerID: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this._httpClient.post(
+      `${this._apiUrl}/Tenant/UploadTenantDocument/${brokerID}`,
+      formData,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  getBrokerDocuments(brokerID: number): Observable<any[]> {
+    return this._httpClient.get<any[]>(
+      `${this._apiUrl}/Tenant/GetTenantDocuments/${brokerID}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  deleteBrokerDocument(documentID: number): Observable<any> {
+    return this._httpClient.delete(
+      `${this._apiUrl}/Tenant/DeleteTenantDocument/${documentID}`,
+      { responseType: 'text', headers: this.headers }
+    );
+  }
+
+  getBrokerByCommission(): Observable<Map<string, Broker[]>> {
     return this._httpClient
       .get<Broker[]>(`${this._apiUrl}/Broker/GetAllBrokers`, {
         headers: this.headers,
@@ -72,7 +130,29 @@ export class BrokerService {
         })
       );
   }
-  
+
+
+   //Chart
+   /*getBrokerByCommission(): Observable<Map<string, Broker[]>> {
+    return this._httpClient
+      .get<Broker[]>(`${this._apiUrl}/Broker/GetAllBrokers`, {
+        headers: this.headers,
+      })
+      .pipe(
+        map((brokers) => {
+          const groupedBrokers = new Map<string, Broker[]>();
+          brokers.forEach((broker) => {
+            const commissionRateKey = broker.commissionRate.toString(); // Convert to string
+            if (!groupedBrokers.has(commissionRateKey)) {
+              groupedBrokers.set(commissionRateKey, []);
+            }
+            groupedBrokers.get(commissionRateKey)?.push(broker);
+          });
+          return groupedBrokers;
+        })
+      );
+  }
+
 
   getBrokerByName(): Observable<Map<string, Broker[]>> {
     return this._httpClient
@@ -110,5 +190,5 @@ export class BrokerService {
           return groupedBrokers;
         })
       );
-  }
+  }*/
 }

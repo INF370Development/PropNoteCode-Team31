@@ -241,10 +241,10 @@ export class MaintenanceService {
       .pipe(map((result) => result));
   }
 
-  getMaintenances(): Observable<Maintenance[]> {
+  getMaintenances(): Observable<any[]> {
     // Rename the method
     return this._httpClient
-      .get<Maintenance[]>(`${this._apiUrl}/Maintenance/GetAllMaintenances`, {
+      .get<any[]>(`${this._apiUrl}/Maintenance/GetAllMaintenances`, {
         headers: this.headers,
       }) // Update the API URL
       .pipe(map((result) => result));
