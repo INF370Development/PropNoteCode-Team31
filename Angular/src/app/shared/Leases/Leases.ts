@@ -7,7 +7,7 @@ export class Lease {
   endDate: Date = new Date();
   monthlyAmount: number = 0;
   tenantID: number = 0;
-  propertyID: number =0;
+  propertyID: number = 0;
   tenant: Tenant = new Tenant(); // Add Tenant object
   property: Property = new Property(); // Add Property object
   deposit: Deposit = new Deposit();
