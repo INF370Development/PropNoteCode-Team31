@@ -24,6 +24,7 @@ import { Inspection } from 'src/app/shared/Property/Inspection';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { UpdateInspectionModalComponent } from './update-inspection-modal/update-inspection-modal.component';
 import { UpdateRecoveryModalComponent } from './update-recovery-modal/update-recovery-modal.component';
+import { Router} from '@angular/router';
 
 NgModule({
   imports: [
@@ -69,9 +70,15 @@ export class ViewPropertiesComponent implements AfterViewInit {
   }
 
 
-  constructor(public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute, private sanitizer: DomSanitizer) {
+  constructor(private router: Router, public dialog: MatDialog, private _propertiesService: PropertiesService, private route:ActivatedRoute, private sanitizer: DomSanitizer) {
     console.log("property details", Property)
   }
+
+
+  onClickProperties() {
+    this.router.navigate(['/viewAllProperties']);
+  }
+
 
   ngAfterViewInit(): void {
 this.loadPropertry();

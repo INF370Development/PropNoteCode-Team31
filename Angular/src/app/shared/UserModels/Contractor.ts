@@ -9,4 +9,14 @@ areaOfBusiness : string = "";
 availability : string = "";
 user : User = new User();
 contractorType : ContractorType = new ContractorType();
+documents : Document[] =[];
+}
+
+
+export class Document {
+  documentID: number = 0;
+  contractorID: number = 0;
+  documentName: string = "";
+  filePath : string ="";
+  uploadDate : Date = new Date();
 }
