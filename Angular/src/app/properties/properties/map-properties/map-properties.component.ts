@@ -1,9 +1,376 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { PropertiesService } from 'src/app/services/properties.service'; 
+
+@Component({
+  selector: 'app-map-properties',
+  templateUrl: './map-properties.component.html',
+  styleUrls: ['./map-properties.component.scss'],
+})
+
+export class MapPropertiesComponent {
+  // Define properties and map variables here
+
+  /*constructor(private http: HttpClient, private propertiesService: PropertiesService) { }
+
+  ngOnInit(): void {
+    // Initialize the map here
+
+    this.loadProperties();
+  }
+
+  // Initialize the map and other code for map rendering
+
+  loadProperties(): void {
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      // Loop through the properties and geocode each one
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.streetName}, ${property.suburb}, South Africa`;
+
+        this.propertiesService.geocodeProperty(address).subscribe((geocodedLocation: any) => {
+          if (geocodedLocation && geocodedLocation.features && geocodedLocation.features.length > 0) {
+            const coordinates = geocodedLocation.features[0].geometry.coordinates;
+            this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+          } else {
+            console.error(`Location not found for address: ${address}`);
+          }
+        }, (error) => {
+          console.error(`Error geocoding address: ${error}`);
+        });
+      });
+    });
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    // Clear all existing entities (markers) on the map
+    this.map.entities.clear();
+
+    // Center the map at the new coordinates
+    this.map.setView({ center: new Microsoft.Maps.Location(lat, lng), zoom: 10 });
+
+    // Add a pushpin (marker) at the new location
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }*/
+}
+
+
+/*import { Component, OnInit } from '@angular/core';
+//import * as Microsoft from 'angular-bing-maps';
+import { HttpClient } from '@angular/common/http'; // Import HttpClient
+declare var Microsoft: any;
+import { PropertiesService } from 'src/app/services/properties.service';
+import { Property } from 'src/app/shared/Property/Property';
+
+@Component({
+  selector: 'app-map-properties',
+  templateUrl: './map-properties.component.html',
+  styleUrls: ['./map-properties.component.scss'],
+})
+
+export class MapPropertiesComponent implements OnInit {
+  map: any;
+
+  constructor(private http: HttpClient, private propertiesService: PropertiesService) {}
+
+  initMap(): void {
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(-29.8281, 31.0302),
+      zoom: 10
+    });
+
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(-29.8281, 31.0302),
+      { title: 'Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  ngOnInit(): void {
+    this.initMap();
+    this.geocodeProperties();
+    this.loadProperties();
+  }
+
+  geocodeProperties(): void {
+    const apiKey = 'ce681ff0b281466bb279bd2d0f9b0ab0'; // Replace with your Geoapify API Key
+
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.street}, ${property.suburb}, South Africa`;
+        const apiUrl = `https://api.geoapify.com/v1/geocode?text=${address}&apiKey=${apiKey}`;
+
+        this.http.get(apiUrl).subscribe((response: any) => {
+          if (response.features && response.features.length > 0) {
+            const coordinates = response.features[0].geometry.coordinates;
+            this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+          } else {
+            console.error(`Location not found for address: ${address}`);
+          }
+        }, (error: any) => { // Explicitly specify the type of 'error'
+          console.error(`Error geocoding address: ${error}`);
+        });
+      });
+    });
+  }
+
+  loadProperties(): void {
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.street}, ${property.suburb}, South Africa`;
+
+        this.geocodeProperties().subscribe((geocodedLocation: any) => {
+          if (geocodedLocation && geocodedLocation.features && geocodedLocation.features.length > 0) {
+            const coordinates = geocodedLocation.features[0].geometry.coordinates;
+            this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+          } else {
+            console.error(`Location not found for address: ${address}`);
+          }
+        }, (error: any) => { // Explicitly specify the type of 'error'
+          console.error(`Error geocoding address: ${error}`);
+        });
+      });
+    });
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+    this.map.setView({ center: new Microsoft.Maps.Location(lat, lng), zoom: 10 });
+
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }
+}*/
+  /*map: any;
+
+  constructor(private http: HttpClient, private propertiesService: PropertiesService) {}
+
+  initMap(): void {
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(-29.8281, 31.0302),
+      zoom: 10
+    });
+
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(-29.8281, 31.0302),
+      { title: 'Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  ngOnInit(): void {
+    this.initMap();
+    this.geocodeProperties();
+    this.loadProperties();
+  }
+
+  geocodeProperties(): void {
+    const apiKey = 'ce681ff0b281466bb279bd2d0f9b0ab0'; // Replace with your Geoapify API Key
+
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.street}, ${property.suburb}, South Africa`;
+        const apiUrl = `https://api.geoapify.com/v1/geocode?text=${address}&apiKey=${apiKey}`;
+
+        this.http.get(apiUrl).subscribe((response: any) => {
+          if (response.features && response.features.length > 0) {
+            const coordinates = response.features[0].geometry.coordinates;
+            this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+          } else {
+            console.error(`Location not found for address: ${address}`);
+          }
+        }, (error: any) => { // Explicitly specify the type of 'error'
+          console.error(`Error geocoding address: ${error}`);
+        });
+      });
+    });
+  }
+
+  loadProperties(): void {
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.street}, ${property.suburb}, South Africa`;
+
+        this.geocodeProperties().subscribe((geocodedLocation: any) => {
+          if (geocodedLocation && geocodedLocation.features && geocodedLocation.features.length > 0) {
+            const coordinates = geocodedLocation.features[0].geometry.coordinates;
+            this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+          } else {
+            console.error(`Location not found for address: ${address}`);
+          }
+        }, (error: any) => { // Explicitly specify the type of 'error'
+          console.error(`Error geocoding address: ${error}`);
+        });
+      });
+    });
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+    this.map.setView({ center: new Microsoft.Maps.Location(lat, lng), zoom: 10 });
+
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }
+}*/
+  /*map: any;
+
+  constructor(private http: HttpClient, private propertiesService: PropertiesService) {}
+
+  initMap(): void {
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(-29.8281, 31.0302),
+      zoom: 10,
+    });
+
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(-29.8281, 31.0302),
+      { title: 'Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  ngOnInit(): void {
+    this.initMap();
+    this.loadProperties();
+  }
+
+  loadProperties(): void {
+    const apiKey = 'ce681ff0b281466bb279bd2d0f9b0ab0'; // Replace with your Geoapify API Key
+
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.street}, ${property.suburb}, South Africa`;
+        const apiUrl = `https://api.geoapify.com/v1/geocode?text=${address}&apiKey=${apiKey}`;
+
+        this.http.get(apiUrl).subscribe(
+          (response: any) => {
+            if (response.features && response.features.length > 0) {
+              const coordinates = response.features[0].geometry.coordinates;
+              this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+            } else {
+              console.error(`Location not found for address: ${address}`);
+            }
+          },
+          (error: any) => {
+            console.error(`Error geocoding address: ${error}`);
+          }
+        );
+      });
+    });
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+    this.map.setView({ center: new Microsoft.Maps.Location(lat, lng), zoom: 10 });
+
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }
+}*/
+ /* map: any;
+
+  constructor(private http: HttpClient, private propertiesService: PropertiesService) {}
+
+  initMap(): void {
+    this.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+      center: new Microsoft.Maps.Location(-29.8281, 31.0302),
+      zoom: 10
+    });
+
+    const initialPin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(-29.8281, 31.0302),
+      { title: 'Property' }
+    );
+
+    this.map.entities.push(initialPin);
+  }
+
+  ngOnInit(): void {
+    this.initMap();
+    this.geocodeProperties();
+    this.loadProperties();
+  }
+
+  geocodeProperties(): void {
+    const apiKey = 'ce681ff0b281466bb279bd2d0f9b0ab0'; // Replace with your Geoapify API Key
+
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.street}, ${property.suburb}, South Africa`;
+        const apiUrl = `https://api.geoapify.com/v1/geocode?text=${address}&apiKey=${apiKey}`;
+
+        this.http.get(apiUrl).subscribe((response: any) => {
+          if (response.features && response.features.length > 0) {
+            const coordinates = response.features[0].geometry.coordinates;
+            this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+          } else {
+            console.error(`Location not found for address: ${address}`);
+          }
+        }, (error: any) => { // Explicitly specify the type of 'error'
+          console.error(`Error geocoding address: ${error}`);
+        });
+      });
+    });
+  }
+
+  loadProperties(): void {
+    this.propertiesService.getProperties().subscribe((properties: Property[]) => {
+      properties.forEach((property: Property) => {
+        const address = `${property.buildingNumber}, ${property.street}, ${property.suburb}, South Africa`;
+
+        this.geocodeProperties().subscribe((geocodedLocation: any) => {
+          if (geocodedLocation && geocodedLocation.features && geocodedLocation.features.length > 0) {
+            const coordinates = geocodedLocation.features[0].geometry.coordinates;
+            this.updateMapForProperty(coordinates[1], coordinates[0], 'Property Location');
+          } else {
+            console.error(`Location not found for address: ${address}`);
+          }
+        }, (error: any) => { // Explicitly specify the type of 'error'
+          console.error(`Error geocoding address: ${error}`);
+        });
+      });
+    });
+  }
+
+  updateMapForProperty(lat: number, lng: number, title: string): void {
+    this.map.entities.clear();
+    this.map.setView({ center: new Microsoft.Maps.Location(lat, lng), zoom: 10 });
+
+    const pin = new Microsoft.Maps.Pushpin(
+      new Microsoft.Maps.Location(lat, lng),
+      { title: title }
+    );
+
+    this.map.entities.push(pin);
+  }
+}*/
+
 /*import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import { PropertiesService } from 'src/app/services/properties.service';
 import * as L from 'leaflet';*/
 
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 
 declare var Microsoft: any;
 
@@ -34,7 +401,7 @@ export class MapPropertiesComponent implements OnInit {
   INITIAL_LONGITUDE: number = 31.0302; // Replace with your initial longitude
   INITIAL_ZOOM: number = 10; // Replace with your initial zoom level
   INITIAL_PROPERTY_LATITUDE: number = -29.8281; // Replace with initial property latitude
-  INITIAL_PROPERTY_LONGITUDE: number = 31.0302; // Replace with initial property longitude*/
+  INITIAL_PROPERTY_LONGITUDE: number = 31.0302; // Replace with initial property longitude*
   
   map: any; 
 
@@ -99,7 +466,7 @@ export class MapPropertiesComponent implements OnInit {
 
     this.map.entities.push(pin);
   }
-}
+}*/
 
 
 //CIARA STOP BEING STUPID
@@ -317,6 +684,8 @@ import { HereMapsService } from 'src/app/services/here-maps.service';*/
 Access key ID: _R9pnLde3CQ_cZV08c6aLg 
 Access key secret: euEUflx6-0Zt54Wj9ymiDsuk_i8VbP4wC7fTuMuITTDJYa-c0kaU1wZml_oBz_DzTblndEk2aY1rUbyp3CHgLw */
 //import * as H from '@here/maps-api-for-javascript';
+/*import { CreatePropertiesModalComponent } from './../create-properties-modal/create-properties-modal.component';
+import { Property } from 'src/app/shared/Property/Property';*/
 
 /*constructor() {}
       

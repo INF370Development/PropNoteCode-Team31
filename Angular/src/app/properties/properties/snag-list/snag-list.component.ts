@@ -50,6 +50,16 @@ export class SnagListComponent implements OnInit{
     });
   }
 
+  /*ngOnInit(): void {
+    this._SnagListService.getSnagLists().subscribe((Items: any) => {
+      Items.forEach((item: any) => {
+        item.itemsList = item.items.map((item: any) => item.name);
+      });
+  
+      this.dataSource.data = Items;
+    });
+  }*/
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
