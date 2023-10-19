@@ -33,6 +33,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@syncfusion/ej2-angular-schedule": "^22.2.11",
     "@types/bingmaps": "^0.0.1",
+    "@types/gapi.client.calendar": "^3.0.12",
     "angular-calendar": "^0.31.0",
     "bootstrap": "^5.3.1",
     "chart.js": "^4.4.0",

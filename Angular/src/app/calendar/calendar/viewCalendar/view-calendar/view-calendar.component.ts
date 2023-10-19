@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 declare var gapi: any;
 
+import 'gapi.client.calendar';
+
 @Component({
   selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
@@ -11,7 +13,7 @@ export class ViewCalendarComponent implements OnInit{
   private CLIENT_ID = '816728681069-sn07par3bmtfhhf00naiorndvf1u18bs.apps.googleusercontent.com';
   private API_KEY = 'AIzaSyCu7TXNrUoKhUZR3joL725_q6YeHF-Jlo4';
 
-  calendarEvents: any[] = []; // Initialize an empty array to store calendar events
+  calendarEvents: gapi.client.calendar.Event[] = [];
 
   // ... Other properties and methods ...
 
@@ -39,7 +41,7 @@ export class ViewCalendarComponent implements OnInit{
       'singleEvents': true,
       'maxResults': 10,
       'orderBy': 'startTime',
-    }).then((response) => {
+    }).then((response: gapi.client.calendar.Event) => {
       this.calendarEvents = response.result.items;
     });
   }
