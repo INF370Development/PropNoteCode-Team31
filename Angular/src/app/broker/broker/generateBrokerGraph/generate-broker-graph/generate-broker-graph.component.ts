@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BrokerService } from 'src/app/services/broker.service';
 import { Broker } from 'src/app/shared/Broker';
 import { MatDialog } from '@angular/material/dialog';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-generate-broker-graph',
@@ -9,8 +10,163 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./generate-broker-graph.component.scss']
 })
 
-export class GenerateBrokerGraphComponent implements OnInit{
-  commission: Map<string, Broker[]> = new Map<string, Broker[]>();
+export class GenerateBrokerGraphComponent implements OnInit {
+  public chart: any;
+  public brokerCommissionRates: any = {};
+  private canvas!: HTMLCanvasElement; 
+  private ctx!: CanvasRenderingContext2D; 
+
+
+  constructor(private brokerService: BrokerService) {}
+
+  async getBrokerCommissionRates() {
+    try {
+      this.brokerCommissionRates = await this.brokerService.getBrokerByCommission().toPromise();
+      this.createChart();
+    } catch (error) {
+      console.error('Error fetching commission rates:', error);
+    }
+  }
+
+  createChart() {
+    // Destroy the existing chart if it exists
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    // Get the canvas and context
+    this.canvas = document.getElementById('MyChart') as HTMLCanvasElement;
+    this.ctx = this.canvas.getContext('2d')!;
+
+    if (this.ctx) {
+      const labels: string[] = [];
+      const data: number[] = [];
+
+      Object.keys(this.brokerCommissionRates).forEach((commissionRate) => {
+        labels.push(commissionRate);
+        data.push(this.brokerCommissionRates[commissionRate].length);
+      });
+
+      this.chart = new Chart(this.ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: data,
+              backgroundColor: ['blue', 'limegreen', 'red', /* add more colors as needed */],
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 2.5
+        }
+      });
+    } else {
+      console.error('Canvas context is null. Ensure that the canvas element with ID "MyChart" exists in the HTML.');
+    }
+  }
+
+  ngOnInit(): void {
+    this.getBrokerCommissionRates();
+  }
+}
+
+/*import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { BrokerService } from 'src/app/services/broker.service';
+import { Broker } from 'src/app/shared/Broker';
+import { MatDialog } from '@angular/material/dialog';
+import Chart from 'chart.js/auto';
+//or
+//import Chart from 'chart.js';
+
+@Component({
+  selector: 'app-generate-broker-graph',
+  templateUrl: './generate-broker-graph.component.html',
+  styleUrls: ['./generate-broker-graph.component.scss']
+})
+
+export class GenerateBrokerGraphComponent implements OnInit {
+  public chart: any;
+  public brokerCommissionRates: any = {};
+
+  constructor(private brokerService: BrokerService) {}
+
+  async getBrokerCommissionRates() {
+    try {
+      this.brokerCommissionRates = await this.brokerService.getBrokerByCommission().toPromise();
+      this.createChart();
+    } catch (error) {
+      console.error('Error fetching commission rates:', error);
+    }
+  }
+
+  createChart() {
+    const canvas = document.getElementById('MyChart') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+
+    if (ctx) { // Check if context is not null
+      const labels: string[] = [];
+      const data: number[] = [];
+
+      Object.keys(this.brokerCommissionRates).forEach((commissionRate) => {
+        labels.push(commissionRate);
+        data.push(this.brokerCommissionRates[commissionRate].length);
+      });
+
+      this.chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              data: data,
+              backgroundColor: ['blue', 'limegreen', 'red', /* add more colors as needed *],
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 2.5
+        }
+      });
+    } else {
+      console.error('Canvas context is null. Ensure that the canvas element with ID "MyChart" exists in the HTML.');
+    }
+  }
+
+  ngOnInit(): void {
+    this.getBrokerCommissionRates();
+  }
+}
+*/
+  //CHART HARDCODED
+  /*public chart: any; 
+
+    createChart() {
+    this.chart = new Chart("MyChart", {
+      type: 'pie', // Change the chart type to 'pie'
+
+      data: {
+        labels: ['Sales', 'Profit'], // Replace with dataset labels
+        datasets: [
+          {
+            data: [467, 542], // Replace with your data values
+            backgroundColor: ['blue', 'limegreen']
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.createChart();
+  }
+}*/
+  
+  /*commission: Map<string, Broker[]> = new Map<string, Broker[]>();
   name: Map<string, Broker[]> = new Map<string, Broker[]>();
   surname: Map<string, Broker[]> = new Map<string, Broker[]>();
 
@@ -45,7 +201,7 @@ export class GenerateBrokerGraphComponent implements OnInit{
       }
     });
   }
-}  
+}  */
 
   /*ngOnInit(): void {
     this.brokerService
