@@ -111,8 +111,28 @@ export class BrokerService {
     );
   }
 
+  getBrokerByCommission(): Observable<Map<string, Broker[]>> {
+    return this._httpClient
+      .get<Broker[]>(`${this._apiUrl}/Broker/GetAllBrokers`, {
+        headers: this.headers,
+      })
+      .pipe(
+        map((brokers) => {
+          const groupedBrokers = new Map<string, Broker[]>();
+          brokers.forEach((broker) => {
+            const commissionRateKey = broker.commissionRate.toString(); // Convert to string
+            if (!groupedBrokers.has(commissionRateKey)) {
+              groupedBrokers.set(commissionRateKey, []);
+            }
+            groupedBrokers.get(commissionRateKey)?.push(broker);
+          });
+          return groupedBrokers;
+        })
+      );
+  }
 
-   //Chart 
+
+   //Chart
    /*getBrokerByCommission(): Observable<Map<string, Broker[]>> {
     return this._httpClient
       .get<Broker[]>(`${this._apiUrl}/Broker/GetAllBrokers`, {
@@ -132,7 +152,7 @@ export class BrokerService {
         })
       );
   }
-  
+
 
   getBrokerByName(): Observable<Map<string, Broker[]>> {
     return this._httpClient
