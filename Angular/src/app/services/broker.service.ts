@@ -67,15 +67,15 @@ export class BrokerService {
     );
   }
 
-  getBroker(brokerID: number, broker: Broker) {
+  /*getBroker(brokerID: number, broker: Broker) {
     return this._httpClient
       .post(`${this._apiUrl}/User/GetUserByID/${brokerID}`, broker, {
         headers: this.headers,
       })
       .pipe(map((result) => result));
-  }
+  }*/
 
-  getBrokerByID(brokerID: number): Observable<any> {
+  getBroker(brokerID: number): Observable<any> {
     return this._httpClient.get(`${this._apiUrl}/Broker/GetBrokerByID/${brokerID}`, {
       headers: this.headers,
     });
