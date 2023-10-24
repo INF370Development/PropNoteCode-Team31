@@ -54,12 +54,12 @@
   </ng-container>
 
 
-  <ng-container matColumnDef="detailsButton">
+  <ng-container matColumnDef="updateButton">
     <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
     <td mat-cell *matCellDef="let element">
       <button mat-button [routerLink]="['/contractorDetails', element.contractorID]">
         <mat-icon>business</mat-icon>
-        Details
+        Update
       </button>
     </td>
   </ng-container>
