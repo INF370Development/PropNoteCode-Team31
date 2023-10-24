@@ -54,17 +54,17 @@ export class ViewBrokerDetailsComponent implements OnInit {
     this._brokerService.getBroker(brokerID).subscribe((result: Broker) => {
       this.brokerDetail = result;
     });
-  }  
+  }
 
-  openUpdateModal() {
+  openUpdateModal(broker: Broker) {
     const dialogRef = this.dialog.open(UpdateBrokerComponent, {
-      data: this.brokerDetail, // Pass the entire tenantDetail object
+      data: {broker}, // Pass the entire tenantDetail object
     });
 
-    dialogRef.afterClosed().subscribe((updatedUser: any) => {
-      if (updatedUser) {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
         // Update the user data
-        this.brokerDetail = updatedUser;
+        this.loadBroker();
       }
     });
   }
