@@ -23,7 +23,7 @@ export class ViewBrokerComponent implements AfterViewInit, OnInit {
     'officeAddress',
     'licenseNumber',
     'commissonRate',
-    'updateButton',
+    'detailsButton',
     'deleteButton',
   ];
   dataSource = new MatTableDataSource<Broker>();

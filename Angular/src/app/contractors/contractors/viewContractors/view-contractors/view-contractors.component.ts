@@ -27,7 +27,7 @@ export class ViewContractorsComponent implements AfterViewInit, OnInit {
     'areaOfBusiness',
     'availability',
     'contractorType',
-    'updateButton',
+    'detailsButton',
     'deleteButton',
   ];
 
