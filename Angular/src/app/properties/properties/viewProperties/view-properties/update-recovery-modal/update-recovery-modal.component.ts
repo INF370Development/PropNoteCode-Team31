@@ -27,6 +27,7 @@ export class UpdateRecoveryModalComponent implements OnInit {
     this.recoveryModal = { ...this.data.recovery }; // Initialize with existing inspection data
 
     this.propertyService.getRecoveryTypes().subscribe((recoveryTypes) => {
+      console.log('recoveryTypes:', recoveryTypes);
       this.recoveryTypes = recoveryTypes;
 
       // Find and set the selected inspectionType in inspectionModal

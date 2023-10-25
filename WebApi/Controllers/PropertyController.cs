@@ -413,28 +413,31 @@ namespace WebApi.Controllers
 
         [HttpPut]
         [Route("EditRecovery/{recoveryID}")]
-        public async Task<IActionResult> EditRecovery(int recoveryID, Recovery recovery)
+        public async Task<IActionResult> EditRecovery(int recoveryID, [FromBody] RecoveryRequest updatedRecovery)
         {
-            try
-            {
-                var existingRecovery = await _propertyRepository.GetRecoveryByIDAsync(recoveryID);
-                if (existingRecovery == null) return NotFound($"The Inspection does not exist");
+            var existingRecovery = _context.Recovery.FirstOrDefault(i => i.RecoveryID == recoveryID);
 
-                // Update inspection properties here
-
-                if (await _propertyRepository.SaveChangesAsync())
-                {
-                    return Ok(existingRecovery);
-                }
-            }
-            catch (Exception)
+            if (existingRecovery != null)
             {
-                return StatusCode(500, "Internal Server Error. Please contact support.");
+                // Update properties of the existing inspection based on updatedInspection
+                existingRecovery.RecoveryDescription = updatedRecovery.RecoveryDescription;
+                existingRecovery.RecoveryAmount = updatedRecovery.RecoveryAmount;
+                existingRecovery.RecoveryTypeID = updatedRecovery.RecoveryTypeID;
+
+                // Save changes to the database
+                _context.SaveChanges();
+
+                // Return a success response, e.g., 200 OK
+                return Ok();
             }
-            return BadRequest("Your request is invalid");
+            else
+            {
+                // Inspection with the specified ID not found
+                return NotFound();
+            }
         }
 
-        [HttpDelete]
+            [HttpDelete]
         [Route("DeleteRecovery/{recoveryID}")]
         public async Task<IActionResult> DeleteRecovery(int recoveryID)
         {

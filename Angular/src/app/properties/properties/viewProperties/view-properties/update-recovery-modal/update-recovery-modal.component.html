@@ -27,7 +27,7 @@
 
       <mat-form-field class="form-field">
         <label>Type:</label>
-        <mat-select [(ngModel)]="recoveryModal.recoveryTypeID" name="recoveryType">
+        <mat-select [(ngModel)]="recoveryModal.recoveryTypeID" name="inspectionType">
           <mat-option *ngFor="let recoveryType of recoveryTypes" [value]="recoveryType.recoveryTypeID">
             {{ recoveryType.recoveryTypeDescription }}
           </mat-option>
