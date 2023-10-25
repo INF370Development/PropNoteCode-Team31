@@ -37,14 +37,9 @@ export class BrokerService {
   }
 
   //UPDATE
-  updateBroker(brokerID: number, requestData: any): Observable<any> {
-    return this._httpClient.put(
-      `${this._apiUrl}/Broker/UpdateBroker/${brokerID}`,
-      requestData,
-      {
-        headers: this.headers,
-      }
-    );
+  updateBroker(broker: Broker): Observable<any> {
+      const url = `${this._apiUrl}/Broker/EditBroker/${broker.brokerID}`;
+      return this._httpClient.put(url, broker);
   }
 
   //DELETE

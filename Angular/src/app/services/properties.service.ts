@@ -74,6 +74,8 @@ export class PropertiesService {
   }
 
   updateRecovery(recovery: Recovery): Observable<any> {
+    debugger;
+    console.log("recovery", recovery)
     const url = `https://localhost:7251/api/Property/EditRecovery/${recovery.recoveryID}`;
     return this._httpClient.put(url, recovery);
   }
