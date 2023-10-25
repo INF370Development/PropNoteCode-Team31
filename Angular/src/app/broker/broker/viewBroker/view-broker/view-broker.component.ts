@@ -17,7 +17,6 @@ import { DeleteBrokerModelComponent } from './delete-broker-model/delete-broker-
 
 export class ViewBrokerComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
-
     'name',
     'surname',
     'phoneNumber',
